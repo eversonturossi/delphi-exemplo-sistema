@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{cec3a3ed-b0ca-4a58-8130-45e32fdcb80d}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>MasterERP.exe</DCC_DependencyCheckOutputName>
+    <MainSource>MasterERP.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1046</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">MasterERP.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="MasterERP.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="Base.pas">
+      <Form>BancoDeDados</Form>
+    </DCCReference>
+    <DCCReference Include="DlgTipoCliente.pas">
+      <Form>DlgTipoClienteForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadClassficacao.pas">
+      <Form>CadClassificacaoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadCliente.pas">
+      <Form>CadClienteForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadFornecedor.pas">
+      <Form>CadFornecedorForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadGrupo.pas">
+      <Form>CadGrupoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadLocalizacao.pas">
+      <Form>CadLocalizacaoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadProduto.pas">
+      <Form>CadProdutoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadSubGrupo.pas">
+      <Form>CadSubGrupoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadUnidade.pas">
+      <Form>CadUnidadeForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadUnidadeEstoque.pas">
+      <Form>CadUnidadeEstoqueForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadUsuario.pas">
+      <Form>CadUsuarioForm</Form>
+    </DCCReference>
+    <DCCReference Include="UConexao.pas">
+      <Form>ConexaoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsClassificacao.pas">
+      <Form>CsClassificacaoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsFornecedor.pas">
+      <Form>CsFornecedorForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsGrupo.pas">
+      <Form>CsGrupoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsLocalizacao.pas">
+      <Form>CsLocalizacaoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsProduto.pas">
+      <Form>CsProdutoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsSubGrupo.pas">
+      <Form>CsSubGrupoForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsUnidade.pas">
+      <Form>CsUnidadeForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCsUnidadeEstoque.pas">
+      <Form>CsUnidadeEstoqueForm</Form>
+    </DCCReference>
+    <DCCReference Include="UFuncoes.pas" />
+    <DCCReference Include="ULanPreco.pas">
+      <Form>LancPrecoForm</Form>
+    </DCCReference>
+    <DCCReference Include="ULogin.pas">
+      <Form>LoginForm</Form>
+    </DCCReference>
+    <DCCReference Include="UPrincipal.pas">
+      <Form>PrincipalForm</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>
