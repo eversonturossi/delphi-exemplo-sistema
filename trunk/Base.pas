@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Classes, ZConnection, DB, ZAbstractRODataset, ZDataset, ZSqlUpdate,
   ZAbstractDataset, Messages, Dialogs, Forms, StdCtrls, ExtCtrls, Windows, Variants,
-  Controls, ZSqlProcessor;
+  Controls, ZSqlProcessor, ZStoredProcedure;
 
 type
   TBancoDeDados = class(TDataModule)
@@ -460,50 +460,6 @@ type
     qryCsPrecopreco_venda: TFloatField;
     qryCsLocalizacao: TZReadOnlyQuery;
     qryCs: TZReadOnlyQuery;
-    DataSource1: TDataSource;
-    ZQuery1: TZQuery;
-    IntegerField9: TIntegerField;
-    BooleanField2: TBooleanField;
-    DateField2: TDateField;
-    StringField6: TStringField;
-    StringField7: TStringField;
-    IntegerField10: TIntegerField;
-    IntegerField11: TIntegerField;
-    IntegerField12: TIntegerField;
-    StringField8: TStringField;
-    IntegerField13: TIntegerField;
-    IntegerField14: TIntegerField;
-    IntegerField15: TIntegerField;
-    FloatField21: TFloatField;
-    FloatField22: TFloatField;
-    IntegerField16: TIntegerField;
-    FloatField23: TFloatField;
-    FloatField24: TFloatField;
-    FloatField25: TFloatField;
-    FloatField26: TFloatField;
-    StringField9: TStringField;
-    FloatField27: TFloatField;
-    FloatField28: TFloatField;
-    FloatField29: TFloatField;
-    FloatField30: TFloatField;
-    FloatField31: TFloatField;
-    FloatField32: TFloatField;
-    FloatField33: TFloatField;
-    FloatField34: TFloatField;
-    FloatField35: TFloatField;
-    FloatField36: TFloatField;
-    StringField10: TStringField;
-    StringField11: TStringField;
-    StringField12: TStringField;
-    StringField13: TStringField;
-    FloatField37: TFloatField;
-    FloatField38: TFloatField;
-    FloatField39: TFloatField;
-    FloatField40: TFloatField;
-    FloatField41: TFloatField;
-    FloatField42: TFloatField;
-    StringField14: TStringField;
-    DataSource2: TDataSource;
     qryCsLocalizacaoidlocalizacao: TIntegerField;
     qryCsLocalizacaoativo: TBooleanField;
     qryCsLocalizacaodata_cadastro: TDateField;
@@ -519,6 +475,7 @@ type
     qryCsLocalizacaocalc_nome_unidadeestoque: TStringField;
     qryCadPrecoidpreco: TLargeintField;
     qryCsPrecoidpreco: TLargeintField;
+    EstProcSequenciador: TZStoredProc;
     procedure qryCadClienteBeforeDelete(DataSet: TDataSet);
     procedure qryCadClienteBeforePost(DataSet: TDataSet);
     procedure qryCadGrupoBeforeDelete(DataSet: TDataSet);
