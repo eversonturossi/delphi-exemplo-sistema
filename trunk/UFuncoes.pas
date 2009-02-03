@@ -3,14 +3,20 @@ interface
 uses
   SysUtils, Classes, ZConnection, DB, ZAbstractRODataset, ZDataset, ZSqlUpdate,
   ZAbstractDataset, Messages, Dialogs, Forms, StdCtrls, ExtCtrls, Windows, Variants,
-  Controls, ZSqlProcessor, IniFiles;
+  Controls, ZSqlProcessor, IniFiles, ZStoredProcedure;
 
   function RCopy(Original, Sub: String): String;
   function TestaInteiro(Valor : ShortString): Boolean;
-  function GravaHistorico(Conexao : TZConnection ; descricao, ip, host : String ;
-      Modulo, Usuario, Acao : Integer): Boolean;
-  function GeraSequenciador(Query : TZReadOnlyQuery ; Tabela, Campo : String): Integer;
-  function GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer): Boolean;
+  procedure GravaHistorico(Conexao : TZConnection ; descricao, ip, host : String ;
+      Modulo, Usuario, Acao : Integer);
+  function GeraSequenciador(EstProcedure : TZStoredProc ; Tabela, Campo : ShortString): Integer;
+  procedure GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer);
+
+type
+  TTipoOperacao = (toInsere, toAltera, toNenhuma);
+
+var
+  TipoOperacao : TTipoOperacao;
 
 implementation
 uses Base, Base64;
@@ -35,8 +41,8 @@ begin
     Result := False;
   end; 
 end;
-function GravaHistorico(Conexao : TZConnection ; descricao, ip, host : String ;
-      Modulo, Usuario, Acao : Integer): Boolean;
+procedure GravaHistorico(Conexao : TZConnection ; descricao, ip, host : String ;
+      Modulo, Usuario, Acao : Integer);
 var
   Script : TZSqlProcessor;
 begin
@@ -54,32 +60,28 @@ begin
           ');';
       Script.Execute;
     except
-      Result := False;
+      MessageDlg('Erro ao gravar o Histórico.',mtWarning,[mbOK],0);
     end;
 
   finally
-     Result := True;
      FreeAndNil(Script);
   end;
 end;
-function GeraSequenciador(Query : TZReadOnlyQuery ; Tabela, Campo : String): Integer;
+function GeraSequenciador(EstProcedure : TZStoredProc ; Tabela, Campo : ShortString): Integer;
 begin
-  try
-    with Query do
-      begin
-        SQL.Text := 'select idatual from cadsequenciador where tabela = ' +
-           QuotedStr(tabela) + ' and campo = ' + QuotedStr(Campo);
-        Open;
+  with EstProcedure do
+    begin
+      try
+        Params[0].Value := Tabela;
+        Params[1].Value := Campo;
+        Result := Params[2].Value;
+      except
+        Result := 0;
       end;
+    end;
 
-    if not (Query.IsEmpty) then
-      Result := Query.Fields[0].Value + 1;
-
-  except
-    Result := 0;
-  end;
 end;
-function GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer): Boolean;
+procedure GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer);
 var
   Script : TZSqlProcessor;
 begin
@@ -93,11 +95,10 @@ begin
           ' and campo = ' + QuotedStr(Campo) + ';';
       Script.Execute;
     except
-      Result := False;
+      MessageDlg('Erro ao atualizar o Sequenciador.',mtWarning,[mbOK],0);
     end;
 
   finally
-     Result := True;
      FreeAndNil(Script);
   end;
 end;

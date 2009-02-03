@@ -386,57 +386,9 @@ type
     qryCadprodutoperc_outros_impostos: TFloatField;
     qryCsProdutovl_custo_fixo: TFloatField;
     qryCadprodutovl_custo_fixo: TFloatField;
-    qryCsPrecoativo: TBooleanField;
-    qryCsPrecodata_cadastro: TDateField;
-    qryCsPrecotipo: TSmallintField;
-    qryCsPrecoidproduto: TIntegerField;
-    qryCsPrecopreco_custo: TFloatField;
-    qryCsPrecoperc_margem_lucro: TFloatField;
-    qryCsPrecoperc_icms_interno: TFloatField;
-    qryCsPrecoperc_icms_externo: TFloatField;
-    qryCsPrecoperc_icms_substituicao: TFloatField;
-    qryCsPrecoperc_ipi: TFloatField;
-    qryCsPrecoperc_tva: TFloatField;
-    qryCsPrecoperc_pis: TFloatField;
-    qryCsPrecoperc_cofins: TFloatField;
-    qryCsPrecoperc_outros_impostos: TFloatField;
-    qryCsPrecoperc_comissao: TFloatField;
-    qryCsPrecoperc_desconto: TFloatField;
-    qryCsPrecoperc_frete: TFloatField;
-    qryCsPrecoperc_custo_fixo: TFloatField;
-    qryCsPrecovl_margem_lucro: TFloatField;
-    qryCsPrecovl_comissao: TFloatField;
-    qryCsPrecovl_desconto: TFloatField;
-    qryCsPrecovl_frete: TFloatField;
-    qryCsPrecovl_custo_fixo: TFloatField;
-    qryCadPrecoativo: TBooleanField;
-    qryCadPrecodata_cadastro: TDateField;
-    qryCadPrecotipo: TSmallintField;
-    qryCadPrecoidproduto: TIntegerField;
-    qryCadPrecopreco_custo: TFloatField;
-    qryCadPrecoperc_margem_lucro: TFloatField;
-    qryCadPrecoperc_icms_interno: TFloatField;
-    qryCadPrecoperc_icms_externo: TFloatField;
-    qryCadPrecoperc_icms_substituicao: TFloatField;
-    qryCadPrecoperc_ipi: TFloatField;
-    qryCadPrecoperc_tva: TFloatField;
-    qryCadPrecoperc_pis: TFloatField;
-    qryCadPrecoperc_cofins: TFloatField;
-    qryCadPrecoperc_outros_impostos: TFloatField;
-    qryCadPrecoperc_comissao: TFloatField;
-    qryCadPrecoperc_desconto: TFloatField;
-    qryCadPrecoperc_frete: TFloatField;
-    qryCadPrecoperc_custo_fixo: TFloatField;
-    qryCadPrecovl_margem_lucro: TFloatField;
-    qryCadPrecovl_comissao: TFloatField;
-    qryCadPrecovl_desconto: TFloatField;
-    qryCadPrecovl_frete: TFloatField;
-    qryCadPrecovl_custo_fixo: TFloatField;
     qryCadprodutocalc_preco_atacado: TFloatField;
     qryCadprodutocalc_preco_varejo: TFloatField;
     qryCadprodutocalc_saldo_atual: TFloatField;
-    qryCsPrecopreco_sugerido: TFloatField;
-    qryCadPrecopreco_sugerido: TFloatField;
     qryCsProdutocalc_saldo_atual: TFloatField;
     qryCadprodutoreferencia: TStringField;
     qryCsProdutoreferencia: TStringField;
@@ -456,10 +408,8 @@ type
     qryCadUsuariologin: TStringField;
     qryCadUsuariosenha: TStringField;
     DSqryCadUsuario: TDataSource;
-    qryCadPrecopreco_venda: TFloatField;
-    qryCsPrecopreco_venda: TFloatField;
     qryCsLocalizacao: TZReadOnlyQuery;
-    qryCs: TZReadOnlyQuery;
+    qryCsSequenciador: TZReadOnlyQuery;
     qryCsLocalizacaoidlocalizacao: TIntegerField;
     qryCsLocalizacaoativo: TBooleanField;
     qryCsLocalizacaodata_cadastro: TDateField;
@@ -473,9 +423,81 @@ type
     qryCsProdutoidproduto: TLargeintField;
     qryCadprodutoidproduto: TLargeintField;
     qryCsLocalizacaocalc_nome_unidadeestoque: TStringField;
-    qryCadPrecoidpreco: TLargeintField;
-    qryCsPrecoidpreco: TLargeintField;
     EstProcSequenciador: TZStoredProc;
+    qryCadPrecoidpreco: TIntegerField;
+    qryCadPrecoativo: TBooleanField;
+    qryCadPrecodata_cadastro: TDateField;
+    qryCadPrecotipo: TSmallintField;
+    qryCadPrecoidproduto: TIntegerField;
+    qryCadPrecopreco_custo: TFloatField;
+    qryCadPrecopreco_venda: TFloatField;
+    qryCadPrecopreco_sugerido: TFloatField;
+    qryCadPrecoperc_margem_lucro: TFloatField;
+    qryCadPrecoperc_icms_interno: TFloatField;
+    qryCadPrecoperc_icms_externo: TFloatField;
+    qryCadPrecoperc_icms_substituicao: TFloatField;
+    qryCadPrecoperc_ipi: TFloatField;
+    qryCadPrecoperc_tva: TFloatField;
+    qryCadPrecoperc_pis: TFloatField;
+    qryCadPrecoperc_cofins: TFloatField;
+    qryCadPrecoperc_outros_impostos: TFloatField;
+    qryCadPrecoperc_comissao: TFloatField;
+    qryCadPrecoperc_desconto: TFloatField;
+    qryCadPrecoperc_frete: TFloatField;
+    qryCadPrecoperc_custo_fixo: TFloatField;
+    qryCadPrecovl_margem_lucro: TFloatField;
+    qryCadPrecovl_comissao: TFloatField;
+    qryCadPrecovl_desconto: TFloatField;
+    qryCadPrecovl_frete: TFloatField;
+    qryCadPrecovl_custo_fixo: TFloatField;
+    qryCsPrecoidpreco: TIntegerField;
+    qryCsPrecoativo: TBooleanField;
+    qryCsPrecodata_cadastro: TDateField;
+    qryCsPrecotipo: TSmallintField;
+    qryCsPrecoidproduto: TIntegerField;
+    qryCsPrecopreco_custo: TFloatField;
+    qryCsPrecopreco_venda: TFloatField;
+    qryCsPrecopreco_sugerido: TFloatField;
+    qryCsPrecoperc_margem_lucro: TFloatField;
+    qryCsPrecoperc_icms_interno: TFloatField;
+    qryCsPrecoperc_icms_externo: TFloatField;
+    qryCsPrecoperc_icms_substituicao: TFloatField;
+    qryCsPrecoperc_ipi: TFloatField;
+    qryCsPrecoperc_tva: TFloatField;
+    qryCsPrecoperc_pis: TFloatField;
+    qryCsPrecoperc_cofins: TFloatField;
+    qryCsPrecoperc_outros_impostos: TFloatField;
+    qryCsPrecoperc_comissao: TFloatField;
+    qryCsPrecoperc_desconto: TFloatField;
+    qryCsPrecoperc_frete: TFloatField;
+    qryCsPrecoperc_custo_fixo: TFloatField;
+    qryCsPrecovl_margem_lucro: TFloatField;
+    qryCsPrecovl_comissao: TFloatField;
+    qryCsPrecovl_desconto: TFloatField;
+    qryCsPrecovl_frete: TFloatField;
+    qryCsPrecovl_custo_fixo: TFloatField;
+    qryCsMovimentoEstoque: TZReadOnlyQuery;
+    qryCadMovimentoEstoque: TZQuery;
+    DSqryCsMovimentoEstoque: TDataSource;
+    DSqryCadMovimentoEstoque: TDataSource;
+    qryCsMovimentoEstoqueidmovimento_estoque: TIntegerField;
+    qryCsMovimentoEstoqueativo: TBooleanField;
+    qryCsMovimentoEstoquedata_cadastro: TDateTimeField;
+    qryCsMovimentoEstoqueoperacao: TSmallintField;
+    qryCsMovimentoEstoquetipo: TSmallintField;
+    qryCsMovimentoEstoqueidfornecedor: TIntegerField;
+    qryCsMovimentoEstoqueidusuario: TIntegerField;
+    qryCsMovimentoEstoquequantidade: TFloatField;
+    qryCsMovimentoEstoquetotal: TFloatField;
+    qryCadMovimentoEstoqueidmovimento_estoque: TIntegerField;
+    qryCadMovimentoEstoqueativo: TBooleanField;
+    qryCadMovimentoEstoquedata_cadastro: TDateTimeField;
+    qryCadMovimentoEstoqueoperacao: TSmallintField;
+    qryCadMovimentoEstoquetipo: TSmallintField;
+    qryCadMovimentoEstoqueidfornecedor: TIntegerField;
+    qryCadMovimentoEstoqueidusuario: TIntegerField;
+    qryCadMovimentoEstoquequantidade: TFloatField;
+    qryCadMovimentoEstoquetotal: TFloatField;
     procedure qryCadClienteBeforeDelete(DataSet: TDataSet);
     procedure qryCadClienteBeforePost(DataSet: TDataSet);
     procedure qryCadGrupoBeforeDelete(DataSet: TDataSet);
@@ -502,6 +524,10 @@ type
     procedure qryCadUnidadeBeforeDelete(DataSet: TDataSet);
     procedure qryCadUnidadeBeforePost(DataSet: TDataSet);
     procedure qryCadprodutoAfterInsert(DataSet: TDataSet);
+    procedure qryCadUsuarioBeforeDelete(DataSet: TDataSet);
+    procedure qryCadPrecoBeforePost(DataSet: TDataSet);
+    procedure qryCadMovimentoEstoqueAfterInsert(DataSet: TDataSet);
+   
   private
     { Private declarations }
   public
@@ -590,46 +616,49 @@ begin
       Abort;
     end;
 end;
+procedure TBancoDeDados.qryCadMovimentoEstoqueAfterInsert(DataSet: TDataSet);
+begin
+  qryCadMovimentoEstoqueidmovimento_estoque.Value := GeraSequenciador(EstProcSequenciador,'lanmovimento_estoque','idmovimento_estoque');
+end;
+
+procedure TBancoDeDados.qryCadPrecoBeforePost(DataSet: TDataSet);
+begin
+  if not (qryCadPrecoidproduto.Value > 0) then
+    begin
+      MessageDlg('Erro ao gerar o preço do produto.',mtWarning,[mbOK],0);
+      Abort;
+    end;
+end;
 
 procedure TBancoDeDados.qryCadprodutoAfterInsert(DataSet: TDataSet);
 begin
-  qryCadprodutoidproduto.Value := GeraSequenciador(qryCs, 'cadproduto', 'idproduto');
-  {with qryCsPreco do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('select * from cadpreco where idproduto = '+IntToStr(qryCsProdutoidproduto.Value));
-      Open;
-    end;
-if (qryCsPreco.IsEmpty) then
-  begin
-    ProcScripts.Script.Text := 'insert into cadpreco(tipo, idproduto)values('+
-        QuotedStr('0')  + ','+
-        IntToStr(qryCadprodutoidproduto.Value)  + ');';
-    ProcScripts.Execute;
-    ProcScripts.Script.Text := 'insert into cadpreco(tipo, idproduto)values('+
-        QuotedStr('1')  + ','+
-        IntToStr(qryCadprodutoidproduto.Value)  + ');';
-    ProcScripts.Execute;
-  end;}
+  qryCadprodutoidproduto.Value := GeraSequenciador(EstProcSequenciador, 'cadproduto', 'idproduto');
 end;
 
 procedure TBancoDeDados.qryCadprodutoBeforeDelete(DataSet: TDataSet);
 begin
-  if (OperacaoCadProduto = toAltera) then
-    if (MessageDlg('Deseja Excluir o registro?',mtWarning,[mbYes,mbNo],0) = mrNo) then
-      Abort;
+  if (MessageDlg('Deseja Excluir o registro?',mtWarning,[mbYes,mbNo],0) = mrNo) then
+    Abort;
 end;
 
 procedure TBancoDeDados.qryCadprodutoBeforePost(DataSet: TDataSet);
 begin
-  if (OperacaoCadProduto = toInsere) then
-    if (GravaSequenciador(Conexao, 'cadproduto', 'idproduto', qryCadProdutoidproduto.Value)) then
-      if not (qryCadProdutodescricao.Value <> '') then
-        begin
-          MessageDlg('Informe uma Descrição para o Produto.',mtWarning,[mbOK],0);
+  if not (qryCadProdutodescricao.Value <> '') then
+    begin
+      MessageDlg('Informe uma Descrição para o Produto.',mtWarning,[mbOK],0);
+      Abort;
+    end
+  else
+    if (TipoOperacao = toInsere) then
+      begin
+        try
+          GravaSequenciador(Conexao, 'cadproduto', 'idproduto', qryCadProdutoidproduto.Value);
+        except
+          MessageDlg('Falha ao tentar gravar o numero seuquencial.'+#13+
+              ' A operação será cancelada.',mtWarning,[mbOK],0);
           Abort;
         end;
+      end;
 end;
 
 procedure TBancoDeDados.qryCadprodutoCalcFields(DataSet: TDataSet);
@@ -694,6 +723,12 @@ begin
       MessageDlg('Informe um Nome para a Unidade de Estoque.',mtWarning,[mbOK],0);
       Abort;
     end;
+end;
+
+procedure TBancoDeDados.qryCadUsuarioBeforeDelete(DataSet: TDataSet);
+begin
+  if (MessageDlg('Deseja Excluir o registro?',mtWarning,[mbYes,mbNo],0) = mrNo) then
+    Abort;
 end;
 
 procedure TBancoDeDados.qryCsGrupoBeforeOpen(DataSet: TDataSet);

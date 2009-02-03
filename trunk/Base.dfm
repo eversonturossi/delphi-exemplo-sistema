@@ -1003,7 +1003,6 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCsProdutovl_comissao: TFloatField
       FieldName = 'vl_comissao'
-      DisplayFormat = ',0.00'
     end
     object qryCsProdutoperc_desconto: TFloatField
       FieldName = 'perc_desconto'
@@ -1116,11 +1115,11 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCadprodutoperc_ipi: TFloatField
       FieldName = 'perc_ipi'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_frete: TFloatField
       FieldName = 'perc_frete'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoidclassificacao: TIntegerField
       FieldName = 'idclassificacao'
@@ -1128,63 +1127,76 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCadprodutovl_frete: TFloatField
       FieldName = 'vl_frete'
-      DisplayFormat = ',0.00'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutosaldo_minimo: TFloatField
       FieldName = 'saldo_minimo'
-      DisplayFormat = ',0.00'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutopeso_bruto: TFloatField
       FieldName = 'peso_bruto'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutopeso_liquido: TFloatField
       FieldName = 'peso_liquido'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutounidade_venda: TStringField
       FieldName = 'unidade_venda'
       Size = 5
     end
     object qryCadprodutoperc_comissao: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_comissao'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutovl_comissao: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'vl_comissao'
-      DisplayFormat = ',0.00'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_desconto: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_desconto'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutovl_desconto: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'vl_desconto'
-      DisplayFormat = ',0.00'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_pis: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_pis'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_cofins: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_cofins'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_tva: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_tva'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_icms_interno: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_icms_interno'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_icms_externo: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_icms_externo'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_icms_substituicao: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_icms_substituicao'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutocalc_nome_grupo: TStringField
+      DisplayLabel = '0.00'
       FieldKind = fkLookup
       FieldName = 'calc_nome_grupo'
       LookupDataSet = qryCsGrupo
@@ -1194,6 +1206,7 @@ object BancoDeDados: TBancoDeDados
       Lookup = True
     end
     object qryCadprodutocalc_nome_subgrupo: TStringField
+      DisplayLabel = '0.00'
       FieldKind = fkLookup
       FieldName = 'calc_nome_subgrupo'
       LookupDataSet = qryCsSubGrupo
@@ -1203,6 +1216,7 @@ object BancoDeDados: TBancoDeDados
       Lookup = True
     end
     object qryCadprodutocalc_nome_fornecedor: TStringField
+      DisplayLabel = '0.00'
       FieldKind = fkLookup
       FieldName = 'calc_nome_fornecedor'
       LookupDataSet = qryCsFornecedor
@@ -1212,6 +1226,7 @@ object BancoDeDados: TBancoDeDados
       Lookup = True
     end
     object qryCadprodutocalc_nome_classificacao: TStringField
+      DisplayLabel = '0.00'
       FieldKind = fkLookup
       FieldName = 'calc_nome_classificacao'
       LookupDataSet = qryCsClassificacao
@@ -1221,16 +1236,18 @@ object BancoDeDados: TBancoDeDados
       Lookup = True
     end
     object qryCadprodutoperc_custo_fixo: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_custo_fixo'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutoperc_outros_impostos: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'perc_outros_impostos'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = '0.00'
     end
     object qryCadprodutovl_custo_fixo: TFloatField
+      DisplayLabel = '0.00'
       FieldName = 'vl_custo_fixo'
-      DisplayFormat = ',0.00'
     end
     object qryCadprodutocalc_preco_atacado: TFloatField
       FieldKind = fkCalculated
@@ -1648,6 +1665,11 @@ object BancoDeDados: TBancoDeDados
     Params = <>
     Left = 216
     Top = 447
+    object qryCsPrecoidpreco: TIntegerField
+      FieldName = 'idpreco'
+      Required = True
+      DisplayFormat = '000000'
+    end
     object qryCsPrecoativo: TBooleanField
       FieldName = 'ativo'
     end
@@ -1665,57 +1687,65 @@ object BancoDeDados: TBancoDeDados
       FieldName = 'preco_custo'
       DisplayFormat = ',0.00'
     end
+    object qryCsPrecopreco_venda: TFloatField
+      FieldName = 'preco_venda'
+      DisplayFormat = ',0.00'
+    end
+    object qryCsPrecopreco_sugerido: TFloatField
+      FieldName = 'preco_sugerido'
+      DisplayFormat = ',0.00'
+    end
     object qryCsPrecoperc_margem_lucro: TFloatField
       FieldName = 'perc_margem_lucro'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_icms_interno: TFloatField
       FieldName = 'perc_icms_interno'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_icms_externo: TFloatField
       FieldName = 'perc_icms_externo'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_icms_substituicao: TFloatField
       FieldName = 'perc_icms_substituicao'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_ipi: TFloatField
       FieldName = 'perc_ipi'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_tva: TFloatField
       FieldName = 'perc_tva'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_pis: TFloatField
       FieldName = 'perc_pis'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_cofins: TFloatField
       FieldName = 'perc_cofins'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_outros_impostos: TFloatField
       FieldName = 'perc_outros_impostos'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_comissao: TFloatField
       FieldName = 'perc_comissao'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_desconto: TFloatField
       FieldName = 'perc_desconto'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_frete: TFloatField
       FieldName = 'perc_frete'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecoperc_custo_fixo: TFloatField
       FieldName = 'perc_custo_fixo'
-      DisplayFormat = ',0.00 %'
+      DisplayFormat = ',0.00'
     end
     object qryCsPrecovl_margem_lucro: TFloatField
       FieldName = 'vl_margem_lucro'
@@ -1737,27 +1767,20 @@ object BancoDeDados: TBancoDeDados
       FieldName = 'vl_custo_fixo'
       DisplayFormat = ',0.00'
     end
-    object qryCsPrecopreco_sugerido: TFloatField
-      FieldName = 'preco_sugerido'
-      DisplayFormat = ',0.00'
-    end
-    object qryCsPrecopreco_venda: TFloatField
-      FieldName = 'preco_venda'
-      DisplayFormat = ',0.00'
-    end
-    object qryCsPrecoidpreco: TLargeintField
-      FieldName = 'idpreco'
-      Required = True
-      DisplayFormat = '000000'
-    end
   end
   object qryCadPreco: TZQuery
     Connection = Conexao
+    BeforePost = qryCadPrecoBeforePost
     SQL.Strings = (
       'select * from cadpreco')
     Params = <>
     Left = 216
     Top = 496
+    object qryCadPrecoidpreco: TIntegerField
+      FieldName = 'idpreco'
+      Required = True
+      DisplayFormat = '000000'
+    end
     object qryCadPrecoativo: TBooleanField
       FieldName = 'ativo'
     end
@@ -1773,92 +1796,87 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCadPrecopreco_custo: TFloatField
       FieldName = 'preco_custo'
-      DisplayFormat = 'R$ ,0.00'
-    end
-    object qryCadPrecoperc_margem_lucro: TFloatField
-      FieldName = 'perc_margem_lucro'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_icms_interno: TFloatField
-      FieldName = 'perc_icms_interno'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_icms_externo: TFloatField
-      FieldName = 'perc_icms_externo'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_icms_substituicao: TFloatField
-      FieldName = 'perc_icms_substituicao'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_ipi: TFloatField
-      FieldName = 'perc_ipi'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_tva: TFloatField
-      FieldName = 'perc_tva'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_pis: TFloatField
-      FieldName = 'perc_pis'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_cofins: TFloatField
-      FieldName = 'perc_cofins'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_outros_impostos: TFloatField
-      FieldName = 'perc_outros_impostos'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_comissao: TFloatField
-      FieldName = 'perc_comissao'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_desconto: TFloatField
-      FieldName = 'perc_desconto'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_frete: TFloatField
-      FieldName = 'perc_frete'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecoperc_custo_fixo: TFloatField
-      FieldName = 'perc_custo_fixo'
-      DisplayFormat = ',0.00 %'
-    end
-    object qryCadPrecovl_margem_lucro: TFloatField
-      FieldName = 'vl_margem_lucro'
-      DisplayFormat = 'R$ ,0.00'
-    end
-    object qryCadPrecovl_comissao: TFloatField
-      FieldName = 'vl_comissao'
-      DisplayFormat = 'R$ ,0.00'
-    end
-    object qryCadPrecovl_desconto: TFloatField
-      FieldName = 'vl_desconto'
-      DisplayFormat = 'R$ ,0.00'
-    end
-    object qryCadPrecovl_frete: TFloatField
-      FieldName = 'vl_frete'
-      DisplayFormat = 'R$ ,0.00'
-    end
-    object qryCadPrecovl_custo_fixo: TFloatField
-      FieldName = 'vl_custo_fixo'
-      DisplayFormat = 'R$ ,0.00'
-    end
-    object qryCadPrecopreco_sugerido: TFloatField
-      FieldName = 'preco_sugerido'
-      DisplayFormat = 'R$ ,0.00'
+      DisplayFormat = '0.00'
     end
     object qryCadPrecopreco_venda: TFloatField
       FieldName = 'preco_venda'
-      DisplayFormat = 'R$ ,0.00'
+      DisplayFormat = '0.00'
     end
-    object qryCadPrecoidpreco: TLargeintField
-      FieldName = 'idpreco'
-      Required = True
-      DisplayFormat = '000000'
+    object qryCadPrecopreco_sugerido: TFloatField
+      FieldName = 'preco_sugerido'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_margem_lucro: TFloatField
+      FieldName = 'perc_margem_lucro'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_icms_interno: TFloatField
+      FieldName = 'perc_icms_interno'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_icms_externo: TFloatField
+      FieldName = 'perc_icms_externo'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_icms_substituicao: TFloatField
+      FieldName = 'perc_icms_substituicao'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_ipi: TFloatField
+      FieldName = 'perc_ipi'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_tva: TFloatField
+      FieldName = 'perc_tva'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_pis: TFloatField
+      FieldName = 'perc_pis'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_cofins: TFloatField
+      FieldName = 'perc_cofins'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_outros_impostos: TFloatField
+      FieldName = 'perc_outros_impostos'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_comissao: TFloatField
+      FieldName = 'perc_comissao'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_desconto: TFloatField
+      FieldName = 'perc_desconto'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_frete: TFloatField
+      FieldName = 'perc_frete'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecoperc_custo_fixo: TFloatField
+      FieldName = 'perc_custo_fixo'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecovl_margem_lucro: TFloatField
+      FieldName = 'vl_margem_lucro'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecovl_comissao: TFloatField
+      FieldName = 'vl_comissao'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecovl_desconto: TFloatField
+      FieldName = 'vl_desconto'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecovl_frete: TFloatField
+      FieldName = 'vl_frete'
+      DisplayFormat = '0.00'
+    end
+    object qryCadPrecovl_custo_fixo: TFloatField
+      FieldName = 'vl_custo_fixo'
+      DisplayFormat = '0.00'
     end
   end
   object DSqryCsPreco: TDataSource
@@ -1908,6 +1926,7 @@ object BancoDeDados: TBancoDeDados
   end
   object qryCadUsuario: TZQuery
     Connection = Conexao
+    BeforeDelete = qryCadUsuarioBeforeDelete
     SQL.Strings = (
       'select * from cadusuario')
     Params = <>
@@ -2002,7 +2021,7 @@ object BancoDeDados: TBancoDeDados
       Lookup = True
     end
   end
-  object qryCs: TZReadOnlyQuery
+  object qryCsSequenciador: TZReadOnlyQuery
     Connection = Conexao
     OnCalcFields = qryCsProdutoCalcFields
     SQL.Strings = (
@@ -2013,9 +2032,137 @@ object BancoDeDados: TBancoDeDados
   end
   object EstProcSequenciador: TZStoredProc
     Connection = Conexao
-    Params = <>
-    StoredProcName = 'sequenciador'
+    Params = <
+      item
+        DataType = ftString
+        Name = '@TABELA'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = '@CAMPO'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = '@RETURN'
+        ParamType = ptResult
+        Value = 0
+      end>
+    StoredProcName = 'sequenciador;1'
     Left = 104
     Top = 64
+    ParamData = <
+      item
+        DataType = ftString
+        Name = '@TABELA'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = '@CAMPO'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = '@RETURN'
+        ParamType = ptResult
+        Value = 0
+      end>
+  end
+  object qryCsMovimentoEstoque: TZReadOnlyQuery
+    Connection = Conexao
+    SQL.Strings = (
+      'select * from lanmovimento_estoque')
+    Params = <>
+    Left = 40
+    Top = 592
+    object qryCsMovimentoEstoqueidmovimento_estoque: TIntegerField
+      FieldName = 'idmovimento_estoque'
+      Required = True
+      DisplayFormat = '000000'
+    end
+    object qryCsMovimentoEstoqueativo: TBooleanField
+      FieldName = 'ativo'
+    end
+    object qryCsMovimentoEstoquedata_cadastro: TDateTimeField
+      FieldName = 'data_cadastro'
+    end
+    object qryCsMovimentoEstoqueoperacao: TSmallintField
+      FieldName = 'operacao'
+    end
+    object qryCsMovimentoEstoquetipo: TSmallintField
+      FieldName = 'tipo'
+    end
+    object qryCsMovimentoEstoqueidfornecedor: TIntegerField
+      FieldName = 'idfornecedor'
+      DisplayFormat = '000000'
+    end
+    object qryCsMovimentoEstoqueidusuario: TIntegerField
+      FieldName = 'idusuario'
+      DisplayFormat = '000000'
+    end
+    object qryCsMovimentoEstoquequantidade: TFloatField
+      FieldName = 'quantidade'
+    end
+    object qryCsMovimentoEstoquetotal: TFloatField
+      FieldName = 'total'
+    end
+  end
+  object qryCadMovimentoEstoque: TZQuery
+    Connection = Conexao
+    AfterInsert = qryCadMovimentoEstoqueAfterInsert
+    SQL.Strings = (
+      'select * from lanmovimento_estoque')
+    Params = <>
+    Left = 40
+    Top = 640
+    object qryCadMovimentoEstoqueidmovimento_estoque: TIntegerField
+      FieldName = 'idmovimento_estoque'
+      Required = True
+      DisplayFormat = '000000'
+    end
+    object qryCadMovimentoEstoqueativo: TBooleanField
+      FieldName = 'ativo'
+    end
+    object qryCadMovimentoEstoquedata_cadastro: TDateTimeField
+      FieldName = 'data_cadastro'
+    end
+    object qryCadMovimentoEstoqueoperacao: TSmallintField
+      FieldName = 'operacao'
+    end
+    object qryCadMovimentoEstoquetipo: TSmallintField
+      FieldName = 'tipo'
+    end
+    object qryCadMovimentoEstoqueidfornecedor: TIntegerField
+      FieldName = 'idfornecedor'
+      DisplayFormat = '000000'
+    end
+    object qryCadMovimentoEstoqueidusuario: TIntegerField
+      FieldName = 'idusuario'
+      DisplayFormat = '000000'
+    end
+    object qryCadMovimentoEstoquequantidade: TFloatField
+      FieldName = 'quantidade'
+      DisplayFormat = ',0.00'
+    end
+    object qryCadMovimentoEstoquetotal: TFloatField
+      FieldName = 'total'
+      DisplayFormat = ',0.00'
+    end
+  end
+  object DSqryCsMovimentoEstoque: TDataSource
+    DataSet = qryCsMovimentoEstoque
+    Left = 104
+    Top = 592
+  end
+  object DSqryCadMovimentoEstoque: TDataSource
+    DataSet = qryCadMovimentoEstoque
+    Left = 104
+    Top = 640
   end
 end

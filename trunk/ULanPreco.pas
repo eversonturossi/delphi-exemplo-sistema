@@ -81,6 +81,7 @@ type
     procedure BTCalcularClick(Sender: TObject);
     procedure DBEditPrecoCustoExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -92,7 +93,7 @@ var
   LancPrecoForm: TLancPrecoForm;
 
 implementation
-uses Base;
+uses Base, UCadProduto;
 {$R *.dfm}
 procedure TLancPrecoForm.CalculaPreco;
 var
@@ -101,53 +102,86 @@ var
   Vl_Comissao, Vl_CustoFixo, Vl_Desconto, Vl_MargemLucro,
   Vl_PrecoCusto, Vl_PrecoSugerido, Vl_Preco : Currency;
 begin
-  Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
-  Vl_ICMSInterno := ((StrToCurr(DBEditBaseICMSInterno.Text)/100)*Vl_PrecoCusto);
-  Vl_ICMSExterno := ((StrToCurr(DBEditBaseICMSExterno.Text)/100)*Vl_PrecoCusto);
-  Vl_ICMSSubstituicao := ((StrToCurr(DBEditBaseICMSSubstituicao.Text)/100)*Vl_PrecoCusto);
-  Vl_IPI := ((StrToCurr(DBEditBaseIPI.Text)/100)*Vl_PrecoCusto);
-  Vl_TVA := ((StrToCurr(DBEditBaseTVA.Text)/100)*Vl_PrecoCusto);
-  Vl_PIS := ((StrToCurr(DBEditBasePIS.Text)/100)*Vl_PrecoCusto);
-  Vl_Cofins := ((StrToCurr(DBEditBaseCofins.Text)/100)*Vl_PrecoCusto);
-  Vl_Outros := ((StrToCurr(DBEditBaseOutros.Text)/100)*Vl_PrecoCusto);
+  Vl_PrecoCusto := BancoDeDados.qryCadPrecoPRECO_CUSTO.Value;
+  
+  try
+    Vl_ICMSInterno := ((BancoDeDados.qryCadPrecoPERC_ICMS_INTERNO.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_ICMSInterno := 0;
+  end;
+  try
+    Vl_ICMSExterno := ((BancoDeDados.qryCadPrecoPERC_ICMS_EXTERNO.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_ICMSExterno := 0;
+  end;
+  try
+    Vl_ICMSSubstituicao := ((BancoDeDados.qryCadPrecoPERC_ICMS_SUBSTITUICAO.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_ICMSSubstituicao := 0;
+  end;
+  try
+    Vl_IPI := ((BancoDeDados.qryCadPrecoPERC_IPI.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_IPI := 0;
+  end;
+  try
+    Vl_TVA := ((BancoDeDados.qryCadPrecoPERC_TVA.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_TVA := 0;
+  end;
+  try
+    Vl_PIS := ((BancoDeDados.qryCadPrecoPERC_PIS.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_PIS := 0;
+  end;
+  try
+    Vl_Cofins := ((BancoDeDados.qryCadPrecoPERC_COFINS.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_Cofins := 0;
+  end;
+  try
+    Vl_Outros := ((BancoDeDados.qryCadPrecoPERC_OUTROS_IMPOSTOS.Value/100)*Vl_PrecoCusto);
+  except
+    Vl_Outros := 0;
+  end;
 
-  if (StrToCurr(DBEditBaseFrete.Text) > 0) then
-    Vl_Frete := ((StrToCurr(DBEditBaseFrete.Text)/100)*Vl_PrecoCusto)
+  if (BancoDeDados.qryCadPrecoPERC_FRETE.Value > 0) then
+    Vl_Frete := ((BancoDeDados.qryCadPrecoPERC_FRETE.Value/100)*Vl_PrecoCusto)
   else
-    if (StrToCurr(DBEditValorFrete.Text) > 0) then
-      Vl_Frete := StrToCurr(DBEditValorFrete.Text)
+    if (BancoDeDados.qryCadPrecoVL_FRETE.Value > 0) then
+      Vl_Frete := BancoDeDados.qryCadPrecoVL_FRETE.Value
     else
       Vl_Frete := 0;
 
-  if (StrToCurr(DBEditBaseComissao.Text) > 0) then
-    Vl_Comissao := ((StrToCurr(DBEditBaseComissao.Text)/100)*Vl_PrecoCusto)
+  if (BancoDeDados.qryCadPrecoPERC_COMISSAO.Value > 0) then
+    Vl_Comissao := ((BancoDeDados.qryCadPrecoPERC_COMISSAO.Value/100)*Vl_PrecoCusto)
   else
-    if (StrToCurr(DBEditValorComissao.Text) > 0) then
-      Vl_Comissao := StrToCurr(DBEditValorComissao.Text)
+    if (BancoDeDados.qryCadPrecoVL_COMISSAO.Value > 0) then
+      Vl_Comissao := BancoDeDados.qryCadPrecoVL_COMISSAO.Value
     else
       Vl_Comissao := 0;
 
-  if (StrToCurr(DBEditBaseCustoFixo.Text) > 0) then
-    Vl_CustoFixo := ((StrToCurr(DBEditBaseCustoFixo.Text)/100)*Vl_PrecoCusto)
+  if (BancoDeDados.qryCadPrecoPERC_CUSTO_FIXO.Value > 0) then
+    Vl_CustoFixo := ((BancoDeDados.qryCadPrecoPERC_CUSTO_FIXO.Value/100)*Vl_PrecoCusto)
   else
-    if (StrToCurr(DBEditValorCustoFixo.Text) > 0) then
-      Vl_CustoFixo := StrToCurr(DBEditValorCustoFixo.Text)
+    if (BancoDeDados.qryCadPrecoVL_CUSTO_FIXO.Value > 0) then
+      Vl_CustoFixo := BancoDeDados.qryCadPrecoVL_CUSTO_FIXO.Value
     else
       Vl_CustoFixo := 0;
 
-  if (StrToCurr(DBEditBaseDesconto.Text) > 0) then
-    Vl_Desconto := ((StrToCurr(DBEditBaseDesconto.Text)/100)*Vl_PrecoCusto)
+  if (BancoDeDados.qryCadPrecoPERC_DESCONTO.Value > 0) then
+    Vl_Desconto := ((BancoDeDados.qryCadPrecoPERC_DESCONTO.Value/100)*Vl_PrecoCusto)
   else
-    if (StrToCurr(DBEditValorDesconto.Text) > 0) then
-      Vl_Desconto := StrToCurr(DBEditValorDesconto.Text)
+    if (BancoDeDados.qryCadPrecoVL_DESCONTO.Value > 0) then
+      Vl_Desconto := BancoDeDados.qryCadPrecoVL_DESCONTO.Value
     else
       Vl_Desconto := 0;
 
-  if (StrToCurr(DBEditBaseMargemLucro.Text) > 0) then
-    Vl_MargemLucro := ((StrToCurr(DBEditBaseMargemLucro.Text)/100)*Vl_PrecoCusto)
+  if (BancoDeDados.qryCadPrecoPERC_MARGEM_LUCRO.Value > 0) then
+    Vl_MargemLucro := ((BancoDeDados.qryCadPrecoPERC_MARGEM_LUCRO.Value/100)*Vl_PrecoCusto)
   else
-    if (StrToCurr(DBEditValorMargemLucro.Text) > 0) then
-      Vl_MargemLucro := StrToCurr(DBEditValorMargemLucro.Text)
+    if (BancoDeDados.qryCadPrecoVL_MARGEM_LUCRO.Value > 0) then
+      Vl_MargemLucro := BancoDeDados.qryCadPrecoVL_MARGEM_LUCRO.Value
     else
       Vl_MargemLucro := 0;
 
@@ -157,8 +191,8 @@ begin
 
   Vl_Preco := Vl_PrecoSugerido;
 
-  DBEditPrecoSugerido.Text := CurrToStr(Vl_PrecoSugerido);
-  DBEditPrecoVenda.Text := CurrToStr(Vl_Preco);
+  BancoDeDados.qryCadPrecoPRECO_SUGERIDO.Value := Vl_PrecoSugerido;
+  BancoDeDados.qryCadPrecoPRECO_VENDA.Value := Vl_Preco;
 end;
 procedure TLancPrecoForm.BTCalcularClick(Sender: TObject);
 begin
@@ -263,27 +297,108 @@ begin
   DBEditBaseMargemLucro.Text := CurrToStr((Vl_ValorMargemLucro/Vl_PrecoCusto)*100);
 end;
 
-procedure TLancPrecoForm.FormShow(Sender: TObject);
+procedure TLancPrecoForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if (key = #13) then
+    begin
+      Key := #0;
+      Perform(WM_NEXTDLGCTL,0,0);
+    end;
+  if (key = #27) then
+    begin
+      key := #0;
+      Close;
+    end;
+end;
+
+procedure TLancPrecoForm.FormShow(Sender: TObject);
+var
+  temp : currency;
+begin
+temp:=0;
   if (BancoDeDados.qryCadPreco.state in [dsEdit]) then
     begin
       with BancoDeDados do
         begin
-          qryCadPrecoPERC_ICMS_INTERNO.Value        :=    qryCadProdutoPERC_ICMS_INTERNO.Value;
-          qryCadPrecoPERC_ICMS_EXTERNO.Value        :=    qryCadProdutoPERC_ICMS_EXTERNO.Value;
-          qryCadPrecoPERC_ICMS_SUBSTITUICAO.Value   :=    qryCadProdutoPERC_ICMS_SUBSTITUICAO.Value;
-          qryCadPrecoPERC_IPI.Value                 :=    qryCadProdutoPERC_IPI.Value;
-          qryCadPrecoPERC_TVA.Value                 :=    qryCadProdutoPERC_TVA.Value;
-          qryCadPrecoPERC_PIS.Value                 :=    qryCadProdutoPERC_PIS.Value;
-          qryCadPrecoPERC_COFINS.Value              :=    qryCadProdutoPERC_COFINS.Value;
-          qryCadPrecoPERC_OUTROS_IMPOSTOS.Value     :=    qryCadProdutoPERC_OUTROS_IMPOSTOS.Value;
-          qryCadPrecoPERC_FRETE.Value               :=    qryCadProdutoPERC_FRETE.Value;
-          qryCadPrecoVL_FRETE.Value                 :=    qryCadProdutoVL_FRETE.Value;
-          qryCadPrecoPERC_COMISSAO.Value            :=    qryCadProdutoPERC_COMISSAO.Value;
-          qryCadPrecoVL_COMISSAO.Value              :=    qryCadProdutoVL_COMISSAO.Value;
-          qryCadPrecoPERC_CUSTO_FIXO.Value          :=    qryCadProdutoPERC_CUSTO_FIXO.Value;
-          qryCadPrecoVL_CUSTO_FIXO.Value            :=    qryCadProdutoVL_CUSTO_FIXO.Value;
-          qryCadPrecoPERC_DESCONTO.Value            :=    qryCadProdutoPERC_DESCONTO.Value;
+          if (CadProdutoForm.EditPrecoAtacado.Value > 0) then
+            qryCadPrecoPRECO_CUSTO.Value := CadProdutoForm.EditPrecoAtacado.Value
+          else
+            qryCadPrecoPRECO_CUSTO.Value := 0;
+
+          if not (qryCadProdutoPERC_ICMS_INTERNO.IsNull) then
+            qryCadPrecoPERC_ICMS_INTERNO.Value := qryCadProdutoPERC_ICMS_INTERNO.Value
+          else
+            qryCadPrecoPERC_ICMS_INTERNO.Value := 0;
+
+          if not (qryCadProdutoPERC_ICMS_EXTERNO.IsNull) then
+            qryCadPrecoPERC_ICMS_EXTERNO.Value := qryCadProdutoPERC_ICMS_EXTERNO.Value
+          else
+            qryCadPrecoPERC_ICMS_EXTERNO.Value := 0;
+
+          if not (qryCadProdutoPERC_ICMS_SUBSTITUICAO.IsNull) then
+            qryCadPrecoPERC_ICMS_SUBSTITUICAO.Value := qryCadProdutoPERC_ICMS_SUBSTITUICAO.Value
+          else
+            qryCadPrecoPERC_ICMS_SUBSTITUICAO.Value := 0;
+
+          if not (qryCadProdutoPERC_IPI.IsNull) then
+            qryCadPrecoPERC_IPI.Value := qryCadProdutoPERC_IPI.Value
+          else
+            qryCadPrecoPERC_IPI.Value := 0;
+            
+          if not (qryCadProdutoPERC_TVA.IsNull) then
+            qryCadPrecoPERC_TVA.Value := qryCadProdutoPERC_TVA.Value
+          else
+            qryCadPrecoPERC_TVA.Value := 0;
+
+          if not (qryCadProdutoPERC_PIS.IsNull) then
+            qryCadPrecoPERC_PIS.Value := qryCadProdutoPERC_PIS.Value
+          else
+            qryCadPrecoPERC_PIS.Value := 0;
+
+          if not (qryCadProdutoPERC_COFINS.IsNull) then
+            qryCadPrecoPERC_COFINS.Value := qryCadProdutoPERC_COFINS.Value
+          else
+            qryCadPrecoPERC_COFINS.Value := 0;
+
+          if not (qryCadProdutoPERC_OUTROS_IMPOSTOS.IsNull) then
+            qryCadPrecoPERC_OUTROS_IMPOSTOS.Value := qryCadProdutoPERC_OUTROS_IMPOSTOS.Value
+          else
+            qryCadPrecoPERC_OUTROS_IMPOSTOS.Value := 0;
+
+          if not (qryCadProdutoPERC_FRETE.IsNull) then
+            qryCadPrecoPERC_FRETE.Value := qryCadProdutoPERC_FRETE.Value
+          else
+            qryCadPrecoPERC_FRETE.Value := 0;
+
+          if not (qryCadProdutoVL_FRETE.IsNull) then
+            qryCadPrecoVL_FRETE.Value := qryCadProdutoVL_FRETE.Value
+          else
+            qryCadPrecoVL_FRETE.Value := 0;
+            
+          if not (qryCadProdutoPERC_COMISSAO.IsNull) then
+            qryCadPrecoPERC_COMISSAO.Value := qryCadProdutoPERC_COMISSAO.Value
+          else
+            qryCadPrecoPERC_COMISSAO.Value := 0;
+
+          if not (qryCadProdutoVL_COMISSAO.IsNull) then
+            qryCadPrecoVL_COMISSAO.Value := qryCadProdutoVL_COMISSAO.Value
+          else
+            qryCadPrecoVL_COMISSAO.Value := 0;
+
+          if not (qryCadProdutoPERC_CUSTO_FIXO.IsNull) then
+            qryCadPrecoPERC_CUSTO_FIXO.Value := qryCadProdutoPERC_CUSTO_FIXO.Value
+          else
+            qryCadPrecoPERC_CUSTO_FIXO.Value := 0;
+
+          if not (qryCadProdutoVL_CUSTO_FIXO.IsNull) then
+            qryCadPrecoVL_CUSTO_FIXO.Value := qryCadProdutoVL_CUSTO_FIXO.Value
+          else
+            qryCadPrecoVL_CUSTO_FIXO.Value := 0;
+
+          if not (qryCadProdutoPERC_DESCONTO.IsNull) then
+            qryCadPrecoPERC_DESCONTO.Value := qryCadProdutoPERC_DESCONTO.Value
+          else
+            qryCadPrecoPERC_DESCONTO.Value := 0;
         end;
     end;
 end;

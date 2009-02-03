@@ -8,7 +8,6 @@ uses
   Tabs, Buttons, rxToolEdit, RXDBCtrl, Menus, rxCurrEdit;
 
 type
-  TTipoOperacao = (toInsere, toAltera);
   TCadProdutoForm = class(TForm)
     AbaSuperior: TPageControl;
     tsConsulta: TTabSheet;
@@ -160,6 +159,8 @@ type
     procedure DBEditUnidadeVendaExit(Sender: TObject);
     procedure BTPrecoAtacadoClick(Sender: TObject);
     procedure BTPrecoVarejoClick(Sender: TObject);
+    procedure EditPrecoAtacadoDblClick(Sender: TObject);
+    procedure EditPrecoVarejoDblClick(Sender: TObject);
 
   private
     PrecoAtacado, PrecoVarejo : Currency;
@@ -171,7 +172,6 @@ type
 var
   CadProdutoForm: TCadProdutoForm;
   ProdutoID : Integer;
-  OperacaoCadProduto : TTipoOperacao;
 
 implementation
 uses Base, UCsGrupo, UCsSubGrupo, UCadLocalizacao, UCsClassificacao, UFuncoes,
@@ -185,13 +185,15 @@ begin
   try
     if not Assigned(CsFornecedorForm) then
       CsFornecedorForm := TCsFornecedorForm.Create(Application);
-    if (OperacaoCadProduto = toInsere) then
-      if (BancoDeDados.qryCadproduto.State in [dsInsert]) then
-        begin
-          i := BancoDeDados.qryCadproduto.RecNo;
-          BancoDeDados.qryCadproduto.Post;
-          BancoDeDados.qryCadproduto.RecNo := i;
-        end;
+
+    if (TipoOperacao = toInsere) then
+      begin
+        i := BancoDeDados.qryCadprodutoidproduto.Value;
+        BancoDeDados.qryCadproduto.Post;
+        if not (BancoDeDados.qryCadproduto.State in [dsEdit, dsInsert]) then
+          BancoDeDados.qryCadproduto.Edit;
+        BancoDeDados.qryCadproduto.RecNo := i;
+      end;
 
     if (CsFornecedorForm.ShowModal = mrOk) then
       begin
@@ -215,10 +217,21 @@ begin
 end;
 
 procedure TCadProdutoForm.Adicionar2Click(Sender: TObject);
+var
+ i : Integer;
 begin
-  try
+ try
     if not Assigned(CadLocalizacaoForm) then
       CadLocalizacaoForm := TCadLocalizacaoForm.Create(Application);
+    if (TipoOperacao = toInsere) then
+      begin
+        i := BancoDeDados.qryCadprodutoidproduto.Value;
+        BancoDeDados.qryCadproduto.Post;
+        if not (BancoDeDados.qryCadproduto.State in [dsEdit, dsInsert]) then
+          BancoDeDados.qryCadproduto.Edit;
+        BancoDeDados.qryCadproduto.RecNo := i;
+      end;
+
     with BancoDeDados.qryCsLocalizacao do
       begin
         Close;
@@ -236,7 +249,7 @@ end;
 
 procedure TCadProdutoForm.BTAlterarClick(Sender: TObject);
 begin
-  OperacaoCadProduto := toAltera;
+  TipoOperacao := toAltera;
   AbaSuperior.ActivePage := tsManutencao;
   NBManutencao.ActivePage := 'Principal';
   tsPrincipal.TabIndex := NBManutencao.PageIndex;
@@ -245,7 +258,7 @@ end;
 
 procedure TCadProdutoForm.BTCancelarClick(Sender: TObject);
 begin
-  if (OperacaoCadProduto = toInsere) then
+  if (TipoOperacao = toInsere) then
     BTExcluirClick(Self)
   else
     begin
@@ -357,7 +370,7 @@ begin
       else
         begin
            PrecoID := 0;
-           PrecoID := GeraSequenciador(BancoDeDados.qryCs, 'cadpreco', 'idpreco');
+           PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
            BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo,preco_venda)values(' +
              QuotedStr(IntToStr(PrecoID))   + ','                                            +
              QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
@@ -387,7 +400,7 @@ begin
         else
           begin
              PrecoID := 0;
-             PrecoID := GeraSequenciador(BancoDeDados.qryCs, 'cadpreco', 'idpreco');
+             PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
              BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo,preco_venda)values(' +
                QuotedStr(IntToStr(PrecoID))   + ','                                            +
                QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
@@ -416,7 +429,7 @@ end;
 
 procedure TCadProdutoForm.BTInserirClick(Sender: TObject);
 begin
-  OperacaoCadProduto := toInsere;
+  TipoOperacao := toInsere;
   if not (BancoDeDados.qryCadProduto.Active) then
     BancoDeDados.qryCadProduto.Open;
   BancoDeDados.qryCadProduto.Append;
@@ -477,22 +490,16 @@ begin
   try
     if not Assigned(LancPrecoForm) then
       LancPrecoForm := TLancPrecoForm.Create(Application);
-    if (OperacaoCadProduto = toInsere) then
-      if (BancoDeDados.qryCadproduto.State in [dsInsert]) then
-        begin
-          i := BancoDeDados.qryCadproduto.RecNo;
-          BancoDeDados.qryCadproduto.Post;
-          BancoDeDados.qryCadproduto.RecNo := i;
 
-          PrecoID := 0;
-          PrecoID := GeraSequenciador(BancoDeDados.qryCs, 'cadpreco', 'idpreco');
-          BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo)values(' +
-            QuotedStr(IntToStr(PrecoID))   + ','                                            +
-            QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
-            QuotedStr('0')                                                        + ');';
-          BancoDeDados.ProcScripts.Execute;
-          GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
-        end;
+    if (TipoOperacao = toInsere) then
+      begin
+        i := BancoDeDados.qryCadprodutoidproduto.Value;
+        BancoDeDados.qryCadproduto.Post;
+        if not (BancoDeDados.qryCadproduto.State in [dsEdit, dsInsert]) then
+          BancoDeDados.qryCadproduto.Edit;
+        BancoDeDados.qryCadproduto.RecNo := i;
+      end;
+
     with BancoDeDados.qryCadPreco do
       begin
         Close;
@@ -501,16 +508,27 @@ begin
             IntToStr(BancoDeDados.qryCadProdutoidproduto.Value));
         Open;
       end;
+
     if not (BancoDeDados.qryCadPreco.IsEmpty) then
+      BancoDeDados.qryCadPreco.Edit
+    else
       begin
-        if not (BancoDeDados.qryCadPreco.State in [dsEdit]) then
-          BancoDeDados.qryCadPreco.Edit;
+        PrecoID := 0;
+        PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
+        BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo)values(' +
+          QuotedStr(IntToStr(PrecoID))   + ','                                            +
+          QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
+          QuotedStr('0')                                                        + ');';
+        BancoDeDados.ProcScripts.Execute;
+        GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
       end;
+
     if (LancPrecoForm.ShowModal = mrOk) then
-      begin
-        BancoDeDados.qryCadPreco.Post;
-        EditPrecoAtacado.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
-      end;
+      if (BancoDeDados.qryCadPrecoPRECO_VENDA.Value > 0) then
+        begin
+          EditPrecoAtacado.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
+          BancoDeDados.qryCadPreco.Post;
+        end;
   finally
     LancPrecoForm.Release;
     LancPrecoForm := nil;
@@ -524,22 +542,16 @@ begin
   try
     if not Assigned(LancPrecoForm) then
       LancPrecoForm := TLancPrecoForm.Create(Application);
-    if (OperacaoCadProduto = toInsere) then
-      if (BancoDeDados.qryCadproduto.State in [dsInsert]) then
-        begin
-          i := BancoDeDados.qryCadproduto.RecNo;
-          BancoDeDados.qryCadproduto.Post;
-          BancoDeDados.qryCadproduto.RecNo := i;
 
-          PrecoID := 0;
-          PrecoID := GeraSequenciador(BancoDeDados.qryCs, 'cadpreco', 'idpreco');
-          BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo)values(' +
-            QuotedStr(IntToStr(PrecoID))   + ','                                            +
-            QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
-            QuotedStr('1')                                                        + ');';
-          BancoDeDados.ProcScripts.Execute;
-          GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
-        end;
+    if (TipoOperacao = toInsere) then
+      begin
+        i := BancoDeDados.qryCadprodutoidproduto.Value;
+        BancoDeDados.qryCadproduto.Post;
+        if not (BancoDeDados.qryCadproduto.State in [dsEdit, dsInsert]) then
+          BancoDeDados.qryCadproduto.Edit;
+        BancoDeDados.qryCadproduto.RecNo := i;
+      end;
+
     with BancoDeDados.qryCadPreco do
       begin
         Close;
@@ -548,16 +560,27 @@ begin
             IntToStr(BancoDeDados.qryCadProdutoidproduto.Value));
         Open;
       end;
+
     if not (BancoDeDados.qryCadPreco.IsEmpty) then
+      BancoDeDados.qryCadPreco.Edit
+    else
       begin
-        if not (BancoDeDados.qryCadPreco.State in [dsEdit]) then
-          BancoDeDados.qryCadPreco.Edit;
+        PrecoID := 0;
+        PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
+        BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo)values(' +
+          QuotedStr(IntToStr(PrecoID))   + ','                                            +
+          QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
+          QuotedStr('1')                                                        + ');';
+        BancoDeDados.ProcScripts.Execute;
+        GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
       end;
+
     if (LancPrecoForm.ShowModal = mrOk) then
-      begin
-        BancoDeDados.qryCadPreco.Post;
-        EditPrecoVarejo.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
-      end;
+      if (BancoDeDados.qryCadPrecoPRECO_VENDA.Value > 0) then
+        begin
+          EditPrecoAtacado.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
+          BancoDeDados.qryCadPreco.Post;
+        end;
   finally
     LancPrecoForm.Release;
     LancPrecoForm := nil;
@@ -744,6 +767,16 @@ begin
   BTPesquisarClick(Self);
 end;
 
+procedure TCadProdutoForm.EditPrecoAtacadoDblClick(Sender: TObject);
+begin
+  BTPrecoAtacadoClick(Self);
+end;
+
+procedure TCadProdutoForm.EditPrecoVarejoDblClick(Sender: TObject);
+begin
+  BTPrecoVarejoClick(Self);
+end;
+
 procedure TCadProdutoForm.Excluir1Click(Sender: TObject);
 begin
   if (MessageDlg('Deseja Excluir o registro?',mtWarning,[mbYes,mbNo],0) = mrNo) then
@@ -831,6 +864,24 @@ begin
                 IntToStr(BancoDeDados.qryCadProdutoidproduto.Value));
             Open;
           end;
+        with BancoDeDados.qryCsPreco do
+          begin
+            Close;
+            SQL.Clear;
+            SQL.Add('select * from cadpreco where tipo = 0 and idproduto = '+
+                IntToStr(BancoDeDados.qryCadProdutoidproduto.Value));
+            Open;
+          end;
+        EditPrecoAtacado.Value := BancoDeDados.qryCsPrecoPRECO_VENDA.Value;
+        with BancoDeDados.qryCsPreco do
+          begin
+            Close;
+            SQL.Clear;
+            SQL.Add('select * from cadpreco where tipo = 1 and idproduto = '+
+                IntToStr(BancoDeDados.qryCadProdutoidproduto.Value));
+            Open;
+          end;
+        EditPrecoVarejo.Value := BancoDeDados.qryCsPrecoPRECO_VENDA.Value;
     end;
   PrecoAtacado := EditPrecoAtacado.Value;
   PrecoVarejo := EditPrecoVarejo.Value;

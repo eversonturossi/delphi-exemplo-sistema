@@ -10,7 +10,9 @@ object LancPrecoForm: TLancPrecoForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -1581,7 +1583,7 @@ object LancPrecoForm: TLancPrecoForm
     BevelOuter = bvNone
     Color = clGradientInactiveCaption
     ParentBackground = False
-    TabOrder = 13
+    TabOrder = 16
     object BTCancelar: THTMLButton
       Left = 307
       Top = 3
@@ -1649,7 +1651,7 @@ object LancPrecoForm: TLancPrecoForm
   end
   object DBEditBaseICMSExterno: TDBEdit
     Left = 229
-    Top = 104
+    Top = 105
     Width = 102
     Height = 21
     DataField = 'perc_icms_externo'
@@ -1776,7 +1778,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 14
+    TabOrder = 17
     OnChange = DBEditValorFreteChange
     OnExit = DBEditPrecoCustoExit
   end
@@ -1795,7 +1797,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 15
+    TabOrder = 18
     OnChange = DBEditValorComissaoChange
     OnExit = DBEditPrecoCustoExit
   end
@@ -1814,7 +1816,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 16
+    TabOrder = 19
     OnChange = DBEditValorCustoFixoChange
     OnExit = DBEditPrecoCustoExit
   end
@@ -1867,7 +1869,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 17
+    TabOrder = 20
     OnChange = DBEditValorMargemLucroChange
     OnExit = DBEditPrecoCustoExit
   end
@@ -1935,7 +1937,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 18
+    TabOrder = 21
     OnChange = DBEditValorDescontoChange
     OnExit = DBEditPrecoCustoExit
   end
@@ -1954,7 +1956,7 @@ object LancPrecoForm: TLancPrecoForm
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 19
+    TabOrder = 14
     OnClick = BTCalcularClick
     Alignment = haCenter
     Background = stNormal
@@ -1974,7 +1976,8 @@ object LancPrecoForm: TLancPrecoForm
     BorderStyle = bsNone
     DataField = 'preco_custo'
     DataSource = BancoDeDados.DSqryCadPreco
-    TabOrder = 20
+    ReadOnly = True
+    TabOrder = 15
   end
   object DBEditPrecoSugerido: TDBEdit
     Left = 237
@@ -1984,7 +1987,8 @@ object LancPrecoForm: TLancPrecoForm
     BorderStyle = bsNone
     DataField = 'preco_sugerido'
     DataSource = BancoDeDados.DSqryCadPreco
-    TabOrder = 21
+    ReadOnly = True
+    TabOrder = 22
   end
   object DBEditPrecoVenda: TDBEdit
     Left = 237
@@ -1994,6 +1998,6 @@ object LancPrecoForm: TLancPrecoForm
     BorderStyle = bsNone
     DataField = 'preco_venda'
     DataSource = BancoDeDados.DSqryCadPreco
-    TabOrder = 22
+    TabOrder = 13
   end
 end

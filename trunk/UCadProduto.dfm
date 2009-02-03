@@ -23,7 +23,7 @@ object CadProdutoForm: TCadProdutoForm
     Top = 0
     Width = 960
     Height = 626
-    ActivePage = tsManutencao
+    ActivePage = tsConsulta
     Align = alClient
     TabOrder = 0
     object tsConsulta: TTabSheet
@@ -533,10 +533,11 @@ object CadProdutoForm: TCadProdutoForm
         OnClick = tsPrincipalClick
       end
       object NBManutencao: TNotebook
-        Left = 2
+        Left = 4
         Top = 61
         Width = 947
         Height = 458
+        PageIndex = 2
         TabOrder = 4
         object TPage
           Left = 0
@@ -1050,6 +1051,7 @@ object CadProdutoForm: TCadProdutoForm
             Font.Style = []
             ParentFont = False
             TabOrder = 10
+            OnDblClick = EditPrecoAtacadoDblClick
           end
           object EditPrecoVarejo: TCurrencyEdit
             Left = 820
@@ -1065,6 +1067,7 @@ object CadProdutoForm: TCadProdutoForm
             Font.Style = []
             ParentFont = False
             TabOrder = 11
+            OnDblClick = EditPrecoVarejoDblClick
           end
         end
         object TPage
