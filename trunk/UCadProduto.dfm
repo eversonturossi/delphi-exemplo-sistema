@@ -23,7 +23,7 @@ object CadProdutoForm: TCadProdutoForm
     Top = 0
     Width = 960
     Height = 626
-    ActivePage = tsConsulta
+    ActivePage = tsManutencao
     Align = alClient
     TabOrder = 0
     object tsConsulta: TTabSheet
@@ -139,7 +139,6 @@ object CadProdutoForm: TCadProdutoForm
         Width = 951
         Height = 504
         Color = 13619151
-        DataSource = BancoDeDados.DSqryCsProduto
         FixedColor = 8673536
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -392,7 +391,6 @@ object CadProdutoForm: TCadProdutoForm
           Width = 112
           Height = 17
           DataField = 'idproduto'
-          DataSource = BancoDeDados.DSqryCadProduto
           Font.Charset = ANSI_CHARSET
           Font.Color = clSilver
           Font.Height = -16
@@ -409,7 +407,6 @@ object CadProdutoForm: TCadProdutoForm
         TabStop = False
         Caption = 'Ativo'
         DataField = 'ativo'
-        DataSource = BancoDeDados.DSqryCadProduto
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
         Font.Height = -16
@@ -537,7 +534,6 @@ object CadProdutoForm: TCadProdutoForm
         Top = 61
         Width = 947
         Height = 458
-        PageIndex = 2
         TabOrder = 4
         object TPage
           Left = 0
@@ -704,7 +700,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 257
             Height = 17
             DataField = 'calc_nome_grupo'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = 5869567
             Font.Height = -11
@@ -718,7 +713,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 257
             Height = 17
             DataField = 'calc_nome_subgrupo'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = 5869567
             Font.Height = -11
@@ -732,7 +726,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 257
             Height = 17
             DataField = 'calc_nome_classificacao'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = 5869567
             Font.Height = -11
@@ -883,7 +876,6 @@ object CadProdutoForm: TCadProdutoForm
             Height = 24
             CharCase = ecUpperCase
             DataField = 'descricao'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -898,7 +890,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'idgrupo'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -915,7 +906,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'idsubgrupo'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -932,7 +922,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 217
             Height = 24
             DataField = 'descricao_reduzida'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -947,7 +936,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'idclassificacao'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -964,7 +952,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'unidade_compra'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -981,7 +968,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'peso_bruto'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -996,7 +982,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'peso_liquido'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -1011,7 +996,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 92
             Height = 24
             DataField = 'unidade_venda'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -1028,7 +1012,6 @@ object CadProdutoForm: TCadProdutoForm
             Width = 217
             Height = 24
             DataField = 'referencia'
-            DataSource = BancoDeDados.DSqryCadProduto
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -1237,7 +1220,6 @@ object CadProdutoForm: TCadProdutoForm
               Height = 24
               AutoSize = False
               DataField = 'perc_icms_interno'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1252,7 +1234,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_icms_externo'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1267,7 +1248,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_icms_substituicao'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1282,7 +1262,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_ipi'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1297,7 +1276,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_tva'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1312,7 +1290,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_pis'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1327,7 +1304,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_cofins'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1342,7 +1318,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'st'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1357,7 +1332,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'ecf'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1372,7 +1346,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_outros_impostos'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1468,7 +1441,6 @@ object CadProdutoForm: TCadProdutoForm
               TabStop = False
               Color = 8673536
               DataField = 'vl_frete'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
               Font.Height = -13
@@ -1483,7 +1455,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_frete'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1498,7 +1469,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_comissao'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1515,7 +1485,6 @@ object CadProdutoForm: TCadProdutoForm
               TabStop = False
               Color = 8673536
               DataField = 'vl_comissao'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
               Font.Height = -13
@@ -1530,7 +1499,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_custo_fixo'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1547,7 +1515,6 @@ object CadProdutoForm: TCadProdutoForm
               TabStop = False
               Color = 8673536
               DataField = 'vl_custo_fixo'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
               Font.Height = -13
@@ -1615,7 +1582,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 70
               Height = 24
               DataField = 'perc_desconto'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -1632,7 +1598,6 @@ object CadProdutoForm: TCadProdutoForm
               TabStop = False
               Color = 8673536
               DataField = 'vl_desconto'
-              DataSource = BancoDeDados.DSqryCadProduto
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
               Font.Height = -13
@@ -1666,7 +1631,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 896
               Height = 172
               Color = 13619151
-              DataSource = BancoDeDados.DSqryCsProdutoFornecedor
               FixedColor = 8673536
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
               PopupMenu = PMenuFornecedor
@@ -1751,7 +1715,6 @@ object CadProdutoForm: TCadProdutoForm
               Width = 896
               Height = 181
               Color = 13619151
-              DataSource = BancoDeDados.DSqryCsLocalizacao
               FixedColor = 8673536
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
               PopupMenu = PMenuLocalizacao
@@ -1912,7 +1875,6 @@ object CadProdutoForm: TCadProdutoForm
         Margins.Left = 1
         Margins.Top = 1
         DataField = 'data_cadastro'
-        DataSource = BancoDeDados.DSqryCadProduto
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
