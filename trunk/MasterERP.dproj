@@ -52,8 +52,8 @@
     <DCCReference Include="UCadLocalizacao.pas">
       <Form>CadLocalizacaoForm</Form>
     </DCCReference>
-    <DCCReference Include="UCadMovimentoEstoque.pas">
-      <Form>CadMovimentoEstoqueForm</Form>
+    <DCCReference Include="UCadOperacaoEstoque.pas">
+      <Form>CadOperacaoEstoqueForm</Form>
     </DCCReference>
     <DCCReference Include="UCadProduto.pas">
       <Form>CadProdutoForm</Form>
@@ -98,6 +98,9 @@
       <Form>CsUnidadeEstoqueForm</Form>
     </DCCReference>
     <DCCReference Include="UFuncoes.pas" />
+    <DCCReference Include="ULanMovimentoEstoque.pas">
+      <Form>LanMovimentoEstoqueForm</Form>
+    </DCCReference>
     <DCCReference Include="ULanPreco.pas">
       <Form>LancPrecoForm</Form>
     </DCCReference>

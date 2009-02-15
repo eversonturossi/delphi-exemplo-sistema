@@ -19,5 +19,7 @@
     <Transaction>2008/11/29 12:36:41.937.dfm,D:\SACMASTER\MasterSoft - ERP\Unit1.dfm=D:\SACMASTER\MasterSoft - ERP\UCsGrupo.dfm</Transaction>
     <Transaction>2008/12/04 05:19:11.328.pas,D:\SACMASTER\MasterSoft - ERP\Unit1.pas=D:\SACMASTER\MasterSoft - ERP\ULanPreco.pas</Transaction>
     <Transaction>2008/12/04 05:19:11.328.dfm,D:\SACMASTER\MasterSoft - ERP\Unit1.dfm=D:\SACMASTER\MasterSoft - ERP\ULanPreco.dfm</Transaction>
+    <Transaction>2009/02/15 04:27:25.078.pas,D:\SACMASTER\MasterSoft - ERP\UCadMovimentoEstoque.pas=</Transaction>
+    <Transaction>2009/02/15 04:27:25.078.dfm,D:\SACMASTER\MasterSoft - ERP\UCadMovimentoEstoque.dfm=</Transaction>
   </Transactions>
 </BorlandProject>

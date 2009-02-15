@@ -28,7 +28,8 @@ uses
   UCsUnidade in 'UCsUnidade.pas' {CsUnidadeForm},
   ULanPreco in 'ULanPreco.pas' {LancPrecoForm},
   UCadUsuario in 'UCadUsuario.pas' {CadUsuarioForm},
-  UCadMovimentoEstoque in 'UCadMovimentoEstoque.pas' {CadMovimentoEstoqueForm};
+  UCadOperacaoEstoque in 'UCadOperacaoEstoque.pas' {CadOperacaoEstoqueForm},
+  ULanMovimentoEstoque in 'ULanMovimentoEstoque.pas' {LanMovimentoEstoqueForm};
 
 {$R *.res}
 
@@ -37,6 +38,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TBancoDeDados, BancoDeDados);
   Application.CreateForm(TLoginForm, LoginForm);
-  Application.CreateForm(TCadMovimentoEstoqueForm, CadMovimentoEstoqueForm);
   Application.Run;
 end.

@@ -12,6 +12,7 @@ object LancPrecoForm: TLancPrecoForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -1743,8 +1744,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 8
-    OnChange = DBEditBaseFreteChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditBaseFreteExit
   end
   object DBEditBaseComissao: TDBEdit
     Left = 229
@@ -1760,8 +1760,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 9
-    OnChange = DBEditBaseComissaoChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditBaseComissaoExit
   end
   object DBEditValorFrete: TDBEdit
     Left = 337
@@ -1779,8 +1778,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 17
-    OnChange = DBEditValorFreteChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditValorFreteExit
   end
   object DBEditValorComissao: TDBEdit
     Left = 337
@@ -1798,8 +1796,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 18
-    OnChange = DBEditValorComissaoChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditValorComissaoExit
   end
   object DBEditValorCustoFixo: TDBEdit
     Left = 337
@@ -1817,8 +1814,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 19
-    OnChange = DBEditValorCustoFixoChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditValorCustoFixoExit
   end
   object DBEditBaseCustoFixo: TDBEdit
     Left = 229
@@ -1834,8 +1830,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 10
-    OnChange = DBEditBaseCustoFixoChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditBaseCustoFixoExit
   end
   object DBEditBaseMargemLucro: TDBEdit
     Left = 231
@@ -1851,8 +1846,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 12
-    OnChange = DBEditBaseMargemLucroChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditBaseMargemLucroExit
   end
   object DBEditValorMargemLucro: TDBEdit
     Left = 339
@@ -1870,8 +1864,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 20
-    OnChange = DBEditValorMargemLucroChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditValorMargemLucroExit
   end
   object DBEditBaseCofins: TDBEdit
     Left = 229
@@ -1919,8 +1912,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 11
-    OnChange = DBEditBaseDescontoChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditBaseDescontoExit
   end
   object DBEditValorDesconto: TDBEdit
     Left = 339
@@ -1938,8 +1930,7 @@ object LancPrecoForm: TLancPrecoForm
     Font.Style = []
     ParentFont = False
     TabOrder = 21
-    OnChange = DBEditValorDescontoChange
-    OnExit = DBEditPrecoCustoExit
+    OnExit = DBEditValorDescontoExit
   end
   object BTCalcular: THTMLButton
     Left = 359
@@ -1978,6 +1969,7 @@ object LancPrecoForm: TLancPrecoForm
     DataSource = BancoDeDados.DSqryCadPreco
     ReadOnly = True
     TabOrder = 15
+    OnExit = DBEditPrecoCustoExit
   end
   object DBEditPrecoSugerido: TDBEdit
     Left = 237

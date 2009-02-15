@@ -791,6 +791,10 @@ object PrincipalForm: TPrincipalForm
         Caption = 'Unidades'
         OnClick = Unidades1Click
       end
+      object OperaesdeEstoque1: TMenuItem
+        Caption = 'Opera'#231#245'es de Estoque'
+        OnClick = OperaesdeEstoque1Click
+      end
     end
     object ControledeEstoque1: TMenuItem
       Caption = 'Controle de Estoque'
@@ -806,6 +810,10 @@ object PrincipalForm: TPrincipalForm
       object OrdemdeCompras1: TMenuItem
         Caption = 'Ordem de Compras'
         OnClick = OrdemdeCompras1Click
+      end
+      object MovimentosdeEstoque1: TMenuItem
+        Caption = 'Movimentos de Estoque'
+        OnClick = MovimentosdeEstoque1Click
       end
     end
     object Financeiro1: TMenuItem

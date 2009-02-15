@@ -56,6 +56,8 @@ type
     Unidades1: TMenuItem;
     Ferramentas1: TMenuItem;
     CadastrodeUsurios1: TMenuItem;
+    OperaesdeEstoque1: TMenuItem;
+    MovimentosdeEstoque1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Clientes1Click(Sender: TObject);
@@ -85,6 +87,8 @@ type
     procedure OrdemdeServio1Click(Sender: TObject);
     procedure Unidades1Click(Sender: TObject);
     procedure CadastrodeUsurios1Click(Sender: TObject);
+    procedure OperaesdeEstoque1Click(Sender: TObject);
+    procedure MovimentosdeEstoque1Click(Sender: TObject);
     
   private
     { Private declarations }
@@ -98,7 +102,7 @@ var
 implementation
 uses ULogin, Base, UCadCliente, UCadGrupo, UCadSubGrupo, UCadFornecedor,
       UCadProduto, UCadLocalizacao, UCadUnidadeEstoque, UCadClassficacao,
-      UCsProduto, UCadUnidade, UCadUsuario;
+      UCsProduto, UCadUnidade, UCadUsuario, UCadOperacaoEstoque, ULanMovimentoEstoque;
 {$R *.dfm}
 
 procedure TPrincipalForm.BTClienteClick(Sender: TObject);
@@ -286,6 +290,30 @@ begin
         CadLocalizacaoForm.Release;
         CadLocalizacaoForm := nil;
       end;
+end;
+
+procedure TPrincipalForm.MovimentosdeEstoque1Click(Sender: TObject);
+begin
+  try
+    if not Assigned(LanMovimentoEstoqueForm) then
+      LanMovimentoEstoqueForm := TLanMovimentoEstoqueForm.Create(Application);
+    LanMovimentoEstoqueForm.ShowModal;
+  finally
+    LanMovimentoEstoqueForm.Release;
+    LanMovimentoEstoqueForm := nil;
+  end;
+end;
+
+procedure TPrincipalForm.OperaesdeEstoque1Click(Sender: TObject);
+begin
+  try
+    if not Assigned(CadOperacaoEstoqueForm) then
+      CadOperacaoEstoqueForm := TCadOperacaoEstoqueForm.Create(Application);
+    CadOperacaoEstoqueForm.ShowModal;
+  finally
+    CadOperacaoEstoqueForm.Release;
+    CadOperacaoEstoqueForm := nil;
+  end;
 end;
 
 procedure TPrincipalForm.Oramentos1Click(Sender: TObject);

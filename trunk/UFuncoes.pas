@@ -11,12 +11,16 @@ uses
       Modulo, Usuario, Acao : Integer);
   function GeraSequenciador(EstProcedure : TZStoredProc ; Tabela, Campo : ShortString): Integer;
   procedure GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer);
+  procedure AbreTabela(Query : TZReadOnlyQuery ; Tabela : ShortString);
+  procedure CriaForm(frmClass: TFormClass; out NewObj);
 
 type
   TTipoOperacao = (toInsere, toAltera, toNenhuma);
+  TTipoPreco = (poAtacado, poVarejo, poNenhum);
 
 var
   TipoOperacao : TTipoOperacao;
+  TipoPreco : TTipoPreco;
 
 implementation
 uses Base, Base64;
@@ -100,6 +104,27 @@ begin
 
   finally
      FreeAndNil(Script);
+  end;
+end;
+procedure AbreTabela(Query : TZReadOnlyQuery ; Tabela : ShortString);
+begin
+  with Query do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select * from ' + Tabela);
+      Open;
+      Last;
+      First;
+    end;
+end;
+procedure CriaForm(frmClass: TFormClass; out NewObj);
+begin
+  try
+    TForm(NewObj) := FrmClass.create(Application);
+    TForm(NewObj).ShowModal;
+  finally
+    FreeAndNil(NewObj);
   end;
 end;
 end.

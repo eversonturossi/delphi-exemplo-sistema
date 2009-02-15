@@ -410,6 +410,7 @@ begin
              GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
           end;
       end;
+  TipoPreco := poNenhum;
   AbaSuperior.ActivePage := tsConsulta;
 end;
 
@@ -488,6 +489,7 @@ var
   i, PrecoID : Integer;
 begin
   try
+    TipoPreco := poAtacado;
     if not Assigned(LancPrecoForm) then
       LancPrecoForm := TLancPrecoForm.Create(Application);
 
@@ -523,15 +525,23 @@ begin
         GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
       end;
 
-    if (LancPrecoForm.ShowModal = mrOk) then
-      if (BancoDeDados.qryCadPrecoPRECO_VENDA.Value > 0) then
-        begin
-          EditPrecoAtacado.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
-          BancoDeDados.qryCadPreco.Post;
-        end;
+    LancPrecoForm.ShowModal;
+
+    if (LancPrecoForm.ModalResult = mrOk) then
+      begin
+        if (BancoDeDados.qryCadPrecoPRECO_VENDA.Value > 0) then
+          begin
+            EditPrecoAtacado.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
+            BancoDeDados.qryCadPreco.Post;
+          end;
+      end
+    else
+      EditPrecoAtacado.Value := PrecoAtacado;
+
   finally
     LancPrecoForm.Release;
     LancPrecoForm := nil;
+    TipoPreco := poNenhum;
   end;
 end;
 
@@ -540,6 +550,7 @@ var
   i, PrecoID : Integer;
 begin
   try
+    TipoPreco := poVarejo;
     if not Assigned(LancPrecoForm) then
       LancPrecoForm := TLancPrecoForm.Create(Application);
 
@@ -575,15 +586,23 @@ begin
         GravaSequenciador(BancoDeDados.Conexao, 'cadpreco', 'idpreco', PrecoID);
       end;
 
-    if (LancPrecoForm.ShowModal = mrOk) then
-      if (BancoDeDados.qryCadPrecoPRECO_VENDA.Value > 0) then
-        begin
-          EditPrecoAtacado.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
-          BancoDeDados.qryCadPreco.Post;
-        end;
+    LancPrecoForm.ShowModal;
+
+    if (LancPrecoForm.ModalResult = mrOk) then
+      begin
+        if (BancoDeDados.qryCadPrecoPRECO_VENDA.Value > 0) then
+          begin
+            EditPrecoVarejo.Value := BancoDeDados.qryCadPrecoPRECO_VENDA.Value;
+            BancoDeDados.qryCadPreco.Post;
+          end
+      end
+    else
+      EditPrecoVarejo.Value := PrecoVarejo;
+
   finally
     LancPrecoForm.Release;
     LancPrecoForm := nil;
+    TipoPreco := poNenhum;
   end;
 end;
 
@@ -807,6 +826,7 @@ end;
 
 procedure TCadProdutoForm.FormCreate(Sender: TObject);
 begin
+  TipoPreco := poNenhum;
   AbaSuperior.ActivePage := tsConsulta;
   CHApenasAtivos.Checked := True;
 end;

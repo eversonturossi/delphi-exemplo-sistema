@@ -67,21 +67,21 @@ type
     DBEditPrecoCusto: TDBEdit;
     DBEditPrecoSugerido: TDBEdit;
     DBEditPrecoVenda: TDBEdit;
-    procedure DBEditBaseFreteChange(Sender: TObject);
-    procedure DBEditBaseComissaoChange(Sender: TObject);
-    procedure DBEditBaseCustoFixoChange(Sender: TObject);
-    procedure DBEditBaseDescontoChange(Sender: TObject);
-    procedure DBEditBaseMargemLucroChange(Sender: TObject);
-    procedure DBEditValorFreteChange(Sender: TObject);
-    procedure DBEditValorComissaoChange(Sender: TObject);
-    procedure DBEditValorCustoFixoChange(Sender: TObject);
-    procedure DBEditValorDescontoChange(Sender: TObject);
-    procedure DBEditValorMargemLucroChange(Sender: TObject);
     procedure DBEditBaseICMSInternoExit(Sender: TObject);
     procedure BTCalcularClick(Sender: TObject);
     procedure DBEditPrecoCustoExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure DBEditBaseFreteExit(Sender: TObject);
+    procedure DBEditValorFreteExit(Sender: TObject);
+    procedure DBEditBaseComissaoExit(Sender: TObject);
+    procedure DBEditValorComissaoExit(Sender: TObject);
+    procedure DBEditBaseCustoFixoExit(Sender: TObject);
+    procedure DBEditValorCustoFixoExit(Sender: TObject);
+    procedure DBEditBaseDescontoExit(Sender: TObject);
+    procedure DBEditValorDescontoExit(Sender: TObject);
+    procedure DBEditBaseMargemLucroExit(Sender: TObject);
+    procedure DBEditValorMargemLucroExit(Sender: TObject);
   private
     { Private declarations }
   public
@@ -93,7 +93,7 @@ var
   LancPrecoForm: TLancPrecoForm;
 
 implementation
-uses Base, UCadProduto;
+uses Base, UCadProduto, UFuncoes;
 {$R *.dfm}
 procedure TLancPrecoForm.CalculaPreco;
 var
@@ -198,40 +198,46 @@ procedure TLancPrecoForm.BTCalcularClick(Sender: TObject);
 begin
   CalculaPreco;
 end;
-procedure TLancPrecoForm.DBEditBaseComissaoChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditBaseComissaoExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_BaseComissao : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_BaseComissao := StrToCurr(DBEditBaseComissao.Text);
   DBEditValorComissao.Text := CurrToStr((Vl_BaseComissao/100)*Vl_PrecoCusto);
+  BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditBaseCustoFixoChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditBaseCustoFixoExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_BaseCustoFixo : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_BaseCustoFixo := StrToCurr(DBEditBaseCustoFixo.Text);
   DBEditValorCustoFixo.Text := CurrToStr((Vl_BaseCustoFixo/100)*Vl_PrecoCusto);
+  BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditBaseDescontoChange(Sender: TObject);
+
+procedure TLancPrecoForm.DBEditBaseDescontoExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_BaseDesconto : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_BaseDesconto := StrToCurr(DBEditBaseDesconto.Text);
   DBEditValorDesconto.Text := CurrToStr((Vl_BaseDesconto/100)*Vl_PrecoCusto);
+  BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditBaseFreteChange(Sender: TObject);
+
+procedure TLancPrecoForm.DBEditBaseFreteExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_BaseFrete : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_BaseFrete := StrToCurr(DBEditBaseFrete.Text);
-  DBEditValorFrete.Text := CurrToStr((Vl_BaseFrete/100)*Vl_PrecoCusto);
+  DBEditValorFrete.Text := CurrToStr((Vl_BaseFrete/100) * Vl_PrecoCusto);
+  BTCalcularClick(Self);
 end;
 
 procedure TLancPrecoForm.DBEditBaseICMSInternoExit(Sender: TObject);
@@ -239,62 +245,77 @@ begin
   BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditBaseMargemLucroChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditBaseMargemLucroExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_BaseMargemLucro : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_BaseMargemLucro := StrToCurr(DBEditBaseMargemLucro.Text);
   DBEditValorMargemLucro.Text := CurrToStr((Vl_BaseMargemLucro/100)*Vl_PrecoCusto);
+  BTCalcularClick(Self);
 end;
 
 procedure TLancPrecoForm.DBEditPrecoCustoExit(Sender: TObject);
 begin
-  BTCalcularClick(Self);
+  if not (BancoDeDados.qryCadPrecopreco_custo.Value > 0) then
+    begin
+      MessageDlg('Informe o Preço de Custo.',mtWarning,[mbOK],0);
+      DBEditPrecoCusto.SetFocus;
+      Abort;
+    end
+  else
+    DBEditBaseICMSInterno.SetFocus;
+
 end;
 
-procedure TLancPrecoForm.DBEditValorComissaoChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditValorComissaoExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_ValorComissao : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_ValorComissao := StrToCurr(DBEditValorComissao.Text);
   DBEditBaseComissao.Text := CurrToStr((Vl_ValorComissao/Vl_PrecoCusto)*100);
+  BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditValorCustoFixoChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditValorCustoFixoExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_ValorCustoFixo : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_ValorCustoFixo := StrToCurr(DBEditValorCustoFixo.Text);
   DBEditBaseCustoFixo.Text := CurrToStr((Vl_ValorCustoFixo/Vl_PrecoCusto)*100);
+  BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditValorDescontoChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditValorDescontoExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_ValorDesconto : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_ValorDesconto := StrToCurr(DBEditValorDesconto.Text);
   DBEditBaseDesconto.Text := CurrToStr((Vl_ValorDesconto/Vl_PrecoCusto)*100);
+  BTCalcularClick(Self);
 end;
 
-procedure TLancPrecoForm.DBEditValorFreteChange(Sender: TObject);
+procedure TLancPrecoForm.DBEditValorFreteExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_ValorFrete : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_ValorFrete := StrToCurr(DBEditValorFrete.Text);
   DBEditBaseFrete.Text := CurrToStr((Vl_ValorFrete/Vl_PrecoCusto)*100);
-end;      
-procedure TLancPrecoForm.DBEditValorMargemLucroChange(Sender: TObject);
+  BTCalcularClick(Self);
+end;
+
+procedure TLancPrecoForm.DBEditValorMargemLucroExit(Sender: TObject);
 var
   Vl_PrecoCusto, Vl_ValorMargemLucro : Currency;
 begin
   Vl_PrecoCusto := StrToCurr(DBEditPrecoCusto.Text);
   Vl_ValorMargemLucro := StrToCurr(DBEditValorMargemLucro.Text);
   DBEditBaseMargemLucro.Text := CurrToStr((Vl_ValorMargemLucro/Vl_PrecoCusto)*100);
+  BTCalcularClick(Self);
 end;
 
 procedure TLancPrecoForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -320,6 +341,22 @@ temp:=0;
     begin
       with BancoDeDados do
         begin
+          if (TipoPreco = poAtacado) then
+            begin
+              if (CadProdutoForm.EditPrecoAtacado.Value > 0) then
+                qryCadPrecoPRECO_CUSTO.Value := CadProdutoForm.EditPrecoAtacado.Value
+              else
+                qryCadPrecoPRECO_CUSTO.Value := 0;
+            end
+          else
+            if (TipoPreco = poVarejo) then
+              begin
+                if (CadProdutoForm.EditPrecoVarejo.Value > 0) then
+                  qryCadPrecoPRECO_CUSTO.Value := CadProdutoForm.EditPrecoVarejo.Value
+                else
+                  qryCadPrecoPRECO_CUSTO.Value := 0;
+              end;
+          
           if (CadProdutoForm.EditPrecoAtacado.Value > 0) then
             qryCadPrecoPRECO_CUSTO.Value := CadProdutoForm.EditPrecoAtacado.Value
           else
@@ -401,6 +438,10 @@ temp:=0;
             qryCadPrecoPERC_DESCONTO.Value := 0;
         end;
     end;
+    if not (BancoDeDados.qryCadPrecopreco_custo.Value > 0) then
+      DBEditPrecoCusto.SetFocus
+    else
+      DBEditBaseICMSInterno.SetFocus;
 end;
 
 end.
