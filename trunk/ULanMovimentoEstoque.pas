@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, htmlbtns, ExtCtrls, ComCtrls, Mask, DBCtrls, Grids, DBGrids, DB,
-  rxToolEdit, RXDBCtrl, Buttons;
+  rxToolEdit, RXDBCtrl, Buttons, ActnList;
 
 type
   TLanMovimentoEstoqueForm = class(TForm)
@@ -48,8 +48,10 @@ type
     DBEdit1: TDBEdit;
     Label7: TLabel;
     Label8: TLabel;
-    DBCTipo: TDBComboBox;
     Label9: TLabel;
+    ActionList1: TActionList;
+    Action1: TAction;
+    CBTipo: TComboBox;
     procedure BTInserirClick(Sender: TObject);
     procedure BTAlterarClick(Sender: TObject);
     procedure BTSairClick(Sender: TObject);
@@ -70,6 +72,11 @@ type
     procedure DBGItensColExit(Sender: TObject);
     procedure DBGItensKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure Action1Execute(Sender: TObject);
+    procedure DBGItensEditButtonClick(Sender: TObject);
+    procedure DBCTipoExit(Sender: TObject);
+    procedure CBTipoChange(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -80,8 +87,44 @@ var
   LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm;
   MovimentoEstoqueID : Integer;
 implementation
-uses Base, UFuncoes, UCsFornecedor;
+uses Base, UFuncoes, UCsFornecedor, UCadOperacaoEstoque, UCadUnidadeEstoque, UCsProduto;
 {$R *.dfm}
+
+procedure TLanMovimentoEstoqueForm.Action1Execute(Sender: TObject);
+begin
+  if (DBLTipoOperacao.Focused) then
+    begin
+      try
+        CriaForm(TCadOperacaoEstoqueForm, CadOperacaoEstoqueForm);
+      finally
+        BancoDeDados.qryCsOperacaoEstoque.Refresh;
+        DBLTipoOperacao.SetFocus;
+      end;
+    end
+  else
+    if (DBLUnidadeEstoqueOrigem.Focused) then
+      begin
+        try
+          CriaForm(TCadUnidadeEstoqueForm, CadUnidadeEstoqueForm);
+        finally
+          BancoDeDados.qryCsUnidadeEstoque.Refresh;
+          DBLUnidadeEstoqueOrigem.SetFocus;
+        end;
+      end
+    else
+      if (DBLUnidadeEstoqueDestino.Focused) then
+        begin
+          try
+            CriaForm(TCadUnidadeEstoqueForm, CadUnidadeEstoqueForm);
+          finally
+            BancoDeDados.qryCsUnidadeEstoque.Refresh;
+            DBLUnidadeEstoqueDestino.SetFocus;
+          end;
+        end
+      else
+        if (AbaSuperior.TabIndex = 0) then
+          BTInserirClick(Self);
+end;
 
 procedure TLanMovimentoEstoqueForm.BTAlterarClick(Sender: TObject);
 begin
@@ -195,6 +238,18 @@ begin
   EditPesquisar.SetFocus;
 end;
 
+procedure TLanMovimentoEstoqueForm.CBTipoChange(Sender: TObject);
+begin
+  if not (BancoDeDados.qryCadMovimentoEstoque.State in [dsEdit, dsInsert]) then
+    BancoDeDados.qryCadMovimentoEstoque.Edit;
+  BancoDeDados.qryCadMovimentoEstoquetipo.Value := CBTipo.ItemIndex;
+end;
+
+procedure TLanMovimentoEstoqueForm.DBCTipoExit(Sender: TObject);
+begin
+  DBGItens.SetFocus;
+end;
+
 procedure TLanMovimentoEstoqueForm.DBEditFornecedorDblClick(Sender: TObject);
 begin
   BTFornecedorClick(Self);
@@ -244,7 +299,61 @@ begin
               Abort;
             end;
         end;
-    end;                                                              
+    end
+  else
+    if (DBGItens.SelectedIndex = 1) then
+      begin
+        if (BancoDeDados.qryCadMovimentoEstoqueItensidproduto.Value > 0) then
+          begin
+            with BancoDeDados.qryCsProduto do
+              begin
+                Close;
+                SQL.Clear;
+                SQL.Add('select * from cadproduto where referencia = ' +
+                  BancoDeDados.qryCadMovimentoEstoqueItenscalc_referencia_produto.Value);
+                Open;
+              end;
+            if not (BancoDeDados.qryCsProduto.IsEmpty) then
+              begin
+                if not (BancoDeDados.qryCadMovimentoEstoqueItens.State in [dsEdit, dsInsert]) then
+                   BancoDeDados.qryCadMovimentoEstoqueItens.Edit;
+                BancoDeDados.qryCadMovimentoEstoqueItensidproduto.Value := BancoDeDados.qryCsProdutoidproduto.Value;
+                BancoDeDados.qryCadMovimentoEstoqueItensunidade.Value := BancoDeDados.qryCsProdutounidade_venda.Value;
+                with BancoDeDados.qryCsPreco do
+                  begin
+                    Close;
+                    SQL.Clear;
+                    SQL.Add('select * from cadpreco where tipo = 1 and idproduto = ' +
+                      IntToStr(BancoDeDados.qryCadMovimentoEstoqueItensidproduto.Value));
+                    Open;
+                  end;
+                if not (BancoDeDados.qryCsPreco.IsEmpty) then
+                  BancoDeDados.qryCadMovimentoEstoqueItenspreco_unitario.Value := BancoDeDados.qryCsPrecopreco_venda.Value
+                else
+                  BancoDeDados.qryCadMovimentoEstoqueItenspreco_unitario.Value := 0;
+              end
+            else
+              begin
+                MessageDlg('Produto não encontrado.',mtWarning,[mbOK],0);
+                Abort;
+              end;
+          end;
+      end;
+end;
+
+procedure TLanMovimentoEstoqueForm.DBGItensEditButtonClick(Sender: TObject);
+begin
+  try
+    CriaForm(TCsProdutoForm, CsProdutoForm);
+    if (CsProdutoForm.ModalResult = mrOk) then
+      begin
+        if not (BancoDeDados.qryCadMovimentoEstoqueItens.State in [dsEdit, dsInsert]) then
+          BancoDeDados.qryCadMovimentoEstoqueItens.Edit;
+          BancoDeDados.qryCadMovimentoEstoqueItensidproduto.Value := BancoDeDados.qryCsProdutoidproduto.Value;
+      end;
+  finally
+    DBGItens.SelectedIndex := 0;
+  end;
 end;
 
 procedure TLanMovimentoEstoqueForm.DBGItensKeyDown(Sender: TObject;

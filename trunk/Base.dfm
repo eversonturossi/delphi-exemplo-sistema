@@ -1906,6 +1906,9 @@ object BancoDeDados: TBancoDeDados
     object qryCsMovimentoEstoquetipo: TSmallintField
       FieldName = 'tipo'
     end
+    object qryCsMovimentoEstoqueprocessado: TBooleanField
+      FieldName = 'processado'
+    end
   end
   object qryCadMovimentoEstoque: TZQuery
     Connection = Conexao
@@ -1962,6 +1965,9 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCadMovimentoEstoquetipo: TSmallintField
       FieldName = 'tipo'
+    end
+    object qryCadMovimentoEstoqueprocessado: TBooleanField
+      FieldName = 'processado'
     end
   end
   object DSqryCsMovimentoEstoque: TDataSource
@@ -2307,6 +2313,8 @@ object BancoDeDados: TBancoDeDados
   object qryCadMovimentoEstoqueItens: TZQuery
     Connection = Conexao
     OnCalcFields = qryCadMovimentoEstoqueItensCalcFields
+    BeforeInsert = qryCadMovimentoEstoqueItensBeforeInsert
+    BeforePost = qryCadMovimentoEstoqueItensBeforePost
     SQL.Strings = (
       'select * from lanmovimento_estoque_itens')
     Params = <>
@@ -2372,5 +2380,141 @@ object BancoDeDados: TBancoDeDados
     DataSet = qryCadMovimentoEstoqueItens
     Left = 104
     Top = 736
+  end
+  object qryCsParametros: TZReadOnlyQuery
+    Connection = Conexao
+    SQL.Strings = (
+      'select * from parametros')
+    Params = <>
+    Left = 352
+    Top = 152
+    object qryCsParametrosidparametro: TIntegerField
+      FieldName = 'idparametro'
+      DisplayFormat = '000000'
+    end
+    object qryCsParametrosativo: TBooleanField
+      FieldName = 'ativo'
+    end
+    object qryCsParametrosdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 25
+    end
+    object qryCsParametrosvalor: TStringField
+      FieldName = 'valor'
+      Size = 25
+    end
+    object qryCsParametrosidmodulo: TIntegerField
+      FieldName = 'idmodulo'
+    end
+    object qryCsParametrosdata_cadastro: TDateTimeField
+      FieldName = 'data_cadastro'
+    end
+    object qryCsParametroscalc_descricao_modulo: TStringField
+      FieldKind = fkLookup
+      FieldName = 'calc_descricao_modulo'
+      LookupDataSet = qryCsModulos
+      LookupKeyFields = 'idmodulo'
+      LookupResultField = 'descricao'
+      KeyFields = 'idmodulo'
+      Lookup = True
+    end
+  end
+  object DSqryCsParametros: TDataSource
+    DataSet = qryCsParametros
+    Left = 416
+    Top = 152
+  end
+  object qryCadParametros: TZQuery
+    Connection = Conexao
+    BeforePost = qryCadParametrosBeforePost
+    BeforeDelete = qryCadParametrosBeforeDelete
+    SQL.Strings = (
+      'select * from parametros')
+    Params = <>
+    Left = 352
+    Top = 200
+    object qryCadParametrosidparametro: TIntegerField
+      FieldName = 'idparametro'
+      DisplayFormat = '000000'
+    end
+    object qryCadParametrosativo: TBooleanField
+      FieldName = 'ativo'
+    end
+    object qryCadParametrosdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 25
+    end
+    object qryCadParametrosidmodulo: TIntegerField
+      FieldName = 'idmodulo'
+      DisplayFormat = '000000'
+    end
+    object qryCadParametrosvalor: TStringField
+      FieldName = 'valor'
+      Size = 25
+    end
+    object qryCadParametrosdata_cadastro: TDateTimeField
+      FieldName = 'data_cadastro'
+    end
+  end
+  object qryCsModulos: TZReadOnlyQuery
+    Connection = Conexao
+    SQL.Strings = (
+      'select * from modulos')
+    Params = <>
+    Left = 352
+    Top = 56
+    object qryCsModulosidmodulo: TIntegerField
+      FieldName = 'idmodulo'
+      DisplayFormat = '000000'
+    end
+    object qryCsModulosativo: TBooleanField
+      FieldName = 'ativo'
+    end
+    object qryCsModulosdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 25
+    end
+    object qryCsModulosdata_cadastro: TDateTimeField
+      FieldName = 'data_cadastro'
+    end
+  end
+  object qryCadModulos: TZQuery
+    Connection = Conexao
+    BeforePost = qryCadModulosBeforePost
+    BeforeDelete = qryCadModulosBeforeDelete
+    SQL.Strings = (
+      'select * from modulos')
+    Params = <>
+    Left = 352
+    Top = 104
+    object qryCadModulosidmodulo: TIntegerField
+      FieldName = 'idmodulo'
+      DisplayFormat = '000000'
+    end
+    object qryCadModulosativo: TBooleanField
+      FieldName = 'ativo'
+    end
+    object qryCadModulosdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 25
+    end
+    object qryCadModulosdata_cadastro: TDateTimeField
+      FieldName = 'data_cadastro'
+    end
+  end
+  object DSqryCadParametros: TDataSource
+    DataSet = qryCadParametros
+    Left = 416
+    Top = 200
+  end
+  object DSqryCsModulos: TDataSource
+    DataSet = qryCsModulos
+    Left = 416
+    Top = 56
+  end
+  object DSqryCadModulos: TDataSource
+    DataSet = qryCadModulos
+    Left = 416
+    Top = 104
   end
 end

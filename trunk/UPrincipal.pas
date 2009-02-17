@@ -58,6 +58,9 @@ type
     CadastrodeUsurios1: TMenuItem;
     OperaesdeEstoque1: TMenuItem;
     MovimentosdeEstoque1: TMenuItem;
+    Configuraes1: TMenuItem;
+    Modulos2: TMenuItem;
+    Parametros1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Clientes1Click(Sender: TObject);
@@ -89,6 +92,8 @@ type
     procedure CadastrodeUsurios1Click(Sender: TObject);
     procedure OperaesdeEstoque1Click(Sender: TObject);
     procedure MovimentosdeEstoque1Click(Sender: TObject);
+    procedure Modulos2Click(Sender: TObject);
+    procedure Parametros1Click(Sender: TObject);
     
   private
     { Private declarations }
@@ -102,7 +107,8 @@ var
 implementation
 uses ULogin, Base, UCadCliente, UCadGrupo, UCadSubGrupo, UCadFornecedor,
       UCadProduto, UCadLocalizacao, UCadUnidadeEstoque, UCadClassficacao,
-      UCsProduto, UCadUnidade, UCadUsuario, UCadOperacaoEstoque, ULanMovimentoEstoque;
+      UCsProduto, UCadUnidade, UCadUsuario, UCadOperacaoEstoque, ULanMovimentoEstoque,
+      UCadModulos, UFuncoes, UCadParametros;
 {$R *.dfm}
 
 procedure TPrincipalForm.BTClienteClick(Sender: TObject);
@@ -241,7 +247,7 @@ end;
 
 procedure TPrincipalForm.HTMLButton1Click(Sender: TObject);
 begin
-  MessageDlg('Funcionalidade em Manutenção.',mtWarning,[mbOK],0);
+  MovimentosdeEstoque1Click(Self);
 end;
 
 procedure TPrincipalForm.UnidadeEstoque1Click(Sender: TObject);
@@ -292,6 +298,11 @@ begin
       end;
 end;
 
+procedure TPrincipalForm.Modulos2Click(Sender: TObject);
+begin
+  CriaForm(TCadModulosForm, CadModulosForm);
+end;
+
 procedure TPrincipalForm.MovimentosdeEstoque1Click(Sender: TObject);
 begin
   try
@@ -329,6 +340,11 @@ end;
 procedure TPrincipalForm.OrdemdeServio1Click(Sender: TObject);
 begin
   MessageDlg('Funcionalidade em Manutenção.',mtWarning,[mbOK],0);
+end;
+
+procedure TPrincipalForm.Parametros1Click(Sender: TObject);
+begin
+  CriaForm(TCadParametrosForm, CadParametrosForm);
 end;
 
 procedure TPrincipalForm.Pedidos1Click(Sender: TObject);

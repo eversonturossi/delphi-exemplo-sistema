@@ -29,7 +29,9 @@ uses
   ULanPreco in 'ULanPreco.pas' {LancPrecoForm},
   UCadUsuario in 'UCadUsuario.pas' {CadUsuarioForm},
   UCadOperacaoEstoque in 'UCadOperacaoEstoque.pas' {CadOperacaoEstoqueForm},
-  ULanMovimentoEstoque in 'ULanMovimentoEstoque.pas' {LanMovimentoEstoqueForm};
+  ULanMovimentoEstoque in 'ULanMovimentoEstoque.pas' {LanMovimentoEstoqueForm},
+  UCadParametros in 'UCadParametros.pas' {CadParametrosForm},
+  UCadModulos in 'UCadModulos.pas' {CadModulosForm};
 
 {$R *.res}
 

@@ -52,8 +52,14 @@
     <DCCReference Include="UCadLocalizacao.pas">
       <Form>CadLocalizacaoForm</Form>
     </DCCReference>
+    <DCCReference Include="UCadModulos.pas">
+      <Form>CadModulosForm</Form>
+    </DCCReference>
     <DCCReference Include="UCadOperacaoEstoque.pas">
       <Form>CadOperacaoEstoqueForm</Form>
+    </DCCReference>
+    <DCCReference Include="UCadParametros.pas">
+      <Form>CadParametrosForm</Form>
     </DCCReference>
     <DCCReference Include="UCadProduto.pas">
       <Form>CadProdutoForm</Form>

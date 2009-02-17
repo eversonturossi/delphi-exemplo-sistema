@@ -865,5 +865,16 @@ object PrincipalForm: TPrincipalForm
         OnClick = CadastrodeUsurios1Click
       end
     end
+    object Configuraes1: TMenuItem
+      Caption = 'Configura'#231#245'es'
+      object Modulos2: TMenuItem
+        Caption = 'Modulos'
+        OnClick = Modulos2Click
+      end
+      object Parametros1: TMenuItem
+        Caption = 'Parametros'
+        OnClick = Parametros1Click
+      end
+    end
   end
 end

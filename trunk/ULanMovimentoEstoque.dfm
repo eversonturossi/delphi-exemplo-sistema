@@ -66,7 +66,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           ParentFont = False
         end
         object BTPesquisar: THTMLButton
-          Left = 791
+          Left = 817
           Top = 5
           Width = 121
           Height = 25
@@ -117,7 +117,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         object EditPesquisar: TEdit
           Left = 328
           Top = 9
-          Width = 425
+          Width = 441
           Height = 19
           AutoSize = False
           BevelOuter = bvNone
@@ -135,7 +135,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
       object DBGrid1: TDBGrid
         Left = 1
         Top = 54
-        Width = 919
+        Width = 945
         Height = 455
         Color = 13619151
         DataSource = BancoDeDados.DSqryCsMovimentoEstoque
@@ -352,7 +352,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         Height = 49
         Color = 8673536
         ParentBackground = False
-        TabOrder = 0
+        TabOrder = 1
         object Label5: TLabel
           Left = 17
           Top = 16
@@ -396,7 +396,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = []
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 2
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -408,7 +408,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         Align = alBottom
         BevelOuter = bvNone
         Color = clSilver
-        TabOrder = 2
+        TabOrder = 3
         object BTGravar: THTMLButton
           Left = 3
           Top = 5
@@ -509,26 +509,25 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         Font.Style = []
         NumGlyphs = 2
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 4
       end
       object DBGItens: TDBGrid
-        Left = 3
+        Left = 0
         Top = 174
-        Width = 944
-        Height = 315
+        Width = 946
+        Height = 314
         Color = 13619151
-        DataSource = BancoDeDados.DSqryCsMovimentoEstoqueItens
+        DataSource = BancoDeDados.DSqryCadMovimentoEstoqueItens
         FixedColor = 8673536
-        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-        ReadOnly = True
-        TabOrder = 5
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgConfirmDelete, dgCancelOnExit]
+        TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnColExit = DBGItensColExit
-        OnDblClick = DBGrid1DblClick
+        OnEditButtonClick = DBGItensEditButtonClick
         OnKeyDown = DBGItensKeyDown
         Columns = <
           item
@@ -617,11 +616,11 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           end>
       end
       object GroupBox1: TGroupBox
-        Left = 3
+        Left = 1
         Top = 74
-        Width = 944
+        Width = 945
         Height = 97
-        TabOrder = 4
+        TabOrder = 5
         object Label3: TLabel
           Left = 362
           Top = 26
@@ -747,7 +746,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           Font.Height = -13
           Font.Name = 'Microsoft Sans Serif'
           Font.Style = []
-          KeyField = 'idunidade_estoque'
+          KeyField = 'idunidadeestoque'
           ListField = 'nome'
           ListSource = BancoDeDados.DSqryCsUnidadeEstoque
           ParentFont = False
@@ -765,7 +764,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           Font.Height = -13
           Font.Name = 'Microsoft Sans Serif'
           Font.Style = []
-          KeyField = 'idunidade_estoque'
+          KeyField = 'idunidadeestoque'
           ListField = 'nome'
           ListSource = BancoDeDados.DSqryCsUnidadeEstoque
           ParentFont = False
@@ -810,6 +809,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           Top = 22
           Width = 181
           Height = 24
+          CharCase = ecUpperCase
           DataField = 'solicitante'
           DataSource = BancoDeDados.DSqryCadMovimentoEstoque
           Font.Charset = ANSI_CHARSET
@@ -820,26 +820,35 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           ParentFont = False
           TabOrder = 4
         end
-        object DBCTipo: TDBComboBox
+        object CBTipo: TComboBox
           Left = 754
           Top = 49
-          Width = 181
+          Width = 135
           Height = 24
-          DataField = 'tipo'
-          DataSource = BancoDeDados.DSqryCadMovimentoEstoque
+          Style = csDropDownList
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Microsoft Sans Serif'
           Font.Style = []
           ItemHeight = 16
+          ParentFont = False
+          TabOrder = 5
+          OnChange = CBTipoChange
           Items.Strings = (
             'Entrada'
             'Saida')
-          ParentFont = False
-          TabOrder = 5
         end
       end
+    end
+  end
+  object ActionList1: TActionList
+    Left = 80
+    Top = 32
+    object Action1: TAction
+      Caption = 'Action1'
+      ShortCut = 45
+      OnExecute = Action1Execute
     end
   end
 end

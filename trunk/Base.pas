@@ -536,6 +536,37 @@ type
     qryCsMovimentoEstoqueItenspreco_unitario: TFloatField;
     qryCadMovimentoEstoqueItenstotal: TCurrencyField;
     qryCsMovimentoEstoqueItenstotal: TCurrencyField;
+    qryCsMovimentoEstoqueprocessado: TBooleanField;
+    qryCadMovimentoEstoqueprocessado: TBooleanField;
+    qryCsParametros: TZReadOnlyQuery;
+    DSqryCsParametros: TDataSource;
+    qryCsParametrosidparametro: TIntegerField;
+    qryCsParametrosativo: TBooleanField;
+    qryCsParametrosdescricao: TStringField;
+    qryCsParametrosvalor: TStringField;
+    qryCadParametros: TZQuery;
+    qryCsModulos: TZReadOnlyQuery;
+    qryCadModulos: TZQuery;
+    DSqryCadParametros: TDataSource;
+    DSqryCsModulos: TDataSource;
+    DSqryCadModulos: TDataSource;
+    qryCsParametrosidmodulo: TIntegerField;
+    qryCsParametrosdata_cadastro: TDateTimeField;
+    qryCadParametrosidparametro: TIntegerField;
+    qryCadParametrosativo: TBooleanField;
+    qryCadParametrosdescricao: TStringField;
+    qryCadParametrosidmodulo: TIntegerField;
+    qryCadParametrosvalor: TStringField;
+    qryCadParametrosdata_cadastro: TDateTimeField;
+    qryCsModulosidmodulo: TIntegerField;
+    qryCsModulosativo: TBooleanField;
+    qryCsModulosdescricao: TStringField;
+    qryCsModulosdata_cadastro: TDateTimeField;
+    qryCadModulosidmodulo: TIntegerField;
+    qryCadModulosativo: TBooleanField;
+    qryCadModulosdescricao: TStringField;
+    qryCadModulosdata_cadastro: TDateTimeField;
+    qryCsParametroscalc_descricao_modulo: TStringField;
     procedure qryCadClienteBeforeDelete(DataSet: TDataSet);
     procedure qryCadClienteBeforePost(DataSet: TDataSet);
     procedure qryCadGrupoBeforeDelete(DataSet: TDataSet);
@@ -570,6 +601,12 @@ type
     procedure qryCadMovimentoEstoqueBeforeDelete(DataSet: TDataSet);
     procedure qryCadMovimentoEstoqueBeforePost(DataSet: TDataSet);
     procedure qryCadMovimentoEstoqueItensCalcFields(DataSet: TDataSet);
+    procedure qryCadModulosBeforeDelete(DataSet: TDataSet);
+    procedure qryCadModulosBeforePost(DataSet: TDataSet);
+    procedure qryCadParametrosBeforeDelete(DataSet: TDataSet);
+    procedure qryCadParametrosBeforePost(DataSet: TDataSet);
+    procedure qryCadMovimentoEstoqueItensBeforePost(DataSet: TDataSet);
+    procedure qryCadMovimentoEstoqueItensBeforeInsert(DataSet: TDataSet);
    
   private
     { Private declarations }
@@ -659,6 +696,21 @@ begin
       Abort;
     end;
 end;
+procedure TBancoDeDados.qryCadModulosBeforeDelete(DataSet: TDataSet);
+begin
+  if (MessageDlg('Deseja Excluir o registro?',mtWarning,[mbYes,mbNo],0) = mrNo) then
+    Abort;
+end;
+
+procedure TBancoDeDados.qryCadModulosBeforePost(DataSet: TDataSet);
+begin
+  if not (qryCadModulosDescricao.Value <> '') then
+    begin
+      MessageDlg('Informe uma Descrição para o Modulo.',mtWarning,[mbOK],0);
+      Abort;
+    end;
+end;
+
 procedure TBancoDeDados.qryCadMovimentoEstoqueAfterInsert(DataSet: TDataSet);
 begin
   qryCadMovimentoEstoqueidmovimento_estoque.Value := GeraSequenciador(EstProcSequenciador,'lanmovimento_estoque','idmovimento_estoque');
@@ -678,22 +730,47 @@ end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueBeforePost(DataSet: TDataSet);
 begin
-  if not ((qryCadMovimentoEstoqueidoperacao_estoque.Value > 0) then
+  if not ((qryCadMovimentoEstoqueidoperacao_estoque.Value > 0)) then
     begin
       MessageDlg('Informe uma Operação de Estoque.',mtWarning,[mbOK],0);
       Abort;
     end
   else
-    if (TipoOperacao = toInsere) then
+    if not ((qryCadMovimentoEstoquetipo.Value > 0)) then
       begin
-        try
-          GravaSequenciador(Conexao, 'lanmovimento_estoque', 'idmovimento_estoque', qryCadMovimentoEstoqueidmovimento_estoque.Value);
-        except
-          MessageDlg('Falha ao tentar gravar o numero seuquencial.'+#13+
-              ' A operação será cancelada.',mtWarning,[mbOK],0);
-          Abort;
+        MessageDlg('Informe um Tipo de Movimento de Estoque.',mtWarning,[mbOK],0);
+        Abort;
+      end
+    else
+      if (TipoOperacao = toInsere) then
+        begin
+          try
+            GravaSequenciador(Conexao, 'lanmovimento_estoque', 'idmovimento_estoque', qryCadMovimentoEstoqueidmovimento_estoque.Value);
+          except
+            MessageDlg('Falha ao tentar gravar o numero seuquencial.'+#13+
+                ' A operação será cancelada.',mtWarning,[mbOK],0);
+            Abort;
+          end;
         end;
-      end;
+end;
+
+procedure TBancoDeDados.qryCadMovimentoEstoqueItensBeforeInsert(
+  DataSet: TDataSet);
+begin
+  if not (qryCadMovimentoEstoque.State in [dsEdit, dsInsert]) then
+    qryCadMovimentoEstoque.Edit;
+  qryCadMovimentoEstoque.Post;
+end;
+
+procedure TBancoDeDados.qryCadMovimentoEstoqueItensBeforePost(
+  DataSet: TDataSet);
+begin
+  qryCadMovimentoEstoqueItensidmovimento_estoque.Value := qryCadMovimentoEstoqueidmovimento_estoque.Value;
+  if not ((qryCadMovimentoEstoqueItensidproduto.Value > 0)) then
+    begin
+      MessageDlg('Informe um Produto.',mtWarning,[mbOK],0);
+      Abort;
+    end
 end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueItensCalcFields(
@@ -718,6 +795,27 @@ begin
       MessageDlg('Informe uma Descrição para a Operação de Estoque.',mtWarning,[mbOK],0);
       Abort;
     end;
+end;
+
+procedure TBancoDeDados.qryCadParametrosBeforeDelete(DataSet: TDataSet);
+begin
+  if (MessageDlg('Deseja Excluir o registro?',mtWarning,[mbYes,mbNo],0) = mrNo) then
+    Abort;
+end;
+
+procedure TBancoDeDados.qryCadParametrosBeforePost(DataSet: TDataSet);
+begin
+  if not (qryCadParametrosDescricao.Value <> '') then
+    begin
+      MessageDlg('Informe uma Descrição para o Modulo.',mtWarning,[mbOK],0);
+      Abort;
+    end
+  else
+    if not (qryCadParametrosidmodulo.Value > 0)  then
+      begin
+        MessageDlg('Informe uma Descrição para o Modulo.',mtWarning,[mbOK],0);
+        Abort;
+      end;    
 end;
 
 procedure TBancoDeDados.qryCadPrecoBeforePost(DataSet: TDataSet);
