@@ -1805,10 +1805,14 @@ object BancoDeDados: TBancoDeDados
     Connection = Conexao
     OnCalcFields = qryCsProdutoCalcFields
     SQL.Strings = (
-      'select * from cadproduto')
+      'select sequenciador('#39'cadbeneficiario'#39','#39'idbeneficiario'#39')as id')
     Params = <>
     Left = 152
     Top = 13
+    object qryCsSequenciadorid: TIntegerField
+      FieldName = 'id'
+      ReadOnly = True
+    end
   end
   object EstProcSequenciador: TZStoredProc
     Connection = Conexao
@@ -1902,6 +1906,7 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCsMovimentoEstoqueidmovimento_estoque: TIntegerField
       FieldName = 'idmovimento_estoque'
+      DisplayFormat = '000000'
     end
     object qryCsMovimentoEstoquetipo: TSmallintField
       FieldName = 'tipo'
@@ -2262,7 +2267,6 @@ object BancoDeDados: TBancoDeDados
     Top = 688
     object qryCsMovimentoEstoqueItensidmovimento_estoque_itens: TIntegerField
       FieldName = 'idmovimento_estoque_itens'
-      Required = True
       DisplayFormat = '000000'
     end
     object qryCsMovimentoEstoqueItensidmovimento_estoque: TIntegerField
@@ -2274,6 +2278,14 @@ object BancoDeDados: TBancoDeDados
       FieldName = 'idproduto'
       DisplayFormat = '000000'
     end
+    object qryCsMovimentoEstoqueItensdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 60
+    end
+    object qryCsMovimentoEstoqueItensreferencia: TStringField
+      FieldName = 'referencia'
+      Size = 25
+    end
     object qryCsMovimentoEstoqueItensunidade: TStringField
       FieldName = 'unidade'
       Size = 3
@@ -2282,31 +2294,13 @@ object BancoDeDados: TBancoDeDados
       FieldName = 'quantidade'
       DisplayFormat = ',0.00'
     end
-    object qryCsMovimentoEstoqueItenscalc_descricao_produto: TStringField
-      FieldKind = fkLookup
-      FieldName = 'calc_descricao_produto'
-      LookupDataSet = qryCsProduto
-      LookupKeyFields = 'idproduto'
-      LookupResultField = 'descricao'
-      KeyFields = 'idproduto'
-      Lookup = True
-    end
-    object qryCsMovimentoEstoqueItenscalc_referencia_produto: TStringField
-      FieldKind = fkLookup
-      FieldName = 'calc_referencia_produto'
-      LookupDataSet = qryCsProduto
-      LookupKeyFields = 'idproduto'
-      LookupResultField = 'referencia'
-      KeyFields = 'idproduto'
-      Lookup = True
-    end
     object qryCsMovimentoEstoqueItenspreco_unitario: TFloatField
       FieldName = 'preco_unitario'
       DisplayFormat = ',0.00'
     end
-    object qryCsMovimentoEstoqueItenstotal: TCurrencyField
+    object qryCsMovimentoEstoqueItenscalc_total: TCurrencyField
       FieldKind = fkCalculated
-      FieldName = 'total'
+      FieldName = 'calc_total'
       Calculated = True
     end
   end
@@ -2314,6 +2308,7 @@ object BancoDeDados: TBancoDeDados
     Connection = Conexao
     OnCalcFields = qryCadMovimentoEstoqueItensCalcFields
     BeforeInsert = qryCadMovimentoEstoqueItensBeforeInsert
+    AfterInsert = qryCadMovimentoEstoqueItensAfterInsert
     BeforePost = qryCadMovimentoEstoqueItensBeforePost
     SQL.Strings = (
       'select * from lanmovimento_estoque_itens')
@@ -2322,7 +2317,6 @@ object BancoDeDados: TBancoDeDados
     Top = 736
     object qryCadMovimentoEstoqueItensidmovimento_estoque_itens: TIntegerField
       FieldName = 'idmovimento_estoque_itens'
-      Required = True
       DisplayFormat = '000000'
     end
     object qryCadMovimentoEstoqueItensidmovimento_estoque: TIntegerField
@@ -2334,6 +2328,14 @@ object BancoDeDados: TBancoDeDados
       FieldName = 'idproduto'
       DisplayFormat = '000000'
     end
+    object qryCadMovimentoEstoqueItensdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 60
+    end
+    object qryCadMovimentoEstoqueItensreferencia: TStringField
+      FieldName = 'referencia'
+      Size = 25
+    end
     object qryCadMovimentoEstoqueItensunidade: TStringField
       FieldName = 'unidade'
       Size = 3
@@ -2342,32 +2344,13 @@ object BancoDeDados: TBancoDeDados
       FieldName = 'quantidade'
       DisplayFormat = ',0.00'
     end
-    object qryCadMovimentoEstoqueItenscalc_descricao_produto: TStringField
-      FieldKind = fkLookup
-      FieldName = 'calc_descricao_produto'
-      LookupDataSet = qryCsProduto
-      LookupKeyFields = 'idproduto'
-      LookupResultField = 'descricao'
-      KeyFields = 'idproduto'
-      Lookup = True
-    end
-    object qryCadMovimentoEstoqueItenscalc_referencia_produto: TStringField
-      FieldKind = fkLookup
-      FieldName = 'calc_referencia_produto'
-      LookupDataSet = qryCsProduto
-      LookupKeyFields = 'idproduto'
-      LookupResultField = 'referencia'
-      KeyFields = 'idproduto'
-      Lookup = True
-    end
     object qryCadMovimentoEstoqueItenspreco_unitario: TFloatField
       FieldName = 'preco_unitario'
       DisplayFormat = ',0.00'
     end
-    object qryCadMovimentoEstoqueItenstotal: TCurrencyField
+    object qryCadMovimentoEstoqueItenscalc_total: TCurrencyField
       FieldKind = fkCalculated
-      FieldName = 'total'
-      DisplayFormat = ',0.00'
+      FieldName = 'calc_total'
       Calculated = True
     end
   end
@@ -2397,7 +2380,7 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCsParametrosdescricao: TStringField
       FieldName = 'descricao'
-      Size = 25
+      Size = 60
     end
     object qryCsParametrosvalor: TStringField
       FieldName = 'valor'
@@ -2442,7 +2425,7 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCadParametrosdescricao: TStringField
       FieldName = 'descricao'
-      Size = 25
+      Size = 60
     end
     object qryCadParametrosidmodulo: TIntegerField
       FieldName = 'idmodulo'
@@ -2472,7 +2455,7 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCsModulosdescricao: TStringField
       FieldName = 'descricao'
-      Size = 25
+      Size = 60
     end
     object qryCsModulosdata_cadastro: TDateTimeField
       FieldName = 'data_cadastro'
@@ -2496,7 +2479,7 @@ object BancoDeDados: TBancoDeDados
     end
     object qryCadModulosdescricao: TStringField
       FieldName = 'descricao'
-      Size = 25
+      Size = 60
     end
     object qryCadModulosdata_cadastro: TDateTimeField
       FieldName = 'data_cadastro'

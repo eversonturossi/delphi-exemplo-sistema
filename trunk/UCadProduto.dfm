@@ -23,7 +23,7 @@ object CadProdutoForm: TCadProdutoForm
     Top = 0
     Width = 960
     Height = 626
-    ActivePage = tsConsulta
+    ActivePage = tsManutencao
     Align = alClient
     TabOrder = 0
     object tsConsulta: TTabSheet

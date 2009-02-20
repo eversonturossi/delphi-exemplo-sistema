@@ -514,28 +514,10 @@ type
     DSqryCadMovimentoEstoqueItens: TDataSource;
     qryCsMovimentoEstoquecalc_nome_fornecedor: TStringField;
     qryCadMovimentoEstoquecalc_nome_fornecedor: TStringField;
-    qryCsMovimentoEstoqueItensidmovimento_estoque_itens: TIntegerField;
-    qryCsMovimentoEstoqueItensidmovimento_estoque: TIntegerField;
-    qryCsMovimentoEstoqueItensidproduto: TIntegerField;
-    qryCsMovimentoEstoqueItensunidade: TStringField;
-    qryCsMovimentoEstoqueItensquantidade: TFloatField;
-    qryCadMovimentoEstoqueItensidmovimento_estoque_itens: TIntegerField;
-    qryCadMovimentoEstoqueItensidmovimento_estoque: TIntegerField;
-    qryCadMovimentoEstoqueItensidproduto: TIntegerField;
-    qryCadMovimentoEstoqueItensunidade: TStringField;
-    qryCadMovimentoEstoqueItensquantidade: TFloatField;
     qryCsMovimentoEstoqueidmovimento_estoque: TIntegerField;
     qryCadMovimentoEstoqueidmovimento_estoque: TIntegerField;
     qryCsMovimentoEstoquetipo: TSmallintField;
     qryCadMovimentoEstoquetipo: TSmallintField;
-    qryCsMovimentoEstoqueItenscalc_descricao_produto: TStringField;
-    qryCsMovimentoEstoqueItenscalc_referencia_produto: TStringField;
-    qryCadMovimentoEstoqueItenscalc_descricao_produto: TStringField;
-    qryCadMovimentoEstoqueItenscalc_referencia_produto: TStringField;
-    qryCadMovimentoEstoqueItenspreco_unitario: TFloatField;
-    qryCsMovimentoEstoqueItenspreco_unitario: TFloatField;
-    qryCadMovimentoEstoqueItenstotal: TCurrencyField;
-    qryCsMovimentoEstoqueItenstotal: TCurrencyField;
     qryCsMovimentoEstoqueprocessado: TBooleanField;
     qryCadMovimentoEstoqueprocessado: TBooleanField;
     qryCsParametros: TZReadOnlyQuery;
@@ -567,6 +549,25 @@ type
     qryCadModulosdescricao: TStringField;
     qryCadModulosdata_cadastro: TDateTimeField;
     qryCsParametroscalc_descricao_modulo: TStringField;
+    qryCsMovimentoEstoqueItensidmovimento_estoque_itens: TIntegerField;
+    qryCsMovimentoEstoqueItensidmovimento_estoque: TIntegerField;
+    qryCsMovimentoEstoqueItensidproduto: TIntegerField;
+    qryCsMovimentoEstoqueItensdescricao: TStringField;
+    qryCsMovimentoEstoqueItensreferencia: TStringField;
+    qryCsMovimentoEstoqueItensunidade: TStringField;
+    qryCsMovimentoEstoqueItensquantidade: TFloatField;
+    qryCsMovimentoEstoqueItenspreco_unitario: TFloatField;
+    qryCsMovimentoEstoqueItenscalc_total: TCurrencyField;
+    qryCadMovimentoEstoqueItensidmovimento_estoque_itens: TIntegerField;
+    qryCadMovimentoEstoqueItensidmovimento_estoque: TIntegerField;
+    qryCadMovimentoEstoqueItensidproduto: TIntegerField;
+    qryCadMovimentoEstoqueItensdescricao: TStringField;
+    qryCadMovimentoEstoqueItensreferencia: TStringField;
+    qryCadMovimentoEstoqueItensunidade: TStringField;
+    qryCadMovimentoEstoqueItensquantidade: TFloatField;
+    qryCadMovimentoEstoqueItenspreco_unitario: TFloatField;
+    qryCadMovimentoEstoqueItenscalc_total: TCurrencyField;
+    qryCsSequenciadorid: TIntegerField;
     procedure qryCadClienteBeforeDelete(DataSet: TDataSet);
     procedure qryCadClienteBeforePost(DataSet: TDataSet);
     procedure qryCadGrupoBeforeDelete(DataSet: TDataSet);
@@ -607,6 +608,7 @@ type
     procedure qryCadParametrosBeforePost(DataSet: TDataSet);
     procedure qryCadMovimentoEstoqueItensBeforePost(DataSet: TDataSet);
     procedure qryCadMovimentoEstoqueItensBeforeInsert(DataSet: TDataSet);
+    procedure qryCadMovimentoEstoqueItensAfterInsert(DataSet: TDataSet);
    
   private
     { Private declarations }
@@ -713,7 +715,7 @@ end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueAfterInsert(DataSet: TDataSet);
 begin
-  qryCadMovimentoEstoqueidmovimento_estoque.Value := GeraSequenciador(EstProcSequenciador,'lanmovimento_estoque','idmovimento_estoque');
+  qryCadMovimentoEstoqueidmovimento_estoque.Value := GeraSequenciador(qryCsSequenciador,'lanmovimento_estoque','idmovimento_estoque');
 end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueBeforeDelete(DataSet: TDataSet);
@@ -730,28 +732,33 @@ end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueBeforePost(DataSet: TDataSet);
 begin
-  if not ((qryCadMovimentoEstoqueidoperacao_estoque.Value > 0)) then
+  if not (qryCadMovimentoEstoqueidoperacao_estoque.Value > 0) then
     begin
       MessageDlg('Informe uma Operação de Estoque.',mtWarning,[mbOK],0);
       Abort;
     end
   else
-    if not ((qryCadMovimentoEstoquetipo.Value > 0)) then
+    if (qryCadMovimentoEstoquetipo.IsNull) then
       begin
         MessageDlg('Informe um Tipo de Movimento de Estoque.',mtWarning,[mbOK],0);
         Abort;
-      end
-    else
-      if (TipoOperacao = toInsere) then
-        begin
-          try
-            GravaSequenciador(Conexao, 'lanmovimento_estoque', 'idmovimento_estoque', qryCadMovimentoEstoqueidmovimento_estoque.Value);
-          except
-            MessageDlg('Falha ao tentar gravar o numero seuquencial.'+#13+
-                ' A operação será cancelada.',mtWarning,[mbOK],0);
-            Abort;
-          end;
-        end;
+      end;
+  if (TipoOperacao = toInsere) then
+    begin
+      try
+        GravaSequenciador(Conexao, 'lanmovimento_estoque', 'idmovimento_estoque', qryCadMovimentoEstoqueidmovimento_estoque.Value);
+      except
+        MessageDlg('Falha ao tentar gravar o numero seuquencial.'+#13+
+            ' A operação será cancelada.',mtWarning,[mbOK],0);
+        Abort;
+      end;
+    end;
+end;
+
+procedure TBancoDeDados.qryCadMovimentoEstoqueItensAfterInsert(
+  DataSet: TDataSet);
+begin
+   qryCadMovimentoEstoqueItensquantidade.Value := 1;
 end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueItensBeforeInsert(
@@ -770,16 +777,16 @@ begin
     begin
       MessageDlg('Informe um Produto.',mtWarning,[mbOK],0);
       Abort;
-    end
+    end;
 end;
 
 procedure TBancoDeDados.qryCadMovimentoEstoqueItensCalcFields(
   DataSet: TDataSet);
 begin
   if (qryCadMovimentoEstoqueItenspreco_unitario.Value > 0) then
-    qryCadMovimentoEstoqueItenstotal.Value := (qryCadMovimentoEstoqueItensquantidade.Value * qryCadMovimentoEstoqueItenspreco_unitario.Value)
+    qryCadMovimentoEstoqueItenscalc_total.Value := (qryCadMovimentoEstoqueItensquantidade.Value * qryCadMovimentoEstoqueItenspreco_unitario.Value)
   else
-    qryCadMovimentoEstoqueItenstotal.Value := 0;
+    qryCadMovimentoEstoqueItenscalc_total.Value := 0;
 end;
 
 procedure TBancoDeDados.qryCadOperacaoEstoqueBeforeDelete(DataSet: TDataSet);
@@ -829,7 +836,7 @@ end;
 
 procedure TBancoDeDados.qryCadprodutoAfterInsert(DataSet: TDataSet);
 begin
-  qryCadprodutoidproduto.Value := GeraSequenciador(EstProcSequenciador, 'cadproduto', 'idproduto');
+  qryCadprodutoidproduto.Value := GeraSequenciador(qryCsSequenciador, 'cadproduto', 'idproduto');
 end;
 
 procedure TBancoDeDados.qryCadprodutoBeforeDelete(DataSet: TDataSet);

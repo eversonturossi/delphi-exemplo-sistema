@@ -370,7 +370,7 @@ begin
       else
         begin
            PrecoID := 0;
-           PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
+           PrecoID := GeraSequenciador(BancoDeDados.qryCsSequenciador, 'cadpreco', 'idpreco');
            BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo,preco_venda)values(' +
              QuotedStr(IntToStr(PrecoID))   + ','                                            +
              QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
@@ -400,7 +400,7 @@ begin
         else
           begin
              PrecoID := 0;
-             PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
+             PrecoID := GeraSequenciador(BancoDeDados.qryCsSequenciador, 'cadpreco', 'idpreco');
              BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo,preco_venda)values(' +
                QuotedStr(IntToStr(PrecoID))   + ','                                            +
                QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
@@ -516,7 +516,7 @@ begin
     else
       begin
         PrecoID := 0;
-        PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
+        PrecoID := GeraSequenciador(BancoDeDados.qryCsSequenciador, 'cadpreco', 'idpreco');
         BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo)values(' +
           QuotedStr(IntToStr(PrecoID))   + ','                                            +
           QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +
@@ -577,7 +577,7 @@ begin
     else
       begin
         PrecoID := 0;
-        PrecoID := GeraSequenciador(BancoDeDados.EstProcSequenciador, 'cadpreco', 'idpreco');
+        PrecoID := GeraSequenciador(BancoDeDados.qryCsSequenciador, 'cadpreco', 'idpreco');
         BancoDeDados.ProcScripts.Script.Text := 'insert into cadpreco(idpreco, idproduto,tipo)values(' +
           QuotedStr(IntToStr(PrecoID))   + ','                                            +
           QuotedStr(IntToStr(BancoDeDados.qryCadprodutoidproduto.Value)) + ','            +

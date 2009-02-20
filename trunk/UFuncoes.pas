@@ -9,10 +9,11 @@ uses
   function TestaInteiro(Valor : ShortString): Boolean;
   procedure GravaHistorico(Conexao : TZConnection ; descricao, ip, host : String ;
       Modulo, Usuario, Acao : Integer);
-  function GeraSequenciador(EstProcedure : TZStoredProc ; Tabela, Campo : ShortString): Integer;
+  function GeraSequenciador(Query : TZReadOnlyQuery ; Tabela, Campo : ShortString): Integer;
   procedure GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer);
   procedure AbreTabela(Query : TZReadOnlyQuery ; Tabela : ShortString);
   procedure CriaForm(frmClass: TFormClass; out NewObj);
+  function Parametro(Query : TZReadOnlyQuery ; ParametroId, ModuloId : Integer ; ValorPadrao : ShortString): ShortString;
 
 type
   TTipoOperacao = (toInsere, toAltera, toNenhuma);
@@ -71,19 +72,21 @@ begin
      FreeAndNil(Script);
   end;
 end;
-function GeraSequenciador(EstProcedure : TZStoredProc ; Tabela, Campo : ShortString): Integer;
+function GeraSequenciador(Query : TZReadOnlyQuery ; Tabela, Campo : ShortString): Integer;
 begin
-  with EstProcedure do
+  with Query do
     begin
       try
-        Params[0].Value := Tabela;
-        Params[1].Value := Campo;
-        Result := Params[2].Value;
+        Close;
+        SQL.Clear;
+        SQL.Add('select * from sequenciador(' + QuotedStr(Tabela) + ',' +
+            QuotedStr(Campo) + ') as id');
+        Open;
+        Result := Fields[0].Value;
       except
         Result := 0;
       end;
     end;
-
 end;
 procedure GravaSequenciador(Conexao : TZConnection ; Tabela, Campo : String ; IdAtual : Integer);
 var
@@ -125,6 +128,28 @@ begin
     TForm(NewObj).ShowModal;
   finally
     FreeAndNil(NewObj);
+  end;
+end;
+function Parametro(Query : TZReadOnlyQuery ; ParametroId, ModuloId : Integer ; ValorPadrao : ShortString): ShortString;
+begin
+  try
+    with Query do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select * from parametros where ativo = ' + QuotedStr('TRUE') +
+        ' and idmodulo = ' + IntToStr(ModuloId) + ' and idparametro = ' +
+        IntToStr(ParametroId));
+      Open;
+    end;
+    
+  if not (Query.IsEmpty) then
+    Result := Query.Fields[3].Value
+  else
+    Result := ValorPadrao;
+    
+  except
+    Result := ValorPadrao;
   end;
 end;
 end.

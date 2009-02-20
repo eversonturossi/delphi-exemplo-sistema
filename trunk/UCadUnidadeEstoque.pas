@@ -74,6 +74,7 @@ type
 
 var
   CadUnidadeEstoqueForm: TCadUnidadeEstoqueForm;
+  UnidadeEstoqueID : Integer;
 
 implementation
 uses Base, UFuncoes;
@@ -109,7 +110,7 @@ end;
 
 procedure TCadUnidadeEstoqueForm.BTGravarClick(Sender: TObject);
 begin
-  BancoDeDados.qryCadUnidadeEstoque.ApplyUpdates;
+  BancoDeDados.qryCadUnidadeEstoque.Post;
   AbaSuperior.ActivePage := tsConsulta;
 end;
 
@@ -208,7 +209,7 @@ end;
 
 procedure TCadUnidadeEstoqueForm.tsManutencaoShow(Sender: TObject);
 begin
-  if not (BancodeDados.qryCsUnidadeEstoque.State in [dsInsert]) then
+  if not (BancodeDados.qryCadUnidadeEstoque.State in [dsInsert]) then
     with BancoDeDados.qryCadUnidadeEstoque do
       begin
         Close;

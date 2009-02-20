@@ -24,7 +24,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
     Top = 0
     Width = 955
     Height = 573
-    ActivePage = tsManutencao
+    ActivePage = tsConsulta
     Align = alClient
     TabOrder = 0
     object tsConsulta: TTabSheet
@@ -141,6 +141,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         DataSource = BancoDeDados.DSqryCsMovimentoEstoque
         FixedColor = 8673536
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        PopupMenu = PopupMenu2
         ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -148,6 +149,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDrawColumnCell = DBGrid1DrawColumnCell
         OnDblClick = DBGrid1DblClick
         Columns = <
           item
@@ -520,6 +522,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
         DataSource = BancoDeDados.DSqryCadMovimentoEstoqueItens
         FixedColor = 8673536
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgConfirmDelete, dgCancelOnExit]
+        PopupMenu = PopupMenu1
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -543,27 +546,29 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
             Visible = True
           end
           item
+            ButtonStyle = cbsNone
             Expanded = False
-            FieldName = 'calc_referencia_produto'
+            FieldName = 'referencia'
             Title.Caption = 'Referencia'
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clWhite
             Title.Font.Height = -11
             Title.Font.Name = 'Microsoft Sans Serif'
             Title.Font.Style = []
-            Width = 170
+            Width = 150
             Visible = True
           end
           item
+            ButtonStyle = cbsEllipsis
             Expanded = False
-            FieldName = 'calc_descricao_produto'
+            FieldName = 'descricao'
             Title.Caption = 'Descri'#231#227'o'
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clWhite
             Title.Font.Height = -11
             Title.Font.Name = 'Microsoft Sans Serif'
             Title.Font.Style = []
-            Width = 320
+            Width = 350
             Visible = True
           end
           item
@@ -604,14 +609,15 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           end
           item
             Expanded = False
-            FieldName = 'total'
+            FieldName = 'calc_total'
+            ReadOnly = True
             Title.Caption = 'Total'
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clWhite
             Title.Font.Height = -11
             Title.Font.Name = 'Microsoft Sans Serif'
             Title.Font.Style = []
-            Width = 90
+            Width = 80
             Visible = True
           end>
       end
@@ -835,6 +841,7 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
           ParentFont = False
           TabOrder = 5
           OnChange = CBTipoChange
+          OnKeyDown = CBTipoKeyDown
           Items.Strings = (
             'Entrada'
             'Saida')
@@ -843,12 +850,37 @@ object LanMovimentoEstoqueForm: TLanMovimentoEstoqueForm
     end
   end
   object ActionList1: TActionList
-    Left = 80
-    Top = 32
+    Left = 400
+    Top = 8
     object Action1: TAction
       Caption = 'Action1'
       ShortCut = 45
       OnExecute = Action1Execute
+    end
+    object Action2: TAction
+      Caption = 'Action2'
+      ShortCut = 113
+      OnExecute = Action2Execute
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 368
+    Top = 8
+    object ExcluirItem1: TMenuItem
+      Caption = 'Excluir Item'
+      OnClick = ExcluirItem1Click
+    end
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 368
+    Top = 40
+    object ProcessarLanamento1: TMenuItem
+      Caption = 'Processar Lan'#231'amento'
+      OnClick = ProcessarLanamento1Click
+    end
+    object DesprocessarLanamento1: TMenuItem
+      Caption = 'Desprocessar Lan'#231'amento'
+      OnClick = DesprocessarLanamento1Click
     end
   end
 end
