@@ -1,0 +1,7 @@
+TELEFONE:
+   
+   *Verificar necessidade ou não desta tabela.
+
+USUARIO:
+
+   *Colocar criptografia na senha.
