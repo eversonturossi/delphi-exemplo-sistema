@@ -72,13 +72,12 @@ begin
         WriteLn(F, #20 + 'Bairro: ' + Bairro + #18);
         WriteLn(F, #20 + 'Telefone: ' + Telefone + ' CNPJ: ' + CNPJ + #18);
         WriteLn(F, #20 + '================================================' + #18);
-        //Centro := (53 - Length('IMPRESSAO DE COMANDA')) div 2;
-        //WriteLn(F, #20 + Copy(Repl(' ',Centro), 1, Centro) + 'IMPRESSAO DE COMANDA' +
-          //Copy(Repl(' ',Centro), 1, Centro) + #18);
+        
         Centro := (48 - Length('Mesa: ' + FormatFloat('000', BancoDados.qryAuxiliar.Fields[0].Value))) div 2;
         WriteLn(F, #20 + Copy(Repl(' ',Centro), 1, Centro) +
           RetornaMaiuscula(RetornaSemAcento('Mesa: ' + FormatFloat('000', BancoDados.qryAuxiliar.Fields[0].Value))) +
           Copy(Repl(' ',Centro), 1, Centro) + #18);
+
         WriteLn(F, #20 + 'Data: ' + DateToStr(Date) + ' Hora: ' + TimeToStr(time) + #18);
         WriteLn(F, #20 + 'Comanda: ' + FormatFloat('0000000000', ComandaID) + #18);
         WriteLn(F, #20 + '================================================' + #18);
