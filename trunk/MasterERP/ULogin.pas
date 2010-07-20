@@ -74,7 +74,9 @@ begin
             Open;
           end;
         if not (BancoDados.qryLogin.IsEmpty) then
-          Logado := True
+          begin
+            Logado := True;
+          end
         else
           Mensagem('Usuário não Encontrado.', mtWarning,[mbOk],mrOK,0);
         Close;
@@ -114,7 +116,23 @@ begin
   PEmpresa.Visible := (Parametro(BancoDados.qryAuxiliar, 2, 'NAO') = 'SIM');
 
   if (PEmpresa.Visible) then
-    Height := 420
+    begin
+      Height := 420;
+
+      BancoDados.CDSEmpresa.Close;
+      BancoDados.qryEmpresa.SQL.Text := 'select * from empresa where pessoa_id' +
+        'in(select pessoa_id where pessoa where ativo = 1)';
+      BancoDados.CDSEmpresa.Open;
+      BancoDados.CDSEmpresa.First;
+
+      CBEmpresa.Items.Clear;
+      while not BancoDados.CDSEmpresa.Eof do
+        begin
+          CBEmpresa.Items.Add(FormatFloat('0000000000', BancoDados.CDSEmpresaEMPRESA_ID.Value) +
+            ' - ' + BancoDados.CDSEmpresacalc_pessoa_nome.Value);
+          BancoDados.CDSEmpresa.Next;
+        end;
+    end
   else
     Height := 360;
 end;

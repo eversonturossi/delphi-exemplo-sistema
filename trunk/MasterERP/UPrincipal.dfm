@@ -17,6 +17,7 @@ object PrincipalForm: TPrincipalForm
   OldCreateOrder = False
   Position = poDesigned
   WindowState = wsMaximized
+  OnClick = AGrupoProdutoExecute
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow

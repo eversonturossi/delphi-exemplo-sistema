@@ -187,8 +187,6 @@ begin
   if FileExists(Path + 'MasterERP.ini') then
     begin
       ArquivoIni := TIniFile.Create(Path + 'MasterERP.ini');
-      //Base64DecodeStr(ArquivoIni.ReadString('Conexao', 'Snh', BancoDados.Conexao.Params.Values['Password']));
-      //ArquivoIni.ReadString('Conexao', 'Login', BancoDados.Conexao.Params.Values['User_Name']);
       BancoDados.Conexao.Params.Values['DataBase'] := ArquivoIni.ReadString('Conexao', 'DataBase', '');
 
       try

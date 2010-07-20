@@ -193,14 +193,10 @@ end;
 
 procedure TCadastroEmpresaForm.VerificaUsuarios;
 var
-  i, QtdElementos : Integer;
+  i, Elementos : Integer;
   Empresas : Array of Integer;
 begin
   try
-    SetLength(Empresas, 1);
-    Empresas[1] := CDSCadastroEMPRESA_ID.Value;
-    inc(QtdElementos);
-
     if (CDSCadastroFILIAL.Value = 0) then
       begin
         CDSEmpresaFilial.Close;
@@ -214,12 +210,27 @@ begin
             CDSEmpresaFilial.First;
             SetLength(Empresas, CDSEmpresaFilial.RecordCount + 1);
 
-            for i := 2 to CDSEmpresaFilial.RecordCount do
+            Empresas[0] := CDSCadastroEMPRESA_ID.Value;
+            inc(Elementos);
+
+            for i := 1 to CDSEmpresaFilial.RecordCount do
               begin
                 Empresas[i] := CDSEmpresaFilial.Fields[0].Value;
-                inc(QtdElementos);
+                inc(Elementos);
               end;
+          end
+        else
+          begin
+            SetLength(Empresas, 1);
+            Empresas[0] := CDSCadastroEMPRESA_ID.Value;
+            inc(Elementos);
           end;
+      end
+    else
+      begin
+        SetLength(Empresas, 1);
+        Empresas[1] := CDSCadastroEMPRESA_ID.Value;
+        inc(Elementos);
       end;
 
     with CDSEmpresaUsuario do
@@ -230,15 +241,17 @@ begin
           while not Eof do
             begin
               BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
-              for i := 1 to QtdElementos do
+              for i := 0 to (Elementos - 1) do
                 begin
                   with BancoDados.qryAuxiliar do
                     begin
                       Close;
                       SQL.Text := 'select usuario_id from empresa_usuario where empresa_id = ' +
-                        IntToStr(Empresas[i]);
+                        IntToStr(Empresas[i]) + ' and usuario_id = ' +
+                        IntToStr(CDSEmpresaUsuarioUSUARIO_ID.Value);
                       Open;
                     end;
+
                   if (CDSEmpresaUsuarioLIBERADO.Value = 1) then
                     begin
                       if (BancoDados.qryAuxiliar.IsEmpty) then
@@ -269,7 +282,7 @@ begin
         end;
       end;
   finally
-    FinalizeArray(Empresas, Integer, nil);
+    FreeMemory(Empresas);
   end;
 end;
 
@@ -746,9 +759,11 @@ begin
             begin
               Close;
               SQL.Text := 'select usuario_id from empresa_usuario where empresa_id = ' +
-                IntToStr(CDSCadastroEMPRESA_ID.Value);
+                IntToStr(CDSCadastroEMPRESA_ID.Value) + ' and usuario_id = ' +
+                IntToStr(CDSEmpresaUsuarioUSUARIO_ID.Value);
               Open;
             end;
+
           if not (BancoDados.qryAuxiliar.IsEmpty) then
             CDSEmpresaUsuarioLIBERADO.Value := 1
           else
