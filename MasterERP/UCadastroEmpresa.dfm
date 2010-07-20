@@ -44,7 +44,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       Top = 84
       Width = 655
       Height = 450
-      ActivePage = TSCadastro
+      ActivePage = TSUsuario
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange

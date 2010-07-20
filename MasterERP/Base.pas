@@ -237,6 +237,14 @@ type
     CDSPessoaEnderecocalc_municipio_uf: TStringField;
     CDSPessoaContatoVALOR: TStringField;
     CDSPessoaContatocalc_contato_tipo_descricao: TStringField;
+    CDSEmpresa: TClientDataSet;
+    DSPEmpresa: TDataSetProvider;
+    qryEmpresa: TSQLQuery;
+    CDSEmpresaEMPRESA_ID: TIntegerField;
+    CDSEmpresaPESSOA_ID: TIntegerField;
+    CDSEmpresaFILIAL: TSmallintField;
+    CDSEmpresaTIPO: TStringField;
+    CDSEmpresacalc_pessoa_nome: TStringField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -260,6 +268,7 @@ type
     procedure CDSPessoaBeforeDelete(DataSet: TDataSet);
     procedure CDSPessoaEnderecoCalcFields(DataSet: TDataSet);
     procedure CDSPessoaContatoCalcFields(DataSet: TDataSet);
+    procedure CDSEmpresaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -267,7 +276,7 @@ type
   public
     { Public declarations }
     Transacao: TTransactionDesc;
-    EmpresaID : Integer;
+    EmpresaID, Filial : Integer;
     imgNovo, imgAlterar, imgExcluir, imgReverter,
     imgSalvar, imgExcel, imgSair, imgLogin,
     imgOkLogin, imgCancelarLogin, imgFechar, imgCancelar, imgConfirmar,
@@ -390,6 +399,19 @@ begin
       CDSPessoaEnderecocalc_municipio_nome.Value := qryAuxiliar.Fields[0].Value;
       CDSPessoaEnderecocalc_municipio_uf.Value := qryAuxiliar.Fields[1].Value;
     end;
+end;
+
+procedure TBancoDados.CDSEmpresaCalcFields(DataSet: TDataSet);
+begin
+  with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select nome_razao where pessoa where pessoa_id = ' +
+        IntToStr(CDSEmpresaPESSOA_ID.Value);
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSEmpresacalc_pessoa_nome.Value := qryAuxiliar.Fields[0].Value;
 end;
 
 procedure TBancoDados.CDSPessoaAfterCancel(DataSet: TDataSet);

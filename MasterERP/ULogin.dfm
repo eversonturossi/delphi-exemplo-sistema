@@ -74,9 +74,6 @@ object LoginForm: TLoginForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 4
-    ExplicitLeft = 23
-    ExplicitTop = -136
-    ExplicitHeight = 500
     object JvGradientHeaderPanel1: TJvGradientHeaderPanel
       Left = 1
       Top = 1
@@ -94,8 +91,6 @@ object LoginForm: TLoginForm
       LabelAlignment = taCenter
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 2
-      ExplicitHeight = 498
     end
   end
   object Panel8: TPanel
@@ -111,8 +106,6 @@ object LoginForm: TLoginForm
       Height = 105
       Align = alTop
       TabOrder = 0
-      ExplicitTop = 113
-      ExplicitWidth = 265
       object Label4: TLabel
         Left = 11
         Top = 6
@@ -179,8 +172,6 @@ object LoginForm: TLoginForm
       Height = 65
       Align = alTop
       TabOrder = 1
-      ExplicitTop = 213
-      ExplicitWidth = 265
       object BTCancelar: TBitBtn
         Left = 155
         Top = 8

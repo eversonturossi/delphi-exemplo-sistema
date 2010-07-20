@@ -11,9 +11,7 @@
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
-      
-        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
-        'b\MASTERERP.FDB'
+      'Database=localhost:G:\Fontes\MasterERP\db\MASTERERP.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -27,6 +25,7 @@
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
     VendorLib = 'fbclient.dll'
+    Connected = True
     Left = 32
     Top = 16
   end
@@ -1138,6 +1137,49 @@
         ' 0')
     SQLConnection = Conexao
     Left = 600
+    Top = 71
+  end
+  object CDSEmpresa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPEmpresa'
+    OnCalcFields = CDSEmpresaCalcFields
+    Left = 636
+    Top = 160
+    object CDSEmpresaEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSEmpresaPESSOA_ID: TIntegerField
+      FieldName = 'PESSOA_ID'
+    end
+    object CDSEmpresaFILIAL: TSmallintField
+      FieldName = 'FILIAL'
+    end
+    object CDSEmpresaTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object CDSEmpresacalc_pessoa_nome: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_pessoa_nome'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPEmpresa: TDataSetProvider
+    DataSet = qryEmpresa
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 634
+    Top = 114
+  end
+  object qryEmpresa: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from empresa where empresa_id = 0')
+    SQLConnection = Conexao
+    Left = 633
     Top = 71
   end
 end
