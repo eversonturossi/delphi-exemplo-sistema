@@ -11,7 +11,9 @@
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
-      'Database=localhost:G:\Fontes\MasterERP\db\MASTERERP.FDB'
+      
+        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
+        'b\MASTERERP.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'

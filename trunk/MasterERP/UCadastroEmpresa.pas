@@ -193,77 +193,84 @@ end;
 
 procedure TCadastroEmpresaForm.VerificaUsuarios;
 var
-  i : Integer;
+  i, QtdElementos : Integer;
   Empresas : Array of Integer;
 begin
-  SetLength(Empresas, 1);
-  Empresas[1] := CDSCadastroEMPRESA_ID.Value;
+  try
+    SetLength(Empresas, 1);
+    Empresas[1] := CDSCadastroEMPRESA_ID.Value;
+    inc(QtdElementos);
 
-  if (CDSCadastroFILIAL.Value = 0) then
-    begin
-      CDSEmpresaFilial.Close;
-      qryEmpresaFilial.SQL.Text := 'select empresa_id from empresa where empresa_matriz = ' +
-        IntToStr(CDSCadastroEMPRESA_ID.Value);
-      CDSEmpresaFilial.Open;
+    if (CDSCadastroFILIAL.Value = 0) then
+      begin
+        CDSEmpresaFilial.Close;
+        qryEmpresaFilial.SQL.Text := 'select empresa_id from empresa where empresa_matriz = ' +
+          IntToStr(CDSCadastroEMPRESA_ID.Value);
+        CDSEmpresaFilial.Open;
 
-      if not (CDSEmpresaFilial.IsEmpty) then
-        begin
-          CDSEmpresaFilial.Last;
-          CDSEmpresaFilial.First;
-          SetLength(Empresas, CDSEmpresaFilial.RecordCount + 1);
-          for i := 2 to CDSEmpresaFilial.RecordCount do
-            begin
-              Empresas[i] := CDSEmpresaFilial.Fields[0].Value;
-            end;
-        end;
-    end;
-
-  with CDSEmpresaUsuario do
-    begin
-      try
-        DisableControls;
-        First;
-        while not Eof do
+        if not (CDSEmpresaFilial.IsEmpty) then
           begin
-            BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
-            for i := 1 to High(Empresas) do
+            CDSEmpresaFilial.Last;
+            CDSEmpresaFilial.First;
+            SetLength(Empresas, CDSEmpresaFilial.RecordCount + 1);
+
+            for i := 2 to CDSEmpresaFilial.RecordCount do
               begin
-                with BancoDados.qryAuxiliar do
-                  begin
-                    Close;
-                    SQL.Text := 'select usuario_id from empresa_usuario where empresa_id = ' +
-                      IntToStr(Empresas[i]);
-                    Open;
-                  end;
-                if (CDSEmpresaUsuarioLIBERADO.Value = 1) then
-                  begin
-                    if (BancoDados.qryAuxiliar.IsEmpty) then
-                      begin
-                        BancoDados.qryExecute.SQL.Text := 'insert into empresa_usuario(empresa_id,' +
-                          'usuario_id)values(' +
-                          IntToStr(Empresas[i]) + ', ' +
-                          IntToStr(CDSEmpresaUsuarioUSUARIO_ID.Value) + ');';
-                        BancoDados.qryExecute.ExecSQL(True);
-                      end;
-                  end
-                else
-                  begin
-                    if not (BancoDados.qryAuxiliar.IsEmpty) then
-                      begin
-                        BancoDados.qryExecute.SQL.Text := 'delete from empresa_usuario where empresa_id = ' +
-                          IntToStr(Empresas[i]) + ' and usuario_id = ' +
-                          IntToStr(CDSEmpresaUsuarioUSUARIO_ID.Value) + ';';
-                        BancoDados.qryExecute.ExecSQL(True);
-                      end;
-                  end;
+                Empresas[i] := CDSEmpresaFilial.Fields[0].Value;
+                inc(QtdElementos);
               end;
-            BancoDados.Conexao.Commit(BancoDados.Transacao);
-            Next;
           end;
-      finally
-        EnableControls;
       end;
-    end;
+
+    with CDSEmpresaUsuario do
+      begin
+        try
+          DisableControls;
+          First;
+          while not Eof do
+            begin
+              BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
+              for i := 1 to QtdElementos do
+                begin
+                  with BancoDados.qryAuxiliar do
+                    begin
+                      Close;
+                      SQL.Text := 'select usuario_id from empresa_usuario where empresa_id = ' +
+                        IntToStr(Empresas[i]);
+                      Open;
+                    end;
+                  if (CDSEmpresaUsuarioLIBERADO.Value = 1) then
+                    begin
+                      if (BancoDados.qryAuxiliar.IsEmpty) then
+                        begin
+                          BancoDados.qryExecute.SQL.Text := 'insert into empresa_usuario(empresa_id,' +
+                            'usuario_id)values(' +
+                            IntToStr(Empresas[i]) + ', ' +
+                            IntToStr(CDSEmpresaUsuarioUSUARIO_ID.Value) + ');';
+                          BancoDados.qryExecute.ExecSQL(True);
+                        end;
+                    end
+                  else
+                    begin
+                      if not (BancoDados.qryAuxiliar.IsEmpty) then
+                        begin
+                          BancoDados.qryExecute.SQL.Text := 'delete from empresa_usuario where empresa_id = ' +
+                            IntToStr(Empresas[i]) + ' and usuario_id = ' +
+                            IntToStr(CDSEmpresaUsuarioUSUARIO_ID.Value) + ';';
+                          BancoDados.qryExecute.ExecSQL(True);
+                        end;
+                    end;
+                end;
+              BancoDados.Conexao.Commit(BancoDados.Transacao);
+              Next;
+            end;
+        finally
+          EnableControls;
+        end;
+      end;
+  finally
+    FinalizeArray(Empresas, Integer, nil);
+  end;
 end;
 
 procedure TCadastroEmpresaForm.BTCancelarClick(Sender: TObject);
