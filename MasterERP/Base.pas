@@ -245,6 +245,9 @@ type
     CDSEmpresaFILIAL: TSmallintField;
     CDSEmpresaTIPO: TStringField;
     CDSEmpresacalc_pessoa_nome: TStringField;
+    CDSPessoaEnderecoTABELA: TStringField;
+    CDSPessoaContatoTABELA: TStringField;
+    CDSPessoaImagemTABELA: TStringField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -283,7 +286,7 @@ type
     imgPesquisar3, imgRecuperar, imgCancelar1, imgCancelar24,
     imgCancelar2, imgOk, imgOk24, imgLimpar : ShortString;
     Id : Integer;
-    Tabela, Operacao : ShortString;
+    Tabela, Operacao, EmpresaNomeRazao : ShortString;
     LiberaFormulario, LiberaAlterar, LiberaExportar, ExibeStatus : Boolean;
     SqlConsulta : String;
   end;
@@ -305,6 +308,7 @@ begin
       Open;
       CDSPessoaContatoPESSOA_CONTATO_ID.Value := qryGeraID.Fields[0].Value;
       CDSPessoaContatoPESSOA_ID.Value := CDSPessoaPESSOA_ID.Value;
+      CDSPessoaContatoTABELA.Value := Tabela;
 
       if not (CDSPessoaContatoTipoPESSOA_CONTATO_TIPO_ID.Value > 0) then
         begin
@@ -381,6 +385,7 @@ begin
       Open;
       CDSPessoaEnderecoPESSOA_ENDERECO_ID.Value := qryGeraID.Fields[0].Value;
       CDSPessoaEnderecoPESSOA_ID.Value := CDSPessoaPESSOA_ID.Value;
+      CDSPessoaEnderecoTABELA.Value := Tabela;
     end;
 end;
 
@@ -406,7 +411,7 @@ begin
   with qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select nome_razao where pessoa where pessoa_id = ' +
+      SQL.Text := 'select nome_razao from pessoa where pessoa_id = ' +
         IntToStr(CDSEmpresaPESSOA_ID.Value);
       Open;
     end;
@@ -472,6 +477,7 @@ begin
 
       CDSPessoaImagemPESSOA_IMAGEM_ID.Value := qryGeraID.Fields[0].Value;
       CDSPessoaImagemPESSOA_ID.Value := CDSPessoaPESSOA_ID.Value;
+      CDSPessoaImagemTABELA.Value := Tabela;
     end;
 end;
 

@@ -90,7 +90,7 @@ begin
 
        UsuarioID := BancoDados.qryLoginUSUARIO_ID.Value;
 
-       SBPrincipal.Panels[0].Text := ' Empresa: ';
+       SBPrincipal.Panels[0].Text := ' Empresa: ' + BancoDados.EmpresaNomeRazao;
        SBPrincipal.Panels[1].Text := ' Vendedor: ' + BancoDados.qryLoginLOGIN.Value;
        SBPrincipal.Panels[2].Text := ' Data: ' + FormatDateTime('dd/mm/yyyy',Date) + '.';
        DataSistema := Date;

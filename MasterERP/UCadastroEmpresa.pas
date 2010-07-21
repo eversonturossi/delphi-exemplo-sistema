@@ -87,6 +87,8 @@ type
     CDSEmpresaFilial: TClientDataSet;
     DSPEmpresaFilial: TDataSetProvider;
     qryEmpresaFilial: TSQLQuery;
+    Label15: TLabel;
+    AVerificarNome: TAction;
     procedure RemoveAcento(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CDSCadastroAfterInsert(DataSet: TDataSet);
@@ -111,6 +113,7 @@ type
     procedure DBEditDocumentoExit(Sender: TObject);
     procedure DBGrid2CellClick(Column: TColumn);
     procedure CBMarcarClick(Sender: TObject);
+    procedure AVerificarNomeExecute(Sender: TObject);
   private
     { Private declarations }
     RetornaForm : Boolean;
@@ -124,7 +127,7 @@ var
   CadastroEmpresaForm: TCadastroEmpresaForm;
 
 implementation
-uses Base, UFuncoes, UPesquisaEmpresa, UPesquisaMunicipio;
+uses Base, UFuncoes, UPesquisaEmpresa, UPesquisaMunicipio, UVerificaPessoa;
 {$R *.dfm}
 
 procedure TCadastroEmpresaForm.RemoveAcento(Sender: TObject);
@@ -283,6 +286,57 @@ begin
       end;
   finally
     FreeMemory(Empresas);
+  end;
+end;
+
+procedure TCadastroEmpresaForm.AVerificarNomeExecute(Sender: TObject);
+begin
+  try
+    if not Assigned(VerificaPessoaForm) then
+      VerificaPessoaForm := TVerificaPessoaForm.Create(Application);
+    if (VerificaPessoaForm.ShowModal = mrOk) then
+      begin
+        BancoDados.CDSPessoa.Cancel;
+
+        if (VerificaPessoaForm.PessoaID > 0) then
+          begin
+            BancoDados.CDSPessoa.Close;
+            BancoDados.qryPessoa.SQL.Text := 'select * from pessoa where pessoa_id = ' +
+              IntToStr(VerificaPessoaForm.PessoaID);
+            BancoDados.CDSPessoa.Open;
+          end
+        else
+          begin
+            BancoDados.CDSPessoa.Append;
+            BancoDados.CDSPessoaNOME_RAZAO.Value := VerificaPessoaForm.PessoaNome;
+          end;
+
+        if not (CDSCadastro.State in [dsInsert, dsEdit]) then
+          CDSCadastro.Edit;
+        CDSCadastroPESSOA_ID.Value := BancoDados.CDSPessoaPESSOA_ID.Value;
+
+        BancoDados.CDSPessoaEndereco.Close;
+        BancoDados.qryPessoaEndereco.SQL.Text := 'select * from pessoa_endereco where tabela = ' +
+          QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
+        BancoDados.CDSPessoaEndereco.Open;
+
+        BancoDados.CDSPessoaContato.Close;
+        BancoDados.qryPessoaContato.SQL.Text := 'select * from pessoa_contato where tabela = ' +
+          QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
+        BancoDados.CDSPessoaContato.Open;
+
+
+        BancoDados.CDSPessoaImagem.Close;
+        BancoDados.qryPessoaImagem.SQL.Text := 'select * from pessoa_imagem where tabela = ' +
+          QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
+        BancoDados.CDSPessoaImagem.Open;
+
+        PCPrincipal.TabIndex := 0;
+        DBEditNome.SetFocus;
+      end;
+  finally
+    VerificaPessoaForm.Free;
+    VerificaPessoaForm := nil;
   end;
 end;
 
@@ -629,7 +683,16 @@ procedure TCadastroEmpresaForm.DBNEnderecoClick(Sender: TObject;
   Button: TNavigateBtn);
 begin
   if (Button = nbInsert)  then
-    DBEditEndereco.SetFocus;
+    DBEditEndereco.SetFocus
+  else if (Button = nbPost)  then
+    begin
+      if not (DBEditEndereco.Text <> '') then
+        begin
+          MessageDlg('Informe uma Rua',mtWarning,[mbOK],0);
+          DBEditEndereco.SetFocus;
+          Abort;
+        end;
+    end;
 end;
 
 procedure TCadastroEmpresaForm.DSSFilialChange(Sender: TObject);
@@ -732,19 +795,19 @@ begin
       CBPessoaContatoTipo.ItemIndex := 0;
 
       BancoDados.CDSPessoaEndereco.Close;
-      BancoDados.qryPessoaEndereco.SQL.Text := 'select * from pessoa_endereco where pessoa_id = ' +
-        IntTostr(CDSCadastroPESSOA_ID.Value);
+      BancoDados.qryPessoaEndereco.SQL.Text := 'select * from pessoa_endereco where tabela = ' +
+        QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
       BancoDados.CDSPessoaEndereco.Open;
 
       BancoDados.CDSPessoaContato.Close;
-      BancoDados.qryPessoaContato.SQL.Text := 'select * from pessoa_contato where pessoa_id = ' +
-        IntTostr(CDSCadastroPESSOA_ID.Value);
+      BancoDados.qryPessoaContato.SQL.Text := 'select * from pessoa_contato where tabela = ' +
+        QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
       BancoDados.CDSPessoaContato.Open;
 
 
       BancoDados.CDSPessoaImagem.Close;
-      BancoDados.qryPessoaImagem.SQL.Text := 'select * from pessoa_imagem where pessoa_id = ' +
-        IntTostr(CDSCadastroPESSOA_ID.Value);
+      BancoDados.qryPessoaImagem.SQL.Text := 'select * from pessoa_imagem where tabela = ' +
+        QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
       BancoDados.CDSPessoaImagem.Open;
 
       CDSEmpresaUsuario.Close;

@@ -160,6 +160,16 @@ end;
 
 procedure TConsultaEmpresaForm.BTNovoClick(Sender: TObject);
 begin
+  if (Parametro(BancoDados.qryAuxiliar, 2, 'NAO') = 'NAO') then
+    begin
+      if not (CDSConsulta.IsEmpty) then
+        begin
+          Mensagem('O Sistema não está habilitado para Multi-Empresa!' + #13 +
+            'Caso necessário, altere o Parâmetro: "2 - Ativar Multi-Empresa".', mtWarning,[mbOk],mrOK,0);
+          Abort;
+        end;
+    end;
+
   try
     if not Assigned(CadastroEmpresaForm) then
       CadastroEmpresaForm := TCadastroEmpresaForm.Create(Application);

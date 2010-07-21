@@ -11,7 +11,9 @@
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
-      'Database=localhost:G:\Fontes\MasterERP\db\MASTERERP.FDB'
+      
+        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
+        'b\MASTERERP.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -25,7 +27,6 @@
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
     VendorLib = 'fbclient.dll'
-    Connected = True
     Left = 32
     Top = 16
   end
@@ -387,6 +388,10 @@
       FieldName = 'calc_municipio_uf'
       Size = 2
       Calculated = True
+    end
+    object CDSPessoaEnderecoTABELA: TStringField
+      FieldName = 'TABELA'
+      Size = 60
     end
   end
   object tmpCDSUsuarioAcesso: TClientDataSet
@@ -819,6 +824,10 @@
       Size = 60
       Calculated = True
     end
+    object CDSPessoaContatoTABELA: TStringField
+      FieldName = 'TABELA'
+      Size = 60
+    end
   end
   object DSPPessoaContato: TDataSetProvider
     DataSet = qryPessoaContato
@@ -1089,6 +1098,10 @@
     object CDSPessoaImagemIMAGEM: TBlobField
       FieldName = 'IMAGEM'
       Size = 1
+    end
+    object CDSPessoaImagemTABELA: TStringField
+      FieldName = 'TABELA'
+      Size = 60
     end
   end
   object DSPPessoaImagem: TDataSetProvider

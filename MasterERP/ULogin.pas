@@ -73,8 +73,22 @@ begin
               QuotedStr(EditSenha.Text) + ' and Ativo = 1');
             Open;
           end;
+
         if not (BancoDados.qryLogin.IsEmpty) then
           begin
+            BancoDados.CDSEmpresa.Close;
+            BancoDados.qryEmpresa.SQL.Text := 'select * from empresa';
+
+            if (PEmpresa.Visible) then
+              BancoDados.qryEmpresa.SQL.Add(' where empresa_id = ' + Copy(CBEmpresa.Text, 1, 10));
+
+            BancoDados.CDSEmpresa.Open;
+            BancoDados.CDSEmpresa.First;
+
+            BancoDados.EmpresaID := BancoDados.CDSEmpresaEMPRESA_ID.Value;
+            BancoDados.EmpresaNomeRazao := BancoDados.CDSEmpresacalc_pessoa_nome.Value;
+            BancoDados.Filial := BancoDados.CDSEmpresaFILIAL.Value;
+
             Logado := True;
           end
         else
