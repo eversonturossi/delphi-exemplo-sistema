@@ -44,7 +44,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       Top = 84
       Width = 655
       Height = 450
-      ActivePage = TSUsuario
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange
@@ -150,7 +150,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Visible = False
         end
         object Label12: TLabel
-          Left = 335
+          Left = 367
           Top = 21
           Width = 24
           Height = 13
@@ -164,7 +164,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           ParentFont = False
         end
         object BTSalvarImagem: TSpeedButton
-          Left = 323
+          Left = 355
           Top = 217
           Width = 91
           Height = 22
@@ -172,7 +172,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           OnClick = BTSalvarImagemClick
         end
         object BTLimparImagem: TSpeedButton
-          Left = 414
+          Left = 446
           Top = 217
           Width = 91
           Height = 22
@@ -229,6 +229,20 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object Label15: TLabel
+          Left = 542
+          Top = 68
+          Width = 90
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Verificar Nome (F2)'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 6590965
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
         object DBEdit1: TDBEdit
           Left = 123
           Top = 17
@@ -250,7 +264,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
         object DBEditNome: TDBEdit
           Left = 123
           Top = 65
-          Width = 382
+          Width = 414
           Height = 21
           DataField = 'NOME_RAZAO'
           DataSource = BancoDados.DSPessoa
@@ -266,7 +280,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
         object DBEditApelido: TDBEdit
           Left = 123
           Top = 92
-          Width = 382
+          Width = 414
           Height = 21
           DataField = 'NOME_APELIDO_FANTASIA'
           DataSource = BancoDados.DSPessoa
@@ -343,7 +357,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Visible = False
         end
         object CBTipo: TComboBox
-          Left = 376
+          Left = 408
           Top = 17
           Width = 129
           Height = 22
@@ -397,10 +411,11 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           TabOrder = 9
         end
         object PImagem: TPanel
-          Left = 323
+          Left = 355
           Top = 119
           Width = 182
           Height = 97
+          BorderStyle = bsSingle
           Caption = 'Imagem'
           TabOrder = 10
           object DBImage: TDBImage
@@ -840,6 +855,13 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
   inherited qryCadastro: TSQLQuery
     SQL.Strings = (
       'select * from empresa where empresa_id = 0')
+  end
+  inherited ActionList: TActionList
+    object AVerificarNome: TAction
+      Caption = 'AVerificarNome'
+      ShortCut = 113
+      OnExecute = AVerificarNomeExecute
+    end
   end
   object SDPessoaImagem: TSaveDialog
     Left = 700

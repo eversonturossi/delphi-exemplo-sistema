@@ -22,6 +22,7 @@ uses Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   function TestaCNPJ(Numero: ShortString): Boolean;
   function TestaCPF(Numero: ShortString): Boolean;
   function RetornaNumeros(Numero : ShortString) : ShortString;
+  function TabelaDescricaoReduzida(Tabela : ShortString): ShortString;
 var
   AtivaTrace : Boolean = False;
 
@@ -486,6 +487,21 @@ begin
             Temp := Temp + Numero[x];
       Result := Trim(Temp);
     end
+  else
+    Result := '';
+end;
+
+function TabelaDescricaoReduzida(Tabela : ShortString): ShortString;
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao_reduzida from tabela where tabela = ' +
+        QuotedStr(Tabela);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    Result := BancoDados.qryAuxiliar.Fields[0].Value
   else
     Result := '';
 end;

@@ -133,6 +133,9 @@
 			<DCCReference Include="UCadastroSubGrupoProduto.pas">
 				<Form>CadastroSubGrupoProdutoForm</Form>
 			</DCCReference>
+			<DCCReference Include="UVerificaPessoa.pas">
+				<Form>VerificaPessoaForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -165,7 +168,7 @@
 						<VersionInfo Name="MajorVer">2010</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
 						<VersionInfo Name="Release">0</VersionInfo>
-						<VersionInfo Name="Build">6</VersionInfo>
+						<VersionInfo Name="Build">7</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
 						<VersionInfo Name="Special">False</VersionInfo>
@@ -177,7 +180,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription"/>
-						<VersionInfoKeys Name="FileVersion">2010.0.0.6</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2010.0.0.7</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
