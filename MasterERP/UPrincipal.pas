@@ -42,6 +42,8 @@ type
     Manuteno1: TMenuItem;
     GruposdeProdutos2: TMenuItem;
     SubGruposdeProdutos2: TMenuItem;
+    ACliente: TAction;
+    Cliente1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -55,6 +57,7 @@ type
     procedure AGrupoProdutoExecute(Sender: TObject);
     procedure AEmpresaExecute(Sender: TObject);
     procedure ASubGrupoProdutoExecute(Sender: TObject);
+    procedure AClienteExecute(Sender: TObject);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -74,7 +77,7 @@ implementation
 uses Base, Base64, UFuncoes, UConexao, ULogin, UConcultaUsuario, UConfiguraTrace,
   UConsultaEmpresa, UCadastroSimplesContatoTipo, UCadastroSimplesMunicipio,
   UConsultaProduto, UConsultaGrupoProduto, UConsultaSubGrupoProduto,
-  UCadastroSimplesPessoaContatoTipo;
+  UCadastroSimplesPessoaContatoTipo, UConsultaCliente;
 {$R *.dfm}
 
 procedure TPrincipalForm.LogarUsuario;
@@ -106,6 +109,11 @@ begin
    LoginForm.Free;
    LoginForm := nil;
  end;
+end;
+
+procedure TPrincipalForm.AClienteExecute(Sender: TObject);
+begin
+  CriaForm(TConsultaClienteForm, ConsultaClienteForm);
 end;
 
 procedure TPrincipalForm.AConfigurarTraceExecute(Sender: TObject);

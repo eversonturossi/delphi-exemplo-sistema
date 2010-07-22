@@ -114,6 +114,7 @@ type
     procedure DBGrid2CellClick(Column: TColumn);
     procedure CBMarcarClick(Sender: TObject);
     procedure AVerificarNomeExecute(Sender: TObject);
+    procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     RetornaForm : Boolean;
@@ -148,6 +149,7 @@ begin
   if not ((CDSCadastroTIPO.Value = 'F') or (CDSCadastroTIPO.Value = 'J')) then
     begin
       Mensagem('Informe o Tipo de Pessoa!', mtWarning,[mbOk],mrOK,0);
+      PCPrincipal.TabIndex := 0;
       CBTipo.SetFocus;
       Abort;
     end;
@@ -159,6 +161,7 @@ begin
       else
         Mensagem('Preencha o campo Razão Social!', mtWarning,[mbOk],mrOK,0);
 
+      PCPrincipal.TabIndex := 0;
       DBEditNome.SetFocus;
       Abort;
     end;
@@ -170,6 +173,7 @@ begin
       else
         Mensagem('Preencha o campo Nome Fantasia!', mtWarning,[mbOk],mrOK,0);
 
+      PCPrincipal.TabIndex := 0;
       DBEditApelido.SetFocus;
       Abort;
     end;
@@ -181,6 +185,7 @@ begin
       else
         Mensagem('Preencha o campo CNPJ!', mtWarning,[mbOk],mrOK,0);
 
+      PCPrincipal.TabIndex := 0;
       DBEditDocumento.SetFocus;
       Abort;
     end;
@@ -189,6 +194,7 @@ begin
     begin
       Mensagem('Preencha o campo Inscrição Estadual!', mtWarning,[mbOk],mrOK,0);
 
+      PCPrincipal.TabIndex := 0;
       DBEditIE.SetFocus;
       Abort;
     end;
@@ -345,6 +351,8 @@ begin
   BancoDados.CDSPessoa.Cancel;
   BancoDados.CDSPessoaEndereco.Cancel;
   BancoDados.CDSPessoaContato.Cancel;
+  BancoDados.CDSPessoaImagem.Cancel;
+
   inherited; //Herança
 end;
 
@@ -489,22 +497,22 @@ end;
 procedure TCadastroEmpresaForm.CBPessoaContatoTipoSelect(Sender: TObject);
 begin
   BancoDados.CDSPessoaContatoTipo.Close;
-  BancoDados.CDSpessoaContato.Close;
-  BancoDados.qryPessoaContato.SQL.Text := 'select * from pessoa_contato where pessoa_id = ' +
-    IntToStr(CDSCadastroPESSOA_ID.Value);
 
   if (CBPessoaContatoTipo.ItemIndex > 0) then
     begin
-      BancoDados.qryPessoaContato.SQL.Add(' and pessoa_contato_tipo_id in' +
-        '(select pessoa_contato_tipo_id from pessoa_contato_tipo where descricao = ' +
-        QuotedStr(CBPessoaContatoTipo.Text) + ')');
-
       BancoDados.qryPessoaContatoTipo.SQL.Text := 'select * from pessoa_contato_tipo' +
         ' where descricao = ' + QuotedStr(CBPessoaContatoTipo.Text);
       BancoDados.CDSPessoaContatoTipo.Open;
-    end;
-  BancoDados.CDSPessoaContato.Open;
-  BancoDados.CDSPessoaContato.First;
+
+      if not (BancoDados.CDSPessoaContatoTipo.IsEmpty) then
+        begin
+          BancoDados.CDSPessoaContato.Filtered := True;
+          BancoDados.CDSPessoaContato.Filter := 'PESSOA_CONTATO_TIPO_ID = ' +
+            IntToStr(BancoDados.CDSPessoaContatoTipoPESSOA_CONTATO_TIPO_ID.Value);
+        end;
+    end
+  else
+    BancoDados.CDSPessoaContato.Filtered := False;
 
   DBGrid1.SetFocus;
 end;
@@ -521,8 +529,7 @@ begin
       LBIE.Caption := 'Nº Identidade:';
       LBIM.Visible := False;
       DBEditIM.Visible := False;
-      LBDataNascimento.Visible := True;
-      DBDataNascimento.Visible := True;
+      LBDataNascimento.Caption := 'Data Nascimento';
 
       if not (BancoDados.CDSPessoa.State in [dsInsert]) then
         BancoDados.CDSPessoa.Edit;
@@ -550,8 +557,7 @@ begin
       LBIM.Caption := 'Inscrição Municipal:';
       LBIM.Visible := True;
       DBEditIM.Visible := True;
-      LBDataNascimento.Visible := False;
-      DBDataNascimento.Visible := False;
+      LBDataNascimento.Caption := 'Abertura da Empresa';
 
       if not (BancoDados.CDSPessoa.State in [dsInsert]) then
         BancoDados.CDSPessoa.Edit;
@@ -644,6 +650,16 @@ begin
     end;
 end;
 
+procedure TCadastroEmpresaForm.DBGrid1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if (key = #13) then
+    begin
+      if (BancoDados.CDSPessoaContato.State in [dsInsert, dsEdit]) then
+        BancoDados.CDSPessoaContato.Post;
+      BancoDados.CDSPessoaContato.Append;
+    end;
+end;
+
 procedure TCadastroEmpresaForm.DBGrid2CellClick(Column: TColumn);
 begin
   if (DBGrid2.SelectedField.FieldName = 'LIBERADO') then
@@ -719,27 +735,16 @@ end;
 
 procedure TCadastroEmpresaForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-  if (key = #13) then
+  if ((key = #13) and not (ActiveControl is TDBGrid)) then
     begin
       key := #0;
-      if not (ActiveControl is TDBGrid) then
-        Perform(WM_NextDlgCtl,0,0)
-      else
-        begin
-          if (BancoDados.CDSPessoaContato.State in [dsInsert, dsEdit]) then
-            BancoDados.CDSPessoaContato.Post;
-          BancoDados.CDSPessoaContato.Append;
-        end;
+      Perform(WM_NextDlgCtl,0,0);
     end;
 
-  if (key = #27) then
+  if ((key = #27) and not (ActiveControl is TDBGrid)) then
     begin
       key := #0;
-      if not (ActiveControl is TDBGrid) then
-        Close
-      else
-        if (BancoDados.CDSPessoaContato.State in [dsInsert, dsEdit]) then
-          BancoDados.CDSPessoaContato.Cancel;
+      Close;
     end;
 end;
 
@@ -794,16 +799,15 @@ begin
         end;
       CBPessoaContatoTipo.ItemIndex := 0;
 
-      BancoDados.CDSPessoaEndereco.Close;
-      BancoDados.qryPessoaEndereco.SQL.Text := 'select * from pessoa_endereco where tabela = ' +
-        QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
-      BancoDados.CDSPessoaEndereco.Open;
-
       BancoDados.CDSPessoaContato.Close;
       BancoDados.qryPessoaContato.SQL.Text := 'select * from pessoa_contato where tabela = ' +
         QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
       BancoDados.CDSPessoaContato.Open;
 
+      BancoDados.CDSPessoaEndereco.Close;
+      BancoDados.qryPessoaEndereco.SQL.Text := 'select * from pessoa_endereco where tabela = ' +
+        QuotedStr(BancoDados.Tabela) + ' and pessoa_id = ' + IntTostr(CDSCadastroPESSOA_ID.Value);
+      BancoDados.CDSPessoaEndereco.Open;
 
       BancoDados.CDSPessoaImagem.Close;
       BancoDados.qryPessoaImagem.SQL.Text := 'select * from pessoa_imagem where tabela = ' +
@@ -844,8 +848,7 @@ begin
           LBNome.Caption := 'Nome:';
           LBApelido.Caption := 'Apelido:';
           LBDocumento.Caption := 'CPF:';
-          LBDataNascimento.Visible := True;
-          DBDataNascimento.Visible := True;
+          LBDataNascimento.Caption := 'Data Nascimento';
           LBIE.Caption := 'Nº Identidade:';
           LBIM.Visible := False;
           DBEditIM.Visible := False;
@@ -859,8 +862,7 @@ begin
           LBNome.Caption := 'Razão Social:';
           LBApelido.Caption := 'Nome Fantasia:';
           LBDocumento.Caption := 'CNPJ:';
-          LBDataNascimento.Visible := True;
-          DBDataNascimento.Visible := True;
+          LBDataNascimento.Caption := 'Abertura da Empresa';
           LBIE.Caption := 'Inscrição Estadual:';
           LBIM.Caption := 'Inscrição Municipal:';
           LBIM.Visible := True;

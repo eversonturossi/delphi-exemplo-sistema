@@ -136,6 +136,12 @@
 			<DCCReference Include="UVerificaPessoa.pas">
 				<Form>VerificaPessoaForm</Form>
 			</DCCReference>
+			<DCCReference Include="UConsultaCliente.pas">
+				<Form>ConsultaClienteForm</Form>
+			</DCCReference>
+			<DCCReference Include="UCadastroCliente.pas">
+				<Form>CadastroClienteForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

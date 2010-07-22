@@ -88,7 +88,7 @@ inherited ConsultaEmpresaForm: TConsultaEmpresaForm
         item
           Expanded = False
           FieldName = 'IE_IDENTIDADE'
-          Title.Caption = 'Inscri'#231#227'o Estadual/Identidade'
+          Title.Caption = 'Identidade / Inscri'#231#227'o Estadual'
           Visible = True
         end
         item
@@ -113,9 +113,6 @@ inherited ConsultaEmpresaForm: TConsultaEmpresaForm
       end
       inherited EditValor: TEdit
         OnKeyPress = EditValorKeyPress
-      end
-      inherited CBSituacao: TComboBox
-        OnSelect = CBSituacaoSelect
       end
     end
   end
