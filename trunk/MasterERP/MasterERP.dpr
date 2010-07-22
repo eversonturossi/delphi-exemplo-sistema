@@ -32,7 +32,9 @@ uses
   UCadastroGrupoProduto in 'UCadastroGrupoProduto.pas' {CadastroGrupoProdutoForm},
   UConsultaSubGrupoProduto in 'UConsultaSubGrupoProduto.pas' {ConsultaSubGrupoProdutoForm},
   UCadastroSubGrupoProduto in 'UCadastroSubGrupoProduto.pas' {CadastroSubGrupoProdutoForm},
-  UVerificaPessoa in 'UVerificaPessoa.pas' {VerificaPessoaForm};
+  UVerificaPessoa in 'UVerificaPessoa.pas' {VerificaPessoaForm},
+  UConsultaCliente in 'UConsultaCliente.pas' {ConsultaClienteForm},
+  UCadastroCliente in 'UCadastroCliente.pas' {CadastroClienteForm};
 
 {$R *.res}
 

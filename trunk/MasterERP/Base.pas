@@ -300,7 +300,7 @@ uses UFuncoes;
 
 procedure TBancoDados.CDSPessoaContatoAfterInsert(DataSet: TDataSet);
 begin
-  with qryGeraID do
+   with qryGeraID do
     begin
       Close;
       SQL.Clear;

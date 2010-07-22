@@ -27,6 +27,7 @@
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
     VendorLib = 'fbclient.dll'
+    Connected = True
     Left = 32
     Top = 16
   end
@@ -799,8 +800,16 @@
   end
   object CDSPessoaContato: TClientDataSet
     Aggregates = <>
+    FieldDefs = <>
+    IndexDefs = <
+      item
+        Name = 'CDSPessoaContatoIndex1'
+        Fields = 'PESSOA_CONTATO_TIPO_ID'
+      end>
+    IndexName = 'CDSPessoaContatoIndex1'
     Params = <>
     ProviderName = 'DSPPessoaContato'
+    StoreDefs = True
     AfterInsert = CDSPessoaContatoAfterInsert
     OnCalcFields = CDSPessoaContatoCalcFields
     Left = 370

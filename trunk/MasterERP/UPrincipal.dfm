@@ -66,6 +66,9 @@ object PrincipalForm: TPrincipalForm
       object Empresa2: TMenuItem
         Action = AEmpresa
       end
+      object Cliente1: TMenuItem
+        Action = ACliente
+      end
       object CadastrodeProdutos1: TMenuItem
         Caption = 'Produtos'
         object Manuteno1: TMenuItem
@@ -251,6 +254,11 @@ object PrincipalForm: TPrincipalForm
   object ActionListPrincipal: TActionList
     Left = 392
     Top = 224
+    object AEmpresa: TAction
+      Category = 'Cadastros'
+      Caption = 'Empresa'
+      OnExecute = AEmpresaExecute
+    end
     object ATrocarUsuario: TAction
       Category = 'Arquivo'
       Caption = 'Trocar Usu'#225'rio'
@@ -262,6 +270,11 @@ object PrincipalForm: TPrincipalForm
       Caption = 'Sair'
       OnExecute = ASairExecute
     end
+    object ACliente: TAction
+      Category = 'Cadastros'
+      Caption = 'Cliente'
+      OnExecute = AClienteExecute
+    end
     object AUsuario: TAction
       Category = 'Configura'#231#245'es'
       Caption = 'Usu'#225'rios'
@@ -271,11 +284,6 @@ object PrincipalForm: TPrincipalForm
       Category = 'Configura'#231#245'es'
       Caption = 'Configurar Trace'
       OnExecute = AConfigurarTraceExecute
-    end
-    object AEmpresa: TAction
-      Category = 'Cadastros'
-      Caption = 'Empresa'
-      OnExecute = AEmpresaExecute
     end
     object AContatoTipo: TAction
       Category = 'Cadastros Auxiliares'

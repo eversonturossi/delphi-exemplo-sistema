@@ -30,7 +30,6 @@ type
     procedure BTPesquisarClick(Sender: TObject);
     procedure CDSConsultaCalcFields(DataSet: TDataSet);
     procedure BTNovoClick(Sender: TObject);
-    procedure CBSituacaoSelect(Sender: TObject);
     procedure BTAlterarClick(Sender: TObject);
     procedure BTExcluirClick(Sender: TObject);
   private
@@ -213,11 +212,6 @@ begin
     end;
   end;
 
-  inherited; //Herança
-end;
-
-procedure TConsultaEmpresaForm.CBSituacaoSelect(Sender: TObject);
-begin
   inherited; //Herança
 end;
 

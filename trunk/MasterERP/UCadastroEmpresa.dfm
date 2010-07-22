@@ -44,7 +44,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       Top = 84
       Width = 655
       Height = 450
-      ActivePage = TSCadastro
+      ActivePage = TSEnderecoContato
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange
@@ -722,20 +722,21 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          OnKeyPress = DBGrid1KeyPress
           Columns = <
+            item
+              Expanded = False
+              FieldName = 'VALOR'
+              Title.Caption = 'Contato'
+              Width = 300
+              Visible = True
+            end
             item
               Expanded = False
               FieldName = 'calc_contato_tipo_descricao'
               ReadOnly = True
               Title.Caption = 'Tipo de Contato'
               Width = 130
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'VALOR'
-              Title.Caption = 'Contato'
-              Width = 300
               Visible = True
             end>
         end
