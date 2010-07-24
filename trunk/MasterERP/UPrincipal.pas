@@ -44,6 +44,9 @@ type
     SubGruposdeProdutos2: TMenuItem;
     ACliente: TAction;
     Cliente1: TMenuItem;
+    ALogSistema: TAction;
+    Ferramentas1: TMenuItem;
+    LogdoSistema1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -58,6 +61,7 @@ type
     procedure AEmpresaExecute(Sender: TObject);
     procedure ASubGrupoProdutoExecute(Sender: TObject);
     procedure AClienteExecute(Sender: TObject);
+    procedure ALogSistemaExecute(Sender: TObject);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -77,7 +81,7 @@ implementation
 uses Base, Base64, UFuncoes, UConexao, ULogin, UConcultaUsuario, UConfiguraTrace,
   UConsultaEmpresa, UCadastroSimplesContatoTipo, UCadastroSimplesMunicipio,
   UConsultaProduto, UConsultaGrupoProduto, UConsultaSubGrupoProduto,
-  UCadastroSimplesPessoaContatoTipo, UConsultaCliente;
+  UCadastroSimplesPessoaContatoTipo, UConsultaCliente, UConsultaLog;
 {$R *.dfm}
 
 procedure TPrincipalForm.LogarUsuario;
@@ -146,6 +150,26 @@ begin
   CriaForm(TConsultaGrupoProdutoForm, ConsultaGrupoProdutoForm);
 end;
 
+procedure TPrincipalForm.ALogSistemaExecute(Sender: TObject);
+begin
+  if (BancoDados.qryLoginNIVEL.Value <> 'ADM') then
+    begin
+      Mensagem('Função disponível apenas para Usuários Administradores!', mtWarning,[mbOk],mrOK,0);
+      Abort;
+    end
+  else
+    begin
+      try
+       if not Assigned(ConsultaLogForm) then
+         ConsultaLogForm := TConsultaLogForm.Create(Application);
+       ConsultaLogForm.ShowModal;
+     finally
+       ConsultaLogForm.Free;
+       ConsultaLogForm := nil;
+     end;
+    end;
+end;
+
 procedure TPrincipalForm.ASairExecute(Sender: TObject);
 begin
   Close;
@@ -171,12 +195,15 @@ end;
 procedure TPrincipalForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   case Application.MessageBox('Deseja Sair do Sistema?','Atenção',MB_YesNo+mb_DefButton2+mb_IconQuestion) of
-       6: begin
-            BancoDados.CDSUsuario.Close;
-            BancoDados.qryLogin.Close;
-            Application.Terminate;
-       end;
-       7:Abort;
+     6: begin
+          Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela,
+            'Saindo do Sistema: ' + IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) +
+            '/' + BancoDados.qryLoginLOGIN.Value + '.');
+          BancoDados.CDSUsuario.Close;
+          BancoDados.qryLogin.Close;
+          Application.Terminate;
+     end;
+     7:Abort;
   end;
 end;
 

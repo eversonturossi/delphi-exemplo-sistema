@@ -219,6 +219,7 @@ begin
     CDSCadastro.FieldByName('ATIVO').Value := 1;
     CDSCadastro.FieldByName('DATA_CADASTRO').Value := Now;
     CDSCadastro.FieldByName('DATA_ULTIMA_ALTERACAO').Value := Now;
+
   except
     Mensagem('Falha ao Tentar Gerar o I.D!', mtInformation,[mbOk],mrOK,0);
   end;
@@ -328,6 +329,9 @@ begin
   BancoDados.CDSTabela.Open;
 
   Caption := BancoDados.CDSTabelaDESCRICAO.Value;
+
+  Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela,
+    'Acessando o Registro: ' + IntToStr(Id) + '/' + Descricao + '.');
 
   GeraTrace(BancoDados.Tabela,'Formulário de Cadastro');
 end;

@@ -142,6 +142,9 @@
 			<DCCReference Include="UCadastroCliente.pas">
 				<Form>CadastroClienteForm</Form>
 			</DCCReference>
+			<DCCReference Include="UConsultaLog.pas">
+				<Form>ConsultaLogForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

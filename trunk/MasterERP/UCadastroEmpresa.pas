@@ -27,7 +27,7 @@ type
     LBIE: TLabel;
     LBIM: TLabel;
     LBDataNascimento: TLabel;
-    DBEdit1: TDBEdit;
+    DBEditCodigo: TDBEdit;
     DBEditNome: TDBEdit;
     DBEditApelido: TDBEdit;
     DBEditDocumento: TDBEdit;
@@ -55,7 +55,7 @@ type
     DBEditComplemento: TDBEdit;
     DBEditBairro: TDBEdit;
     DBEditCEP: TDBEdit;
-    DBEdit7: TDBEdit;
+    DBEditMunicipio: TDBEdit;
     DBEditEndereco: TDBEdit;
     DBNEndereco: TDBNavigator;
     SDPessoaImagem: TSaveDialog;
@@ -120,6 +120,7 @@ type
     RetornaForm : Boolean;
     procedure VerificaCampos;
     procedure VerificaUsuarios;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -295,11 +296,81 @@ begin
   end;
 end;
 
+procedure TCadastroEmpresaForm.CarregaHint;
+begin
+  DBEditCodigo.Hint := 'Este é o Código de identificação da Empresa.' +
+    ' Ele é gerado automaticamente pelo Sistema';
+  BTSalvarImagem.Hint := 'Selecionar e Salvar a Foto do titular da Empresa.';
+  BTLimparImagem.Hint := 'Excluir a Foto do titular da Empresa.';
+
+  case CBTipo.ItemIndex of
+    0: begin
+      DBEditNome.Hint := 'Informe aqui o Nome da Empresa.' +
+        ' Verifique antes se o Nome informado já existe pressionando a tecla F2.';
+      DBEditDocumento.Hint := 'Informe aqui o CPF do titular da Empresa.' +
+        ' Digite apenas Números. O Sistema verificará sua validade' +
+        ' pressionando a tecla Enter.';
+      DBEditIE.Hint := 'Informe aqui o Número de Identidade.' +
+        ' Digite apenas Números. O Sistema verificará sua validade' +
+        ' pressionando a tecla Enter.';
+      DBDataNascimento.Hint := 'Infome aqui a Data de Nascimento do titular da' +
+        ' Empresa.';
+      DSSFilial.Hint := 'Informe aqui a Filial referente a esta Empresa.';
+      DBEditMatriz.Hint := 'Código da Empresa Matriz. Para informar a Empresa Matriz' +
+        ' pressione o botão ao lado e informe a Empresa que corresponde a Matriz.';
+      BTMatriz.Hint := 'Pesquisar por Empresa Matriz, isso quando a Empresa em questão se' +
+        ' tratar de uma Filial.';
+    end;
+    1: begin
+      DBEditNome.Hint := 'Informe aqui a Razão Social da Empresa.' +
+        ' Verifique antes se a Razão Social informada já existe pressionando a tecla F2.';
+      DBEditDocumento.Hint := 'Informe aqui o CNPJ da Empresa.' +
+        ' Digite apenas Números. O Sistema verificará sua validade' +
+        ' pressionando a tecla Enter.';
+      DBEditIE.Hint := 'Informe aqui a Inscrição Estadual.' +
+        ' Digite apenas Números. O Sistema verificará sua validade' +
+        ' pressionando a tecla Enter.';
+      DBEditIM.Hint := 'Informe aqui a Inscrição Municipal.' +
+        ' Digite apenas Números. O Sistema verificará sua validade' +
+        ' pressionando a tecla Enter.';
+      DBDataNascimento.Hint := 'Infome aqui a Data de Abertura da Empresa.';
+      DSSFilial.Hint := 'Informe aqui a Filial referente a Empresa (Caso já tenha sido' +
+        ' Cadastrada a Matriz). O Parametro "2" deve ser ativado antes.';
+      DBEditMatriz.Hint := 'Código da Empresa Matriz. Para informar a Empresa Matriz' +
+        ' pressione o botão ao lado e informe a Empresa que corresponde a Matriz.';
+      BTMatriz.Hint := 'Pesquisar por Empresa Matriz, isso quando a Empresa em questão se' +
+        ' tratar de uma Filial.';
+    end;
+  end;
+
+  DBEditEndereco.Hint := 'Informe aqui o Nome do Logradouro. Exemplo:' +
+    ' Rua, Avenida, etc...';
+  DBEditNumero.Hint := 'Informe aqui o Número da Localização.';
+  DBEditComplemento.Hint := 'Informe aqui o Complemento do Endereço. Exemplo:' +
+    ' APTO XX, BLOCO XX, etc...';
+  DBEditBairro.Hint := 'Informe aqui o Bairro.';
+  DBEditCEP.Hint := 'Informe aqui o CEP. Apenas Números.';
+  DBEditMunicipio.Hint := 'Aqui será exibido o nome da Cidade escolhida no botão ao' +
+    ' lado. Junto com o nome o Sistema localizará o Código para uso da NF-e.';
+  BTMunicipio.Hint := 'Pesquisar por Municipio.';
+  DBNEndereco.Hint := 'Alterar Endereços da Empresa. É possível Inserir vários endereços' +
+    ' para cada Empresa.';
+  CBPessoaContatoTipo.Hint := 'Informe aqui o Tipo de Contato a ser alterado.';
+  DBGrid1.Hint := 'Lista de Contatos inseridos. Selecione o tipo de contato e Insira' +
+    ' a informação.';
+  DBGrid2.Hint := 'Lista de Usuários do Sistema. Os que estão marcados possui acesso' +
+    ' a Filial da Empresa em questão.';
+  CBMarcar.Hint := 'Marcar/Desmarca todos os Usuários para esta Empresa.';
+end;
+
 procedure TCadastroEmpresaForm.AVerificarNomeExecute(Sender: TObject);
 begin
   try
     if not Assigned(VerificaPessoaForm) then
       VerificaPessoaForm := TVerificaPessoaForm.Create(Application);
+
+    VerificaPessoaForm.EditValor.Text := DBEditNome.Text;
+
     if (VerificaPessoaForm.ShowModal = mrOk) then
       begin
         BancoDados.CDSPessoa.Cancel;
@@ -707,7 +778,9 @@ begin
           MessageDlg('Informe uma Rua',mtWarning,[mbOK],0);
           DBEditEndereco.SetFocus;
           Abort;
-        end;
+        end
+      else
+        BancoDados.CDSPessoaEndereco.First;
     end;
 end;
 
@@ -879,6 +952,8 @@ begin
         BTMatriz.Glyph.LoadFromFile(BancoDados.imgOk);
         BTMunicipio.Glyph.LoadFromFile(BancoDados.imgOk);
       except end;
+
+      CarregaHint;
     end;
 end;
 
