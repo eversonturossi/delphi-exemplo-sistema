@@ -34,7 +34,8 @@ uses
   UCadastroSubGrupoProduto in 'UCadastroSubGrupoProduto.pas' {CadastroSubGrupoProdutoForm},
   UVerificaPessoa in 'UVerificaPessoa.pas' {VerificaPessoaForm},
   UConsultaCliente in 'UConsultaCliente.pas' {ConsultaClienteForm},
-  UCadastroCliente in 'UCadastroCliente.pas' {CadastroClienteForm};
+  UCadastroCliente in 'UCadastroCliente.pas' {CadastroClienteForm},
+  UConsultaLog in 'UConsultaLog.pas' {ConsultaLogForm};
 
 {$R *.res}
 

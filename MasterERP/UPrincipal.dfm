@@ -17,7 +17,6 @@ object PrincipalForm: TPrincipalForm
   OldCreateOrder = False
   Position = poDesigned
   WindowState = wsMaximized
-  OnClick = AGrupoProdutoExecute
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -98,6 +97,12 @@ object PrincipalForm: TPrincipalForm
       end
       object ConfigurarTrace1: TMenuItem
         Action = AConfigurarTrace
+      end
+    end
+    object Ferramentas1: TMenuItem
+      Caption = 'Ferramentas'
+      object LogdoSistema1: TMenuItem
+        Action = ALogSistema
       end
     end
     object Ajuda1: TMenuItem
@@ -309,6 +314,11 @@ object PrincipalForm: TPrincipalForm
       Category = 'Cadastros'
       Caption = 'SubGrupos de Produtos'
       OnExecute = ASubGrupoProdutoExecute
+    end
+    object ALogSistema: TAction
+      Category = 'Ferramentas'
+      Caption = 'Log do Sistema'
+      OnExecute = ALogSistemaExecute
     end
   end
 end

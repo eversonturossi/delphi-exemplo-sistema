@@ -1,4 +1,4 @@
-﻿object BancoDados: TBancoDados
+object BancoDados: TBancoDados
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 568
@@ -39,35 +39,6 @@
     SQLConnection = Conexao
     Left = 66
     Top = 71
-    object qryUsuarioUSUARIO_ID: TIntegerField
-      FieldName = 'USUARIO_ID'
-      DisplayFormat = '0000000000'
-    end
-    object qryUsuarioATIVO: TSmallintField
-      FieldName = 'ATIVO'
-    end
-    object qryUsuarioDATA_CADASTRO: TSQLTimeStampField
-      FieldName = 'DATA_CADASTRO'
-    end
-    object qryUsuarioNOME: TStringField
-      FieldName = 'NOME'
-      Size = 60
-    end
-    object qryUsuarioLOGIN: TStringField
-      FieldName = 'LOGIN'
-      Size = 25
-    end
-    object qryUsuarioSENHA: TStringField
-      FieldName = 'SENHA'
-      Size = 15
-    end
-    object qryUsuarioUSUARIO_NIVEL_ID: TIntegerField
-      FieldName = 'USUARIO_NIVEL_ID'
-      DisplayFormat = '0000000000'
-    end
-    object qryUsuarioDATA_ULTIMA_ALTERAÃÃƒO: TSQLTimeStampField
-      FieldName = 'DATA_ULTIMA_ALTERA'#195#8225#195#402'O'
-    end
   end
   object DSUsuario: TDataSource
     DataSet = CDSUsuario
@@ -102,12 +73,12 @@
       FieldName = 'SENHA'
       Size = 15
     end
-    object CDSUsuarioUSUARIO_NIVEL_ID: TIntegerField
-      FieldName = 'USUARIO_NIVEL_ID'
-      DisplayFormat = '0000000000'
+    object CDSUsuarioNIVEL2: TStringField
+      FieldName = 'NIVEL'
+      Size = 5
     end
-    object CDSUsuarioDATA_ULTIMA_ALTERAÃÃƒO: TSQLTimeStampField
-      FieldName = 'DATA_ULTIMA_ALTERA'#195#8225#195#402'O'
+    object CDSUsuarioDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
     end
   end
   object DSPUsuario: TDataSetProvider
@@ -279,17 +250,6 @@
     SQLConnection = Conexao
     Left = 132
     Top = 71
-    object qryTabelaTABELA: TStringField
-      FieldName = 'TABELA'
-      Size = 60
-    end
-    object qryTabelaDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Size = 60
-    end
-    object qryTabelaATIVAR_TRACE: TSmallintField
-      FieldName = 'ATIVAR_TRACE'
-    end
   end
   object DSTabela: TDataSource
     DataSet = CDSTabela
@@ -319,6 +279,10 @@
     object CDSTabelaATIVAR_TRACE: TSmallintField
       FieldName = 'ATIVAR_TRACE'
     end
+    object CDSTabelaDESCRICAO_REDUZIDA: TStringField
+      FieldName = 'DESCRICAO_REDUZIDA'
+      Size = 60
+    end
   end
   object qryPessoaEndereco: TSQLQuery
     MaxBlobSize = -1
@@ -342,8 +306,16 @@
   end
   object CDSPessoaEndereco: TClientDataSet
     Aggregates = <>
+    FieldDefs = <>
+    IndexDefs = <
+      item
+        Name = 'CDSPessoaEnderecoIndex1'
+        Fields = 'PESSOA_ENDERECO_ID'
+      end>
+    IndexName = 'CDSPessoaEnderecoIndex1'
     Params = <>
     ProviderName = 'DSPPessoaEndereco'
+    StoreDefs = True
     AfterInsert = CDSPessoaEnderecoAfterInsert
     BeforePost = CDSPessoaBeforePost
     OnCalcFields = CDSPessoaEnderecoCalcFields

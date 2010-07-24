@@ -66,8 +66,8 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 104
         Width = 149
         Height = 45
-        Hint = 'Inserir Novo Registro (Ctrl+N)'
-        Caption = '&Salvar'
+        Hint = 'Salvar altera'#231#245'es efetuadas no Registro'
+        Caption = 'Salvar'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -82,8 +82,8 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 148
         Width = 149
         Height = 45
-        Hint = 'Alterar Registro (Ctrl+A)'
-        Caption = '&Cancelar'
+        Hint = 'Cancelar altera'#231#245'es realizadas'
+        Caption = 'Cancelar'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -98,8 +98,8 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 192
         Width = 149
         Height = 49
-        Hint = 'Exportar Registros  (Ctrl+X)'
-        Caption = '&Excluir'
+        Hint = 'Excluir Registro'
+        Caption = 'Excluir'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -114,8 +114,8 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 240
         Width = 149
         Height = 49
-        Hint = 'Exportar Registros  (Ctrl+X)'
-        Caption = 'E&xportar'
+        Hint = 'Exportar Registro para o Excel'
+        Caption = 'Exportar'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -130,8 +130,8 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 288
         Width = 149
         Height = 45
-        Hint = 'Sair  (Ctrl+I)'
-        Caption = 'Sa&ir'
+        Hint = 'Sair da tela de Cadastro'
+        Caption = 'Sair'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -175,7 +175,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 58
         Width = 210
         Height = 17
-        Hint = 'Data da '#250'ltima Altera'#231#227'o'
+        Hint = 'Data da '#250'ltima Altera'#231#227'o efetuada no Registro'
         DataField = 'DATA_ULTIMA_ALTERACAO'
         DataSource = DSCadastro
         Font.Charset = ANSI_CHARSET
@@ -203,7 +203,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 37
         Width = 210
         Height = 17
-        Hint = 'Data da '#250'ltima Altera'#231#227'o'
+        Hint = 'Data em que o Registro foi Inserido'
         DataField = 'DATA_CADASTRO'
         DataSource = DSCadastro
         Font.Charset = ANSI_CHARSET
@@ -218,7 +218,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 10
         Width = 41
         Height = 17
-        Hint = 'Registro Ativo'
+        Hint = 'Indica se o Registro est'#225' ativo ou n'#227'o'
         Caption = 'Ativo'
         DataField = 'ATIVO'
         DataSource = DSCadastro

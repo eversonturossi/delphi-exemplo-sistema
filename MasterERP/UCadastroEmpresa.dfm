@@ -50,6 +50,10 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       OnChange = PCPrincipalChange
       object TSCadastro: TTabSheet
         Caption = 'Cadastro'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label8: TLabel
           Left = 45
           Top = 20
@@ -243,11 +247,12 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Font.Style = []
           ParentFont = False
         end
-        object DBEdit1: TDBEdit
+        object DBEditCodigo: TDBEdit
           Left = 123
           Top = 17
           Width = 94
           Height = 21
+          Hint = 'C'#243'digo de Identifica'#231#227'o da Empresa. Ele '#233' gerado automaticamente'
           TabStop = False
           Color = clScrollBar
           DataField = 'EMPRESA_ID'
@@ -361,6 +366,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Top = 17
           Width = 129
           Height = 22
+          Hint = 'Tipo de Pessoa para a Empresa (F'#237'sica ou Jur'#237'dica)'
           Style = csOwnerDrawFixed
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -630,7 +636,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
             ParentFont = False
             TabOrder = 4
           end
-          object DBEdit7: TDBEdit
+          object DBEditMunicipio: TDBEdit
             Left = 96
             Top = 105
             Width = 327
@@ -744,6 +750,10 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       object TSUsuario: TTabSheet
         Caption = 'Usu'#225'rios'
         ImageIndex = 2
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object DBGrid2: TDBGrid
           Left = 51
           Top = 41

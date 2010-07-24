@@ -90,6 +90,10 @@ begin
             BancoDados.Filial := BancoDados.CDSEmpresaFILIAL.Value;
 
             Logado := True;
+
+            Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela,
+              'Logando no Sistema: ' + IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) +
+              '/' + BancoDados.qryLoginLOGIN.Value + '.');
           end
         else
           Mensagem('Usuário não Encontrado.', mtWarning,[mbOk],mrOK,0);
