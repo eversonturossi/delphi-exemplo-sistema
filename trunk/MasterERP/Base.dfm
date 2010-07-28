@@ -317,7 +317,6 @@ object BancoDados: TBancoDados
     ProviderName = 'DSPPessoaEndereco'
     StoreDefs = True
     AfterInsert = CDSPessoaEnderecoAfterInsert
-    BeforePost = CDSPessoaBeforePost
     OnCalcFields = CDSPessoaEnderecoCalcFields
     Left = 30
     Top = 160
@@ -856,15 +855,6 @@ object BancoDados: TBancoDados
     object CDSPessoaPESSOA_ID: TIntegerField
       FieldName = 'PESSOA_ID'
     end
-    object CDSPessoaATIVO: TSmallintField
-      FieldName = 'ATIVO'
-    end
-    object CDSPessoaDATA_CADASTRO: TSQLTimeStampField
-      FieldName = 'DATA_CADASTRO'
-    end
-    object CDSPessoaDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
-      FieldName = 'DATA_ULTIMA_ALTERACAO'
-    end
     object CDSPessoaNOME_APELIDO_FANTASIA: TStringField
       FieldName = 'NOME_APELIDO_FANTASIA'
       Size = 60
@@ -1175,5 +1165,112 @@ object BancoDados: TBancoDados
     SQLConnection = Conexao
     Left = 633
     Top = 71
+  end
+  object DSProdutoFornecedor: TDataSource
+    DataSet = CDSProdutoFornecedor
+    Left = 32
+    Top = 378
+  end
+  object CDSProdutoFornecedor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPProdutoFornecedor'
+    AfterInsert = CDSProdutoFornecedorAfterInsert
+    BeforePost = CDSProdutoFornecedorBeforePost
+    AfterPost = CDSProdutoFornecedorAfterPost
+    BeforeDelete = CDSProdutoFornecedorBeforeDelete
+    AfterDelete = CDSProdutoFornecedorAfterDelete
+    OnCalcFields = CDSProdutoFornecedorCalcFields
+    Left = 32
+    Top = 333
+    object CDSProdutoFornecedorPRODUTO_FORNECEDOR_ID: TIntegerField
+      FieldName = 'PRODUTO_FORNECEDOR_ID'
+    end
+    object CDSProdutoFornecedorPRODUTO_ID: TIntegerField
+      FieldName = 'PRODUTO_ID'
+    end
+    object CDSProdutoFornecedorFORNECEDOR_ID: TIntegerField
+      FieldName = 'FORNECEDOR_ID'
+    end
+    object CDSProdutoFornecedorcalc_fornecedor_nome: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_fornecedor_nome'
+      Size = 60
+      Calculated = True
+    end
+    object CDSProdutoFornecedorcalc_produto_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_produto_descricao'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPProdutoFornecedor: TDataSetProvider
+    DataSet = qryProdutoFornecedor
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 32
+    Top = 289
+  end
+  object DSProdutoBarra: TDataSource
+    DataSet = CDSProdutoBarra
+    Left = 69
+    Top = 378
+  end
+  object CDSProdutoBarra: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPProdutoBarra'
+    OnCalcFields = CDSProdutoBarraCalcFields
+    Left = 68
+    Top = 333
+    object CDSProdutoBarraPRODUTO_BARRAS_ID: TIntegerField
+      FieldName = 'PRODUTO_BARRAS_ID'
+    end
+    object CDSProdutoBarraPRODUTO_ID: TIntegerField
+      FieldName = 'PRODUTO_ID'
+    end
+    object CDSProdutoBarraFORNECEDOR_ID: TIntegerField
+      FieldName = 'FORNECEDOR_ID'
+    end
+    object CDSProdutoBarraEAN: TStringField
+      FieldName = 'EAN'
+      Size = 60
+    end
+    object CDSProdutoBarracalc_fornecedor_nome: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_fornecedor_nome'
+      Size = 60
+      Calculated = True
+    end
+    object CDSProdutoBarracalc_produto_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_produto_descricao'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPProdutoBarra: TDataSetProvider
+    DataSet = qryProdutoBarra
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 67
+    Top = 289
+  end
+  object qryProdutoFornecedor: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from produto_fornecedor where produto_fornecedor_id = 0')
+    SQLConnection = Conexao
+    Left = 32
+    Top = 246
+  end
+  object qryProdutoBarra: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from produto_barras where produto_barras_id = 0')
+    SQLConnection = Conexao
+    Left = 67
+    Top = 246
   end
 end

@@ -145,6 +145,21 @@
 			<DCCReference Include="UConsultaLog.pas">
 				<Form>ConsultaLogForm</Form>
 			</DCCReference>
+			<DCCReference Include="UConsultaFornecedor.pas">
+				<Form>ConsultaFornecedorForm</Form>
+			</DCCReference>
+			<DCCReference Include="UCadastroFornecedor.pas">
+				<Form>CadastroFornecedorForm</Form>
+			</DCCReference>
+			<DCCReference Include="UConsultaTransportadora.pas">
+				<Form>ConsultaTransportadoraForm</Form>
+			</DCCReference>
+			<DCCReference Include="UCadastroTransportadora.pas">
+				<Form>CadastroTransportadoraForm</Form>
+			</DCCReference>
+			<DCCReference Include="UPesquisaFornecedor.pas">
+				<Form>PesquisaFornecedorForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

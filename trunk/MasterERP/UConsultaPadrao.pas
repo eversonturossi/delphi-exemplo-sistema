@@ -80,6 +80,7 @@ type
     FormClass: TFormClass;
     procedure CarregaPermissoes;
     procedure CarregaPreferencias;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -168,15 +169,36 @@ begin
     'Consulta - Ativo', '0', BancoDados.Tabela));
 end;
 
+procedure TConsultaPadraoForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Informe o Campo para a Consulta.';
+  CBCondicao.Hint := 'Informe a Condição para a Consulta.';
+  EditValor.Hint := 'Informe o Valor a ser Consultado.';
+  BTPesquisar.Hint := 'Acionar Consulta.';
+  CBSituacao.Hint := 'Registrios a serem Consultados (Somente Ativos/Inativos/Todos).';
+  BTNovo.Hint := 'Novo Registro.';
+  BTAlterar.Hint := 'Alterar Registro.';
+  BTExcluir.Hint := 'Excluir Registro.';
+  BTExportar.Hint := 'Exportar Registros para o Excel.';
+  BTSair.Hint := 'Sair da Tela.';
+end;
+
 procedure TConsultaPadraoForm.ExibirColunas1Click(Sender: TObject);
 begin
   try
     GeraTrace(BancoDados.Tabela,'Alterando Configurações da Grade');
     BancoDados.ExibeStatus := False;
-    CriaForm(TUsuarioExibirColunaForm, UsuarioExibirColunaForm);
+
+    if not Assigned(UsuarioExibirColunaForm) then
+      UsuarioExibirColunaForm := TUsuarioExibirColunaForm.Create(Application);
+    UsuarioExibirColunaForm.ShowModal;
+    UsuarioExibirColunaForm.TabelaFuncao := 0;
   finally
     BancoDados.ExibeStatus := True;
-    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela);
+    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 0, BancoDados.Tabela);
+
+    UsuarioExibirColunaForm.Free;
+    UsuarioExibirColunaForm := nil;
     GeraTrace(BancoDados.Tabela,'Configurações da Grade Alteradas');
   end;
 end;
@@ -348,12 +370,11 @@ begin
   GeraTrace(BancoDados.Tabela,CriaLinha(110));
   GeraTrace(BancoDados.Tabela,'Abrindo Formulário de Consulta');
 
-  ConsultaPadraoForm.Caption := 'MasterERP - Ferramenta de Consulta do Módulo ' +
-    BancoDados.Tabela + '.';
   BancoDados.Operacao := '';
 
   BancoDados.ExibeStatus := True;
   CarregaPreferencias;
+  CarregaHint;
 
   EditValor.SetFocus;
 
@@ -362,9 +383,9 @@ begin
     QuotedStr(BancoDados.Tabela);
   BancoDados.CDSTabela.Open;
 
-  Caption := BancoDados.CDSTabelaDESCRICAO.Value;
+  Caption := 'MasterERP - ' + BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
 
-  ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela);
+  ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 0, BancoDados.Tabela);
   GeraTrace(BancoDados.Tabela,'Formulário de Consulta');
 end;
 
@@ -375,7 +396,8 @@ begin
     BancoDados.CDSUsuarioExibir.Close;
     BancoDados.qryUsuarioExibir.SQL.Text := 'select * from usuario_exibir ' +
       ' where usuario_id = ' + IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) +
-      ' and tabela = ' + QuotedStr(BancoDados.Tabela);
+      ' and tabela = ' + QuotedStr(BancoDados.Tabela) + ' and tabela_funcao = ' +
+      IntToStr(0);
     BancoDados.CDSUsuarioExibir.Open;
 
     BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
@@ -390,7 +412,7 @@ begin
 
     BancoDados.Conexao.Commit(BancoDados.Transacao);
 
-    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela);
+    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 0, BancoDados.Tabela);
 
     Mensagem('Alterações gravadas com Sucesso!', mtInformation,[mbOk],mrOK,0);
 

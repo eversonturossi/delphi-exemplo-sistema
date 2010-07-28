@@ -4,9 +4,6 @@ inherited PesquisaEmpresaForm: TPesquisaEmpresaForm
   TextHeight = 13
   inherited Panel2: TPanel
     inherited Panel3: TPanel
-      inherited BTPesquisar: TSpeedButton
-        OnClick = BTPesquisarClick
-      end
       inherited EditValor: TEdit
         OnKeyPress = EditValorKeyPress
       end

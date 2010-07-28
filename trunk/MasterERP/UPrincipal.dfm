@@ -1,7 +1,6 @@
 object PrincipalForm: TPrincipalForm
   Left = 0
   Top = 0
-  Action = AGrupoProduto
   BorderStyle = bsSingle
   Caption = 'Grupos de Produtos'
   ClientHeight = 520
@@ -17,6 +16,7 @@ object PrincipalForm: TPrincipalForm
   OldCreateOrder = False
   Position = poDesigned
   WindowState = wsMaximized
+  OnClick = AGrupoProdutoExecute
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -67,6 +67,12 @@ object PrincipalForm: TPrincipalForm
       end
       object Cliente1: TMenuItem
         Action = ACliente
+      end
+      object Fornecedores1: TMenuItem
+        Action = AFornecedor
+      end
+      object ransportadoras1: TMenuItem
+        Action = ATransportadora
       end
       object CadastrodeProdutos1: TMenuItem
         Caption = 'Produtos'
@@ -261,7 +267,7 @@ object PrincipalForm: TPrincipalForm
     Top = 224
     object AEmpresa: TAction
       Category = 'Cadastros'
-      Caption = 'Empresa'
+      Caption = 'Empresas'
       OnExecute = AEmpresaExecute
     end
     object ATrocarUsuario: TAction
@@ -277,7 +283,7 @@ object PrincipalForm: TPrincipalForm
     end
     object ACliente: TAction
       Category = 'Cadastros'
-      Caption = 'Cliente'
+      Caption = 'Clientes'
       OnExecute = AClienteExecute
     end
     object AUsuario: TAction
@@ -319,6 +325,16 @@ object PrincipalForm: TPrincipalForm
       Category = 'Ferramentas'
       Caption = 'Log do Sistema'
       OnExecute = ALogSistemaExecute
+    end
+    object AFornecedor: TAction
+      Category = 'Cadastros'
+      Caption = 'Fornecedores'
+      OnExecute = AFornecedorExecute
+    end
+    object ATransportadora: TAction
+      Category = 'Cadastros'
+      Caption = 'Transportadoras'
+      OnExecute = ATransportadoraExecute
     end
   end
 end

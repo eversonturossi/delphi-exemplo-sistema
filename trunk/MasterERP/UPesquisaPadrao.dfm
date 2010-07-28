@@ -3,7 +3,7 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
   Top = 0
   Caption = 'PesquisaPadraoForm'
   ClientHeight = 444
-  ClientWidth = 766
+  ClientWidth = 827
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
   object SBPrincipal: TStatusBar
     Left = 0
     Top = 425
-    Width = 766
+    Width = 827
     Height = 19
     Panels = <
       item
@@ -31,7 +31,7 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 121
+    Width = 155
     Height = 425
     Align = alLeft
     Color = clWhite
@@ -43,10 +43,10 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 1
-    object JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    object GHPPrincipal: TJvGradientHeaderPanel
       Left = 1
       Top = 1
-      Width = 119
+      Width = 153
       Height = 423
       GradientStartColor = 6930170
       GradientStyle = grVertical
@@ -59,21 +59,22 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
       LabelFont.Style = [fsBold]
       LabelAlignment = taCenter
       Align = alClient
+      AutoSize = True
       TabOrder = 0
     end
   end
   object Panel2: TPanel
-    Left = 121
+    Left = 155
     Top = 0
-    Width = 645
+    Width = 672
     Height = 425
     Align = alClient
     TabOrder = 2
     object Panel3: TPanel
       Left = 1
       Top = 1
-      Width = 643
-      Height = 96
+      Width = 670
+      Height = 98
       Align = alTop
       TabOrder = 0
       object Label1: TLabel
@@ -90,27 +91,19 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
         Height = 13
         Caption = 'Condi'#231#227'o:'
       end
-      object Label3: TLabel
-        Left = 39
-        Top = 67
-        Width = 28
-        Height = 13
-        Caption = 'Valor:'
-      end
-      object BTPesquisar: TSpeedButton
-        Left = 430
-        Top = 60
-        Width = 130
-        Height = 30
-        Hint = 'Pesquisar Registros'
-        Caption = 'Pesquisar'
-      end
       object Label4: TLabel
         Left = 273
         Top = 13
         Width = 45
         Height = 13
         Caption = 'Situa'#231#227'o:'
+      end
+      object Label3: TLabel
+        Left = 39
+        Top = 68
+        Width = 28
+        Height = 13
+        Caption = 'Valor:'
       end
       object CBCriterio: TComboBox
         Left = 84
@@ -136,16 +129,9 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
         ItemIndex = 0
         TabOrder = 1
         Text = '<selecione>'
+        OnSelect = CBCondicaoSelect
         Items.Strings = (
           '<selecione>')
-      end
-      object EditValor: TEdit
-        Left = 84
-        Top = 64
-        Width = 333
-        Height = 21
-        Hint = 'Valor a ser Pesquisado'
-        TabOrder = 2
       end
       object CBSituacao: TComboBox
         Left = 336
@@ -155,7 +141,7 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
         Hint = 'Campo utilizado para Pesquisa'
         Style = csOwnerDrawFixed
         ItemIndex = 2
-        TabOrder = 3
+        TabOrder = 2
         Text = 'Todos'
         OnSelect = CBSituacaoSelect
         Items.Strings = (
@@ -163,12 +149,21 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
           'Ativo'
           'Todos')
       end
+      object EditValor: TEdit
+        Left = 84
+        Top = 65
+        Width = 333
+        Height = 21
+        Hint = 'Valor a ser Pesquisado'
+        TabOrder = 3
+        OnChange = EditValorChange
+      end
     end
     object DBGrid1: TDBGrid
       Left = 1
-      Top = 97
-      Width = 643
-      Height = 278
+      Top = 99
+      Width = 670
+      Height = 325
       Align = alClient
       FixedColor = clWhite
       Font.Charset = ANSI_CHARSET
@@ -187,32 +182,6 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
       OnDrawColumnCell = DBGrid1DrawColumnCell
-    end
-    object Panel4: TPanel
-      Left = 1
-      Top = 375
-      Width = 643
-      Height = 49
-      Align = alBottom
-      TabOrder = 2
-      object BTConfirmar: TSpeedButton
-        Left = 428
-        Top = 2
-        Width = 105
-        Height = 45
-        Caption = 'Confirmar'
-        Layout = blGlyphTop
-        OnClick = BTConfirmarClick
-      end
-      object BTCancelar: TSpeedButton
-        Left = 535
-        Top = 2
-        Width = 105
-        Height = 45
-        Caption = 'Cancelar'
-        Layout = blGlyphTop
-        OnClick = BTCancelarClick
-      end
     end
   end
   object qryConsulta: TSQLQuery

@@ -89,6 +89,9 @@ type
     qryEmpresaFilial: TSQLQuery;
     Label15: TLabel;
     AVerificarNome: TAction;
+    CDSCadastroDATA_CADASTRO: TSQLTimeStampField;
+    CDSCadastroATIVO: TSmallintField;
+    CDSCadastroDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
     procedure RemoveAcento(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CDSCadastroAfterInsert(DataSet: TDataSet);
@@ -298,6 +301,7 @@ end;
 
 procedure TCadastroEmpresaForm.CarregaHint;
 begin
+  CBTipo.Hint := 'Tipo de Empresa (Pessoa Física/Pessoa Jurídica).';
   DBEditCodigo.Hint := 'Este é o Código de identificação da Empresa.' +
     ' Ele é gerado automaticamente pelo Sistema';
   BTSalvarImagem.Hint := 'Selecionar e Salvar a Foto do titular da Empresa.';
@@ -307,6 +311,7 @@ begin
     0: begin
       DBEditNome.Hint := 'Informe aqui o Nome da Empresa.' +
         ' Verifique antes se o Nome informado já existe pressionando a tecla F2.';
+      DBEditApelido.Hint := 'Informe aqui o Apelido do Titular da Empresa.';
       DBEditDocumento.Hint := 'Informe aqui o CPF do titular da Empresa.' +
         ' Digite apenas Números. O Sistema verificará sua validade' +
         ' pressionando a tecla Enter.';
@@ -324,6 +329,7 @@ begin
     1: begin
       DBEditNome.Hint := 'Informe aqui a Razão Social da Empresa.' +
         ' Verifique antes se a Razão Social informada já existe pressionando a tecla F2.';
+      DBEditApelido.Hint := 'Informe aqui o Nome Fantasia da Empresa.';
       DBEditDocumento.Hint := 'Informe aqui o CNPJ da Empresa.' +
         ' Digite apenas Números. O Sistema verificará sua validade' +
         ' pressionando a tecla Enter.';
@@ -664,6 +670,8 @@ begin
         CDSCadastroTIPO.Value := 'F';
         GeraTrace('EMPRESA','ID Gerado');
         CDSCadastroFILIAL.Value := 0;
+        CDSCadastro.FieldByName('DATA_CADASTRO').Value := Now;
+        CDSCadastroATIVO.Value := 1;
       end;
   except
     Mensagem('Falha ao Tentar Gerar o I.D!', mtWarning,[mbOk],mrOK,0);
@@ -672,6 +680,8 @@ end;
 
 procedure TCadastroEmpresaForm.CDSCadastroBeforePost(DataSet: TDataSet);
 begin
+  if not (BancoDados.CDSPessoa.State in [dsEdit, dsInsert]) then
+    BancoDados.CDSPessoa.Edit;
   BancoDados.CDSPessoa.Post;
 
   inherited; //Herança

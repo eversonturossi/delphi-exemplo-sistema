@@ -47,6 +47,10 @@ type
     ALogSistema: TAction;
     Ferramentas1: TMenuItem;
     LogdoSistema1: TMenuItem;
+    AFornecedor: TAction;
+    Fornecedores1: TMenuItem;
+    ATransportadora: TAction;
+    ransportadoras1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -62,6 +66,8 @@ type
     procedure ASubGrupoProdutoExecute(Sender: TObject);
     procedure AClienteExecute(Sender: TObject);
     procedure ALogSistemaExecute(Sender: TObject);
+    procedure AFornecedorExecute(Sender: TObject);
+    procedure ATransportadoraExecute(Sender: TObject);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -77,11 +83,17 @@ var
   DataSistema : TDate;
   UsuarioID : Integer;
 
+  {EXIBIR_COLUNA (Campo TABELA_FUNCAO)
+    0: Janela de Consulta Principal.
+    1: Janela de Pesquisa.
+  }
+
 implementation
 uses Base, Base64, UFuncoes, UConexao, ULogin, UConcultaUsuario, UConfiguraTrace,
   UConsultaEmpresa, UCadastroSimplesContatoTipo, UCadastroSimplesMunicipio,
   UConsultaProduto, UConsultaGrupoProduto, UConsultaSubGrupoProduto,
-  UCadastroSimplesPessoaContatoTipo, UConsultaCliente, UConsultaLog;
+  UCadastroSimplesPessoaContatoTipo, UConsultaCliente, UConsultaLog,
+  UConsultaFornecedor, UConsultaTransportadora;
 {$R *.dfm}
 
 procedure TPrincipalForm.LogarUsuario;
@@ -145,6 +157,11 @@ begin
   CriaForm(TConsultaEmpresaForm, ConsultaEmpresaForm);
 end;
 
+procedure TPrincipalForm.AFornecedorExecute(Sender: TObject);
+begin
+  CriaForm(TConsultaFornecedorForm, ConsultaFornecedorForm);
+end;
+
 procedure TPrincipalForm.AGrupoProdutoExecute(Sender: TObject);
 begin
   CriaForm(TConsultaGrupoProdutoForm, ConsultaGrupoProdutoForm);
@@ -178,6 +195,11 @@ end;
 procedure TPrincipalForm.ASubGrupoProdutoExecute(Sender: TObject);
 begin
   CriaForm(TConsultaSubGrupoProdutoForm, ConsultaSubGrupoProdutoForm);
+end;
+
+procedure TPrincipalForm.ATransportadoraExecute(Sender: TObject);
+begin
+  CriaForm(TConsultaTransportadoraForm, ConsultaTransportadoraForm);
 end;
 
 procedure TPrincipalForm.ATrocarUsuarioExecute(Sender: TObject);

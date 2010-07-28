@@ -4,18 +4,19 @@ interface
 uses
   SysUtils, Forms, Dialogs, Messages, Controls, DBGrids, Classes;
 
-  function ConsultaExibir(Grid : TDBGrid ; UsuarioID : Integer ; Tabela : ShortString): Integer;
-  procedure ConfiguraGrade(Grid : TDBGrid ; UsuarioID : Integer ; Tabela : ShortString);
-  procedure MarcarTodos(UsuarioID : Integer ; Tabela : ShortString ; Marcar : Boolean);
-  procedure AtualizaFonte(UsuarioID, FonteTamanho : Integer ; Tabela, FonteNome : ShortString);
+  function ConsultaExibir(Grid : TDBGrid ; UsuarioID, TabelaFuncao : Integer ; Tabela : ShortString): Integer;
+  procedure ConfiguraGrade(Grid : TDBGrid ; UsuarioID, TabelaFuncao : Integer ; Tabela : ShortString);
+  procedure MarcarTodos(UsuarioID, TabelaFuncao : Integer ; Tabela : ShortString ; Marcar : Boolean);
+  procedure AtualizaFonte(UsuarioID, TabelaFuncao, FonteTamanho : Integer ; Tabela, FonteNome : ShortString);
 implementation
 uses Base, UFuncoes;
 
-function ConsultaExibir(Grid : TDBGrid ; UsuarioID : Integer ; Tabela : ShortString): Integer;
+function ConsultaExibir(Grid : TDBGrid ; UsuarioID, TabelaFuncao : Integer ; Tabela : ShortString): Integer;
 begin
   BancoDados.CDSUsuarioExibir.Close;
   BancoDados.qryUsuarioExibir.SQL.Text := 'select * from usuario_exibir where usuario_id = ' +
-    IntToStr(UsuarioID) + ' and tabela = ' + QuotedStr(Tabela);
+    IntToStr(UsuarioID) + ' and tabela = ' + QuotedStr(Tabela) + ' and tabela_funcao = ' +
+    IntToStr(TabelaFuncao);
   BancoDados.CDSUsuarioExibir.Open;
 
   if (BancoDados.CDSUsuarioExibir.IsEmpty) then
@@ -45,12 +46,12 @@ begin
     Result := BancoDados.CDSUsuarioExibirUSUARIO_EXIBIR_ID.Value;
 end;
 
-procedure ConfiguraGrade(Grid : TDBGrid ; UsuarioID : Integer ; Tabela : ShortString);
+procedure ConfiguraGrade(Grid : TDBGrid ; UsuarioID, TabelaFuncao : Integer ; Tabela : ShortString);
 var
   Id, i : Integer;
 begin
   GeraTrace(BancoDados.Tabela,'Consultando Dados da Tabela EXIBIR');
-  Id := ConsultaExibir(Grid, UsuarioID, Tabela);
+  Id := ConsultaExibir(Grid, UsuarioID, TabelaFuncao, Tabela);
   BancoDados.CDSUsuarioExibirColuna.Close;
   BancoDados.qryUsuarioExibirColuna.SQL.Text := 'select * from usuario_exibir_coluna ' +
     ' where usuario_exibir_id = ' + IntToStr(Id);
@@ -133,7 +134,7 @@ begin
   GeraTrace(BancoDados.Tabela,'Dados da Tabela EXIBIR Carregados');
 end;
 
-procedure MarcarTodos(UsuarioID : Integer ; Tabela : ShortString ; Marcar : Boolean);
+procedure MarcarTodos(UsuarioID, TabelaFuncao : Integer ; Tabela : ShortString ; Marcar : Boolean);
 var
   Visivel : Integer;
 begin
@@ -147,7 +148,8 @@ begin
     BancoDados.qryExecute.SQL.Text := 'update usuario_exibir_coluna set visivel = ' +
       IntToStr(Visivel) + ' where exists(' +
       'select * from usuario_exibir where tabela = ' + QuotedStr(Tabela) +
-      ' and usuario_id = ' + IntToStr(UsuarioID) + ');';
+      ' and tabela_funcao = ' + IntToStr(TabelaFuncao) + ' and usuario_id = ' +
+      IntToStr(UsuarioID) + ');';
     BancoDados.qryExecute.ExecSQL(True);
     BancoDados.Conexao.Commit(BancoDados.Transacao);
   except
@@ -157,7 +159,7 @@ begin
   GeraTrace(BancoDados.Tabela,'Campo VISIVEL Alterado');
 end;
 
-procedure AtualizaFonte(UsuarioID, FonteTamanho : Integer ; Tabela, FonteNome : ShortString);
+procedure AtualizaFonte(UsuarioID, TabelaFuncao, FonteTamanho : Integer ; Tabela, FonteNome : ShortString);
 begin
   try
     GeraTrace(BancoDados.Tabela,'Atualizando os Campos FONTE');
@@ -165,7 +167,7 @@ begin
     BancoDados.qryExecute.SQL.Text := 'update usuario_exibir set fonte_nome = ' +
       QuotedStr(FonteNome) + ', fonte_tamanho = ' + IntToStr(FonteTamanho) +
       ' where tabela = ' + QuotedStr(Tabela) + ' and usuario_id = ' +
-      IntToStr(UsuarioID) + ';';
+      IntToStr(UsuarioID) + ' and tabela_funcao = ' + IntToStr(TabelaFuncao) + ';';
     BancoDados.qryExecute.ExecSQL(True);
     BancoDados.Conexao.Commit(BancoDados.Transacao);
     GeraTrace(BancoDados.Tabela,'Campos FONTE Atualizado');

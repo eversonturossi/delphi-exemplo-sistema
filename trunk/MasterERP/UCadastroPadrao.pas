@@ -243,6 +243,7 @@ end;
 
 procedure TCadastroPadraoForm.CDSCadastroBeforePost(DataSet: TDataSet);
 begin
+  CDSCadastro.FieldByName('DATA_ULTIMA_ALTERACAO').Value := Now;
   if (CDSCadastro.State in [dsEdit]) then
       Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela,
         'Registro Alterado: ' + IntToStr(Id) + '/' + Descricao + '.')

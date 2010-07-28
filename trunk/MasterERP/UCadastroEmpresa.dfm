@@ -29,31 +29,18 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
     inherited Panel3: TPanel
       Width = 655
       ExplicitWidth = 655
-      inherited DBText1: TDBText
-        DataSource = BancoDados.DSPessoa
-      end
-      inherited DBText2: TDBText
-        DataSource = BancoDados.DSPessoa
-      end
-      inherited DBCAtivo: TDBCheckBox
-        DataSource = BancoDados.DSPessoa
-      end
     end
     object PCPrincipal: TPageControl
       Left = 1
       Top = 84
       Width = 655
       Height = 450
-      ActivePage = TSEnderecoContato
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange
       object TSCadastro: TTabSheet
         Caption = 'Cadastro'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label8: TLabel
           Left = 45
           Top = 20
@@ -126,7 +113,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
         end
         object LBIM: TLabel
           Left = 12
-          Top = 176
+          Top = 203
           Width = 94
           Height = 13
           Alignment = taRightJustify
@@ -140,7 +127,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
         end
         object LBDataNascimento: TLabel
           Left = 21
-          Top = 203
+          Top = 176
           Width = 85
           Height = 13
           Alignment = taRightJustify
@@ -331,7 +318,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
         end
         object DBEditIM: TDBEdit
           Left = 123
-          Top = 173
+          Top = 200
           Width = 182
           Height = 21
           DataField = 'IM'
@@ -342,11 +329,11 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
         end
         object DBDataNascimento: TJvDBDateEdit
           Left = 123
-          Top = 200
+          Top = 173
           Width = 129
           Height = 21
           TabStop = False
@@ -358,7 +345,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 4
           Visible = False
         end
         object CBTipo: TComboBox
@@ -750,10 +737,6 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       object TSUsuario: TTabSheet
         Caption = 'Usu'#225'rios'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object DBGrid2: TDBGrid
           Left = 51
           Top = 41
@@ -861,6 +844,15 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
     end
     object CDSCadastroEMPRESA_MATRIZ: TIntegerField
       FieldName = 'EMPRESA_MATRIZ'
+    end
+    object CDSCadastroDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSCadastroATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSCadastroDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
     end
   end
   inherited qryCadastro: TSQLQuery

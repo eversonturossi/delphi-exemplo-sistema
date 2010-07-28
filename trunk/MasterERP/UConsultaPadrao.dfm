@@ -56,7 +56,7 @@ object ConsultaPadraoForm: TConsultaPadraoForm
         Left = 3
         Top = 125
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Inserir Novo Registro (Ctrl+Ins)'
         Caption = 'Novo'
         Font.Charset = ANSI_CHARSET
@@ -69,9 +69,9 @@ object ConsultaPadraoForm: TConsultaPadraoForm
       end
       object BTAlterar: TSpeedButton
         Left = 3
-        Top = 169
+        Top = 175
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Alterar Registro (Ctrl+A)'
         Caption = 'Alterar'
         Font.Charset = ANSI_CHARSET
@@ -85,9 +85,9 @@ object ConsultaPadraoForm: TConsultaPadraoForm
       end
       object BTExcluir: TSpeedButton
         Left = 3
-        Top = 213
+        Top = 225
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Excluir Registro (Shift+Del)'
         Caption = 'Excluir'
         Font.Charset = ANSI_CHARSET
@@ -101,9 +101,9 @@ object ConsultaPadraoForm: TConsultaPadraoForm
       end
       object BTExportar: TSpeedButton
         Left = 3
-        Top = 257
+        Top = 275
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Exportar Registros  (Ctrl+X)'
         Caption = 'Exportar'
         Font.Charset = ANSI_CHARSET
@@ -117,9 +117,9 @@ object ConsultaPadraoForm: TConsultaPadraoForm
       end
       object BTSair: TSpeedButton
         Left = 3
-        Top = 301
+        Top = 325
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Sair  (Esc)'
         Caption = 'Sair'
         Font.Charset = ANSI_CHARSET

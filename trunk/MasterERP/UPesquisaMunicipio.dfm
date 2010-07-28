@@ -2,7 +2,6 @@ inherited PesquisaMunicipioForm: TPesquisaMunicipioForm
   Caption = 'PesquisaMunicipioForm'
   ClientWidth = 711
   ExplicitWidth = 727
-  ExplicitHeight = 480
   PixelsPerInch = 96
   TextHeight = 13
   inherited SBPrincipal: TStatusBar
@@ -10,14 +9,11 @@ inherited PesquisaMunicipioForm: TPesquisaMunicipioForm
     ExplicitWidth = 711
   end
   inherited Panel2: TPanel
-    Width = 590
-    ExplicitWidth = 590
+    Width = 556
+    ExplicitWidth = 556
     inherited Panel3: TPanel
-      Width = 588
-      ExplicitWidth = 588
-      inherited BTPesquisar: TSpeedButton
-        OnClick = BTPesquisarClick
-      end
+      Width = 554
+      ExplicitWidth = 554
       inherited Label4: TLabel
         Visible = False
       end
@@ -28,15 +24,15 @@ inherited PesquisaMunicipioForm: TPesquisaMunicipioForm
           'Nome'
           'UF')
       end
-      inherited EditValor: TEdit
-        OnKeyPress = EditValorKeyPress
-      end
       inherited CBSituacao: TComboBox
         Visible = False
       end
+      inherited EditValor: TEdit
+        OnKeyPress = EditValorKeyPress
+      end
     end
     inherited DBGrid1: TDBGrid
-      Width = 588
+      Width = 554
       DataSource = DSqryConsulta
       Columns = <
         item
@@ -58,18 +54,6 @@ inherited PesquisaMunicipioForm: TPesquisaMunicipioForm
           FieldName = 'UF'
           Visible = True
         end>
-    end
-    inherited Panel4: TPanel
-      Width = 588
-      ExplicitWidth = 588
-      inherited BTConfirmar: TSpeedButton
-        Left = 373
-        ExplicitLeft = 373
-      end
-      inherited BTCancelar: TSpeedButton
-        Left = 480
-        ExplicitLeft = 480
-      end
     end
   end
   inherited qryConsulta: TSQLQuery
