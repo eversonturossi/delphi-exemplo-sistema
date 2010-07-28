@@ -65,7 +65,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Left = 3
         Top = 104
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Salvar altera'#231#245'es efetuadas no Registro'
         Caption = 'Salvar'
         Font.Charset = ANSI_CHARSET
@@ -79,9 +79,9 @@ object CadastroPadraoForm: TCadastroPadraoForm
       end
       object BTCancelar: TSpeedButton
         Left = 3
-        Top = 148
+        Top = 154
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Cancelar altera'#231#245'es realizadas'
         Caption = 'Cancelar'
         Font.Charset = ANSI_CHARSET
@@ -95,9 +95,9 @@ object CadastroPadraoForm: TCadastroPadraoForm
       end
       object BTExcluir: TSpeedButton
         Left = 3
-        Top = 192
+        Top = 205
         Width = 149
-        Height = 49
+        Height = 50
         Hint = 'Excluir Registro'
         Caption = 'Excluir'
         Font.Charset = ANSI_CHARSET
@@ -111,9 +111,9 @@ object CadastroPadraoForm: TCadastroPadraoForm
       end
       object BTExportar: TSpeedButton
         Left = 3
-        Top = 240
+        Top = 256
         Width = 149
-        Height = 49
+        Height = 50
         Hint = 'Exportar Registro para o Excel'
         Caption = 'Exportar'
         Font.Charset = ANSI_CHARSET
@@ -127,9 +127,9 @@ object CadastroPadraoForm: TCadastroPadraoForm
       end
       object BTSair: TSpeedButton
         Left = 3
-        Top = 288
+        Top = 307
         Width = 149
-        Height = 45
+        Height = 50
         Hint = 'Sair da tela de Cadastro'
         Caption = 'Sair'
         Font.Charset = ANSI_CHARSET
@@ -219,6 +219,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Width = 41
         Height = 17
         Hint = 'Indica se o Registro est'#225' ativo ou n'#227'o'
+        TabStop = False
         Caption = 'Ativo'
         DataField = 'ATIVO'
         DataSource = DSCadastro

@@ -15,20 +15,10 @@ object UsuarioExibirColunaForm: TUsuarioExibirColunaForm
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object SBPrincipal: TStatusBar
-    Left = 0
-    Top = 366
-    Width = 666
-    Height = 19
-    Panels = <
-      item
-        Width = 200
-      end>
-  end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 121
+    Width = 145
     Height = 366
     Align = alLeft
     Color = clWhite
@@ -40,62 +30,97 @@ object UsuarioExibirColunaForm: TUsuarioExibirColunaForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 1
-    object BTSalvar: TSpeedButton
-      Left = 23
-      Top = 48
-      Width = 73
-      Height = 65
-      Hint = 'Inserir Novo Registro (Ctrl+End)'
-      Caption = 'Salvar'
-      Layout = blGlyphTop
-      OnClick = BTSalvarClick
-      OnMouseMove = BTSalvarMouseMove
-    end
-    object BTCancelar: TSpeedButton
-      Left = 23
-      Top = 178
-      Width = 73
-      Height = 65
-      Hint = 'Cancelar Altera'#231#245'es (Ctrl+BkSp)'
-      Caption = 'Cancelar'
-      Layout = blGlyphTop
-      OnClick = BTCancelarClick
-    end
-    object BTSair: TSpeedButton
-      Left = 23
-      Top = 243
-      Width = 73
-      Height = 65
-      Hint = 'Sair (Esc)'
-      Caption = 'Sair'
-      Layout = blGlyphTop
-      OnClick = BTSairClick
-    end
-    object BTLimpar: TSpeedButton
-      Left = 23
-      Top = 113
-      Width = 73
-      Height = 65
-      Hint = 'Limpar Configura'#231#245'es (Ctrl+Ins)'
-      Caption = 'Limpar'
-      Layout = blGlyphTop
-      OnClick = BTLimparClick
+    object JvGradientHeaderPanel1: TJvGradientHeaderPanel
+      Left = 1
+      Top = 1
+      Width = 143
+      Height = 364
+      GradientStartColor = 6930170
+      GradientStyle = grVertical
+      LabelTop = 30
+      LabelCaption = 'MasterSoft'
+      LabelFont.Charset = ANSI_CHARSET
+      LabelFont.Color = clWhite
+      LabelFont.Height = -16
+      LabelFont.Name = 'MS Sans Serif'
+      LabelFont.Style = [fsBold]
+      LabelAlignment = taCenter
+      Align = alClient
+      TabOrder = 0
+      ExplicitLeft = -10
+      ExplicitTop = 0
+      ExplicitWidth = 161
+      ExplicitHeight = 444
+      object BTSalvar: TSpeedButton
+        Left = 37
+        Top = 83
+        Width = 73
+        Height = 65
+        Hint = 'Inserir Novo Registro (Ctrl+End)'
+        Caption = 'Salvar'
+        Layout = blGlyphTop
+        OnClick = BTSalvarClick
+        OnMouseMove = BTSalvarMouseMove
+      end
+      object BTLimpar: TSpeedButton
+        Left = 37
+        Top = 148
+        Width = 73
+        Height = 65
+        Hint = 'Limpar Configura'#231#245'es (Ctrl+Ins)'
+        Caption = 'Limpar'
+        Layout = blGlyphTop
+        OnClick = BTLimparClick
+      end
+      object BTCancelar: TSpeedButton
+        Left = 37
+        Top = 213
+        Width = 73
+        Height = 65
+        Hint = 'Cancelar Altera'#231#245'es (Ctrl+BkSp)'
+        Caption = 'Cancelar'
+        Layout = blGlyphTop
+        OnClick = BTCancelarClick
+      end
+      object BTSair: TSpeedButton
+        Left = 37
+        Top = 278
+        Width = 73
+        Height = 65
+        Hint = 'Sair (Esc)'
+        Caption = 'Sair'
+        Layout = blGlyphTop
+        OnClick = BTSairClick
+      end
     end
   end
+  object SBPrincipal: TStatusBar
+    Left = 0
+    Top = 366
+    Width = 666
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end>
+  end
   object Panel2: TPanel
-    Left = 121
+    Left = 145
     Top = 0
-    Width = 545
+    Width = 521
     Height = 366
     Align = alClient
     TabOrder = 2
+    ExplicitLeft = 121
+    ExplicitWidth = 545
     object Panel3: TPanel
       Left = 1
       Top = 1
-      Width = 543
+      Width = 519
       Height = 72
       Align = alTop
       TabOrder = 0
+      ExplicitWidth = 543
       object Label1: TLabel
         Left = 82
         Top = 13
@@ -151,7 +176,7 @@ object UsuarioExibirColunaForm: TUsuarioExibirColunaForm
     object DBGrid1: TDBGrid
       Left = 1
       Top = 73
-      Width = 543
+      Width = 519
       Height = 292
       Align = alClient
       BorderStyle = bsNone

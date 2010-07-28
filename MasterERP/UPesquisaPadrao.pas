@@ -12,20 +12,16 @@ type
   TPesquisaPadraoForm = class(TForm)
     SBPrincipal: TStatusBar;
     Panel1: TPanel;
-    JvGradientHeaderPanel1: TJvGradientHeaderPanel;
+    GHPPrincipal: TJvGradientHeaderPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
-    BTPesquisar: TSpeedButton;
     Label4: TLabel;
     CBCriterio: TComboBox;
     CBCondicao: TComboBox;
-    EditValor: TEdit;
     CBSituacao: TComboBox;
     DBGrid1: TDBGrid;
-    Panel4: TPanel;
     qryConsulta: TSQLQuery;
     DSPConsulta: TDataSetProvider;
     CDSConsulta: TClientDataSet;
@@ -35,8 +31,8 @@ type
     ExibirColunas1: TMenuItem;
     ReconfigurarColunas1: TMenuItem;
     ActionList: TActionList;
-    BTConfirmar: TSpeedButton;
-    BTCancelar: TSpeedButton;
+    Label3: TLabel;
+    EditValor: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ApplicationEventsHint(Sender: TObject);
@@ -49,11 +45,21 @@ type
     procedure BTConfirmarClick(Sender: TObject);
     procedure BTCancelarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure CBCondicaoSelect(Sender: TObject);
+    procedure EditValorChange(Sender: TObject);
   private
     { Private declarations }
+    FTabela ,FDescricao, SqlConsulta : String;
+    FID : Integer;
     procedure CarregaPreferencias;
+    procedure CarregaHint;
   public
     { Public declarations }
+  published
+    { Published declarations }
+    property Tabela: String read FTabela write FTabela;
+    property Descricao: String read FDescricao write FDescricao;
+    property ID: Integer read FID write FID;
   end;
 
 var
@@ -72,6 +78,14 @@ begin
     'Consulta - Ativo', '0', BancoDados.Tabela));
 end;
 
+procedure TPesquisaPadraoForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Informe o Campo para a Consulta.';
+  CBCondicao.Hint := 'Informe a Condição para a Consulta.';
+  EditValor.Hint := 'Informe o Valor a ser Consultado.';
+  CBSituacao.Hint := 'Registrios a serem Consultados (Somente Ativos/Inativos/Todos).';
+end;
+
 procedure TPesquisaPadraoForm.BTCancelarClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
@@ -86,6 +100,11 @@ procedure TPesquisaPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
   if (BancoDados.ExibeStatus) then
     SBPrincipal.Panels[0].Text := Application.Hint;
+end;
+
+procedure TPesquisaPadraoForm.CBCondicaoSelect(Sender: TObject);
+begin
+  EditValor.SetFocus;
 end;
 
 procedure TPesquisaPadraoForm.CBCriterioSelect(Sender: TObject);
@@ -118,15 +137,34 @@ begin
     end;
 end;
 
+procedure TPesquisaPadraoForm.EditValorChange(Sender: TObject);
+begin
+  try
+    CDSConsulta.DisableControls;
+    CDSConsulta.Close;
+    qryConsulta.SQL.Text := SqlConsulta;
+    CDSConsulta.Open;
+  finally
+    CDSConsulta.EnableControls;
+  end;
+end;
+
 procedure TPesquisaPadraoForm.ExibirColunas1Click(Sender: TObject);
 begin
   try
     GeraTrace(BancoDados.Tabela,'Alterando Configurações da Grade');
     BancoDados.ExibeStatus := False;
-    CriaForm(TUsuarioExibirColunaForm, UsuarioExibirColunaForm);
+
+    if not Assigned(UsuarioExibirColunaForm) then
+      UsuarioExibirColunaForm := TUsuarioExibirColunaForm.Create(Application);
+    UsuarioExibirColunaForm.ShowModal;
+    UsuarioExibirColunaForm.TabelaFuncao := 1;
   finally
     BancoDados.ExibeStatus := True;
-    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela);
+    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, BancoDados.Tabela);
+
+    UsuarioExibirColunaForm.Free;
+    UsuarioExibirColunaForm := nil;
     GeraTrace(BancoDados.Tabela,'Configurações da Grade Alteradas');
   end;
 end;
@@ -147,7 +185,17 @@ end;
 procedure TPesquisaPadraoForm.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = 38) then
+  if (Key = 13) then
+    begin
+      Key := 0;
+      ModalResult := mrOk;
+    end
+  else if (Key = 27) then
+    begin
+      Key := 0;
+      ModalResult := mrCancel;
+    end
+  else if (Key = 38) then
     begin
       key := 0;
       CDSConsulta.Prior;
@@ -165,13 +213,27 @@ begin
   GeraTrace(BancoDados.Tabela,'Abrindo Formulário de Pesquisa');
 
   ApplicationEvents.Activate;
-  CBCriterio.ItemIndex := StrToInt(LerOpcaoUsuario(BancoDados.qryExecute,
-    BancoDados.qryLoginUSUARIO_ID.Value, 1, 'Consulta - Critério', '0', BancoDados.Tabela));
-  CBSituacao.ItemIndex := StrToInt(LerOpcaoUsuario(BancoDados.qryExecute, BancoDados.qryLoginUSUARIO_ID.Value, 2,
-    'Consulta - Ativo', '0', BancoDados.Tabela));
 
-  ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela);
+  ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, BancoDados.Tabela);
   CarregaPreferencias;
+  CarregaHint;
+
+  CDSConsulta.Close;
+  qryConsulta.SQL.Text := 'select * from ' + FTabela;
+
+  if (CBSituacao.ItemIndex in [0,1]) then
+    qryConsulta.SQL.Add(' and ATIVO = ' + IntToStr(CBSituacao.ItemIndex));
+
+  CDSConsulta.Open;
+
+  BancoDados.CDSTabela.Close;
+  BancoDados.qryTabela.SQL.Text := 'select * from tabela where tabela = ' +
+    QuotedStr(FTabela);
+  BancoDados.CDSTabela.Open;
+
+  Caption := 'MasterERP - ' + BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
+
+  GHPPrincipal.LabelCaption := BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
 
   GeraTrace(BancoDados.Tabela,'Formulário de Pesquisa');
 end;
@@ -183,7 +245,8 @@ begin
     BancoDados.CDSUsuarioExibir.Close;
     BancoDados.qryUsuarioExibir.SQL.Text := 'select * from usuario_exibir ' +
       ' where usuario_id = ' + IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) +
-      ' and tabela = ' + QuotedStr(BancoDados.Tabela);
+      ' and tabela = ' + QuotedStr(BancoDados.Tabela) + ' and tabela_funcao = ' +
+      IntToStr(1);
     BancoDados.CDSUsuarioExibir.Open;
 
     BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
@@ -198,7 +261,7 @@ begin
 
     BancoDados.Conexao.Commit(BancoDados.Transacao);
 
-    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela);
+    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, BancoDados.Tabela);
 
     Mensagem('Alterações gravadas com Sucesso!', mtInformation,[mbOk],mrOK,0);
 

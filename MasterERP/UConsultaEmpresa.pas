@@ -53,8 +53,8 @@ begin
   try
     CDSConsulta.DisableControls;
     Valor := Trim(UpperCase(EditValor.Text));
-    BancoDados.SqlConsulta := 'select p.PESSOA_ID, p.ATIVO, p.DATA_CADASTRO, ' +
-      'p.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTASIA, e.EMPRESA_ID, ' +
+    BancoDados.SqlConsulta := 'select p.PESSOA_ID, e.ATIVO, e.DATA_CADASTRO, ' +
+      'e.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTASIA, e.EMPRESA_ID, ' +
       'e.CNPJ_CPF, e.TIPO, e.IE_IDENTIDADE, e.IM, e.FILIAL ' +
       'from PESSOA p, EMPRESA e where (e.PESSOA_ID = p.PESSOA_ID)';
 
@@ -94,9 +94,9 @@ begin
     if (CBSituacao.ItemIndex in [0,1]) then
       begin
         if (Pos('where', BancoDados.SqlConsulta) > 0) then
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' and p.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
+          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' and e.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
         else
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' where p.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
+          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' where e.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
       end;
 
     CDSConsulta.Close;

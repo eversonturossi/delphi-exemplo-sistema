@@ -5,14 +5,13 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, Buttons, ExtCtrls, ComCtrls, StdCtrls, Spin, FMTBcd,
-  DB, SqlExpr, Provider, DBClient, AppEvnts, JPEG, ActnList;
+  DB, SqlExpr, Provider, DBClient, AppEvnts, JPEG, ActnList, JvExControls,
+  JvGradientHeaderPanel;
 
 type
   TUsuarioExibirColunaForm = class(TForm)
     SBPrincipal: TStatusBar;
     Panel1: TPanel;
-    BTSalvar: TSpeedButton;
-    BTCancelar: TSpeedButton;
     Panel2: TPanel;
     Panel3: TPanel;
     DBGrid1: TDBGrid;
@@ -20,15 +19,18 @@ type
     CBFonte: TComboBox;
     Label2: TLabel;
     SEFontTamanho: TSpinEdit;
-    BTSair: TSpeedButton;
     ApplicationEvents: TApplicationEvents;
     CBMarcar: TCheckBox;
-    BTLimpar: TSpeedButton;
     ActionList: TActionList;
     ASalvar: TAction;
     ALimpar: TAction;
     ACancelar: TAction;
     ASair: TAction;
+    JvGradientHeaderPanel1: TJvGradientHeaderPanel;
+    BTSalvar: TSpeedButton;
+    BTLimpar: TSpeedButton;
+    BTCancelar: TSpeedButton;
+    BTSair: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure SEFontTamanhoChange(Sender: TObject);
     procedure ApplicationEventsHint(Sender: TObject);
@@ -49,9 +51,12 @@ type
       Y: Integer);
   private
     { Private declarations }
-    procedure CarregaImagens;
+    FTabelaFuncao : Integer;
   public
     { Public declarations }
+  published
+    { Published declarations }
+    property TabelaFuncao: Integer read FTabelaFuncao write FTabelaFuncao;
   end;
 
 var
@@ -60,18 +65,6 @@ var
 implementation
 uses Base, UFuncoes, UFuncaoExibirColuna;
 {$R *.dfm}
-
-procedure TUsuarioExibirColunaForm.CarregaImagens;
-begin
-  try
-    GeraTrace(BancoDados.Tabela,'Carregando Imagens');
-    BTSalvar.Glyph.LoadFromFile(BancoDados.imgSalvar);
-    BTLimpar.Glyph.LoadFromFile(BancoDados.imgLimpar);
-    BTCancelar.Glyph.LoadFromFile(BancoDados.imgCancelar2);
-    BTSair.Glyph.LoadFromFile(BancoDados.imgSair);
-    GeraTrace(BancoDados.Tabela,'Imagens Carregadas');
-  except end;
-end;
 
 procedure TUsuarioExibirColunaForm.ASairExecute(Sender: TObject);
 begin
@@ -111,7 +104,7 @@ procedure TUsuarioExibirColunaForm.BTSalvarClick(Sender: TObject);
 begin
   try
     BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
-    AtualizaFonte(BancoDados.qryLoginUSUARIO_ID.Value, SEFontTamanho.Value,
+    AtualizaFonte(BancoDados.qryLoginUSUARIO_ID.Value, FTabelaFuncao, SEFontTamanho.Value,
       BancoDados.Tabela, Trim(CBFonte.Text));
     BancoDados.CDSUsuarioExibirColuna.ApplyUpdates(0);
     BancoDados.Conexao.Commit(BancoDados.Transacao);
@@ -222,7 +215,6 @@ var
   i : Integer;
   Temp : TStrings;
 begin
-  CarregaImagens;
   try
     Temp := TStrings.Create;
     Temp := Screen.Fonts;
@@ -234,7 +226,8 @@ begin
     BancoDados.qryUsuarioExibirColuna.SQL.Text := 'select * from usuario_exibir_coluna ' +
       ' where usuario_exibir_id in(select usuario_exibir_id from usuario_exibir where tabela = ' +
         QuotedStr(BancoDados.Tabela) + ' and usuario_id = ' +
-        IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) + ')';
+        IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) + ' and tabela_funcao = ' +
+        IntToStr(FTabelaFuncao) + ')';
     BancoDados.CDSUsuarioExibirColuna.Open;
 
     CBFonte.Text := BancoDados.CDSUsuarioExibirFONTE_NOME.Value;

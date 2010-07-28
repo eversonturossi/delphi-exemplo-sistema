@@ -6,16 +6,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UCadastroPadrao, FMTBcd, ActnList, AppEvnts, DB, SqlExpr, Provider,
   DBClient, StdCtrls, DBCtrls, Buttons, JvExControls, JvGradientHeaderPanel,
-  ExtCtrls, ComCtrls, Mask;
+  ExtCtrls, ComCtrls, Mask, Grids, DBGrids, Menus;
 
 type
   TCadastroProdutoForm = class(TCadastroPadraoForm)
-    Label8: TLabel;
-    DBEdit1: TDBEdit;
-    Label3: TLabel;
-    DBEditNome: TDBEdit;
-    Label4: TLabel;
-    DBEditLogin: TDBEdit;
     CDSCadastroPRODUTO_ID: TIntegerField;
     CDSCadastroATIVO: TSmallintField;
     CDSCadastroDATA_CADASTRO: TSQLTimeStampField;
@@ -25,23 +19,39 @@ type
     CDSCadastroREFERENCIA: TStringField;
     CDSCadastroUNIDADE_ID: TIntegerField;
     CDSCadastroPRECO: TFloatField;
-    Label5: TLabel;
-    DBEditReferencia: TDBEdit;
-    Label6: TLabel;
-    DBEdit3: TDBEdit;
-    Label7: TLabel;
-    DBLCUnidade: TDBLookupComboBox;
-    Label9: TLabel;
-    DBLCGrupoProduto: TDBLookupComboBox;
-    Label10: TLabel;
-    DBLCSubGrupoProduto: TDBLookupComboBox;
     CDSCadastroPRODUTO_GRUPO_ID: TIntegerField;
     CDSCadastroPRODUTO_SUBGRUPO_ID: TIntegerField;
+    PCPrincipal: TPageControl;
+    TSCadastro: TTabSheet;
+    Label8: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    DBEdit1: TDBEdit;
+    DBEditNome: TDBEdit;
+    DBEditLogin: TDBEdit;
+    DBEditReferencia: TDBEdit;
+    DBLCUnidade: TDBLookupComboBox;
+    DBLCGrupoProduto: TDBLookupComboBox;
+    DBLCSubGrupoProduto: TDBLookupComboBox;
+    TSFornecedorBarras: TTabSheet;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
+    Label6: TLabel;
+    Label11: TLabel;
+    PopupMenu1: TPopupMenu;
+    AdicionarFornecedor1: TMenuItem;
+    ExcluirFornecedor1: TMenuItem;
     procedure RemoveAcento(Sender: TObject);
     procedure CDSCadastroAfterInsert(DataSet: TDataSet);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure DBLCGrupoProdutoClick(Sender: TObject);
+    procedure AdicionarFornecedor1Click(Sender: TObject);
+    procedure ExcluirFornecedor1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,7 +62,7 @@ var
   CadastroProdutoForm: TCadastroProdutoForm;
 
 implementation
-uses Base, UFuncoes;
+uses Base, UFuncoes, UPesquisaFornecedor, UPesquisaPadrao;
 {$R *.dfm}
 
 procedure TCadastroProdutoForm.RemoveAcento(Sender: TObject);
@@ -66,6 +76,29 @@ begin
         CDSCadastro.Edit;
       CDSCadastro.FieldByName((Sender as TDBEdit).DataField).Value := RetornaSemAcento(Temp);
     end;
+end;
+
+procedure TCadastroProdutoForm.AdicionarFornecedor1Click(Sender: TObject);
+var
+  Padrao : TPesquisaPadraoForm;
+begin
+  try
+    BancoDados.CDSProdutoFornecedor.DisableControls;
+    if not Assigned(PesquisaFornecedorForm) then
+      PesquisaFornecedorForm := TPesquisaFornecedorForm.Create(Application);
+    PesquisaFornecedorForm.Tabela := 'FORNECEDOR';
+    if (PesquisaFornecedorForm.ShowModal = mrOk) then
+      begin
+        BancoDados.CDSProdutoFornecedor.Append;
+        BancoDados.CDSProdutoFornecedorFORNECEDOR_ID.Value := Padrao.ID;
+        BancoDados.CDSProdutoFornecedorPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+        BancoDados.CDSProdutoFornecedor.Post;
+      end;
+  finally
+    PesquisaFornecedorForm.Free;
+    PesquisaFornecedorForm := nil;
+    BancoDados.CDSProdutoFornecedor.EnableControls;
+  end;
 end;
 
 procedure TCadastroProdutoForm.CDSCadastroAfterInsert(DataSet: TDataSet);
@@ -87,6 +120,11 @@ begin
       BancoDados.CDSSubGrupoProduto.Open;
     end;
   DBLCSubGrupoProduto.Enabled := not (BancoDados.CDSSubGrupoProduto.IsEmpty);
+end;
+
+procedure TCadastroProdutoForm.ExcluirFornecedor1Click(Sender: TObject);
+begin
+  BancoDados.CDSProdutoFornecedor.Delete;
 end;
 
 procedure TCadastroProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);

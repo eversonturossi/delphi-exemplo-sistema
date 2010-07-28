@@ -114,5 +114,15 @@
     <Transaction>2010/07/21 16:17:24.199.dfm,D:\Automação Comercial\MasterSoft\MasterERP\UCliente.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UCadastroCliente.dfm</Transaction>
     <Transaction>2010/07/24 01:18:21.931.pas,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.pas=D:\Automação Comercial\MasterSoft\MasterERP\UConsultaLog.pas</Transaction>
     <Transaction>2010/07/24 01:18:21.931.dfm,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UConsultaLog.dfm</Transaction>
+    <Transaction>2010/07/27 08:50:07.917.pas,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.pas=D:\Automação Comercial\MasterSoft\MasterERP\UConsultaFornecedor.pas</Transaction>
+    <Transaction>2010/07/27 08:50:07.939.dfm,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UConsultaFornecedor.dfm</Transaction>
+    <Transaction>2010/07/27 08:52:00.628.pas,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.pas=D:\Automação Comercial\MasterSoft\MasterERP\UCadastroFornecedor.pas</Transaction>
+    <Transaction>2010/07/27 08:52:00.628.dfm,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UCadastroFornecedor.dfm</Transaction>
+    <Transaction>2010/07/27 10:03:05.164.pas,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.pas=D:\Automação Comercial\MasterSoft\MasterERP\UConsultaTransportadora.pas</Transaction>
+    <Transaction>2010/07/27 10:03:05.164.dfm,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UConsultaTransportadora.dfm</Transaction>
+    <Transaction>2010/07/27 10:03:38.070.pas,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.pas=D:\Automação Comercial\MasterSoft\MasterERP\UCadastroTransportadora.pas</Transaction>
+    <Transaction>2010/07/27 10:03:38.070.dfm,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UCadastroTransportadora.dfm</Transaction>
+    <Transaction>2010/07/27 15:42:03.256.pas,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.pas=D:\Automação Comercial\MasterSoft\MasterERP\UPesquisaFornecedor.pas</Transaction>
+    <Transaction>2010/07/27 15:42:03.256.dfm,D:\Automação Comercial\MasterSoft\MasterERP\Unit1.dfm=D:\Automação Comercial\MasterSoft\MasterERP\UPesquisaFornecedor.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -35,7 +35,12 @@ uses
   UVerificaPessoa in 'UVerificaPessoa.pas' {VerificaPessoaForm},
   UConsultaCliente in 'UConsultaCliente.pas' {ConsultaClienteForm},
   UCadastroCliente in 'UCadastroCliente.pas' {CadastroClienteForm},
-  UConsultaLog in 'UConsultaLog.pas' {ConsultaLogForm};
+  UConsultaLog in 'UConsultaLog.pas' {ConsultaLogForm},
+  UConsultaFornecedor in 'UConsultaFornecedor.pas' {ConsultaFornecedorForm},
+  UCadastroFornecedor in 'UCadastroFornecedor.pas' {CadastroFornecedorForm},
+  UConsultaTransportadora in 'UConsultaTransportadora.pas' {ConsultaTransportadoraForm},
+  UCadastroTransportadora in 'UCadastroTransportadora.pas' {CadastroTransportadoraForm},
+  UPesquisaFornecedor in 'UPesquisaFornecedor.pas' {PesquisaFornecedorForm};
 
 {$R *.res}
 

@@ -144,9 +144,6 @@ type
     CDSPessoa: TClientDataSet;
     DSPessoa: TDataSource;
     CDSPessoaPESSOA_ID: TIntegerField;
-    CDSPessoaATIVO: TSmallintField;
-    CDSPessoaDATA_CADASTRO: TSQLTimeStampField;
-    CDSPessoaDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
     CDSPessoaNOME_APELIDO_FANTASIA: TStringField;
     DSUnidade: TDataSource;
     CDSUnidade: TClientDataSet;
@@ -238,6 +235,25 @@ type
     CDSTabelaDESCRICAO_REDUZIDA: TStringField;
     CDSUsuarioNIVEL2: TStringField;
     CDSUsuarioDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    DSProdutoFornecedor: TDataSource;
+    CDSProdutoFornecedor: TClientDataSet;
+    DSPProdutoFornecedor: TDataSetProvider;
+    DSProdutoBarra: TDataSource;
+    CDSProdutoBarra: TClientDataSet;
+    DSPProdutoBarra: TDataSetProvider;
+    qryProdutoFornecedor: TSQLQuery;
+    qryProdutoBarra: TSQLQuery;
+    CDSProdutoFornecedorPRODUTO_FORNECEDOR_ID: TIntegerField;
+    CDSProdutoFornecedorPRODUTO_ID: TIntegerField;
+    CDSProdutoFornecedorFORNECEDOR_ID: TIntegerField;
+    CDSProdutoFornecedorcalc_fornecedor_nome: TStringField;
+    CDSProdutoFornecedorcalc_produto_descricao: TStringField;
+    CDSProdutoBarraPRODUTO_BARRAS_ID: TIntegerField;
+    CDSProdutoBarraPRODUTO_ID: TIntegerField;
+    CDSProdutoBarraFORNECEDOR_ID: TIntegerField;
+    CDSProdutoBarraEAN: TStringField;
+    CDSProdutoBarracalc_fornecedor_nome: TStringField;
+    CDSProdutoBarracalc_produto_descricao: TStringField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -249,7 +265,6 @@ type
     procedure CDSPessoaAfterCancel(DataSet: TDataSet);
     procedure CDSPessoaAfterDelete(DataSet: TDataSet);
     procedure CDSPessoaAfterPost(DataSet: TDataSet);
-    procedure CDSPessoaBeforePost(DataSet: TDataSet);
     procedure CDSPessoaImagemAfterInsert(DataSet: TDataSet);
     procedure CDSPessoaContatoTipoAfterInsert(DataSet: TDataSet);
     procedure CDSPessoaContatoTipoAfterCancel(DataSet: TDataSet);
@@ -262,6 +277,14 @@ type
     procedure CDSPessoaEnderecoCalcFields(DataSet: TDataSet);
     procedure CDSPessoaContatoCalcFields(DataSet: TDataSet);
     procedure CDSEmpresaCalcFields(DataSet: TDataSet);
+    procedure CDSProdutoFornecedorCalcFields(DataSet: TDataSet);
+    procedure CDSProdutoBarraCalcFields(DataSet: TDataSet);
+    procedure CDSProdutoFornecedorAfterInsert(DataSet: TDataSet);
+    procedure CDSProdutoFornecedorBeforePost(DataSet: TDataSet);
+    procedure CDSProdutoFornecedorAfterPost(DataSet: TDataSet);
+    procedure CDSProdutoFornecedorBeforeDelete(DataSet: TDataSet);
+    procedure CDSProdutoFornecedorAfterDelete(DataSet: TDataSet);
+    procedure CDSPessoaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -429,9 +452,6 @@ begin
       SQL.Add('select gen_id( GEN_PESSOA_ID, 1 ) from RDB$DATABASE');
       Open;
       CDSPessoaPESSOA_ID.Value := qryGeraID.Fields[0].Value;
-      CDSPessoaATIVO.Value := 1;
-      CDSPessoa.FieldByName('DATA_CADASTRO').Value := Now;
-      CDSPessoa.FieldByName('DATA_ULTIMA_ALTERACAO').Value := Now;
     end;
 end;
 
@@ -469,6 +489,96 @@ begin
       CDSPessoaImagemPESSOA_ID.Value := CDSPessoaPESSOA_ID.Value;
       CDSPessoaImagemTABELA.Value := Tabela;
     end;
+end;
+
+procedure TBancoDados.CDSProdutoBarraCalcFields(DataSet: TDataSet);
+begin
+with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select nome_fantasia from pessoa where pessoa_id in(' +
+        'select pessoa_id from fornecedor where ativo = 1 and fornecedor_id = ' +
+        IntToStr(CDSProdutoBarraFORNECEDOR_ID.Value) + ')';
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSProdutoBarracalc_fornecedor_nome.Value := qryAuxiliar.Fields[0].Value
+  else
+    CDSProdutoBarracalc_fornecedor_nome.Value := '<Desconhecido>';
+
+  with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto where produto_id = ' +
+        IntToStr(CDSProdutoBarraPRODUTO_ID.Value);
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSProdutoBarracalc_produto_descricao.Value := qryAuxiliar.Fields[0].Value
+  else
+    CDSProdutoBarracalc_produto_descricao.Value := '<Desconhecido>';
+end;
+
+procedure TBancoDados.CDSProdutoFornecedorAfterDelete(DataSet: TDataSet);
+begin
+  CDSProdutoFornecedor.ApplyUpdates(0);
+  BancoDados.Conexao.Commit(BancoDados.Transacao);
+end;
+
+procedure TBancoDados.CDSProdutoFornecedorAfterInsert(DataSet: TDataSet);
+begin
+  with qryGeraID do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select gen_id( GEN_PRODUTO_FORNECEDOR_ID, 1 ) from RDB$DATABASE');
+      Open;
+      CDSProdutoFornecedorPRODUTO_FORNECEDOR_ID.Value := qryGeraID.Fields[0].Value;
+    end;
+end;
+
+procedure TBancoDados.CDSProdutoFornecedorAfterPost(DataSet: TDataSet);
+begin
+  CDSProdutoFornecedor.ApplyUpdates(0);
+  BancoDados.Conexao.Commit(BancoDados.Transacao);
+end;
+
+procedure TBancoDados.CDSProdutoFornecedorBeforeDelete(DataSet: TDataSet);
+begin
+  BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
+end;
+
+procedure TBancoDados.CDSProdutoFornecedorBeforePost(DataSet: TDataSet);
+begin
+  BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
+end;
+
+procedure TBancoDados.CDSProdutoFornecedorCalcFields(DataSet: TDataSet);
+begin
+  with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select nome_fantasia from pessoa where pessoa_id in(' +
+        'select pessoa_id from fornecedor where ativo = 1 and fornecedor_id = ' +
+        IntToStr(CDSProdutoFornecedorFORNECEDOR_ID.Value) + ')';
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSProdutoFornecedorcalc_fornecedor_nome.Value := qryAuxiliar.Fields[0].Value
+  else
+    CDSProdutoFornecedorcalc_fornecedor_nome.Value := '<Desconhecido>';
+
+  with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto where produto_id = ' +
+        IntToStr(CDSProdutoFornecedorPRODUTO_ID.Value);
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSProdutoFornecedorcalc_produto_descricao.Value := qryAuxiliar.Fields[0].Value
+  else
+    CDSProdutoFornecedorcalc_produto_descricao.Value := '<Desconhecido>';
 end;
 
 procedure TBancoDados.DataModuleCreate(Sender: TObject);
