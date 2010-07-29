@@ -17,7 +17,6 @@ type
     CDSCadastroCNPJ_CPF: TStringField;
     CDSCadastroIE_IDENTIDADE: TStringField;
     CDSCadastroIM: TStringField;
-    CDSCadastroFILIAL: TSmallintField;
     CDSCadastroTIPO: TStringField;
     CDSCadastroDATA_NASCIMENTO: TDateField;
     PCPrincipal: TPageControl;
@@ -65,6 +64,7 @@ type
     CDSCadastroDATA_CADASTRO: TSQLTimeStampField;
     CDSCadastroDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
     CDSCadastroATIVO: TSmallintField;
+    CDSCadastroEMPRESA_ID: TIntegerField;
     procedure RemoveAcento(Sender: TObject);
     procedure AVerificarNomeExecute(Sender: TObject);
     procedure BTCancelarClick(Sender: TObject);
@@ -303,7 +303,7 @@ begin
         CDSCadastroTIPO.Value := 'F';
         GeraTrace('FORNECEDOR','ID Gerado');
         CDSCadastro.FieldByName('DATA_CADASTRO').Value := Now;
-        CDSCadastroFILIAL.Value := BancoDados.Filial;
+        CDSCadastroEMPRESA_ID.Value := BancoDados.EmpresaID;
         CDSCadastroATIVO.Value := 1;
       end;
   except

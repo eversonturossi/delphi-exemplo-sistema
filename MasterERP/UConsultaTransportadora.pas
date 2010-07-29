@@ -21,8 +21,9 @@ type
     CDSConsultaTIPO: TStringField;
     CDSConsultaIE_IDENTIDADE: TStringField;
     CDSConsultaIM: TStringField;
-    CDSConsultaFILIAL: TSmallintField;
     CDSConsultacalc_tipo: TStringField;
+    CDSConsultaEMPRESA_ID: TIntegerField;
+    CDSConsultacalc_filial: TSmallintField;
     procedure BTAlterarClick(Sender: TObject);
     procedure BTExcluirClick(Sender: TObject);
     procedure BTNovoClick(Sender: TObject);
@@ -146,6 +147,16 @@ begin
     CDSConsultacalc_tipo.Value := 'Pessoa Jurídica'
   else if (CDSConsultaTIPO.Value = 'F') then
     CDSConsultacalc_tipo.Value := 'Pessoa Física';
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select filial where empresa where empresa_id = ' +
+        IntToStr(CDSConsultaEMPRESA_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSConsultacalc_filial.Value := BancoDados.qryAuxiliar.Fields[0].Value;
 end;
 
 procedure TConsultaTransportadoraForm.EditValorKeyPress(Sender: TObject;

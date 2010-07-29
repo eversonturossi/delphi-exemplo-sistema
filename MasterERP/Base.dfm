@@ -1176,10 +1176,6 @@ object BancoDados: TBancoDados
     Params = <>
     ProviderName = 'DSPProdutoFornecedor'
     AfterInsert = CDSProdutoFornecedorAfterInsert
-    BeforePost = CDSProdutoFornecedorBeforePost
-    AfterPost = CDSProdutoFornecedorAfterPost
-    BeforeDelete = CDSProdutoFornecedorBeforeDelete
-    AfterDelete = CDSProdutoFornecedorAfterDelete
     OnCalcFields = CDSProdutoFornecedorCalcFields
     Left = 32
     Top = 333
@@ -1204,6 +1200,9 @@ object BancoDados: TBancoDados
       Size = 60
       Calculated = True
     end
+    object CDSProdutoFornecedorEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
   end
   object DSPProdutoFornecedor: TDataSetProvider
     DataSet = qryProdutoFornecedor
@@ -1213,15 +1212,16 @@ object BancoDados: TBancoDados
   end
   object DSProdutoBarra: TDataSource
     DataSet = CDSProdutoBarra
-    Left = 69
+    Left = 65
     Top = 378
   end
   object CDSProdutoBarra: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DSPProdutoBarra'
+    AfterInsert = CDSProdutoBarraAfterInsert
     OnCalcFields = CDSProdutoBarraCalcFields
-    Left = 68
+    Left = 64
     Top = 333
     object CDSProdutoBarraPRODUTO_BARRAS_ID: TIntegerField
       FieldName = 'PRODUTO_BARRAS_ID'
@@ -1231,10 +1231,6 @@ object BancoDados: TBancoDados
     end
     object CDSProdutoBarraFORNECEDOR_ID: TIntegerField
       FieldName = 'FORNECEDOR_ID'
-    end
-    object CDSProdutoBarraEAN: TStringField
-      FieldName = 'EAN'
-      Size = 60
     end
     object CDSProdutoBarracalc_fornecedor_nome: TStringField
       FieldKind = fkCalculated
@@ -1248,11 +1244,20 @@ object BancoDados: TBancoDados
       Size = 60
       Calculated = True
     end
+    object CDSProdutoBarraTIPO_EAN: TStringField
+      FieldName = 'TIPO_EAN'
+    end
+    object CDSProdutoBarraEAN: TIntegerField
+      FieldName = 'EAN'
+    end
+    object CDSProdutoBarraEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
   end
   object DSPProdutoBarra: TDataSetProvider
     DataSet = qryProdutoBarra
     Options = [poAutoRefresh, poUseQuoteChar]
-    Left = 67
+    Left = 63
     Top = 289
   end
   object qryProdutoFornecedor: TSQLQuery
@@ -1270,7 +1275,118 @@ object BancoDados: TBancoDados
     SQL.Strings = (
       'select * from produto_barras where produto_barras_id = 0')
     SQLConnection = Conexao
-    Left = 67
+    Left = 63
     Top = 246
+  end
+  object DSProdutoPreco: TDataSource
+    DataSet = CDSProdutoPreco
+    Left = 95
+    Top = 378
+  end
+  object CDSProdutoPreco: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPProdutoPreco'
+    AfterInsert = CDSProdutoPrecoAfterInsert
+    OnCalcFields = CDSProdutoPrecoCalcFields
+    Left = 95
+    Top = 333
+    object CDSProdutoPrecoPRODUTO_PRECO_ID: TIntegerField
+      FieldName = 'PRODUTO_PRECO_ID'
+    end
+    object CDSProdutoPrecoDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSProdutoPrecoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSProdutoPrecoATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSProdutoPrecoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object CDSProdutoPrecoPRECO: TFloatField
+      FieldName = 'PRECO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSProdutoPrecoMARGEM_LUCRO: TFloatField
+      FieldName = 'MARGEM_LUCRO'
+    end
+    object CDSProdutoPrecoUNIDADE_ID: TIntegerField
+      FieldName = 'UNIDADE_ID'
+    end
+    object CDSProdutoPrecoPRODUTO_ID: TIntegerField
+      FieldName = 'PRODUTO_ID'
+    end
+    object CDSProdutoPrecoEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+    object CDSProdutoPrecocalc_unidade_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_unidade_descricao'
+      Size = 10
+      Calculated = True
+    end
+  end
+  object DSPProdutoPreco: TDataSetProvider
+    DataSet = qryProdutoPreco
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 95
+    Top = 289
+  end
+  object DSProdutoEmpresa: TDataSource
+    DataSet = CDSProdutoEmpresa
+    Left = 128
+    Top = 378
+  end
+  object CDSProdutoEmpresa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPProdutoEmpresa'
+    AfterInsert = CDSProdutoEmpresaAfterInsert
+    OnCalcFields = CDSProdutoEmpresaCalcFields
+    Left = 126
+    Top = 333
+    object CDSProdutoEmpresaPRODUTO_EMPRESA_ID: TIntegerField
+      FieldName = 'PRODUTO_EMPRESA_ID'
+    end
+    object CDSProdutoEmpresaEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+    object CDSProdutoEmpresaPRODUTO_ID: TIntegerField
+      FieldName = 'PRODUTO_ID'
+    end
+    object CDSProdutoEmpresacalc_empresa_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_empresa_descricao'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPProdutoEmpresa: TDataSetProvider
+    DataSet = qryProdutoEmpresa
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 126
+    Top = 289
+  end
+  object qryProdutoPreco: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from produto_preco where produto_preco_id = 0')
+    SQLConnection = Conexao
+    Left = 94
+    Top = 246
+  end
+  object qryProdutoEmpresa: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from produto_empresa where produto_empresa_id = 0')
+    SQLConnection = Conexao
+    Left = 125
+    Top = 247
   end
 end

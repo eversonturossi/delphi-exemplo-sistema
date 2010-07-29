@@ -21,8 +21,9 @@ type
     CDSConsultaTIPO: TStringField;
     CDSConsultaIE_IDENTIDADE: TStringField;
     CDSConsultaIM: TStringField;
-    CDSConsultaFILIAL: TSmallintField;
     CDSConsultacalc_tipo: TStringField;
+    CDSConsultaEMPRESA_ID: TIntegerField;
+    CDSConsultacalc_filial: TSmallintField;
     procedure BTAlterarClick(Sender: TObject);
     procedure BTExcluirClick(Sender: TObject);
     procedure BTNovoClick(Sender: TObject);
@@ -146,6 +147,16 @@ begin
     CDSConsultacalc_tipo.Value := 'Pessoa Jurídica'
   else if (CDSConsultaTIPO.Value = 'F') then
     CDSConsultacalc_tipo.Value := 'Pessoa Física';
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select filial where empresa where empresa_id = ' +
+        IntToStr(CDSConsultaEMPRESA_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSConsultacalc_filial.Value := BancoDados.qryAuxiliar.Fields[0].Value;
 end;
 
 procedure TConsultaFornecedorForm.EditValorKeyPress(Sender: TObject;
@@ -180,7 +191,7 @@ begin
     Valor := Trim(UpperCase(EditValor.Text));
     BancoDados.SqlConsulta := 'select p.PESSOA_ID, f.ATIVO, f.DATA_CADASTRO, ' +
       'f.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTASIA, f.FORNECEDOR_ID, ' +
-      'f.CNPJ_CPF, f.TIPO, f.IE_IDENTIDADE, f.IM, f.FILIAL ' +
+      'f.CNPJ_CPF, f.TIPO, f.IE_IDENTIDADE, f.IM, f.EMPRESA ' +
       'from PESSOA p, FORNECEDOR f where (f.PESSOA_ID = p.PESSOA_ID)';
 
     if (Valor <> '') then

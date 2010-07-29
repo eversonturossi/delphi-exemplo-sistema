@@ -630,9 +630,6 @@ inherited CadastroFornecedorForm: TCadastroFornecedorForm
       FieldName = 'IM'
       Size = 25
     end
-    object CDSCadastroFILIAL: TSmallintField
-      FieldName = 'FILIAL'
-    end
     object CDSCadastroTIPO: TStringField
       FieldName = 'TIPO'
       Size = 1
@@ -648,6 +645,9 @@ inherited CadastroFornecedorForm: TCadastroFornecedorForm
     end
     object CDSCadastroATIVO: TSmallintField
       FieldName = 'ATIVO'
+    end
+    object CDSCadastroEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
     end
   end
   inherited qryCadastro: TSQLQuery

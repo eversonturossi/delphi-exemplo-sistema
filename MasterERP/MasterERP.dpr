@@ -40,7 +40,8 @@ uses
   UCadastroFornecedor in 'UCadastroFornecedor.pas' {CadastroFornecedorForm},
   UConsultaTransportadora in 'UConsultaTransportadora.pas' {ConsultaTransportadoraForm},
   UCadastroTransportadora in 'UCadastroTransportadora.pas' {CadastroTransportadoraForm},
-  UPesquisaFornecedor in 'UPesquisaFornecedor.pas' {PesquisaFornecedorForm};
+  UPesquisaFornecedor in 'UPesquisaFornecedor.pas' {PesquisaFornecedorForm},
+  UCadastroProdutoBarras in 'UCadastroProdutoBarras.pas' {CadastroProdutoBarrasForm};
 
 {$R *.res}
 
