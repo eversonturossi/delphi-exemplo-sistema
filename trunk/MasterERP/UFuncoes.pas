@@ -23,6 +23,7 @@ uses Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   function TestaCPF(Numero: ShortString): Boolean;
   function RetornaNumeros(Numero : ShortString) : ShortString;
   function TabelaDescricaoReduzida(Tabela : ShortString): ShortString;
+  procedure ExibirCodigoBarras(CodigoBarras : ShortString ; imagem : TImage);
 var
   AtivaTrace : Boolean = False;
 
@@ -504,5 +505,84 @@ begin
     Result := BancoDados.qryAuxiliar.Fields[0].Value
   else
     Result := '';
+end;
+
+procedure ExibirCodigoBarras(CodigoBarras : ShortString ; imagem : TImage);
+const
+    EAN_izqA : array[0..9] of
+    PChar=('0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011');
+    EAN_izqB : array[0..9] of
+    PChar=('0100111','0110011','0011011','0100001','0011101','0111001','0000101','0010001','0001001','0010111');
+    EAN_dcha : array[0..9] of
+    PChar=('1110010','1100110','1101100','1000010','1011100','1001110','1010000','1000100','1001000','1110100');
+    CodificaIzq : array[0..9] of
+    PChar=('AAAAA','ABABB','ABBAB','ABBBA','BAABB','BBAAB','BBBAA','BABAB','BABBA','BBABA');
+var
+  matrix : ShortString;
+  i : Integer;
+
+  procedure CodificaImagem(matrix : String);
+  var
+    i : integer;
+  begin
+    Imagem.Canvas.FillRect(Rect(0,0, Imagem.Width, Imagem.Height));
+    for i := 1 to Length(Matrix) do
+      if matrix[i] = '1' then
+        Imagem.Canvas.PolyLine([Point(10+i,10), Point(10+i,50)])
+      else
+        if matrix[i] = 'x' then
+          Imagem.Canvas.PolyLine([Point(10+i,10), Point(10+i,55)]);
+
+    if (Length(CodigoBarras) = 13) then
+      begin
+        Imagem.Canvas.TextOut(3,50, CodigoBarras[1]);
+        Imagem.Canvas.TextOut(17,50, copy(CodigoBarras,2,6));
+        Imagem.Canvas.TextOut(63,50, copy(CodigoBarras,8,6));
+      end
+    else
+      if (Length(CodigoBarras) = 8) then
+        begin
+          Imagem.Canvas.TextOut(16,50,copy(CodigoBarras,1,4));
+          Imagem.Canvas.TextOut(48,50,copy(CodigoBarras,5,4));
+        end;
+  end;
+begin
+  matrix := '';
+  case Length(CodigoBarras) of
+    13: begin
+          matrix := matrix + 'x0x';
+          matrix := matrix  + EAN_izqA[StrToInt(CodigoBarras[2])];
+          for i := 3 to 7 do
+            if (CodificaIzq[StrToInt(CodigoBarras[1])][i-3] = 'A') then
+              matrix := matrix + EAN_izqA[StrToInt(CodigoBarras[i])]
+            else
+              matrix := matrix + EAN_izqB[StrToInt(CodigoBarras[i])];
+            matrix := matrix + '0x0x0';
+          matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[8])];
+          matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[9])];
+          matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[10])];
+          matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[11])];
+          matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[12])];
+          matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[13])];
+          matrix := matrix + 'x0x';
+            CodificaImagem(matrix);
+    end;
+    8: begin
+         matrix := matrix + 'x0x';
+         matrix := matrix + EAN_izqA[StrToInt(CodigoBarras[1])];
+         matrix := matrix + EAN_izqA[StrToInt(CodigoBarras[2])];
+         matrix := matrix + EAN_izqA[StrToInt(CodigoBarras[3])];
+         matrix := matrix + EAN_izqA[StrToInt(CodigoBarras[4])];
+         matrix := matrix + '0x0x0';
+         matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[5])];
+         matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[6])];
+         matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[7])];
+         matrix := matrix + EAN_dcha[StrToInt(CodigoBarras[8])];
+         matrix := matrix + 'x0x';
+         CodificaImagem(matrix);
+    end
+  else
+    Mensagem('O Produto não contém codigo de barras cadastrado ou inválido!',mtWarning,[mbOk],mrOK,0);
+  end;
 end;
 end.

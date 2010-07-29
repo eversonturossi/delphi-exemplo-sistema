@@ -1,23 +1,21 @@
 inherited ConsultaTransportadoraForm: TConsultaTransportadoraForm
   Caption = 'ConsultaTransportadoraForm'
-  ClientHeight = 509
   ExplicitWidth = 854
-  ExplicitHeight = 535
+  ExplicitHeight = 534
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Height = 490
+    ExplicitHeight = 490
     inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
-      Height = 488
+      ExplicitHeight = 488
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
     end
   end
   inherited Panel2: TPanel
-    Height = 490
+    ExplicitHeight = 490
     inherited DBGrid1: TDBGrid
-      Height = 392
       Columns = <
         item
           Expanded = False
@@ -37,7 +35,7 @@ inherited ConsultaTransportadoraForm: TConsultaTransportadoraForm
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'FILIAL'
+          FieldName = 'calc_filial'
           Title.Caption = 'Filial'
           Width = 50
           Visible = True
@@ -109,8 +107,7 @@ inherited ConsultaTransportadoraForm: TConsultaTransportadoraForm
     end
   end
   inherited SBPrincipal: TStatusBar
-    Top = 490
-    ExplicitTop = -19
+    ExplicitTop = 490
     ExplicitWidth = 0
   end
   inherited qryConsulta: TSQLQuery
@@ -119,7 +116,7 @@ inherited ConsultaTransportadoraForm: TConsultaTransportadoraForm
       
         '     t.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTA' +
         'SIA,t.TRANSPORTADORA_ID,'
-      '     t.CNPJ_CPF, t.TIPO, t.IE_IDENTIDADE, t.IM, t.FILIAL'
+      '     t.CNPJ_CPF, t.TIPO, t.IE_IDENTIDADE, t.IM, t.EMPRESA_ID'
       
         '     from PESSOA p,TRANSPORTADORA t where (t.PESSOA_ID = p.PESSO' +
         'A_ID)')
@@ -167,12 +164,17 @@ inherited ConsultaTransportadoraForm: TConsultaTransportadoraForm
       FieldName = 'IM'
       Size = 25
     end
-    object CDSConsultaFILIAL: TSmallintField
-      FieldName = 'FILIAL'
-    end
     object CDSConsultacalc_tipo: TStringField
       FieldKind = fkCalculated
       FieldName = 'calc_tipo'
+      Calculated = True
+    end
+    object CDSConsultaEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+    object CDSConsultacalc_filial: TSmallintField
+      FieldKind = fkCalculated
+      FieldName = 'calc_filial'
       Calculated = True
     end
   end

@@ -35,7 +35,7 @@ inherited CadastroClienteForm: TCadastroClienteForm
       Top = 84
       Width = 655
       Height = 440
-      ActivePage = TSCadastro
+      ActivePage = TSEnderecoContato
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange
@@ -636,9 +636,6 @@ inherited CadastroClienteForm: TCadastroClienteForm
       FieldName = 'IM'
       Size = 25
     end
-    object CDSCadastroFILIAL: TSmallintField
-      FieldName = 'FILIAL'
-    end
     object CDSCadastroTIPO: TStringField
       FieldName = 'TIPO'
       Size = 1
@@ -654,6 +651,9 @@ inherited CadastroClienteForm: TCadastroClienteForm
     end
     object CDSCadastroATIVO: TSmallintField
       FieldName = 'ATIVO'
+    end
+    object CDSCadastroEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
     end
   end
   inherited qryCadastro: TSQLQuery

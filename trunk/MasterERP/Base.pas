@@ -251,9 +251,35 @@ type
     CDSProdutoBarraPRODUTO_BARRAS_ID: TIntegerField;
     CDSProdutoBarraPRODUTO_ID: TIntegerField;
     CDSProdutoBarraFORNECEDOR_ID: TIntegerField;
-    CDSProdutoBarraEAN: TStringField;
     CDSProdutoBarracalc_fornecedor_nome: TStringField;
     CDSProdutoBarracalc_produto_descricao: TStringField;
+    CDSProdutoBarraTIPO_EAN: TStringField;
+    CDSProdutoBarraEAN: TIntegerField;
+    CDSProdutoFornecedorEMPRESA_ID: TIntegerField;
+    CDSProdutoBarraEMPRESA_ID: TIntegerField;
+    DSProdutoPreco: TDataSource;
+    CDSProdutoPreco: TClientDataSet;
+    DSPProdutoPreco: TDataSetProvider;
+    DSProdutoEmpresa: TDataSource;
+    CDSProdutoEmpresa: TClientDataSet;
+    DSPProdutoEmpresa: TDataSetProvider;
+    qryProdutoPreco: TSQLQuery;
+    qryProdutoEmpresa: TSQLQuery;
+    CDSProdutoPrecoPRODUTO_PRECO_ID: TIntegerField;
+    CDSProdutoPrecoDATA_CADASTRO: TSQLTimeStampField;
+    CDSProdutoPrecoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSProdutoPrecoATIVO: TSmallintField;
+    CDSProdutoPrecoDESCRICAO: TStringField;
+    CDSProdutoPrecoPRECO: TFloatField;
+    CDSProdutoPrecoMARGEM_LUCRO: TFloatField;
+    CDSProdutoPrecoUNIDADE_ID: TIntegerField;
+    CDSProdutoPrecoPRODUTO_ID: TIntegerField;
+    CDSProdutoPrecoEMPRESA_ID: TIntegerField;
+    CDSProdutoEmpresaPRODUTO_EMPRESA_ID: TIntegerField;
+    CDSProdutoEmpresaEMPRESA_ID: TIntegerField;
+    CDSProdutoEmpresaPRODUTO_ID: TIntegerField;
+    CDSProdutoEmpresacalc_empresa_descricao: TStringField;
+    CDSProdutoPrecocalc_unidade_descricao: TStringField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -280,11 +306,12 @@ type
     procedure CDSProdutoFornecedorCalcFields(DataSet: TDataSet);
     procedure CDSProdutoBarraCalcFields(DataSet: TDataSet);
     procedure CDSProdutoFornecedorAfterInsert(DataSet: TDataSet);
-    procedure CDSProdutoFornecedorBeforePost(DataSet: TDataSet);
-    procedure CDSProdutoFornecedorAfterPost(DataSet: TDataSet);
-    procedure CDSProdutoFornecedorBeforeDelete(DataSet: TDataSet);
-    procedure CDSProdutoFornecedorAfterDelete(DataSet: TDataSet);
     procedure CDSPessoaBeforePost(DataSet: TDataSet);
+    procedure CDSProdutoBarraAfterInsert(DataSet: TDataSet);
+    procedure CDSProdutoPrecoAfterInsert(DataSet: TDataSet);
+    procedure CDSProdutoEmpresaAfterInsert(DataSet: TDataSet);
+    procedure CDSProdutoEmpresaCalcFields(DataSet: TDataSet);
+    procedure CDSProdutoPrecoCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -293,6 +320,7 @@ type
     { Public declarations }
     Transacao: TTransactionDesc;
     EmpresaID, Filial : Integer;
+    MultiEmpresa : Boolean;
     imgNovo, imgAlterar, imgExcluir, imgReverter,
     imgSalvar, imgExcel, imgSair, imgLogin,
     imgOkLogin, imgCancelarLogin, imgFechar, imgCancelar, imgConfirmar,
@@ -491,6 +519,19 @@ begin
     end;
 end;
 
+procedure TBancoDados.CDSProdutoBarraAfterInsert(DataSet: TDataSet);
+begin
+  with qryGeraID do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select gen_id( GEN_PRODUTO_BARRAS_ID, 1 ) from RDB$DATABASE');
+      Open;
+      CDSProdutoBarraPRODUTO_BARRAS_ID.Value := qryGeraID.Fields[0].Value;
+      CDSProdutoBarraEMPRESA_ID.Value := EmpresaID;
+    end;
+end;
+
 procedure TBancoDados.CDSProdutoBarraCalcFields(DataSet: TDataSet);
 begin
 with qryAuxiliar do
@@ -519,10 +560,32 @@ with qryAuxiliar do
     CDSProdutoBarracalc_produto_descricao.Value := '<Desconhecido>';
 end;
 
-procedure TBancoDados.CDSProdutoFornecedorAfterDelete(DataSet: TDataSet);
+procedure TBancoDados.CDSProdutoEmpresaAfterInsert(DataSet: TDataSet);
 begin
-  CDSProdutoFornecedor.ApplyUpdates(0);
-  BancoDados.Conexao.Commit(BancoDados.Transacao);
+  with qryGeraID do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select gen_id( GEN_PRODUTO_EMPRESA_ID, 1 ) from RDB$DATABASE');
+      Open;
+      CDSProdutoEmpresaPRODUTO_EMPRESA_ID.Value := qryGeraID.Fields[0].Value;
+      CDSProdutoEmpresaEMPRESA_ID.Value := EmpresaID;
+    end;
+end;
+
+procedure TBancoDados.CDSProdutoEmpresaCalcFields(DataSet: TDataSet);
+begin
+  with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from empresa where empresa_id = ' +
+        IntToStr(CDSProdutoEmpresaEMPRESA_ID.Value);
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSProdutoEmpresacalc_empresa_descricao.Value := qryAuxiliar.Fields[0].Value
+  else
+    CDSProdutoEmpresacalc_empresa_descricao.Value := '<Desconhecido>';
 end;
 
 procedure TBancoDados.CDSProdutoFornecedorAfterInsert(DataSet: TDataSet);
@@ -534,23 +597,8 @@ begin
       SQL.Add('select gen_id( GEN_PRODUTO_FORNECEDOR_ID, 1 ) from RDB$DATABASE');
       Open;
       CDSProdutoFornecedorPRODUTO_FORNECEDOR_ID.Value := qryGeraID.Fields[0].Value;
+      CDSProdutoFornecedorEMPRESA_ID.Value := EmpresaID;
     end;
-end;
-
-procedure TBancoDados.CDSProdutoFornecedorAfterPost(DataSet: TDataSet);
-begin
-  CDSProdutoFornecedor.ApplyUpdates(0);
-  BancoDados.Conexao.Commit(BancoDados.Transacao);
-end;
-
-procedure TBancoDados.CDSProdutoFornecedorBeforeDelete(DataSet: TDataSet);
-begin
-  BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
-end;
-
-procedure TBancoDados.CDSProdutoFornecedorBeforePost(DataSet: TDataSet);
-begin
-  BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
 end;
 
 procedure TBancoDados.CDSProdutoFornecedorCalcFields(DataSet: TDataSet);
@@ -579,6 +627,38 @@ begin
     CDSProdutoFornecedorcalc_produto_descricao.Value := qryAuxiliar.Fields[0].Value
   else
     CDSProdutoFornecedorcalc_produto_descricao.Value := '<Desconhecido>';
+end;
+
+procedure TBancoDados.CDSProdutoPrecoAfterInsert(DataSet: TDataSet);
+begin
+  with qryGeraID do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select gen_id( GEN_PRODUTO_PRECO_ID, 1 ) from RDB$DATABASE');
+      Open;
+      CDSProdutoPrecoPRODUTO_PRECO_ID.Value := qryGeraID.Fields[0].Value;
+      CDSProdutoPrecoEMPRESA_ID.Value := EmpresaID;
+      CDSProdutoPrecoDATA_CADASTRO.Value := Now;
+      CDSProdutoPrecoATIVO.Value := 1;
+      CDSProdutoPrecoPRECO.Value := 0;
+      CDSProdutoPrecoMARGEM_LUCRO.Value := 0;
+    end;
+end;
+
+procedure TBancoDados.CDSProdutoPrecoCalcFields(DataSet: TDataSet);
+begin
+  with qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from unidade where unidade_id = ' +
+        IntToStr(CDSProdutoPrecoUNIDADE_ID.Value);
+      Open;
+    end;
+  if not (qryAuxiliar.IsEmpty) then
+    CDSProdutoPrecocalc_unidade_descricao.Value := qryAuxiliar.Fields[0].Value
+  else
+    CDSProdutoPrecocalc_unidade_descricao.Value := '<Desconhecido>';
 end;
 
 procedure TBancoDados.DataModuleCreate(Sender: TObject);

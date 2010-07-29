@@ -1,7 +1,6 @@
 inherited CadastroProdutoForm: TCadastroProdutoForm
   Caption = 'CadastroProdutoForm'
   ClientHeight = 528
-  ExplicitWidth = 776
   ExplicitHeight = 554
   PixelsPerInch = 96
   TextHeight = 13
@@ -47,7 +46,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Top = 84
       Width = 611
       Height = 424
-      ActivePage = TSFornecedorBarras
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       object TSCadastro: TTabSheet
@@ -143,6 +142,20 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           Height = 13
           Alignment = taRightJustify
           Caption = 'SubGrupo de Produtos:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label12: TLabel
+          Left = 53
+          Top = 213
+          Width = 80
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Estoque M'#237'nimo:'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -272,6 +285,22 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           ParentFont = False
           TabOrder = 6
         end
+        object DBEditEstoqueMinimo: TDBEdit
+          Left = 150
+          Top = 210
+          Width = 193
+          Height = 21
+          DataField = 'ESTOQUE_MINIMO'
+          DataSource = DSCadastro
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 7
+          OnExit = RemoveAcento
+        end
       end
       object TSFornecedorBarras: TTabSheet
         Caption = 'Fornecedores / C'#243'd. Barras'
@@ -354,6 +383,141 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           ParentFont = False
+          PopupMenu = PopupMenu2
+          ReadOnly = True
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'EAN'
+              Width = 150
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FORNECEDOR_ID'
+              Title.Caption = 'Fornecedor I.D'
+              Width = 90
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'calc_fornecedor_nome'
+              Title.Caption = 'Nome / Raz'#227'o Social'
+              Width = 250
+              Visible = True
+            end>
+        end
+      end
+      object TSPrecoEmpresa: TTabSheet
+        Caption = 'Pre'#231'os / Empresas'
+        ImageIndex = 2
+        object Label13: TLabel
+          Left = 53
+          Top = 21
+          Width = 40
+          Height = 13
+          Caption = 'Pre'#231'os'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 6590965
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label14: TLabel
+          Left = 53
+          Top = 207
+          Width = 55
+          Height = 13
+          Caption = 'Empresas'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 6590965
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object DBGrid3: TDBGrid
+          Left = 53
+          Top = 38
+          Width = 532
+          Height = 150
+          DataSource = BancoDados.DSProdutoPreco
+          FixedColor = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clDefault
+          Font.Height = -13
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentFont = False
+          PopupMenu = PopupMenu3
+          ReadOnly = True
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'DESCRICAO'
+              Title.Caption = 'Descri'#231#227'o'
+              Width = 200
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ATIVO'
+              Title.Caption = 'Ativo'
+              Width = 45
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'calc_unidade_descricao'
+              Title.Caption = 'Unidade'
+              Width = 50
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'PRECO'
+              Title.Caption = 'Pre'#231'o'
+              Width = 90
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'MARGEM_LUCRO'
+              Title.Caption = 'Margem Lucro (%)'
+              Width = 90
+              Visible = True
+            end>
+        end
+        object DBGrid4: TDBGrid
+          Left = 53
+          Top = 223
+          Width = 532
+          Height = 157
+          DataSource = BancoDados.DSProdutoBarra
+          FixedColor = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clDefault
+          Font.Height = -13
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentFont = False
+          PopupMenu = PopupMenu4
           ReadOnly = True
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
@@ -415,15 +579,15 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
     object CDSCadastroUNIDADE_ID: TIntegerField
       FieldName = 'UNIDADE_ID'
     end
-    object CDSCadastroPRECO: TFloatField
-      FieldName = 'PRECO'
-      DisplayFormat = ',0.00'
-    end
     object CDSCadastroPRODUTO_GRUPO_ID: TIntegerField
       FieldName = 'PRODUTO_GRUPO_ID'
     end
     object CDSCadastroPRODUTO_SUBGRUPO_ID: TIntegerField
       FieldName = 'PRODUTO_SUBGRUPO_ID'
+    end
+    object CDSCadastroESTOQUE_MINIMO: TFloatField
+      FieldName = 'ESTOQUE_MINIMO'
+      DisplayFormat = ',0.00'
     end
   end
   inherited qryCadastro: TSQLQuery
@@ -441,5 +605,28 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Caption = 'Excluir Fornecedor'
       OnClick = ExcluirFornecedor1Click
     end
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 663
+    Top = 42
+    object AdicionarCdigodeBarras1: TMenuItem
+      Caption = 'Adicionar C'#243'digo de Barras'
+      OnClick = AdicionarCdigodeBarras1Click
+    end
+    object DetalhesdoCdigodeBarras1: TMenuItem
+      Caption = 'Detalhes do C'#243'digo de Barras'
+      OnClick = DetalhesdoCdigodeBarras1Click
+    end
+    object ExcluirCdigodeBarras1: TMenuItem
+      Caption = 'Excluir C'#243'digo de Barras'
+      OnClick = ExcluirCdigodeBarras1Click
+    end
+  end
+  object PopupMenu3: TPopupMenu
+    Left = 700
+  end
+  object PopupMenu4: TPopupMenu
+    Left = 701
+    Top = 43
   end
 end

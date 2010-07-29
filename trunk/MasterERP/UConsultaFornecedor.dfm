@@ -7,10 +7,10 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
   TextHeight = 13
   inherited Panel1: TPanel
     Height = 492
-    ExplicitHeight = 490
+    ExplicitHeight = 492
     inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
       Height = 490
-      ExplicitHeight = 488
+      ExplicitHeight = 490
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
@@ -18,7 +18,7 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
   end
   inherited Panel2: TPanel
     Height = 492
-    ExplicitHeight = 490
+    ExplicitHeight = 492
     inherited DBGrid1: TDBGrid
       Height = 394
       Columns = <
@@ -40,7 +40,7 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'FILIAL'
+          FieldName = 'calc_filial'
           Title.Caption = 'Filial'
           Width = 50
           Visible = True
@@ -113,7 +113,7 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
   end
   inherited SBPrincipal: TStatusBar
     Top = 492
-    ExplicitTop = 490
+    ExplicitTop = 492
     ExplicitWidth = 0
   end
   inherited qryConsulta: TSQLQuery
@@ -122,7 +122,7 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
       
         '     f.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTA' +
         'SIA, f.FORNECEDOR_ID,'
-      '     f.CNPJ_CPF, f.TIPO, f.IE_IDENTIDADE, f.IM, f.FILIAL'
+      '     f.CNPJ_CPF, f.TIPO, f.IE_IDENTIDADE, f.IM, f.EMPRESA_ID'
       
         '     from PESSOA p, FORNECEDOR f where (f.PESSOA_ID = p.PESSOA_I' +
         'D)')
@@ -171,12 +171,17 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
       FieldName = 'IM'
       Size = 25
     end
-    object CDSConsultaFILIAL: TSmallintField
-      FieldName = 'FILIAL'
-    end
     object CDSConsultacalc_tipo: TStringField
       FieldKind = fkCalculated
       FieldName = 'calc_tipo'
+      Calculated = True
+    end
+    object CDSConsultaEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+    object CDSConsultacalc_filial: TSmallintField
+      FieldKind = fkCalculated
+      FieldName = 'calc_filial'
       Calculated = True
     end
   end

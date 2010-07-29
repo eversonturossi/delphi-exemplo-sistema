@@ -131,9 +131,10 @@ end;
 
 procedure TLoginForm.FormCreate(Sender: TObject);
 begin
-  PEmpresa.Visible := (Parametro(BancoDados.qryAuxiliar, 2, 'NAO') = 'SIM');
+  BancoDados.MultiEmpresa := (Parametro(BancoDados.qryAuxiliar, 2, 'NAO') = 'SIM');
+  PEmpresa.Visible := BancoDados.MultiEmpresa;
 
-  if (PEmpresa.Visible) then
+  if (BancoDados.MultiEmpresa) then
     begin
       Height := 420;
 
