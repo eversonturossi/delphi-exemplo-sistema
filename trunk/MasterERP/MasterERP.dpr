@@ -41,7 +41,10 @@ uses
   UConsultaTransportadora in 'UConsultaTransportadora.pas' {ConsultaTransportadoraForm},
   UCadastroTransportadora in 'UCadastroTransportadora.pas' {CadastroTransportadoraForm},
   UPesquisaFornecedor in 'UPesquisaFornecedor.pas' {PesquisaFornecedorForm},
-  UCadastroProdutoBarras in 'UCadastroProdutoBarras.pas' {CadastroProdutoBarrasForm};
+  UCadastroProdutoBarras in 'UCadastroProdutoBarras.pas' {CadastroProdutoBarrasForm},
+  UCadastroProdutoPreco in 'UCadastroProdutoPreco.pas' {CadastroProdutoPrecoForm},
+  UPesquisaCliente in 'UPesquisaCliente.pas' {PesquisaClienteForm},
+  UPesquisaTransportadora in 'UPesquisaTransportadora.pas' {PesquisaTransportadoraForm};
 
 {$R *.res}
 
@@ -51,5 +54,6 @@ begin
   Application.Title := 'Master ERP';
   Application.CreateForm(TBancoDados, BancoDados);
   Application.CreateForm(TPrincipalForm, PrincipalForm);
+  Application.CreateForm(TPesquisaTransportadoraForm, PesquisaTransportadoraForm);
   Application.Run;
 end.

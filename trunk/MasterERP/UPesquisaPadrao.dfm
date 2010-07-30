@@ -156,7 +156,6 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
         Height = 21
         Hint = 'Valor a ser Pesquisado'
         TabOrder = 3
-        OnChange = EditValorChange
       end
     end
     object DBGrid1: TDBGrid

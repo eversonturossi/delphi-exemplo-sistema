@@ -7,10 +7,10 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
   TextHeight = 13
   inherited Panel1: TPanel
     Height = 492
-    ExplicitHeight = 492
+    ExplicitHeight = 491
     inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
       Height = 490
-      ExplicitHeight = 490
+      ExplicitHeight = 489
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
@@ -18,7 +18,7 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
   end
   inherited Panel2: TPanel
     Height = 492
-    ExplicitHeight = 492
+    ExplicitHeight = 491
     inherited DBGrid1: TDBGrid
       Height = 394
       Columns = <
@@ -26,6 +26,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'FORNECEDOR_ID'
           Title.Caption = 'Fornecedor I.D'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 80
           Visible = True
         end
@@ -34,6 +39,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'ATIVO'
           Title.Caption = 'Ativo'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 60
           Visible = True
         end
@@ -42,6 +52,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'calc_filial'
           Title.Caption = 'Filial'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 50
           Visible = True
         end
@@ -49,6 +64,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'NOME_RAZAO'
           Title.Caption = 'Nome / Raz'#227'o Social'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 350
           Visible = True
         end
@@ -56,6 +76,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'NOME_APELIDO_FANTASIA'
           Title.Caption = 'Apelido / Nome Fantasia'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 350
           Visible = True
         end
@@ -63,6 +88,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'DATA_CADASTRO'
           Title.Caption = 'Data Cadastro / Data Abertura'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 180
           Visible = True
         end
@@ -70,6 +100,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'DATA_ULTIMA_ALTERACAO'
           Title.Caption = #218'ltima Altera'#231#227'o'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 180
           Visible = True
         end
@@ -77,6 +112,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'calc_tipo'
           Title.Caption = 'Tipo'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 120
           Visible = True
         end
@@ -84,6 +124,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'CNPJ_CPF'
           Title.Caption = 'CPF / CNPJ'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 90
           Visible = True
         end
@@ -91,6 +136,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'IE_IDENTIDADE'
           Title.Caption = 'Identidade / Inscri'#231#227'o Estadual'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 100
           Visible = True
         end
@@ -98,6 +148,11 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
           Expanded = False
           FieldName = 'IM'
           Title.Caption = 'Inscri'#231#227'o Municipal'
+          Title.Font.Charset = ANSI_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
           Width = 150
           Visible = True
         end>
@@ -113,7 +168,7 @@ inherited ConsultaFornecedorForm: TConsultaFornecedorForm
   end
   inherited SBPrincipal: TStatusBar
     Top = 492
-    ExplicitTop = 492
+    ExplicitTop = 491
     ExplicitWidth = 0
   end
   inherited qryConsulta: TSQLQuery

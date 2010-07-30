@@ -25,8 +25,8 @@ type
     CDSConsultacalc_tipo: TStringField;
     procedure CDSConsultaCalcFields(DataSet: TDataSet);
     procedure CBCriterioSelect(Sender: TObject);
-    procedure EditValorKeyPress(Sender: TObject; var Key: Char);
-    procedure BTPesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure EditValorChange(Sender: TObject);
   private
     { Private declarations }
     procedure Pesquisar;
@@ -106,11 +106,6 @@ begin
   end;
 end;
 
-procedure TPesquisaEmpresaForm.BTPesquisarClick(Sender: TObject);
-begin
-  Pesquisar;
-end;
-
 procedure TPesquisaEmpresaForm.CBCriterioSelect(Sender: TObject);
 begin
   case CBCriterio.ItemIndex of
@@ -146,11 +141,16 @@ begin
     CDSConsultacalc_tipo.Value := 'Pessoa Física';
 end;
 
-procedure TPesquisaEmpresaForm.EditValorKeyPress(Sender: TObject;
-  var Key: Char);
+procedure TPesquisaEmpresaForm.EditValorChange(Sender: TObject);
 begin
-  if (Key = #13) then
-    BTPesquisarClick(Sender);
+  Pesquisar;
+end;
+
+procedure TPesquisaEmpresaForm.FormCreate(Sender: TObject);
+var
+  Padrao : TPesquisaPadraoForm;
+begin
+  Padrao.Tabela := 'EMPRESA';
 end;
 
 end.

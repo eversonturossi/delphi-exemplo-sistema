@@ -47,7 +47,7 @@ uses UFuncoes, UPesquisaFornecedor, UPesquisaPadrao;
 
 procedure TCadastroProdutoBarrasForm.BTCancelarClick(Sender: TObject);
 begin
-    ModalResult := mrCancel;
+  ModalResult := mrCancel;
 end;
 
 procedure TCadastroProdutoBarrasForm.BTConfirmarClick(Sender: TObject);
