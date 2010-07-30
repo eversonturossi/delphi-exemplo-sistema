@@ -1,6 +1,7 @@
 inherited CadastroProdutoForm: TCadastroProdutoForm
   Caption = 'CadastroProdutoForm'
   ClientHeight = 528
+  ExplicitWidth = 776
   ExplicitHeight = 554
   PixelsPerInch = 96
   TextHeight = 13
@@ -46,7 +47,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Top = 84
       Width = 611
       Height = 424
-      ActivePage = TSCadastro
+      ActivePage = TSPrecoEmpresa
       Align = alClient
       TabOrder = 1
       object TSCadastro: TTabSheet
@@ -491,7 +492,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
             item
               Expanded = False
               FieldName = 'PRECO'
-              Title.Caption = 'Pre'#231'o'
+              Title.Caption = 'Pre'#231'o (R$)'
               Width = 90
               Visible = True
             end
@@ -499,7 +500,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
               Expanded = False
               FieldName = 'MARGEM_LUCRO'
               Title.Caption = 'Margem Lucro (%)'
-              Width = 90
+              Width = 100
               Visible = True
             end>
         end
@@ -508,7 +509,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           Top = 223
           Width = 532
           Height = 157
-          DataSource = BancoDados.DSProdutoBarra
+          DataSource = BancoDados.DSProdutoEmpresa
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clDefault
@@ -528,22 +529,16 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           Columns = <
             item
               Expanded = False
-              FieldName = 'EAN'
-              Width = 150
-              Visible = True
-            end
-            item
-              Expanded = False
-              FieldName = 'FORNECEDOR_ID'
-              Title.Caption = 'Fornecedor I.D'
+              FieldName = 'EMPRESA_ID'
+              Title.Caption = 'Empresa I.D'
               Width = 90
               Visible = True
             end
             item
               Expanded = False
-              FieldName = 'calc_fornecedor_nome'
+              FieldName = 'calc_empresa_descricao'
               Title.Caption = 'Nome / Raz'#227'o Social'
-              Width = 250
+              Width = 370
               Visible = True
             end>
         end
@@ -624,6 +619,18 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
   end
   object PopupMenu3: TPopupMenu
     Left = 700
+    object AdicionarPreo1: TMenuItem
+      Caption = 'Adicionar Pre'#231'o'
+      OnClick = AdicionarPreo1Click
+    end
+    object DetalhesdoPreo1: TMenuItem
+      Caption = 'Detalhes do Pre'#231'o'
+      OnClick = DetalhesdoPreo1Click
+    end
+    object ExcluirPreo1: TMenuItem
+      Caption = 'Excluir Pre'#231'o'
+      OnClick = ExcluirPreo1Click
+    end
   end
   object PopupMenu4: TPopupMenu
     Left = 701

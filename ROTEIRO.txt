@@ -1,0 +1,4 @@
+TODOS
+
+-procedure de Hints
+-Quando necessário colocar Logs.

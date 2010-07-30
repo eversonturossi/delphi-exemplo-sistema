@@ -2,7 +2,7 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
   Left = 0
   Top = 0
   Caption = 'CadastroProdutoBarrasForm'
-  ClientHeight = 292
+  ClientHeight = 341
   ClientWidth = 544
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     Left = 0
     Top = 0
     Width = 163
-    Height = 273
+    Height = 322
     Align = alLeft
     Color = clWhite
     Font.Charset = DEFAULT_CHARSET
@@ -30,11 +30,12 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitHeight = 273
     object JvGradientHeaderPanel1: TJvGradientHeaderPanel
       Left = 1
       Top = 1
       Width = 161
-      Height = 271
+      Height = 320
       GradientStartColor = 6930170
       GradientStyle = grVertical
       LabelTop = 30
@@ -47,25 +48,28 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       LabelAlignment = taCenter
       Align = alClient
       TabOrder = 0
+      ExplicitHeight = 271
     end
   end
   object SBPrincipal: TStatusBar
     Left = 0
-    Top = 273
+    Top = 322
     Width = 544
     Height = 19
     Panels = <
       item
         Width = 200
       end>
+    ExplicitTop = 273
   end
   object Panel2: TPanel
     Left = 163
     Top = 0
     Width = 381
-    Height = 273
+    Height = 322
     Align = alClient
     TabOrder = 2
+    ExplicitHeight = 273
     object Label1: TLabel
       Left = 28
       Top = 74
@@ -81,8 +85,8 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       Caption = 'Fornecedor:'
     end
     object LBFornecedorNome: TLabel
-      Left = 120
-      Top = 52
+      Left = 122
+      Top = 47
       Width = 241
       Height = 13
       AutoSize = False
@@ -110,11 +114,12 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     end
     object Panel3: TPanel
       Left = 1
-      Top = 226
+      Top = 275
       Width = 379
       Height = 46
       Align = alBottom
       TabOrder = 3
+      ExplicitTop = 226
       object BTConfirmar: TSpeedButton
         Left = 151
         Top = 1

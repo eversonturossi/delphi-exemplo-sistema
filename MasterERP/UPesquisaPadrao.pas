@@ -46,7 +46,6 @@ type
     procedure BTCancelarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CBCondicaoSelect(Sender: TObject);
-    procedure EditValorChange(Sender: TObject);
   private
     { Private declarations }
     FTabela ,FDescricao, SqlConsulta : String;
@@ -72,10 +71,10 @@ uses Base, UFuncoes, UFuncaoExibirColuna, UsuarioExibirColuna;
 procedure TPesquisaPadraoForm.CarregaPreferencias;
 begin
   CBCriterio.ItemIndex := StrToInt(LerOpcaoUsuario(BancoDados.qryExecute,
-    BancoDados.qryLoginUSUARIO_ID.Value, 1, 'Consulta - Critério', '0', BancoDados.Tabela));
+    BancoDados.qryLoginUSUARIO_ID.Value, 1, 'Consulta - Critério', '0', FTabela));
 
   CBSituacao.ItemIndex := StrToInt(LerOpcaoUsuario(BancoDados.qryExecute, BancoDados.qryLoginUSUARIO_ID.Value, 2,
-    'Consulta - Ativo', '0', BancoDados.Tabela));
+    'Consulta - Ativo', '0', FTabela));
 end;
 
 procedure TPesquisaPadraoForm.CarregaHint;
@@ -137,22 +136,10 @@ begin
     end;
 end;
 
-procedure TPesquisaPadraoForm.EditValorChange(Sender: TObject);
-begin
-  try
-    CDSConsulta.DisableControls;
-    CDSConsulta.Close;
-    qryConsulta.SQL.Text := SqlConsulta;
-    CDSConsulta.Open;
-  finally
-    CDSConsulta.EnableControls;
-  end;
-end;
-
 procedure TPesquisaPadraoForm.ExibirColunas1Click(Sender: TObject);
 begin
   try
-    GeraTrace(BancoDados.Tabela,'Alterando Configurações da Grade');
+    GeraTrace(FTabela,'Alterando Configurações da Grade');
     BancoDados.ExibeStatus := False;
 
     if not Assigned(UsuarioExibirColunaForm) then
@@ -161,11 +148,11 @@ begin
     UsuarioExibirColunaForm.TabelaFuncao := 1;
   finally
     BancoDados.ExibeStatus := True;
-    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, BancoDados.Tabela);
+    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, FTabela);
 
     UsuarioExibirColunaForm.Free;
     UsuarioExibirColunaForm := nil;
-    GeraTrace(BancoDados.Tabela,'Configurações da Grade Alteradas');
+    GeraTrace(FTabela,'Configurações da Grade Alteradas');
   end;
 end;
 
@@ -173,13 +160,13 @@ procedure TPesquisaPadraoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   GravarOpcaoUsuario(BancoDados.qryExecute, BancoDados.qryLoginUSUARIO_ID.Value, 1,
-    IntToStr(CBCriterio.ItemIndex), BancoDados.Tabela);
+    IntToStr(CBCriterio.ItemIndex), FTabela);
 
   GravarOpcaoUsuario(BancoDados.qryExecute, BancoDados.qryLoginUSUARIO_ID.Value, 2,
-    IntToStr(CBSituacao.ItemIndex), BancoDados.Tabela);
+    IntToStr(CBSituacao.ItemIndex), FTabela);
 
-  GeraTrace(BancoDados.Tabela,'Formulário de Pesquisa Encerrado');
-  GeraTrace(BancoDados.Tabela,CriaLinha(110));
+  GeraTrace(FTabela,'Formulário de Pesquisa Encerrado');
+  GeraTrace(FTabela,CriaLinha(110));
 end;
 
 procedure TPesquisaPadraoForm.FormKeyDown(Sender: TObject; var Key: Word;
@@ -209,22 +196,14 @@ end;
 
 procedure TPesquisaPadraoForm.FormShow(Sender: TObject);
 begin
-  GeraTrace(BancoDados.Tabela,CriaLinha(110));
-  GeraTrace(BancoDados.Tabela,'Abrindo Formulário de Pesquisa');
+  GeraTrace(FTabela,CriaLinha(110));
+  GeraTrace(FTabela,'Abrindo Formulário de Pesquisa');
 
   ApplicationEvents.Activate;
 
-  ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, BancoDados.Tabela);
+  ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, FTabela);
   CarregaPreferencias;
   CarregaHint;
-
-  CDSConsulta.Close;
-  qryConsulta.SQL.Text := 'select * from ' + FTabela;
-
-  if (CBSituacao.ItemIndex in [0,1]) then
-    qryConsulta.SQL.Add(' and ATIVO = ' + IntToStr(CBSituacao.ItemIndex));
-
-  CDSConsulta.Open;
 
   BancoDados.CDSTabela.Close;
   BancoDados.qryTabela.SQL.Text := 'select * from tabela where tabela = ' +
@@ -235,17 +214,17 @@ begin
 
   GHPPrincipal.LabelCaption := BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
 
-  GeraTrace(BancoDados.Tabela,'Formulário de Pesquisa');
+  GeraTrace(FTabela,'Formulário de Pesquisa');
 end;
 
 procedure TPesquisaPadraoForm.ReconfigurarColunas1Click(Sender: TObject);
 begin
   try
-    GeraTrace(BancoDados.Tabela,'Alterando Configurações da Grade');
+    GeraTrace(FTabela,'Alterando Configurações da Grade');
     BancoDados.CDSUsuarioExibir.Close;
     BancoDados.qryUsuarioExibir.SQL.Text := 'select * from usuario_exibir ' +
       ' where usuario_id = ' + IntToStr(BancoDados.qryLoginUSUARIO_ID.Value) +
-      ' and tabela = ' + QuotedStr(BancoDados.Tabela) + ' and tabela_funcao = ' +
+      ' and tabela = ' + QuotedStr(FTabela) + ' and tabela_funcao = ' +
       IntToStr(1);
     BancoDados.CDSUsuarioExibir.Open;
 
@@ -261,11 +240,11 @@ begin
 
     BancoDados.Conexao.Commit(BancoDados.Transacao);
 
-    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, BancoDados.Tabela);
+    ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, FTabela);
 
     Mensagem('Alterações gravadas com Sucesso!', mtInformation,[mbOk],mrOK,0);
 
-    GeraTrace(BancoDados.Tabela,'Configurações da Grade Alteradas');
+    GeraTrace(FTabela,'Configurações da Grade Alteradas');
 
   except
     Mensagem('Erro ao tentar Reconfigurar a Grade!', mtWarning,[mbOk],mrOK,0);

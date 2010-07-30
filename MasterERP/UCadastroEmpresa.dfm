@@ -3,6 +3,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
   ClientHeight = 554
   ClientWidth = 814
   KeyPreview = True
+  ExplicitLeft = -45
   ExplicitWidth = 820
   ExplicitHeight = 580
   PixelsPerInch = 96
@@ -35,7 +36,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       Top = 84
       Width = 655
       Height = 450
-      ActivePage = TSCadastro
+      ActivePage = TSUsuario
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange
@@ -751,7 +752,6 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
           Font.Style = []
           Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           ParentFont = False
-          PopupMenu = PopupMenu1
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText

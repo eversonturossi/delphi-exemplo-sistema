@@ -163,6 +163,15 @@
 			<DCCReference Include="UCadastroProdutoBarras.pas">
 				<Form>CadastroProdutoBarrasForm</Form>
 			</DCCReference>
+			<DCCReference Include="UCadastroProdutoPreco.pas">
+				<Form>CadastroProdutoPrecoForm</Form>
+			</DCCReference>
+			<DCCReference Include="UPesquisaCliente.pas">
+				<Form>PesquisaClienteForm</Form>
+			</DCCReference>
+			<DCCReference Include="UPesquisaTransportadora.pas">
+				<Form>PesquisaTransportadoraForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

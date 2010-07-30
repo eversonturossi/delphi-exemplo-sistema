@@ -58,6 +58,9 @@ type
     DBGrid4: TDBGrid;
     PopupMenu3: TPopupMenu;
     PopupMenu4: TPopupMenu;
+    AdicionarPreo1: TMenuItem;
+    DetalhesdoPreo1: TMenuItem;
+    ExcluirPreo1: TMenuItem;
     procedure RemoveAcento(Sender: TObject);
     procedure CDSCadastroAfterInsert(DataSet: TDataSet);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -69,6 +72,9 @@ type
     procedure DetalhesdoCdigodeBarras1Click(Sender: TObject);
     procedure ExcluirCdigodeBarras1Click(Sender: TObject);
     procedure BTSalvarClick(Sender: TObject);
+    procedure AdicionarPreo1Click(Sender: TObject);
+    procedure DetalhesdoPreo1Click(Sender: TObject);
+    procedure ExcluirPreo1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -79,7 +85,8 @@ var
   CadastroProdutoForm: TCadastroProdutoForm;
 
 implementation
-uses Base, UFuncoes, UPesquisaFornecedor, UPesquisaPadrao, UCadastroProdutoBarras;
+uses Base, UFuncoes, UPesquisaFornecedor, UPesquisaPadrao,
+  UCadastroProdutoBarras, UCadastroProdutoPreco;
 {$R *.dfm}
 
 procedure TCadastroProdutoForm.RemoveAcento(Sender: TObject);
@@ -149,6 +156,67 @@ begin
   end;
 end;
 
+procedure TCadastroProdutoForm.AdicionarPreo1Click(Sender: TObject);
+begin
+  try
+    BancoDados.CDSProdutoPreco.DisableControls;
+    if not Assigned(CadastroProdutoPrecoForm) then
+      CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
+
+    BancoDados.CDSUnidade.Close;
+    BancoDados.qryUnidade.SQL.Text := 'select * from unidade where ativo = 1';
+    BancoDados.CDSUnidade.Open;
+    BancoDados.CDSUnidade.First;
+
+    CadastroProdutoPrecoForm.CBUnidade.Items.Clear;
+    CadastroProdutoPrecoForm.CBUnidade.Items.Add('<selecione>');
+
+    while not BancoDados.CDSUnidade.Eof do
+      begin
+        CadastroProdutoPrecoForm.CBUnidade.Items.Add(BancoDados.CDSUnidadeDESCRICAO.Value);
+        BancoDados.CDSUnidade.Next;
+      end;
+
+    if (CadastroProdutoPrecoForm.ShowModal = mrOk) then
+      begin
+        BancoDados.CDSProdutoPreco.Append;
+        BancoDados.CDSProdutoPrecoPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+        BancoDados.CDSProdutoPrecoDESCRICAO.Value := CadastroProdutoPrecoForm.EditDescricao.Text;
+        BancoDados.CDSProdutoPrecoPRECO.Value := CadastroProdutoPrecoForm.EditPreco.Value;
+        BancoDados.CDSProdutoPrecoMARGEM_LUCRO.Value := CadastroProdutoPrecoForm.editMargemLucro.Value;
+
+        if (CadastroProdutoPrecoForm.CBAtivo.Checked) then
+          BancoDados.CDSProdutoPrecoATIVO.Value := 1
+        else
+          BancoDados.CDSProdutoPrecoATIVO.Value := 0;
+
+        if (CadastroProdutoPrecoForm.CBUnidade.ItemIndex > 0) then
+          begin
+            with BancoDados.qryAuxiliar do
+              begin
+                Close;
+                SQL.Text := 'select unidade_id from unidade where ativo = 1 and' +
+                  ' descricao = ' + QuotedStr(CadastroProdutoPrecoForm.CBUnidade.Text);
+                Open;
+              end;
+            if not (BancoDados.qryAuxiliar.IsEmpty) then
+              BancoDados.CDSProdutoPrecoUNIDADE_ID.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+          end;
+
+        BancoDados.CDSProdutoPreco.Post;
+
+        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_PRECO',
+          'Registro Inserido: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' / Descricao = ' + BancoDados.CDSProdutoPrecoDESCRICAO.Value +
+          ' / Preço (R$) = ' + FormatFloat(',0.00', BancoDados.CDSProdutoPrecoPRECO.Value) + ')');
+      end;
+  finally
+    CadastroProdutoPrecoForm.Free;
+    CadastroProdutoPrecoForm := nil;
+    BancoDados.CDSProdutoPreco.EnableControls;
+  end;
+end;
+
 procedure TCadastroProdutoForm.BTSalvarClick(Sender: TObject);
 begin
   inherited; //Herança
@@ -214,6 +282,65 @@ begin
   end;
 end;
 
+procedure TCadastroProdutoForm.DetalhesdoPreo1Click(Sender: TObject);
+begin
+  try
+    BancoDados.CDSProdutoPreco.DisableControls;
+    if not Assigned(CadastroProdutoPrecoForm) then
+      CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
+
+    CadastroProdutoPrecoForm.CBAtivo.Checked := (BancoDados.CDSProdutoPrecoATIVO.Value = 1);
+    CadastroProdutoPrecoForm.EditDescricao.Text := BancoDados.CDSProdutoPrecoDESCRICAO.Value;
+    CadastroProdutoPrecoForm.EditPreco.Value := BancoDados.CDSProdutoPrecoPRECO.Value;
+    CadastroProdutoPrecoForm.EditMargemLucro.Value := BancoDados.CDSProdutoPrecoMARGEM_LUCRO.Value;
+
+    BancoDados.CDSUnidade.Close;
+    BancoDados.qryUnidade.SQL.Text := 'select * from unidade where ativo = 1';
+    BancoDados.CDSUnidade.Open;
+    BancoDados.CDSUnidade.First;
+
+    CadastroProdutoPrecoForm.CBUnidade.Items.Clear;
+    CadastroProdutoPrecoForm.CBUnidade.Items.Add('<selecione>');
+
+    while not BancoDados.CDSUnidade.Eof do
+      begin
+        CadastroProdutoPrecoForm.CBUnidade.Items.Add(BancoDados.CDSUnidadeDESCRICAO.Value);
+        BancoDados.CDSUnidade.Next;
+      end;
+
+    with BancoDados.qryAuxiliar do
+      begin
+        Close;
+        SQL.Text := 'select descricao from unidade where unidade_id = ' +
+          IntToStr(BancoDados.CDSProdutoPrecoUNIDADE_ID.Value);
+        Open;
+      end;
+    if not (BancoDados.qryAuxiliar.IsEmpty) then
+      CadastroProdutoPrecoForm.CBUnidade.Text := BancoDados.qryAuxiliar.Fields[0].Value
+    else
+      CadastroProdutoPrecoForm.CBUnidade.ItemIndex := 0;
+
+    if (CadastroProdutoPrecoForm.ShowModal = mrOk) then
+      begin
+        BancoDados.CDSProdutoBarra.Edit;
+        BancoDados.CDSProdutoBarraPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+        BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value := CadastroProdutoBarrasForm.EditFornecedor.Value;
+        BancoDados.CDSProdutoBarraTIPO_EAN.Value := CadastroProdutoBarrasForm.CBTipoEAN.Text;
+        BancoDados.CDSProdutoBarraEAN.Value := CadastroProdutoBarrasForm.EditCodigoBarras.Value;
+        BancoDados.CDSProdutoBarra.Post;
+
+        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_PRECO',
+          'Registro Alterado: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' / Descricao = ' + BancoDados.CDSProdutoPrecoDESCRICAO.Value +
+          ' / Preço (R$) = ' + FormatFloat(',0.00', BancoDados.CDSProdutoPrecoPRECO.Value) + ')');
+      end;
+  finally
+    CadastroProdutoPrecoForm.Free;
+    CadastroProdutoPrecoForm := nil;
+    BancoDados.CDSProdutoPreco.EnableControls;
+  end;
+end;
+
 procedure TCadastroProdutoForm.ExcluirCdigodeBarras1Click(Sender: TObject);
 begin
   try
@@ -243,6 +370,23 @@ begin
       end;
   finally
     BancoDados.CDSProdutoFornecedor.EnableControls;
+  end;
+end;
+
+procedure TCadastroProdutoForm.ExcluirPreo1Click(Sender: TObject);
+begin
+  try
+    BancoDados.CDSProdutoPreco.DisableControls;
+    if (Mensagem('Deseja realmente Excluir este Registro?',mtConfirmation,[mbYES,mbNO],mrNO,0) = idYES) then
+      begin
+        BancoDados.CDSProdutoPreco.Delete;
+        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_PRECO',
+          'Registro Excluído: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' / Descricao = ' + BancoDados.CDSProdutoPrecoDESCRICAO.Value +
+          ' / Preço (R$) = ' + FormatFloat(',0.00', BancoDados.CDSProdutoPrecoPRECO.Value) + ')');
+      end;
+  finally
+    BancoDados.CDSProdutoPreco.EnableControls;
   end;
 end;
 
@@ -290,7 +434,29 @@ begin
   else
     DBLCSubGrupoProduto.Enabled := False;
 
-  DBGrid4.Enabled := BancoDados.MultiEmpresa;
+  BancoDados.CDSProdutoFornecedor.Close;
+  BancoDados.qryProdutoFornecedor.SQL.Text := 'select * from produto_fornecedor' +
+    ' where produto_id = ' + IntToStr(CDSCadastroPRODUTO_ID.Value);
+  BancoDados.CDSProdutoFornecedor.Open;
+
+  BancoDados.CDSProdutoBarra.Close;
+  BancoDados.qryProdutoBarra.SQL.Text := 'select * from produto_barras' +
+    ' where produto_id = ' + IntToStr(CDSCadastroPRODUTO_ID.Value);
+  BancoDados.CDSProdutoBarra.Open;
+
+  BancoDados.CDSProdutoPreco.Close;
+  BancoDados.qryProdutoPreco.SQL.Text := 'select * from produto_preco' +
+    ' where produto_id = ' + IntToStr(CDSCadastroPRODUTO_ID.Value);
+  BancoDados.CDSProdutoPreco.Open;
+
+  if ((BancoDados.MultiEmpresa) and (BancoDados.Filial > 0)) then
+    begin
+      DBGrid4.Enabled := BancoDados.MultiEmpresa;
+      BancoDados.CDSProdutoEmpresa.Close;
+      BancoDados.qryProdutoEmpresa.SQL.Text := 'select * from produto_empresa' +
+        ' where produto_id = ' + IntToStr(CDSCadastroPRODUTO_ID.Value);
+      BancoDados.CDSProdutoEmpresa.Open;
+    end;
 end;
 
 end.

@@ -1,11 +1,14 @@
 inherited PesquisaEmpresaForm: TPesquisaEmpresaForm
   Caption = 'PesquisaEmpresaForm'
+  OnCreate = FormCreate
+  ExplicitWidth = 320
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     inherited Panel3: TPanel
       inherited EditValor: TEdit
-        OnKeyPress = EditValorKeyPress
+        OnChange = EditValorChange
       end
     end
     inherited DBGrid1: TDBGrid

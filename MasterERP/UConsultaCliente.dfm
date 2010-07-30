@@ -1,26 +1,26 @@
 inherited ConsultaClienteForm: TConsultaClienteForm
   Caption = 'ConsultaClienteForm'
-  ClientHeight = 511
+  ClientHeight = 510
   ExplicitWidth = 854
-  ExplicitHeight = 537
+  ExplicitHeight = 536
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Height = 492
-    ExplicitHeight = 493
+    Height = 491
+    ExplicitHeight = 492
     inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
-      Height = 490
-      ExplicitHeight = 491
+      Height = 489
+      ExplicitHeight = 490
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
     end
   end
   inherited Panel2: TPanel
-    Height = 492
-    ExplicitHeight = 493
+    Height = 491
+    ExplicitHeight = 492
     inherited DBGrid1: TDBGrid
-      Height = 394
+      Height = 393
       Columns = <
         item
           Expanded = False
@@ -32,7 +32,7 @@ inherited ConsultaClienteForm: TConsultaClienteForm
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'calc_filial'
+          FieldName = 'ATIVO'
           Title.Caption = 'Ativo'
           Width = 60
           Visible = True
@@ -40,7 +40,7 @@ inherited ConsultaClienteForm: TConsultaClienteForm
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'FILIAL'
+          FieldName = 'calc_filial'
           Title.Caption = 'Filial'
           Width = 50
           Visible = True
@@ -112,8 +112,8 @@ inherited ConsultaClienteForm: TConsultaClienteForm
     end
   end
   inherited SBPrincipal: TStatusBar
-    Top = 492
-    ExplicitTop = 493
+    Top = 491
+    ExplicitTop = 492
     ExplicitWidth = 0
   end
   inherited qryConsulta: TSQLQuery

@@ -639,10 +639,7 @@ begin
       Open;
       CDSProdutoPrecoPRODUTO_PRECO_ID.Value := qryGeraID.Fields[0].Value;
       CDSProdutoPrecoEMPRESA_ID.Value := EmpresaID;
-      CDSProdutoPrecoDATA_CADASTRO.Value := Now;
-      CDSProdutoPrecoATIVO.Value := 1;
-      CDSProdutoPrecoPRECO.Value := 0;
-      CDSProdutoPrecoMARGEM_LUCRO.Value := 0;
+      CDSProdutoPreco.FieldByName('DATA_CADASTRO').Value := Now;
     end;
 end;
 
