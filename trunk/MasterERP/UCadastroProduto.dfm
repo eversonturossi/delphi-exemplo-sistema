@@ -1,26 +1,30 @@
 inherited CadastroProdutoForm: TCadastroProdutoForm
   Caption = 'CadastroProdutoForm'
-  ClientHeight = 528
-  ExplicitWidth = 776
-  ExplicitHeight = 554
+  ClientHeight = 507
+  ClientWidth = 796
+  ExplicitWidth = 802
+  ExplicitHeight = 533
   PixelsPerInch = 96
   TextHeight = 13
   inherited SBPrincipal: TStatusBar
-    Top = 509
+    Top = 488
+    Width = 796
     ExplicitTop = 509
   end
   inherited Panel1: TPanel
-    Height = 509
+    Height = 488
     ExplicitHeight = 509
     inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
-      Height = 507
+      Height = 486
       ExplicitHeight = 507
     end
   end
   inherited PPrincipal: TPanel
-    Height = 509
+    Width = 639
+    Height = 488
     ExplicitHeight = 509
     inherited Panel3: TPanel
+      Width = 637
       inherited Label1: TLabel
         Left = 66
         ExplicitLeft = 66
@@ -45,13 +49,16 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
     object PCPrincipal: TPageControl
       Left = 1
       Top = 84
-      Width = 611
-      Height = 424
-      ActivePage = TSPrecoEmpresa
+      Width = 637
+      Height = 403
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
+      ExplicitHeight = 424
       object TSCadastro: TTabSheet
         Caption = 'Cadastro'
+        ExplicitWidth = 660
+        ExplicitHeight = 396
         object Label8: TLabel
           Left = 76
           Top = 24
@@ -289,7 +296,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
         object DBEditEstoqueMinimo: TDBEdit
           Left = 150
           Top = 210
-          Width = 193
+          Width = 117
           Height = 21
           DataField = 'ESTOQUE_MINIMO'
           DataSource = DSCadastro
@@ -303,12 +310,14 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           OnExit = RemoveAcento
         end
       end
-      object TSFornecedorBarras: TTabSheet
-        Caption = 'Fornecedores / C'#243'd. Barras'
+      object TSComplemento: TTabSheet
+        Caption = 'Complemento'
         ImageIndex = 1
+        ExplicitTop = 23
+        ExplicitHeight = 396
         object Label6: TLabel
           Left = 53
-          Top = 21
+          Top = 5
           Width = 78
           Height = 13
           Caption = 'Fornecedores'
@@ -321,7 +330,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
         end
         object Label11: TLabel
           Left = 53
-          Top = 207
+          Top = 96
           Width = 98
           Height = 13
           Caption = 'C'#243'digo de Barras'
@@ -332,11 +341,37 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object Label13: TLabel
+          Left = 53
+          Top = 187
+          Width = 40
+          Height = 13
+          Caption = 'Pre'#231'os'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 6590965
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label14: TLabel
+          Left = 53
+          Top = 280
+          Width = 55
+          Height = 13
+          Caption = 'Empresas'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 6590965
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object DBGrid1: TDBGrid
           Left = 53
-          Top = 38
+          Top = 20
           Width = 532
-          Height = 150
+          Height = 70
           DataSource = BancoDados.DSProdutoFornecedor
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
@@ -372,9 +407,9 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
         end
         object DBGrid2: TDBGrid
           Left = 53
-          Top = 223
+          Top = 112
           Width = 532
-          Height = 157
+          Height = 70
           DataSource = BancoDados.DSProdutoBarra
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
@@ -414,41 +449,11 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
               Visible = True
             end>
         end
-      end
-      object TSPrecoEmpresa: TTabSheet
-        Caption = 'Pre'#231'os / Empresas'
-        ImageIndex = 2
-        object Label13: TLabel
-          Left = 53
-          Top = 21
-          Width = 40
-          Height = 13
-          Caption = 'Pre'#231'os'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = 6590965
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label14: TLabel
-          Left = 53
-          Top = 207
-          Width = 55
-          Height = 13
-          Caption = 'Empresas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = 6590965
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
         object DBGrid3: TDBGrid
           Left = 53
-          Top = 38
+          Top = 203
           Width = 532
-          Height = 150
+          Height = 70
           DataSource = BancoDados.DSProdutoPreco
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
@@ -460,7 +465,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           ParentFont = False
           PopupMenu = PopupMenu3
           ReadOnly = True
-          TabOrder = 0
+          TabOrder = 2
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -11
@@ -506,9 +511,9 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
         end
         object DBGrid4: TDBGrid
           Left = 53
-          Top = 223
+          Top = 296
           Width = 532
-          Height = 157
+          Height = 70
           DataSource = BancoDados.DSProdutoEmpresa
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
@@ -520,7 +525,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           ParentFont = False
           PopupMenu = PopupMenu4
           ReadOnly = True
-          TabOrder = 1
+          TabOrder = 3
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -11
@@ -635,5 +640,13 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
   object PopupMenu4: TPopupMenu
     Left = 701
     Top = 43
+    object AdicionarEmpresa1: TMenuItem
+      Caption = 'Adicionar Empresa'
+      OnClick = AdicionarEmpresa1Click
+    end
+    object ExcluirEmpresa1: TMenuItem
+      Caption = 'Excluir Empresa'
+      OnClick = ExcluirEmpresa1Click
+    end
   end
 end

@@ -537,8 +537,8 @@ begin
 with qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select nome_fantasia from pessoa where pessoa_id in(' +
-        'select pessoa_id from fornecedor where ativo = 1 and fornecedor_id = ' +
+      SQL.Text := 'select nome from pessoa where pessoa_id in(' +
+        'select pessoa_id from fornecedor where fornecedor_id = ' +
         IntToStr(CDSProdutoBarraFORNECEDOR_ID.Value) + ')';
       Open;
     end;
@@ -575,17 +575,18 @@ end;
 
 procedure TBancoDados.CDSProdutoEmpresaCalcFields(DataSet: TDataSet);
 begin
-  with qryAuxiliar do
+  with BancoDados.qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select descricao from empresa where empresa_id = ' +
-        IntToStr(CDSProdutoEmpresaEMPRESA_ID.Value);
+      SQL.Text := 'select nome from pessoa where pessoa_id in(' +
+        'select pessoa_id from empresa where empresa_id = ' +
+        IntToStr(CDSProdutoEmpresaEMPRESA_ID.Value) + ')';
       Open;
     end;
-  if not (qryAuxiliar.IsEmpty) then
-    CDSProdutoEmpresacalc_empresa_descricao.Value := qryAuxiliar.Fields[0].Value
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSConsultacalc_empresa_nome.Value := BancoDados.qryAuxiliar.Fields[0].Value
   else
-    CDSProdutoEmpresacalc_empresa_descricao.Value := '<Desconhecido>';
+    CDSConsultacalc_empresa_nome.Value := '<Desconhecida>';
 end;
 
 procedure TBancoDados.CDSProdutoFornecedorAfterInsert(DataSet: TDataSet);
@@ -606,8 +607,8 @@ begin
   with qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select nome_fantasia from pessoa where pessoa_id in(' +
-        'select pessoa_id from fornecedor where ativo = 1 and fornecedor_id = ' +
+      SQL.Text := 'select nome from pessoa where pessoa_id in(' +
+        'select pessoa_id from fornecedor where fornecedor_id = ' +
         IntToStr(CDSProdutoFornecedorFORNECEDOR_ID.Value) + ')';
       Open;
     end;
@@ -655,7 +656,7 @@ begin
   if not (qryAuxiliar.IsEmpty) then
     CDSProdutoPrecocalc_unidade_descricao.Value := qryAuxiliar.Fields[0].Value
   else
-    CDSProdutoPrecocalc_unidade_descricao.Value := '<Desconhecido>';
+    CDSProdutoPrecocalc_unidade_descricao.Value := '<Desconhecida>';
 end;
 
 procedure TBancoDados.DataModuleCreate(Sender: TObject);

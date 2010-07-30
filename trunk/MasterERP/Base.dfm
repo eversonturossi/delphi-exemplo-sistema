@@ -12,8 +12,8 @@ object BancoDados: TBancoDados
     Params.Strings = (
       'DriverName=Firebird'
       
-        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
-        'b\MASTERERP.FDB'
+        'Database=localhost:G:\Fontes\MasterSoft\MasterERP\db\MASTERERP.F' +
+        'DB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -1360,7 +1360,7 @@ object BancoDados: TBancoDados
     end
     object CDSProdutoEmpresacalc_empresa_descricao: TStringField
       FieldKind = fkCalculated
-      FieldName = 'calc_empresa_descricao'
+      FieldName = 'calc_empresa_nome'
       Size = 60
       Calculated = True
     end

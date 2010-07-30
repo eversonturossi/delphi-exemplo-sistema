@@ -36,7 +36,7 @@ type
     DBLCUnidade: TDBLookupComboBox;
     DBLCGrupoProduto: TDBLookupComboBox;
     DBLCSubGrupoProduto: TDBLookupComboBox;
-    TSFornecedorBarras: TTabSheet;
+    TSComplemento: TTabSheet;
     DBGrid1: TDBGrid;
     DBGrid2: TDBGrid;
     Label6: TLabel;
@@ -51,16 +51,17 @@ type
     Label12: TLabel;
     DBEditEstoqueMinimo: TDBEdit;
     CDSCadastroESTOQUE_MINIMO: TFloatField;
-    TSPrecoEmpresa: TTabSheet;
-    Label13: TLabel;
-    DBGrid3: TDBGrid;
-    Label14: TLabel;
-    DBGrid4: TDBGrid;
     PopupMenu3: TPopupMenu;
     PopupMenu4: TPopupMenu;
     AdicionarPreo1: TMenuItem;
     DetalhesdoPreo1: TMenuItem;
     ExcluirPreo1: TMenuItem;
+    Label13: TLabel;
+    DBGrid3: TDBGrid;
+    Label14: TLabel;
+    DBGrid4: TDBGrid;
+    AdicionarEmpresa1: TMenuItem;
+    ExcluirEmpresa1: TMenuItem;
     procedure RemoveAcento(Sender: TObject);
     procedure CDSCadastroAfterInsert(DataSet: TDataSet);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -75,6 +76,8 @@ type
     procedure AdicionarPreo1Click(Sender: TObject);
     procedure DetalhesdoPreo1Click(Sender: TObject);
     procedure ExcluirPreo1Click(Sender: TObject);
+    procedure AdicionarEmpresa1Click(Sender: TObject);
+    procedure ExcluirEmpresa1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -86,7 +89,7 @@ var
 
 implementation
 uses Base, UFuncoes, UPesquisaFornecedor, UPesquisaPadrao,
-  UCadastroProdutoBarras, UCadastroProdutoPreco;
+  UCadastroProdutoBarras, UCadastroProdutoPreco, UPesquisaEmpresa;
 {$R *.dfm}
 
 procedure TCadastroProdutoForm.RemoveAcento(Sender: TObject);
@@ -127,6 +130,32 @@ begin
     CadastroProdutoBarrasForm.Free;
     CadastroProdutoBarrasForm := nil;
     BancoDados.CDSProdutoBarra.EnableControls;
+  end;
+end;
+
+procedure TCadastroProdutoForm.AdicionarEmpresa1Click(Sender: TObject);
+var
+  Padrao : TPesquisaPadraoForm;
+begin
+  try
+    BancoDados.CDSProdutoEmpresa.DisableControls;
+    if not Assigned(PesquisaEmpresaForm) then
+      PesquisaEmpresaForm := TPesquisaEmpresaForm.Create(Application);
+    PesquisaFornecedorForm.Tabela := 'EMPRESA';
+    if (PesquisaEmpresaForm.ShowModal = mrOk) then
+      begin
+        BancoDados.CDSProdutoEmpresa.Append;
+        BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value := Padrao.ID;
+        BancoDados.CDSProdutoEmpresaPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+        BancoDados.CDSProdutoEmpresa.Post;
+        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_EMPRESA',
+          'Registro Inserido: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' / Empresa = ' + IntToStr(BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value) + ')');
+      end;
+  finally
+    PesquisaEmpresaForm.Free;
+    PesquisaEmpresaForm := nil;
+    BancoDados.CDSProdutoEmpresa.EnableControls;
   end;
 end;
 
@@ -357,6 +386,22 @@ begin
   end;
 end;
 
+procedure TCadastroProdutoForm.ExcluirEmpresa1Click(Sender: TObject);
+begin
+  try
+    BancoDados.CDSProdutoEmpresa.DisableControls;
+    if (Mensagem('Deseja realmente Excluir este Registro?',mtConfirmation,[mbYES,mbNO],mrNO,0) = idYES) then
+      begin
+        BancoDados.CDSProdutoEmpresa.Delete;
+        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_EMPRESA',
+          'Registro Excluído: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' / Empresa = ' + IntToStr(BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value) + ')');
+      end;
+  finally
+    BancoDados.CDSProdutoEmpresa.EnableControls;
+  end;
+end;
+
 procedure TCadastroProdutoForm.ExcluirFornecedor1Click(Sender: TObject);
 begin
   try
@@ -451,12 +496,14 @@ begin
 
   if ((BancoDados.MultiEmpresa) and (BancoDados.Filial > 0)) then
     begin
-      DBGrid4.Enabled := BancoDados.MultiEmpresa;
+      DBGrid4.Enabled := True;
       BancoDados.CDSProdutoEmpresa.Close;
       BancoDados.qryProdutoEmpresa.SQL.Text := 'select * from produto_empresa' +
         ' where produto_id = ' + IntToStr(CDSCadastroPRODUTO_ID.Value);
       BancoDados.CDSProdutoEmpresa.Open;
-    end;
+    end
+  else
+    DBGrid4.Enabled := False;
 end;
 
 end.
