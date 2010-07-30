@@ -44,7 +44,8 @@ uses
   UCadastroProdutoBarras in 'UCadastroProdutoBarras.pas' {CadastroProdutoBarrasForm},
   UCadastroProdutoPreco in 'UCadastroProdutoPreco.pas' {CadastroProdutoPrecoForm},
   UPesquisaCliente in 'UPesquisaCliente.pas' {PesquisaClienteForm},
-  UPesquisaTransportadora in 'UPesquisaTransportadora.pas' {PesquisaTransportadoraForm};
+  UPesquisaTransportadora in 'UPesquisaTransportadora.pas' {PesquisaTransportadoraForm},
+  UConsultaNotaEntrada in 'UConsultaNotaEntrada.pas' {ConsultaNotaEntradaForm};
 
 {$R *.res}
 
@@ -55,5 +56,6 @@ begin
   Application.CreateForm(TBancoDados, BancoDados);
   Application.CreateForm(TPrincipalForm, PrincipalForm);
   Application.CreateForm(TPesquisaTransportadoraForm, PesquisaTransportadoraForm);
+  Application.CreateForm(TConsultaNotaEntradaForm, ConsultaNotaEntradaForm);
   Application.Run;
 end.

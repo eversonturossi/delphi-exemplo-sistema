@@ -172,6 +172,9 @@
 			<DCCReference Include="UPesquisaTransportadora.pas">
 				<Form>PesquisaTransportadoraForm</Form>
 			</DCCReference>
+			<DCCReference Include="UConsultaNotaEntrada.pas">
+				<Form>ConsultaNotaEntradaForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
