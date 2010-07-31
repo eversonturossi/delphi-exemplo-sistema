@@ -164,6 +164,7 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
       Width = 670
       Height = 325
       Align = alClient
+      DataSource = DSqryConsulta
       FixedColor = clWhite
       Font.Charset = ANSI_CHARSET
       Font.Color = clDefault

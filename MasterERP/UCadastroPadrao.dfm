@@ -44,7 +44,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 1
-    object JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    object GHPPrincipal: TJvGradientHeaderPanel
       Left = 1
       Top = 1
       Width = 155
@@ -109,25 +109,9 @@ object CadastroPadraoForm: TCadastroPadraoForm
         ParentFont = False
         OnClick = BTExcluirClick
       end
-      object BTExportar: TSpeedButton
-        Left = 3
-        Top = 256
-        Width = 149
-        Height = 50
-        Hint = 'Exportar Registro para o Excel'
-        Caption = 'Exportar'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        Layout = blGlyphTop
-        ParentFont = False
-        OnClick = BTExportarClick
-      end
       object BTSair: TSpeedButton
         Left = 3
-        Top = 307
+        Top = 256
         Width = 149
         Height = 50
         Hint = 'Sair da tela de Cadastro'

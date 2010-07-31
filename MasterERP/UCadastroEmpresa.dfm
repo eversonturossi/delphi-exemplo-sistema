@@ -3,7 +3,6 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
   ClientHeight = 554
   ClientWidth = 814
   KeyPreview = True
-  ExplicitLeft = -45
   ExplicitWidth = 820
   ExplicitHeight = 580
   PixelsPerInch = 96
@@ -17,7 +16,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
   inherited Panel1: TPanel
     Height = 535
     ExplicitHeight = 535
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 533
       ExplicitHeight = 533
     end
@@ -36,7 +35,7 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       Top = 84
       Width = 655
       Height = 450
-      ActivePage = TSUsuario
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange
@@ -427,6 +426,10 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       object TSEnderecoContato: TTabSheet
         Caption = 'Endere'#231'os/Contatos'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label14: TLabel
           Left = 49
           Top = 205

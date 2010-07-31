@@ -7,10 +7,10 @@ inherited ConsultaClienteForm: TConsultaClienteForm
   TextHeight = 13
   inherited Panel1: TPanel
     Height = 491
-    ExplicitHeight = 492
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    ExplicitHeight = 491
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 489
-      ExplicitHeight = 490
+      ExplicitHeight = 489
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
@@ -18,7 +18,7 @@ inherited ConsultaClienteForm: TConsultaClienteForm
   end
   inherited Panel2: TPanel
     Height = 491
-    ExplicitHeight = 492
+    ExplicitHeight = 491
     inherited DBGrid1: TDBGrid
       Height = 393
       Columns = <
@@ -113,7 +113,7 @@ inherited ConsultaClienteForm: TConsultaClienteForm
   end
   inherited SBPrincipal: TStatusBar
     Top = 491
-    ExplicitTop = 492
+    ExplicitTop = 491
     ExplicitWidth = 0
   end
   inherited qryConsulta: TSQLQuery

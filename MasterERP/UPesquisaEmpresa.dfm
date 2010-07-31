@@ -1,8 +1,8 @@
 inherited PesquisaEmpresaForm: TPesquisaEmpresaForm
   Caption = 'PesquisaEmpresaForm'
   OnCreate = FormCreate
-  ExplicitWidth = 320
-  ExplicitHeight = 240
+  ExplicitWidth = 843
+  ExplicitHeight = 480
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
@@ -12,7 +12,6 @@ inherited PesquisaEmpresaForm: TPesquisaEmpresaForm
       end
     end
     inherited DBGrid1: TDBGrid
-      DataSource = DSqryConsulta
       Columns = <
         item
           Expanded = False
@@ -48,12 +47,14 @@ inherited PesquisaEmpresaForm: TPesquisaEmpresaForm
           Expanded = False
           FieldName = 'DATA_CADASTRO'
           Title.Caption = 'Data Cadastro'
+          Width = 180
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'DATA_ULTIMA_ALTERACAO'
           Title.Caption = #218'ltima Altera'#231#227'o'
+          Width = 180
           Visible = True
         end
         item

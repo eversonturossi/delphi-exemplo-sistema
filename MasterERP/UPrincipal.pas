@@ -12,7 +12,6 @@ type
   TPrincipalForm = class(TForm)
     SBPrincipal: TStatusBar;
     MainMenuPrincipal: TMainMenu;
-    Cadastros1: TMenuItem;
     Ajuda1: TMenuItem;
     Arquivo1: TMenuItem;
     rocarUsurio1: TMenuItem;
@@ -35,8 +34,6 @@ type
     AProduto: TAction;
     CadastrodeProdutos1: TMenuItem;
     Empresa2: TMenuItem;
-    iposdeContatos1: TMenuItem;
-    Cidades1: TMenuItem;
     AGrupoProduto: TAction;
     ASubGrupoProduto: TAction;
     Manuteno1: TMenuItem;
@@ -51,6 +48,12 @@ type
     Fornecedores1: TMenuItem;
     ATransportadora: TAction;
     ransportadoras1: TMenuItem;
+    ANotaEntrada: TAction;
+    N1: TMenuItem;
+    NotadeEntrada1: TMenuItem;
+    Outros1: TMenuItem;
+    iposdeContatos2: TMenuItem;
+    Cidades2: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -68,6 +71,7 @@ type
     procedure ALogSistemaExecute(Sender: TObject);
     procedure AFornecedorExecute(Sender: TObject);
     procedure ATransportadoraExecute(Sender: TObject);
+    procedure ANotaEntradaExecute(Sender: TObject);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -93,7 +97,7 @@ uses Base, Base64, UFuncoes, UConexao, ULogin, UConcultaUsuario, UConfiguraTrace
   UConsultaEmpresa, UCadastroSimplesContatoTipo, UCadastroSimplesMunicipio,
   UConsultaProduto, UConsultaGrupoProduto, UConsultaSubGrupoProduto,
   UCadastroSimplesPessoaContatoTipo, UConsultaCliente, UConsultaLog,
-  UConsultaFornecedor, UConsultaTransportadora;
+  UConsultaFornecedor, UConsultaTransportadora, UControleNotaEntrada;
 {$R *.dfm}
 
 procedure TPrincipalForm.LogarUsuario;
@@ -140,6 +144,11 @@ end;
 procedure TPrincipalForm.AMunicipioExecute(Sender: TObject);
 begin
   CriaForm(TCadastroSimplesMunicipioForm, CadastroSimplesMunicipioForm);
+end;
+
+procedure TPrincipalForm.ANotaEntradaExecute(Sender: TObject);
+begin
+  CriaForm(TControleNotaEntradaForm, ControleNotaEntradaForm);
 end;
 
 procedure TPrincipalForm.AProdutoExecute(Sender: TObject);

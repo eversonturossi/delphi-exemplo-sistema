@@ -1,8 +1,6 @@
 inherited PesquisaFornecedorForm: TPesquisaFornecedorForm
   Caption = 'PesquisaFornecedorForm'
   OnCreate = FormCreate
-  ExplicitWidth = 320
-  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
@@ -12,7 +10,6 @@ inherited PesquisaFornecedorForm: TPesquisaFornecedorForm
       end
     end
     inherited DBGrid1: TDBGrid
-      DataSource = DSqryConsulta
       Columns = <
         item
           Expanded = False

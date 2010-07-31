@@ -44,12 +44,12 @@ uses Base;
 
 procedure TPesquisaTransportadoraForm.Pesquisar;
 var
-  Criterio, Condicao, Campo, Valor : ShortString;
+  Criterio, Condicao, Campo, Valor, SqlConsulta : ShortString;
 begin
   try
     CDSConsulta.DisableControls;
     Valor := Trim(UpperCase(EditValor.Text));
-    BancoDados.SqlConsulta := 'select p.PESSOA_ID, t.ATIVO, t.DATA_CADASTRO, ' +
+    SqlConsulta := 'select p.PESSOA_ID, t.ATIVO, t.DATA_CADASTRO, ' +
       't.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTASIA, t.TRANSPORTADORA_ID, ' +
       't.CNPJ_CPF, t.TIPO, t.IE_IDENTIDADE, t.IM, t.FILIAL ' +
       'from PESSOA p, TRANSPORTADORA t where (t.PESSOA_ID = p.PESSOA_ID)';
@@ -84,19 +84,19 @@ begin
           end;
         end;
 
-        BancoDados.SqlConsulta := BancoDados.SqlConsulta + Condicao;
+        SqlConsulta := SqlConsulta + Condicao;
       end;
 
     if (CBSituacao.ItemIndex in [0,1]) then
       begin
-        if (Pos('where', BancoDados.SqlConsulta) > 0) then
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' and t.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
+        if (Pos('where', SqlConsulta) > 0) then
+          SqlConsulta := SqlConsulta + ' and t.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
         else
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' where t.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
+          SqlConsulta := SqlConsulta + ' where t.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
       end;
 
     CDSConsulta.Close;
-    qryConsulta.SQL.Text := BancoDados.SqlConsulta;
+    qryConsulta.SQL.Text := SqlConsulta;
     CDSConsulta.Open;
 
     CDSConsulta.Last;

@@ -12,8 +12,8 @@ object BancoDados: TBancoDados
     Params.Strings = (
       'DriverName=Firebird'
       
-        'Database=localhost:G:\Fontes\MasterSoft\MasterERP\db\MASTERERP.F' +
-        'DB'
+        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
+        'b\MASTERERP.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -1358,7 +1358,7 @@ object BancoDados: TBancoDados
     object CDSProdutoEmpresaPRODUTO_ID: TIntegerField
       FieldName = 'PRODUTO_ID'
     end
-    object CDSProdutoEmpresacalc_empresa_descricao: TStringField
+    object CDSProdutoEmpresacalc_empresa_nome: TStringField
       FieldKind = fkCalculated
       FieldName = 'calc_empresa_nome'
       Size = 60
@@ -1387,6 +1387,266 @@ object BancoDados: TBancoDados
       'select * from produto_empresa where produto_empresa_id = 0')
     SQLConnection = Conexao
     Left = 125
+    Top = 247
+  end
+  object DSProduto: TDataSource
+    DataSet = CDSProduto
+    Left = 159
+    Top = 378
+  end
+  object CDSProduto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPProduto'
+    OnCalcFields = CDSProdutoCalcFields
+    Left = 157
+    Top = 333
+    object CDSProdutoPRODUTO_ID: TIntegerField
+      FieldName = 'PRODUTO_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSProdutoATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSProdutoDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSProdutoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSProdutoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object CDSProdutoDESCRICAO_REDUZIDA: TStringField
+      FieldName = 'DESCRICAO_REDUZIDA'
+      Size = 60
+    end
+    object CDSProdutoREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+      Size = 60
+    end
+    object CDSProdutoUNIDADE_ID: TIntegerField
+      FieldName = 'UNIDADE_ID'
+    end
+    object CDSProdutoPRODUTO_GRUPO_ID: TIntegerField
+      FieldName = 'PRODUTO_GRUPO_ID'
+    end
+    object CDSProdutoPRODUTO_SUBGRUPO_ID: TIntegerField
+      FieldName = 'PRODUTO_SUBGRUPO_ID'
+    end
+    object CDSProdutoESTOQUE_MINIMO: TFloatField
+      FieldName = 'ESTOQUE_MINIMO'
+    end
+    object CDSProdutocalc_unidade_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_unidade_descricao'
+      Calculated = True
+    end
+    object CDSProdutocalc_grupo_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_grupo_descricao'
+      Size = 60
+      Calculated = True
+    end
+    object CDSProdutocalc_subgrupo_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_subgrupo_descricao'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPProduto: TDataSetProvider
+    DataSet = qryProduto
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 157
+    Top = 289
+  end
+  object qryProduto: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from produto where produto_id = 0')
+    SQLConnection = Conexao
+    Left = 156
+    Top = 247
+  end
+  object DSFornecedor: TDataSource
+    DataSet = CDSFornecedor
+    Left = 190
+    Top = 378
+  end
+  object CDSFornecedor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPFornecedor'
+    OnCalcFields = CDSFornecedorCalcFields
+    Left = 187
+    Top = 333
+    object CDSFornecedorPESSOA_ID: TIntegerField
+      FieldName = 'PESSOA_ID'
+      Required = True
+    end
+    object CDSFornecedorATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSFornecedorDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSFornecedorDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSFornecedorNOME_RAZAO: TStringField
+      FieldName = 'NOME_RAZAO'
+      Size = 60
+    end
+    object CDSFornecedorNOME_APELIDO_FANTASIA: TStringField
+      FieldName = 'NOME_APELIDO_FANTASIA'
+      Size = 60
+    end
+    object CDSFornecedorFORNECEDOR_ID: TIntegerField
+      FieldName = 'FORNECEDOR_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSFornecedorCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
+      Size = 14
+    end
+    object CDSFornecedorTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object CDSFornecedorIE_IDENTIDADE: TStringField
+      FieldName = 'IE_IDENTIDADE'
+      Size = 14
+    end
+    object CDSFornecedorIM: TStringField
+      FieldName = 'IM'
+      Size = 25
+    end
+    object CDSFornecedorEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+    object CDSFornecedorcalc_tipo: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_tipo'
+      Calculated = True
+    end
+    object CDSFornecedorcalc_filial: TSmallintField
+      FieldKind = fkCalculated
+      FieldName = 'calc_filial'
+      Calculated = True
+    end
+  end
+  object DSPFornecedor: TDataSetProvider
+    DataSet = qryFornecedor
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 187
+    Top = 289
+  end
+  object DSTransportadora: TDataSource
+    DataSet = CDSTransportadora
+    Left = 222
+    Top = 378
+  end
+  object CDSTransportadora: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPTransportadora'
+    OnCalcFields = CDSTransportadoraCalcFields
+    Left = 221
+    Top = 333
+    object CDSTransportadoraPESSOA_ID: TIntegerField
+      FieldName = 'PESSOA_ID'
+      Required = True
+    end
+    object CDSTransportadoraATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSTransportadoraDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSTransportadoraDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSTransportadoraNOME_RAZAO: TStringField
+      FieldName = 'NOME_RAZAO'
+      Size = 60
+    end
+    object CDSTransportadoraNOME_APELIDO_FANTASIA: TStringField
+      FieldName = 'NOME_APELIDO_FANTASIA'
+      Size = 60
+    end
+    object CDSTransportadoraTRANSPORTADORA_ID: TIntegerField
+      FieldName = 'TRANSPORTADORA_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSTransportadoraCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
+      Size = 14
+    end
+    object CDSTransportadoraTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object CDSTransportadoraIE_IDENTIDADE: TStringField
+      FieldName = 'IE_IDENTIDADE'
+      Size = 14
+    end
+    object CDSTransportadoraIM: TStringField
+      FieldName = 'IM'
+      Size = 25
+    end
+    object CDSTransportadoraEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+    object CDSTransportadoracalc_tipo: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_tipo'
+      Calculated = True
+    end
+    object CDSTransportadoracalc_filial: TSmallintField
+      FieldKind = fkCalculated
+      FieldName = 'calc_filial'
+      Calculated = True
+    end
+  end
+  object DSPTransportadora: TDataSetProvider
+    DataSet = qryTransportadora
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 220
+    Top = 289
+  end
+  object qryFornecedor: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select p.PESSOA_ID, f.ATIVO, f.DATA_CADASTRO,'
+      
+        '     f.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTA' +
+        'SIA, f.FORNECEDOR_ID,'
+      '     f.CNPJ_CPF, f.TIPO, f.IE_IDENTIDADE, f.IM, f.EMPRESA_ID'
+      
+        '     from PESSOA p, FORNECEDOR f where (f.PESSOA_ID = p.PESSOA_I' +
+        'D)')
+    SQLConnection = Conexao
+    Left = 187
+    Top = 247
+  end
+  object qryTransportadora: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select p.PESSOA_ID, t.ATIVO, t.DATA_CADASTRO,'
+      
+        '     t.DATA_ULTIMA_ALTERACAO, p.NOME_RAZAO, p.NOME_APELIDO_FANTA' +
+        'SIA,t.TRANSPORTADORA_ID,'
+      '     t.CNPJ_CPF, t.TIPO, t.IE_IDENTIDADE, t.IM, t.EMPRESA_ID'
+      
+        '     from PESSOA p,TRANSPORTADORA t where (t.PESSOA_ID = p.PESSO' +
+        'A_ID)')
+    SQLConnection = Conexao
+    Left = 219
     Top = 247
   end
 end

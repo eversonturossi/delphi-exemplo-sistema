@@ -10,7 +10,6 @@ inherited PesquisaClienteForm: TPesquisaClienteForm
       end
     end
     inherited DBGrid1: TDBGrid
-      DataSource = DSqryConsulta
       Columns = <
         item
           Expanded = False

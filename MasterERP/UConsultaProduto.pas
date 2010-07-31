@@ -19,7 +19,12 @@ type
     CDSConsultaREFERENCIA: TStringField;
     CDSConsultaUNIDADE_ID: TIntegerField;
     CDSConsultaPRECO: TFloatField;
-    CDSConsultal_unidade: TStringField;
+    CDSConsultaPRODUTO_GRUPO_ID: TIntegerField;
+    CDSConsultaPRODUTO_SUBGRUPO_ID: TIntegerField;
+    CDSConsultaESTOQUE_MINIMO: TFloatField;
+    CDSConsultacalc_unidade_descricao: TStringField;
+    CDSConsultacalc_grupo_descricao: TStringField;
+    CDSConsultacalc_subgrupo_descricao: TStringField;
     procedure EditValorKeyPress(Sender: TObject; var Key: Char);
     procedure BTNovoClick(Sender: TObject);
     procedure BTPesquisarClick(Sender: TObject);
@@ -27,6 +32,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BTAlterarClick(Sender: TObject);
+    procedure CDSConsultaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     procedure Pesquisar;
@@ -171,6 +177,39 @@ begin
   inherited; //Herança
 end;
 
+procedure TConsultaProdutoForm.CDSConsultaCalcFields(DataSet: TDataSet);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from unidade where unidade_id = ' +
+        IntToStr(CDSConsultaUNIDADE_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSConsultacalc_unidade_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto_grupo where produto_grupo_id = ' +
+        IntToStr(CDSConsultaPRODUTO_GRUPO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSConsultacalc_grupo_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto_subgrupo where produto_subgrupo_id = ' +
+        IntToStr(CDSConsultaPRODUTO_SUBGRUPO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSConsultacalc_subgrupo_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
 procedure TConsultaProdutoForm.EditValorKeyPress(Sender: TObject;
   var Key: Char);
 begin
@@ -188,10 +227,6 @@ end;
 
 procedure TConsultaProdutoForm.FormShow(Sender: TObject);
 begin
-  BancoDados.CDSUnidade.Close;
-  BancoDados.qryUnidade.SQL.Text := 'select * from unidade';
-  BancoDados.CDSUnidade.Open;
-
   inherited; //Herança
 
   CBCriterioSelect(Sender);

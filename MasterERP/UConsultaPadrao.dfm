@@ -34,7 +34,7 @@ object ConsultaPadraoForm: TConsultaPadraoForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    object JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    object GHPPrincipal: TJvGradientHeaderPanel
       Left = 1
       Top = 1
       Width = 157

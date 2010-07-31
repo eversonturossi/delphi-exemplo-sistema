@@ -278,8 +278,62 @@ type
     CDSProdutoEmpresaPRODUTO_EMPRESA_ID: TIntegerField;
     CDSProdutoEmpresaEMPRESA_ID: TIntegerField;
     CDSProdutoEmpresaPRODUTO_ID: TIntegerField;
-    CDSProdutoEmpresacalc_empresa_descricao: TStringField;
+    CDSProdutoEmpresacalc_empresa_nome: TStringField;
     CDSProdutoPrecocalc_unidade_descricao: TStringField;
+    DSProduto: TDataSource;
+    CDSProduto: TClientDataSet;
+    DSPProduto: TDataSetProvider;
+    qryProduto: TSQLQuery;
+    CDSProdutoPRODUTO_ID: TIntegerField;
+    CDSProdutoATIVO: TSmallintField;
+    CDSProdutoDATA_CADASTRO: TSQLTimeStampField;
+    CDSProdutoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSProdutoDESCRICAO: TStringField;
+    CDSProdutoDESCRICAO_REDUZIDA: TStringField;
+    CDSProdutoREFERENCIA: TStringField;
+    CDSProdutoUNIDADE_ID: TIntegerField;
+    CDSProdutoPRODUTO_GRUPO_ID: TIntegerField;
+    CDSProdutoPRODUTO_SUBGRUPO_ID: TIntegerField;
+    CDSProdutoESTOQUE_MINIMO: TFloatField;
+    CDSProdutocalc_unidade_descricao: TStringField;
+    CDSProdutocalc_grupo_descricao: TStringField;
+    CDSProdutocalc_subgrupo_descricao: TStringField;
+    DSFornecedor: TDataSource;
+    CDSFornecedor: TClientDataSet;
+    DSPFornecedor: TDataSetProvider;
+    DSTransportadora: TDataSource;
+    CDSTransportadora: TClientDataSet;
+    DSPTransportadora: TDataSetProvider;
+    qryFornecedor: TSQLQuery;
+    qryTransportadora: TSQLQuery;
+    CDSFornecedorPESSOA_ID: TIntegerField;
+    CDSFornecedorATIVO: TSmallintField;
+    CDSFornecedorDATA_CADASTRO: TSQLTimeStampField;
+    CDSFornecedorDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSFornecedorNOME_RAZAO: TStringField;
+    CDSFornecedorNOME_APELIDO_FANTASIA: TStringField;
+    CDSFornecedorFORNECEDOR_ID: TIntegerField;
+    CDSFornecedorCNPJ_CPF: TStringField;
+    CDSFornecedorTIPO: TStringField;
+    CDSFornecedorIE_IDENTIDADE: TStringField;
+    CDSFornecedorIM: TStringField;
+    CDSFornecedorEMPRESA_ID: TIntegerField;
+    CDSFornecedorcalc_tipo: TStringField;
+    CDSFornecedorcalc_filial: TSmallintField;
+    CDSTransportadoraPESSOA_ID: TIntegerField;
+    CDSTransportadoraATIVO: TSmallintField;
+    CDSTransportadoraDATA_CADASTRO: TSQLTimeStampField;
+    CDSTransportadoraDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSTransportadoraNOME_RAZAO: TStringField;
+    CDSTransportadoraNOME_APELIDO_FANTASIA: TStringField;
+    CDSTransportadoraTRANSPORTADORA_ID: TIntegerField;
+    CDSTransportadoraCNPJ_CPF: TStringField;
+    CDSTransportadoraTIPO: TStringField;
+    CDSTransportadoraIE_IDENTIDADE: TStringField;
+    CDSTransportadoraIM: TStringField;
+    CDSTransportadoraEMPRESA_ID: TIntegerField;
+    CDSTransportadoracalc_tipo: TStringField;
+    CDSTransportadoracalc_filial: TSmallintField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -312,6 +366,9 @@ type
     procedure CDSProdutoEmpresaAfterInsert(DataSet: TDataSet);
     procedure CDSProdutoEmpresaCalcFields(DataSet: TDataSet);
     procedure CDSProdutoPrecoCalcFields(DataSet: TDataSet);
+    procedure CDSProdutoCalcFields(DataSet: TDataSet);
+    procedure CDSFornecedorCalcFields(DataSet: TDataSet);
+    procedure CDSTransportadoraCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -460,6 +517,24 @@ begin
     CDSEmpresacalc_pessoa_nome.Value := qryAuxiliar.Fields[0].Value;
 end;
 
+procedure TBancoDados.CDSFornecedorCalcFields(DataSet: TDataSet);
+begin
+  if (CDSFornecedorTIPO.Value = 'J') then
+    CDSFornecedorcalc_tipo.Value := 'Pessoa Jurídica'
+  else if (CDSFornecedorTIPO.Value = 'F') then
+    CDSFornecedorcalc_tipo.Value := 'Pessoa Física';
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select filial where empresa where empresa_id = ' +
+        IntToStr(CDSFornecedorEMPRESA_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSFornecedorcalc_filial.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
 procedure TBancoDados.CDSPessoaAfterCancel(DataSet: TDataSet);
 begin
   BancoDados.Conexao.Rollback(BancoDados.Transacao);
@@ -560,6 +635,39 @@ with qryAuxiliar do
     CDSProdutoBarracalc_produto_descricao.Value := '<Desconhecido>';
 end;
 
+procedure TBancoDados.CDSProdutoCalcFields(DataSet: TDataSet);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from unidade where unidade_id = ' +
+        IntToStr(CDSProdutoUNIDADE_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSProdutocalc_unidade_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto_grupo where produto_grupo_id = ' +
+        IntToStr(CDSProdutoPRODUTO_GRUPO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSProdutocalc_grupo_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto_subgrupo where produto_subgrupo_id = ' +
+        IntToStr(CDSProdutoPRODUTO_SUBGRUPO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSProdutocalc_subgrupo_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
 procedure TBancoDados.CDSProdutoEmpresaAfterInsert(DataSet: TDataSet);
 begin
   with qryGeraID do
@@ -584,9 +692,9 @@ begin
       Open;
     end;
   if not (BancoDados.qryAuxiliar.IsEmpty) then
-    CDSConsultacalc_empresa_nome.Value := BancoDados.qryAuxiliar.Fields[0].Value
+    CDSProdutoEmpresacalc_empresa_nome.Value := BancoDados.qryAuxiliar.Fields[0].Value
   else
-    CDSConsultacalc_empresa_nome.Value := '<Desconhecida>';
+    CDSProdutoEmpresacalc_empresa_nome.Value := '<Desconhecida>';
 end;
 
 procedure TBancoDados.CDSProdutoFornecedorAfterInsert(DataSet: TDataSet);
@@ -657,6 +765,24 @@ begin
     CDSProdutoPrecocalc_unidade_descricao.Value := qryAuxiliar.Fields[0].Value
   else
     CDSProdutoPrecocalc_unidade_descricao.Value := '<Desconhecida>';
+end;
+
+procedure TBancoDados.CDSTransportadoraCalcFields(DataSet: TDataSet);
+begin
+  if (CDSTransportadoraTIPO.Value = 'J') then
+    CDSTransportadoracalc_tipo.Value := 'Pessoa Jurídica'
+  else if (CDSTransportadoraTIPO.Value = 'F') then
+    CDSTransportadoracalc_tipo.Value := 'Pessoa Física';
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select filial where empresa where empresa_id = ' +
+        IntToStr(CDSTransportadoraEMPRESA_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSTransportadoracalc_filial.Value := BancoDados.qryAuxiliar.Fields[0].Value;
 end;
 
 procedure TBancoDados.DataModuleCreate(Sender: TObject);

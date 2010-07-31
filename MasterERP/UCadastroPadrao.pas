@@ -36,16 +36,14 @@ type
     ASair: TAction;
     Label2: TLabel;
     DBText2: TDBText;
-    JvGradientHeaderPanel1: TJvGradientHeaderPanel;
+    GHPPrincipal: TJvGradientHeaderPanel;
     BTSalvar: TSpeedButton;
     BTCancelar: TSpeedButton;
     BTExcluir: TSpeedButton;
-    BTExportar: TSpeedButton;
     BTSair: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure BTSalvarClick(Sender: TObject);
     procedure BTCancelarClick(Sender: TObject);
-    procedure BTExportarClick(Sender: TObject);
     procedure CDSCadastroBeforePost(DataSet: TDataSet);
     procedure CDSCadastroAfterPost(DataSet: TDataSet);
     procedure CDSCadastroBeforeDelete(DataSet: TDataSet);
@@ -63,11 +61,10 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
-    LiberaSalvar, LiberaExportar, FUtilizaMaiuscula : Boolean;
+    LiberaSalvar, FUtilizaMaiuscula : Boolean;
     Id : Integer;
     Descricao : ShortString;
-    //FUtilizaMaiuscula: TParametroForm;
-    procedure CarregaBotoes(Salvar, Cancelar, Excluir, Exportar, Sair : Boolean);
+    procedure CarregaBotoes(Salvar, Cancelar, Excluir, Sair : Boolean);
   public
     { Public declarations }
   published
@@ -82,12 +79,11 @@ implementation
 uses Base, UFuncoes;
 {$R *.dfm}
 
-procedure TCadastroPadraoForm.CarregaBotoes(Salvar, Cancelar, Excluir, Exportar, Sair : Boolean);
+procedure TCadastroPadraoForm.CarregaBotoes(Salvar, Cancelar, Excluir, Sair : Boolean);
 begin
   BTSalvar.Enabled := Salvar;
   BTCancelar.Enabled := Cancelar;
   BTExcluir.Enabled := Excluir;
-  BTExportar.Enabled := Exportar;
   BTSair.Enabled := Sair;
 end;
 
@@ -128,46 +124,6 @@ begin
     ModalResult := mrCancel;
     BancoDados.Conexao.Rollback(BancoDados.Transacao);
   end;
-end;
-
-procedure TCadastroPadraoForm.BTExportarClick(Sender: TObject);
-var
-  linha, coluna: integer;
-  planilha: Variant;
-  ValorCampoEx: ShortString;
-begin
-  if not (CDSExportar.IsEmpty) then
-    begin
-      GeraTrace(BancoDados.Tabela,'Exportando Dados para o Excel');
-      planilha := CreateOleObject('Excel.Application');
-      planilha.workBooks.add(1);
-      planilha.caption := 'Exportação de dados para excel' ;
-      planilha.visible := True;
-      CDSExportar.First;
-
-      for linha := 0 to CDSExportar.RecordCount - 1 do
-        begin
-          for coluna := 1 to CDSExportar.FieldCount do
-            begin
-              ValorCampoEx := CDSExportar.Fields[coluna - 1].AsString;
-              planilha.cells[linha + 2, coluna] := ValorCampoEx;
-            end;
-         CDSExportar.Next;
-        end;
-
-      for coluna := 1 to CDSExportar.FieldCount do
-        begin
-          ValorCampoEx := CDSExportar.Fields[coluna - 1].DisplayLabel;
-          planilha.cells[1, coluna] := ValorCampoEx;
-        end;
-      planilha.columns.Autofit;
-      GeraTrace(BancoDados.Tabela,'Dados Exportados com Sucesso');
-    end
-  else
-    Mensagem('Não há itens para exportar !', mtWarning,[mbOk],mrOK,0);
-
-  Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, BancoDados.Tabela,
-    'Registro Exportado: ' + IntToStr(Id) + '/' + Descricao + '.');
 end;
 
 procedure TCadastroPadraoForm.BTSairClick(Sender: TObject);
@@ -219,7 +175,6 @@ begin
     CDSCadastro.FieldByName('ATIVO').Value := 1;
     CDSCadastro.FieldByName('DATA_CADASTRO').Value := Now;
     CDSCadastro.FieldByName('DATA_ULTIMA_ALTERACAO').Value := Now;
-
   except
     Mensagem('Falha ao Tentar Gerar o I.D!', mtInformation,[mbOk],mrOK,0);
   end;
@@ -299,9 +254,14 @@ begin
 
   SBPrincipal.Panels[0].Text := 'Usuario Logado: ' + BancoDados.qryLoginLOGIN.Value;
   BTSalvar.Enabled := LiberaSalvar;
-  BTExportar.Enabled := LiberaExportar;
-  CadastroPadraoForm.Caption := 'MasterERP - Ferramenta de Cadastro do Módulo ' +
-    BancoDados.Tabela + '.';
+
+  BancoDados.CDSTabela.Close;
+  BancoDados.qryTabela.SQL.Text := 'select * from tabela where tabela = ' +
+    QuotedStr(BancoDados.Tabela);
+  BancoDados.CDSTabela.Open;
+
+  Caption := 'MasterERP - ' + BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
+  GHPPrincipal.LabelCaption := BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
 
   BancoDados.ExibeStatus := False;
   Exportar := ((BancoDados.LiberaExportar) and (not (CDSCadastro.State in [dsInsert])));
@@ -309,7 +269,7 @@ begin
   if (BancoDados.Operacao = 'Inserir') then
     begin
       CDSCadastro.Open;
-      CarregaBotoes(True, True, False, False, True);
+      CarregaBotoes(True, True, False, True);
       CDSCadastro.Append;
     end
   else
@@ -320,7 +280,7 @@ begin
           BancoDados.Tabela + '_ID = ' + IntToStr(BancoDados.Id);
         CDSCadastro.Open;
         DSCadastro.Edit;
-        CarregaBotoes((BancoDados.LiberaAlterar), (BancoDados.LiberaAlterar), (BancoDados.LiberaAlterar), Exportar, True);
+        CarregaBotoes((BancoDados.LiberaAlterar), (BancoDados.LiberaAlterar), (BancoDados.LiberaAlterar), True);
       end;
   FUtilizaMaiuscula := (Parametro(BancoDados.qryAuxiliar, 1, 'NAO') = 'SIM');
 
