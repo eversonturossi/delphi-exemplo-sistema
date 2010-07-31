@@ -122,7 +122,7 @@ var
   Check : Integer;
   R: TRect;
 begin
-  if Column.FieldName = 'ATIVO' then
+  if (Column.FieldName = 'ATIVO') then
     begin
       DBGrid1.Canvas.FillRect(Rect);
       Check := 0;
@@ -175,6 +175,8 @@ begin
   if (Key = 13) then
     begin
       Key := 0;
+      FID := CDSConsulta.FieldByName(FTabela + '_ID').Value;
+      FDescricao := CDSConsulta.FieldByName('DESCRICAO').Value;
       ModalResult := mrOk;
     end
   else if (Key = 27) then

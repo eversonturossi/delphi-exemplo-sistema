@@ -16,7 +16,7 @@ inherited CadastroFornecedorForm: TCadastroFornecedorForm
   inherited Panel1: TPanel
     Height = 525
     ExplicitHeight = 525
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 523
       ExplicitHeight = 523
     end
@@ -35,7 +35,7 @@ inherited CadastroFornecedorForm: TCadastroFornecedorForm
       Top = 84
       Width = 655
       Height = 440
-      ActivePage = TSEnderecoContato
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       OnChange = PCPrincipalChange

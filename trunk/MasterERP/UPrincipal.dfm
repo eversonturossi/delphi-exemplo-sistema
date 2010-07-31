@@ -86,14 +86,20 @@ object PrincipalForm: TPrincipalForm
           Action = ASubGrupoProduto
         end
       end
-    end
-    object Cadastros1: TMenuItem
-      Caption = 'Cadastros Auxiliares'
-      object iposdeContatos1: TMenuItem
-        Action = AContatoTipo
+      object Outros1: TMenuItem
+        Caption = 'Outros'
+        object iposdeContatos2: TMenuItem
+          Action = AContatoTipo
+        end
+        object Cidades2: TMenuItem
+          Action = AMunicipio
+        end
       end
-      object Cidades1: TMenuItem
-        Action = AMunicipio
+    end
+    object N1: TMenuItem
+      Caption = 'Lan'#231'amentos'
+      object NotadeEntrada1: TMenuItem
+        Action = ANotaEntrada
       end
     end
     object Configuraes1: TMenuItem
@@ -335,6 +341,11 @@ object PrincipalForm: TPrincipalForm
       Category = 'Cadastros'
       Caption = 'Transportadoras'
       OnExecute = ATransportadoraExecute
+    end
+    object ANotaEntrada: TAction
+      Category = 'Lan'#231'amentos'
+      Caption = 'Nota de Entrada'
+      OnExecute = ANotaEntradaExecute
     end
   end
 end

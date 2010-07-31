@@ -172,8 +172,20 @@
 			<DCCReference Include="UPesquisaTransportadora.pas">
 				<Form>PesquisaTransportadoraForm</Form>
 			</DCCReference>
-			<DCCReference Include="UConsultaNotaEntrada.pas">
-				<Form>ConsultaNotaEntradaForm</Form>
+			<DCCReference Include="UControlePadrao.pas">
+				<Form>ControlePadraoForm</Form>
+			</DCCReference>
+			<DCCReference Include="UControleNotaEntrada.pas">
+				<Form>ControleNotaEntradaForm</Form>
+			</DCCReference>
+			<DCCReference Include="ULancamentoPadrao.pas">
+				<Form>LancamentoPadraoForm</Form>
+			</DCCReference>
+			<DCCReference Include="ULancamentoNotaentrada.pas">
+				<Form>LancamentoNotaEntradaForm</Form>
+			</DCCReference>
+			<DCCReference Include="UPesquisaProduto.pas">
+				<Form>PesquisaProdutoForm</Form>
 			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

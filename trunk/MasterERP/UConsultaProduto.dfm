@@ -9,7 +9,7 @@ inherited ConsultaProdutoForm: TConsultaProdutoForm
   inherited Panel1: TPanel
     Height = 538
     ExplicitHeight = 538
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 536
       ExplicitHeight = 536
       inherited BTNovo: TSpeedButton
@@ -104,6 +104,7 @@ inherited ConsultaProdutoForm: TConsultaProdutoForm
       'select * from produto where produto_id = 0')
   end
   inherited CDSConsulta: TClientDataSet
+    OnCalcFields = CDSConsultaCalcFields
     object CDSConsultaPRODUTO_ID: TIntegerField
       FieldName = 'PRODUTO_ID'
       DisplayFormat = '0000000000'
@@ -136,14 +137,31 @@ inherited ConsultaProdutoForm: TConsultaProdutoForm
       FieldName = 'PRECO'
       DisplayFormat = 'R$ ,0.00'
     end
-    object CDSConsultal_unidade: TStringField
-      FieldKind = fkLookup
-      FieldName = 'l_unidade'
-      LookupDataSet = BancoDados.CDSUnidade
-      LookupKeyFields = 'UNIDADE_ID'
-      LookupResultField = 'DESCRICAO'
-      KeyFields = 'UNIDADE_ID'
-      Lookup = True
+    object CDSConsultaPRODUTO_GRUPO_ID: TIntegerField
+      FieldName = 'PRODUTO_GRUPO_ID'
+    end
+    object CDSConsultaPRODUTO_SUBGRUPO_ID: TIntegerField
+      FieldName = 'PRODUTO_SUBGRUPO_ID'
+    end
+    object CDSConsultaESTOQUE_MINIMO: TFloatField
+      FieldName = 'ESTOQUE_MINIMO'
+    end
+    object CDSConsultacalc_unidade_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_unidade_descricao'
+      Calculated = True
+    end
+    object CDSConsultacalc_grupo_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_grupo_descricao'
+      Size = 60
+      Calculated = True
+    end
+    object CDSConsultacalc_subgrupo_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_subgrupo_descricao'
+      Size = 60
+      Calculated = True
     end
   end
 end

@@ -9,7 +9,7 @@ inherited ConsultaGrupoProdutoForm: TConsultaGrupoProdutoForm
   inherited Panel1: TPanel
     Height = 490
     ExplicitHeight = 490
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 488
       ExplicitHeight = 488
       inherited BTNovo: TSpeedButton

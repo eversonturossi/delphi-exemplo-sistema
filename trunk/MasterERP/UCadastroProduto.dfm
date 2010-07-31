@@ -9,22 +9,25 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
   inherited SBPrincipal: TStatusBar
     Top = 488
     Width = 796
-    ExplicitTop = 509
+    ExplicitTop = 488
+    ExplicitWidth = 796
   end
   inherited Panel1: TPanel
     Height = 488
-    ExplicitHeight = 509
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    ExplicitHeight = 488
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 486
-      ExplicitHeight = 507
+      ExplicitHeight = 486
     end
   end
   inherited PPrincipal: TPanel
     Width = 639
     Height = 488
-    ExplicitHeight = 509
+    ExplicitWidth = 639
+    ExplicitHeight = 488
     inherited Panel3: TPanel
       Width = 637
+      ExplicitWidth = 637
       inherited Label1: TLabel
         Left = 66
         ExplicitLeft = 66
@@ -51,14 +54,11 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Top = 84
       Width = 637
       Height = 403
-      ActivePage = TSCadastro
+      ActivePage = TSComplemento
       Align = alClient
       TabOrder = 1
-      ExplicitHeight = 424
       object TSCadastro: TTabSheet
         Caption = 'Cadastro'
-        ExplicitWidth = 660
-        ExplicitHeight = 396
         object Label8: TLabel
           Left = 76
           Top = 24
@@ -313,8 +313,6 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       object TSComplemento: TTabSheet
         Caption = 'Complemento'
         ImageIndex = 1
-        ExplicitTop = 23
-        ExplicitHeight = 396
         object Label6: TLabel
           Left = 53
           Top = 5

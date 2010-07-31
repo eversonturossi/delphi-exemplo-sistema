@@ -46,7 +46,7 @@ type
     ExibirColunas1: TMenuItem;
     ReconfigurarColunas1: TMenuItem;
     qryCsExibirColuna: TSQLQuery;
-    JvGradientHeaderPanel1: TJvGradientHeaderPanel;
+    GHPPrincipal: TJvGradientHeaderPanel;
     BTNovo: TSpeedButton;
     BTAlterar: TSpeedButton;
     BTExcluir: TSpeedButton;
@@ -319,7 +319,7 @@ var
   Check : Integer;
   R: TRect;
 begin
-  if Column.FieldName = 'ATIVO' then
+  if (Column.FieldName = 'ATIVO') then
     begin
       DBGrid1.Canvas.FillRect(Rect);
       Check := 0;
@@ -384,6 +384,7 @@ begin
   BancoDados.CDSTabela.Open;
 
   Caption := 'MasterERP - ' + BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
+  GHPPrincipal.LabelCaption := BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
 
   ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 0, BancoDados.Tabela);
   GeraTrace(BancoDados.Tabela,'Formulário de Consulta');
