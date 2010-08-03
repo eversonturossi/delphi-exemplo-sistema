@@ -2,8 +2,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
   Caption = 'LancamentoNotaentradaForm'
   ClientHeight = 583
   ClientWidth = 890
-  ExplicitLeft = -131
-  ExplicitTop = 7
+  ExplicitLeft = -61
   ExplicitWidth = 906
   ExplicitHeight = 619
   PixelsPerInch = 96
@@ -29,7 +28,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     ExplicitHeight = 564
     object Label1: TLabel
       Left = 52
-      Top = 137
+      Top = 157
       Width = 59
       Height = 13
       Alignment = taRightJustify
@@ -37,7 +36,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object LBFornecedorNome: TLabel
       Left = 227
-      Top = 137
+      Top = 157
       Width = 241
       Height = 13
       AutoSize = False
@@ -51,7 +50,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label3: TLabel
       Left = 32
-      Top = 164
+      Top = 184
       Width = 79
       Height = 13
       Alignment = taRightJustify
@@ -59,7 +58,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object LBTransportadoraNome: TLabel
       Left = 227
-      Top = 164
+      Top = 184
       Width = 241
       Height = 13
       AutoSize = False
@@ -73,7 +72,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label6: TLabel
       Left = 8
-      Top = 204
+      Top = 219
       Width = 56
       Height = 13
       Alignment = taRightJustify
@@ -81,7 +80,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label7: TLabel
       Left = 93
-      Top = 204
+      Top = 219
       Width = 46
       Height = 13
       Alignment = taRightJustify
@@ -89,7 +88,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label8: TLabel
       Left = 472
-      Top = 204
+      Top = 219
       Width = 22
       Height = 13
       Alignment = taRightJustify
@@ -97,7 +96,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label9: TLabel
       Left = 551
-      Top = 204
+      Top = 219
       Width = 68
       Height = 13
       Alignment = taRightJustify
@@ -105,7 +104,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label10: TLabel
       Left = 630
-      Top = 204
+      Top = 219
       Width = 28
       Height = 13
       Alignment = taRightJustify
@@ -165,31 +164,39 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label14: TLabel
       Left = 376
-      Top = 204
+      Top = 219
       Width = 43
       Height = 13
       Alignment = taRightJustify
       Caption = 'Unidade:'
     end
+    object Label15: TLabel
+      Left = 29
+      Top = 130
+      Width = 82
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Nota Fiscal (I.D):'
+    end
     object EditFornecedor: TJvValidateEdit
       Left = 128
-      Top = 134
-      Width = 89
-      Height = 21
-      CriticalPoints.MaxValueIncluded = False
-      CriticalPoints.MinValueIncluded = False
-      TabOrder = 0
-      OnExit = EditFornecedorExit
-      OnKeyDown = EditFornecedorKeyDown
-    end
-    object EditTransportadora: TJvValidateEdit
-      Left = 128
-      Top = 161
+      Top = 154
       Width = 89
       Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       TabOrder = 1
+      OnExit = EditFornecedorExit
+      OnKeyDown = EditFornecedorKeyDown
+    end
+    object EditTransportadora: TJvValidateEdit
+      Left = 128
+      Top = 181
+      Width = 89
+      Height = 21
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
+      TabOrder = 2
       OnExit = EditTransportadoraExit
       OnKeyDown = EditTransportadoraKeyDown
     end
@@ -199,7 +206,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Width = 731
       Height = 120
       Align = alTop
-      TabOrder = 2
+      TabOrder = 3
       object Label4: TLabel
         Left = 39
         Top = 37
@@ -304,9 +311,9 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object DBGrid1: TDBGrid
       Left = 8
-      Top = 247
+      Top = 262
       Width = 716
-      Height = 234
+      Height = 229
       DataSource = DSNotaEntradaItem
       FixedColor = clWhite
       Font.Charset = ANSI_CHARSET
@@ -318,7 +325,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       ParentFont = False
       PopupMenu = PopupMenu1
       ReadOnly = True
-      TabOrder = 3
+      TabOrder = 4
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
@@ -342,59 +349,64 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditProduto: TJvValidateEdit
       Left = 8
-      Top = 220
+      Top = 235
       Width = 81
       Height = 21
+      TabStop = False
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
-      TabOrder = 4
+      TabOrder = 5
       OnExit = EditProdutoExit
       OnKeyDown = EditProdutoKeyDown
     end
     object EditDescricao: TEdit
       Left = 93
-      Top = 220
+      Top = 235
       Width = 278
       Height = 21
+      TabStop = False
       ReadOnly = True
-      TabOrder = 5
+      TabOrder = 6
     end
     object EditQuantidade: TJvValidateEdit
       Left = 472
-      Top = 220
+      Top = 235
       Width = 75
       Height = 21
-      CriticalPoints.MaxValueIncluded = False
-      CriticalPoints.MinValueIncluded = False
-      DisplayFormat = dfFloat
-      DecimalPlaces = 2
-      TabOrder = 6
-      OnKeyDown = EditQuantidadeKeyDown
-    end
-    object EditValorUnitario: TJvValidateEdit
-      Left = 551
-      Top = 220
-      Width = 75
-      Height = 21
+      TabStop = False
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       DisplayFormat = dfFloat
       DecimalPlaces = 2
       TabOrder = 7
+      OnKeyDown = EditQuantidadeKeyDown
+    end
+    object EditValorUnitario: TJvValidateEdit
+      Left = 551
+      Top = 235
+      Width = 75
+      Height = 21
+      TabStop = False
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
+      DisplayFormat = dfFloat
+      DecimalPlaces = 2
+      TabOrder = 8
       OnExit = EditValorUnitarioExit
       OnKeyDown = EditValorUnitarioKeyDown
     end
     object EditTotal: TJvValidateEdit
       Left = 630
-      Top = 220
+      Top = 235
       Width = 94
       Height = 21
+      TabStop = False
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       DisplayFormat = dfFloat
       DecimalPlaces = 2
       ReadOnly = True
-      TabOrder = 8
+      TabOrder = 9
     end
     object DBEdit1: TDBEdit
       Left = 8
@@ -410,17 +422,29 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 9
+      TabOrder = 10
       OnExit = DBEdit1Exit
     end
     object CBUnidade: TComboBox
       Left = 376
-      Top = 220
+      Top = 235
       Width = 91
       Height = 21
-      TabOrder = 10
+      TabOrder = 11
+      TabStop = False
       Text = 'CBUnidade'
       OnKeyDown = CBUnidadeKeyDown
+    end
+    object EditNotaFiscal: TJvValidateEdit
+      Left = 128
+      Top = 127
+      Width = 89
+      Height = 21
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
+      TabOrder = 0
+      OnExit = EditNotaFiscalExit
+      OnKeyDown = EditNotaFiscalKeyDown
     end
   end
   inherited qryCadastro: TSQLQuery
