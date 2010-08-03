@@ -71,6 +71,8 @@ type
     CDSNotaEntradaItemcalc_unidade_descricao: TStringField;
     PopupMenu1: TPopupMenu;
     ExcluirItem1: TMenuItem;
+    Label15: TLabel;
+    EditNotaFiscal: TJvValidateEdit;
     procedure CDSNotaEntradaItemCalcFields(DataSet: TDataSet);
     procedure DBEdit1Exit(Sender: TObject);
     procedure EditProdutoExit(Sender: TObject);
@@ -94,6 +96,9 @@ type
     procedure EditTransportadoraExit(Sender: TObject);
     procedure EditTransportadoraKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure EditNotaFiscalKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure EditNotaFiscalExit(Sender: TObject);
   private
     { Private declarations }
     procedure LimpaCampos;
@@ -144,6 +149,13 @@ begin
     begin
       Mensagem('Informe um Fornecedor!', mtWarning,[mbOk],mrOK,0);
       EditFornecedor.SetFocus;
+      Abort;
+    end;
+
+  if (not (CDSCadastroNOTA_ENTRADA_ID.Value > 0) and (EditNotaFiscal.Enabled))  then
+    begin
+      Mensagem('Informe um Número para a Nota de Entrada!', mtWarning,[mbOk],mrOK,0);
+      EditNotaFiscal.SetFocus;
       Abort;
     end;
 
@@ -229,6 +241,34 @@ begin
       else
         EditTransportadora.SetFocus;
     end;
+end;
+
+procedure TLancamentoNotaEntradaForm.EditNotaFiscalExit(Sender: TObject);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select nota_entrada_id from nota_entrada where nota_entrada_id = ' +
+        IntToStr(EditNotaFiscal.Value);
+      Open;
+    end;
+
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    begin
+      Mensagem('Número da Nota de Entrada já existente!' + #13 +
+        'Informe outro Número.', mtWarning,[mbOk],mrOK,0);
+      EditQuantidade.SetFocus;
+      Abort;
+    end
+  else
+    CDSCadastroNOTA_ENTRADA_ID.Value := EditNotaFiscal.Value;
+end;
+
+procedure TLancamentoNotaEntradaForm.EditNotaFiscalKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = 13) then
+    EditFornecedor.SetFocus;
 end;
 
 procedure TLancamentoNotaEntradaForm.EditProdutoExit(Sender: TObject);
@@ -448,7 +488,18 @@ begin
     not (CDSCadastroCANCELADO.Value = 1));
 
 
-  EditFornecedor.SetFocus;
+  if ((Parametro(BancoDados.qryAuxiliar, 3, 'SIM') = 'SIM')) then
+    begin
+      EditNotaFiscal.Value := CDSCadastroNOTA_ENTRADA_ID.Value;
+      EditNotaFiscal.Enabled := False;
+      EditFornecedor.SetFocus;
+    end
+  else
+    begin
+      EditNotaFiscal.Value := 0;
+      EditNotaFiscal.Enabled := True;
+      EditNotaFiscal.SetFocus;
+    end;
 end;
 
 end.
