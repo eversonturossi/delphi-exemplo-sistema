@@ -159,19 +159,6 @@ type
     CDSParametro: TClientDataSet;
     DSPParametro: TDataSetProvider;
     CDSUsuarioExibirColunaALINHAMENTO: TStringField;
-    qryUsuarioExibirUSUARIO_EXIBIR_ID: TLargeintField;
-    qryUsuarioExibirUSUARIO_ID: TIntegerField;
-    qryUsuarioExibirFONTE_NOME: TStringField;
-    qryUsuarioExibirFONTE_TAMANHO: TSmallintField;
-    qryUsuarioExibirTABELA: TStringField;
-    qryUsuarioExibirColunaUSUARIO_EXIBIR_COLUNA_ID: TLargeintField;
-    qryUsuarioExibirColunaUSUARIO_EXIBIR_ID: TLargeintField;
-    qryUsuarioExibirColunaINDICE: TSmallintField;
-    qryUsuarioExibirColunaCOLUNA_NOME: TStringField;
-    qryUsuarioExibirColunaCOLUNA_LABEL: TStringField;
-    qryUsuarioExibirColunaVISIVEL: TSmallintField;
-    qryUsuarioExibirColunaTAMANHO: TSmallintField;
-    qryUsuarioExibirColunaALINHAMENTO: TStringField;
     qryGrupoProduto: TSQLQuery;
     qrySubGrupoProduto: TSQLQuery;
     DSGrupoProduto: TDataSource;
@@ -334,6 +321,7 @@ type
     CDSTransportadoraEMPRESA_ID: TIntegerField;
     CDSTransportadoracalc_tipo: TStringField;
     CDSTransportadoracalc_filial: TSmallintField;
+    CDSUsuarioExibirTABELA_FUNCAO: TSmallintField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -369,6 +357,8 @@ type
     procedure CDSProdutoCalcFields(DataSet: TDataSet);
     procedure CDSFornecedorCalcFields(DataSet: TDataSet);
     procedure CDSTransportadoraCalcFields(DataSet: TDataSet);
+    procedure CDSUsuarioExibirAfterInsert(DataSet: TDataSet);
+    procedure CDSUsuarioExibirColunaAfterInsert(DataSet: TDataSet);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -783,6 +773,30 @@ begin
     end;
   if not (BancoDados.qryAuxiliar.IsEmpty) then
     CDSTransportadoracalc_filial.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
+procedure TBancoDados.CDSUsuarioExibirAfterInsert(DataSet: TDataSet);
+begin
+  with qryGeraID do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select gen_id( GEN_USUARIO_EXIBIR_ID, 1 ) from RDB$DATABASE');
+      Open;
+      CDSUsuarioExibirUSUARIO_EXIBIR_ID.Value := qryGeraID.Fields[0].Value;
+    end;
+end;
+
+procedure TBancoDados.CDSUsuarioExibirColunaAfterInsert(DataSet: TDataSet);
+begin
+  with qryGeraID do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('select gen_id( GEN_USUARIO_EXIBIR_COLUNA_ID, 1 ) from RDB$DATABASE');
+      Open;
+      CDSUsuarioExibirColunaUSUARIO_EXIBIR_COLUNA_ID.Value := qryGeraID.Fields[0].Value;
+    end;
 end;
 
 procedure TBancoDados.DataModuleCreate(Sender: TObject);

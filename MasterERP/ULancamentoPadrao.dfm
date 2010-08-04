@@ -12,6 +12,7 @@ object LancamentoPadraoForm: TLancamentoPadraoForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow

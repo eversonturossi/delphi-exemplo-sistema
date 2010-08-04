@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, FMTBcd, DB, AppEvnts, DBClient, Provider, Menus, SqlExpr, Grids,
   DBGrids, ComCtrls, Buttons, JvExControls, JvGradientHeaderPanel, ExtCtrls,
-  ComObj;
+  ComObj, ActnList;
 
 type
   TControlePadraoForm = class(TForm)
@@ -40,6 +40,12 @@ type
     qryControleAcessoDESCRICAO: TStringField;
     qryControleAcessoVALOR: TSmallintField;
     qryControleAcessoTIPO: TStringField;
+    ActionList: TActionList;
+    ANovo: TAction;
+    AAlterar: TAction;
+    AExcluir: TAction;
+    AExportar: TAction;
+    ASair: TAction;
     procedure CDSConsultaReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);

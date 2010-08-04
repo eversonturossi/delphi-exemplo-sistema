@@ -741,6 +741,10 @@ inherited CadastroEmpresaForm: TCadastroEmpresaForm
       object TSUsuario: TTabSheet
         Caption = 'Usu'#225'rios'
         ImageIndex = 2
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object DBGrid2: TDBGrid
           Left = 51
           Top = 41

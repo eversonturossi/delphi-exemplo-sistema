@@ -73,6 +73,9 @@ type
     ExcluirItem1: TMenuItem;
     Label15: TLabel;
     EditNotaFiscal: TJvValidateEdit;
+    Label16: TLabel;
+    DBEditCodigo: TDBEdit;
+    CDSCadastroNOTA_FISCAL: TIntegerField;
     procedure CDSNotaEntradaItemCalcFields(DataSet: TDataSet);
     procedure DBEdit1Exit(Sender: TObject);
     procedure EditProdutoExit(Sender: TObject);
@@ -99,6 +102,7 @@ type
     procedure EditNotaFiscalKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure EditNotaFiscalExit(Sender: TObject);
+    procedure CDSCadastroBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure LimpaCampos;
@@ -159,6 +163,14 @@ begin
       Abort;
     end;
 
+  if ((CDSCadastroFINALIZADO.Value <> 1) and (CDSCadastroCANCELADO.Value <> 1)) then
+    if (Mensagem('Deseja Finalizar esta Nota?',mtConfirmation,[mbYES,mbNO],mrNO,0) = idYES) then
+      begin
+        if not (CDSCadastro.State in [dsEdit, dsInsert]) then
+          CDSCadastro.Edit;
+        CDSCadastroFINALIZADO.Value := 1;
+      end;
+
   inherited; //Herança
 
   BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
@@ -179,6 +191,16 @@ begin
 
   CDSCadastroCANCELADO.Value := 0;
   CDSCadastroFINALIZADO.Value := 0;
+end;
+
+procedure TLancamentoNotaEntradaForm.CDSCadastroBeforePost(DataSet: TDataSet);
+begin
+  inherited; //Herança
+
+  CDSCadastroEMPRESA_ID.Value := BancoDados.EmpresaID;
+  CDSCadastroFORNECEDOR_ID.Value := EditFornecedor.Value;
+  CDSCadastroTRANSPORTADORA_ID.Value := EditTransportadora.Value;
+  CDSCadastroNOTA_FISCAL.Value := EditNotaFiscal.Value;
 end;
 
 procedure TLancamentoNotaEntradaForm.CDSNotaEntradaItemCalcFields(
@@ -484,22 +506,10 @@ begin
     ' nota_entrada_id = ' + IntToStr(CDSCadastroNOTA_ENTRADA_ID.Value);
   CDSNotaEntradaItem.Open;
 
+  EditNotaFiscal.SetFocus;
+
   DBGrid1.Enabled := (not (CDSCadastroFINALIZADO.Value = 1) and
     not (CDSCadastroCANCELADO.Value = 1));
-
-
-  if ((Parametro(BancoDados.qryAuxiliar, 3, 'SIM') = 'SIM')) then
-    begin
-      EditNotaFiscal.Value := CDSCadastroNOTA_ENTRADA_ID.Value;
-      EditNotaFiscal.Enabled := False;
-      EditFornecedor.SetFocus;
-    end
-  else
-    begin
-      EditNotaFiscal.Value := 0;
-      EditNotaFiscal.Enabled := True;
-      EditNotaFiscal.SetFocus;
-    end;
 end;
 
 end.
