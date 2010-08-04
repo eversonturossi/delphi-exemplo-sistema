@@ -36,6 +36,7 @@ type
   private
     { Private declarations }
     procedure Pesquisar;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -46,6 +47,20 @@ var
 implementation
 uses Base, UFuncoes, UCadastroUsuario;
 {$R *.dfm}
+
+procedure TConcultaUsuarioForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Campo a ser pesquisado';
+  CBCondicao.Hint := 'Condição para pesquisa';
+  EditValor.Hint := 'Valor a ser pesquisado';
+  CBSituacao.Hint := 'Situação do Registro (Ativo/Inativo)';
+  DBGrid1.Hint := 'Registro da Pesquisa';
+  BTPesquisar.Hint := 'Execure a Pesquisa';
+  BTNovo.Hint := 'Insira um novo Usuário';
+  BTAlterar.Hint := 'Altere o Usuário selecionado';
+  BTExportar.Hint := 'Exporte os Dados do Usuário selecionado';
+  BTSair.Hint := 'Sair da Tela de Consulta de Usuários';
+end;
 
 procedure TConcultaUsuarioForm.Pesquisar;
 var
@@ -198,6 +213,7 @@ begin
 
   CBCriterioSelect(Sender);
   BTPesquisarClick(Sender);
+  CarregaHint;
 end;
 
 end.

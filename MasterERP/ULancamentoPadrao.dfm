@@ -14,6 +14,7 @@ object LancamentoPadraoForm: TLancamentoPadraoForm
   OldCreateOrder = False
   Position = poDesktopCenter
   OnClose = FormClose
+  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96

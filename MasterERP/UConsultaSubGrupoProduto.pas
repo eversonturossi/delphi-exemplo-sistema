@@ -27,6 +27,7 @@ type
   private
     { Private declarations }
     procedure Pesquisar;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -37,6 +38,20 @@ var
 implementation
 uses Base, UFuncoes, UCadastroSubGrupoProduto;
 {$R *.dfm}
+
+procedure TConsultaSubGrupoProdutoForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Campo a ser pesquisado';
+  CBCondicao.Hint := 'Condição para pesquisa';
+  EditValor.Hint := 'Valor a ser pesquisado';
+  CBSituacao.Hint := 'Situação do Registro (Ativo/Inativo)';
+  DBGrid1.Hint := 'Registro da Pesquisa';
+  BTPesquisar.Hint := 'Execure a Pesquisa';
+  BTNovo.Hint := 'Insira um novo SubGrupo de Produtos';
+  BTAlterar.Hint := 'Altere o SubGrupo de Produtos selecionado';
+  BTExportar.Hint := 'Exporte os Dados do SubGrupo de Produtos selecionado';
+  BTSair.Hint := 'Sair da Tela de Consulta do SubGrupo de Produtos';
+end;
 
 procedure TConsultaSubGrupoProdutoForm.Pesquisar;
 var
@@ -122,6 +137,7 @@ end;
 procedure TConsultaSubGrupoProdutoForm.BTNovoClick(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     if not Assigned(CadastroSubGrupoProdutoForm) then
       CadastroSubGrupoProdutoForm := TCadastroSubGrupoProdutoForm.Create(Application);
     BancoDados.Operacao := 'Inserir';
@@ -132,6 +148,7 @@ begin
     CDSConsulta.Open;
     CadastroSubGrupoProdutoForm.Free;
     CadastroSubGrupoProdutoForm := nil;
+    BarraStatus := True;
   end;
 end;
 
@@ -189,5 +206,6 @@ begin
 
   CBCriterioSelect(Sender);
   BTPesquisarClick(Sender);
+  CarregaHint;
 end;
 end.

@@ -375,7 +375,7 @@ type
     imgCancelar2, imgOk, imgOk24, imgLimpar : ShortString;
     Id : Integer;
     Tabela, Operacao, EmpresaNomeRazao : ShortString;
-    LiberaFormulario, LiberaAlterar, LiberaExportar, ExibeStatus : Boolean;
+    LiberaFormulario, LiberaAlterar, LiberaExportar : Boolean;
     SqlConsulta : String;
   end;
 
@@ -602,7 +602,7 @@ begin
 with qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select nome from pessoa where pessoa_id in(' +
+      SQL.Text := 'select nome_razao from pessoa where pessoa_id in(' +
         'select pessoa_id from fornecedor where fornecedor_id = ' +
         IntToStr(CDSProdutoBarraFORNECEDOR_ID.Value) + ')';
       Open;
@@ -676,7 +676,7 @@ begin
   with BancoDados.qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select nome from pessoa where pessoa_id in(' +
+      SQL.Text := 'select nome_razao from pessoa where pessoa_id in(' +
         'select pessoa_id from empresa where empresa_id = ' +
         IntToStr(CDSProdutoEmpresaEMPRESA_ID.Value) + ')';
       Open;
@@ -705,7 +705,7 @@ begin
   with qryAuxiliar do
     begin
       Close;
-      SQL.Text := 'select nome from pessoa where pessoa_id in(' +
+      SQL.Text := 'select nome_razao from pessoa where pessoa_id in(' +
         'select pessoa_id from fornecedor where fornecedor_id = ' +
         IntToStr(CDSProdutoFornecedorFORNECEDOR_ID.Value) + ')';
       Open;

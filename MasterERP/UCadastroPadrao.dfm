@@ -159,7 +159,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 58
         Width = 210
         Height = 17
-        Hint = 'Data da '#250'ltima Altera'#231#227'o efetuada no Registro'
+        Hint = 'Data/Hora da '#218'ltima Altera'#231#227'o'
         DataField = 'DATA_ULTIMA_ALTERACAO'
         DataSource = DSCadastro
         Font.Charset = ANSI_CHARSET
@@ -187,7 +187,7 @@ object CadastroPadraoForm: TCadastroPadraoForm
         Top = 37
         Width = 210
         Height = 17
-        Hint = 'Data em que o Registro foi Inserido'
+        Hint = 'Data/Hora em que foi efetuado o Cadastro'
         DataField = 'DATA_CADASTRO'
         DataSource = DSCadastro
         Font.Charset = ANSI_CHARSET

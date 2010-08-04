@@ -644,5 +644,10 @@ begin
   CBPessoaContatoTipo.Hint := 'Informe aqui o Tipo de Contato a ser alterado.';
   DBGrid1.Hint := 'Lista de Contatos inseridos. Selecione o tipo de contato e Insira' +
     ' a informação.';
+  DBCAtivo.Hint := 'Informe se o Cadastro está Ativo/Inativo';
+  BTSalvar.Hint := 'Salvar Registro';
+  BTCancelar.Hint := 'Cancelar Alterações';
+  BTExcluir.Hint := 'Excluir Registro';
+  BTSair.Hint := 'Sair da Tela de Cadastro';
 end;
 end.

@@ -367,6 +367,11 @@ begin
   DBGrid2.Hint := 'Lista de Usuários do Sistema. Os que estão marcados possui acesso' +
     ' a Filial da Empresa em questão.';
   CBMarcar.Hint := 'Marcar/Desmarca todos os Usuários para esta Empresa.';
+  DBCAtivo.Hint := 'Informe se o Cadastro está Ativo/Inativo';
+  BTSalvar.Hint := 'Salvar Registro';
+  BTCancelar.Hint := 'Cancelar Alterações';
+  BTExcluir.Hint := 'Excluir Registro';
+  BTSair.Hint := 'Sair da Tela de Cadastro';
 end;
 
 procedure TCadastroEmpresaForm.AVerificarNomeExecute(Sender: TObject);

@@ -46,10 +46,13 @@ type
     procedure BTCancelarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CBCondicaoSelect(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     FTabela ,FDescricao, SqlConsulta : String;
+    FCampoID, FCampoNome : ShortString;
     FID : Integer;
+    FBarraStatus : Boolean;
     procedure CarregaPreferencias;
     procedure CarregaHint;
   public
@@ -59,6 +62,9 @@ type
     property Tabela: String read FTabela write FTabela;
     property Descricao: String read FDescricao write FDescricao;
     property ID: Integer read FID write FID;
+    property CampoID: ShortString read FCampoID write FCampoID;
+    property CampoNome: ShortString read FCampoNome write FCampoNome;
+    property BarraStatus: Boolean read FBarraStatus write FBarraStatus;
   end;
 
 var
@@ -97,7 +103,7 @@ end;
 
 procedure TPesquisaPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
-  if (BancoDados.ExibeStatus) then
+  if (FBarraStatus) then
     SBPrincipal.Panels[0].Text := Application.Hint;
 end;
 
@@ -140,14 +146,14 @@ procedure TPesquisaPadraoForm.ExibirColunas1Click(Sender: TObject);
 begin
   try
     GeraTrace(FTabela,'Alterando Configurações da Grade');
-    BancoDados.ExibeStatus := False;
+    FBarraStatus := False;
 
     if not Assigned(UsuarioExibirColunaForm) then
       UsuarioExibirColunaForm := TUsuarioExibirColunaForm.Create(Application);
     UsuarioExibirColunaForm.ShowModal;
     UsuarioExibirColunaForm.TabelaFuncao := 1;
   finally
-    BancoDados.ExibeStatus := True;
+    FBarraStatus := True;
     ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 1, FTabela);
 
     UsuarioExibirColunaForm.Free;
@@ -169,15 +175,28 @@ begin
   GeraTrace(FTabela,CriaLinha(110));
 end;
 
+procedure TPesquisaPadraoForm.FormCreate(Sender: TObject);
+begin
+  ApplicationEvents.Activate;
+end;
+
 procedure TPesquisaPadraoForm.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = 13) then
     begin
-      Key := 0;
-      FID := CDSConsulta.FieldByName(FTabela + '_ID').Value;
-      FDescricao := CDSConsulta.FieldByName('DESCRICAO').Value;
-      ModalResult := mrOk;
+      key := 0;
+      if not (ActiveControl is TEdit) then
+        Perform(WM_NextDlgCtl,0,0)
+      else
+        begin
+          if not (CDSConsulta.IsEmpty) then
+            begin
+              FID := CDSConsulta.FieldByName(FCampoID).Value;
+              FDescricao := CDSConsulta.FieldByName(FCampoNome).Value;
+            end;
+          ModalResult := mrOk;
+        end;
     end
   else if (Key = 27) then
     begin

@@ -72,7 +72,23 @@ uses Base, UFuncoes, ULancamentoNotaentrada, UPesquisaFornecedor,
 
 procedure TControleNotaEntradaForm.CarregaHint;
 begin
-  EditNotaFiscal.Hint := 'Informe o Número da Nota';
+  EditNotaFiscal.Hint := 'Informe o número da Nota de Entrada';
+  EditNotaFiscal.Hint := 'Informe o número da Nota Fiscal';
+  EditFornecedor.Hint := 'Informe o Fornecedor';
+  EditTransportadora.Hint := 'Informe a Transportadora';
+  BTFornecedor.Hint := 'Pesquisar um Fornecedor';
+  BTTransportadora.Hint := 'Pesquisar uma Transportadora';
+  CHPeriodo.Hint := 'Habilite/Desabilite consulta por período';
+  RGCondicao.Hint := 'Especifique as condições especiais (Nota Cancelada / Nota Finalizada)';
+  BTPesquisar.Hint := 'Execure a Pesquisa';
+  BTNovo.Hint := 'Insira uma nova Nota';
+  BTAlterar.Hint := 'Altere a Nota selecionada';
+  BTExportar.Hint := 'Exporte os Dados da Nota selecionada';
+  BTSair.Hint := 'Sair da Tela de Controle de Notas de Entrada';
+  LBFornecedorNome.Hint := 'Nome do Fornecedor informado';
+  LBTransportadoraNome.Hint := 'Nome da Transportadora informada';
+  EditDe.Hint := 'Data de início para Consulta';
+  EditAte.Hint := 'Data de final para Consulta';
 end;
 
 procedure TControleNotaEntradaForm.BTAlterarClick(Sender: TObject);
@@ -80,6 +96,7 @@ begin
   inherited; //Herança
 
   try
+    BarraStatus := False;
     if not Assigned(LancamentoNotaEntradaForm) then
       LancamentoNotaEntradaForm := TLancamentoNotaEntradaForm.Create(Application);
     BancoDados.Operacao := 'Alterar';
@@ -91,6 +108,7 @@ begin
     CDSConsulta.Open;
     LancamentoNotaEntradaForm.Free;
     LancamentoNotaEntradaForm := nil;
+    BarraStatus := True;
   end;
 end;
 
@@ -115,6 +133,7 @@ end;
 procedure TControleNotaEntradaForm.BTNovoClick(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     if not Assigned(LancamentoNotaEntradaForm) then
       LancamentoNotaEntradaForm := TLancamentoNotaEntradaForm.Create(Application);
     BancoDados.Operacao := 'Inserir';
@@ -125,6 +144,7 @@ begin
     CDSConsulta.Open;
     LancamentoNotaEntradaForm.Free;
     LancamentoNotaEntradaForm := nil;
+    BarraStatus := True;
   end;
 end;
 

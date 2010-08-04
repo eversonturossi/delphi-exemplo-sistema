@@ -36,6 +36,7 @@ type
   private
     { Private declarations }
     procedure Pesquisar;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -47,11 +48,26 @@ implementation
 uses Base, UFuncoes, UCadastroCliente;
 {$R *.dfm}
 
+procedure TConsultaClienteForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Campo a ser pesquisado';
+  CBCondicao.Hint := 'Condição para pesquisa';
+  EditValor.Hint := 'Valor a ser pesquisado';
+  CBSituacao.Hint := 'Situação do Registro (Ativo/Inativo)';
+  DBGrid1.Hint := 'Registro da Pesquisa';
+  BTPesquisar.Hint := 'Execure a Pesquisa';
+  BTNovo.Hint := 'Insira um novo Cliente';
+  BTAlterar.Hint := 'Altere o Cliente selecionado';
+  BTExportar.Hint := 'Exporte os Dados do Cliente selecionado';
+  BTSair.Hint := 'Sair da Tela de Consulta de Clientes';
+end;
+
 procedure TConsultaClienteForm.BTAlterarClick(Sender: TObject);
 begin
   inherited; //Herança
 
   try
+    BarraStatus := False;
     if not Assigned(CadastroClienteForm) then
       CadastroClienteForm := TCadastroClienteForm.Create(Application);
     BancoDados.Operacao := 'Alterar';
@@ -63,6 +79,7 @@ begin
     CDSConsulta.Open;
     CadastroClienteForm.Free;
     CadastroClienteForm := nil;
+    BarraStatus := True;
   end;
 end;
 
@@ -96,6 +113,7 @@ end;
 procedure TConsultaClienteForm.BTNovoClick(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     if not Assigned(CadastroClienteForm) then
       CadastroClienteForm := TCadastroClienteForm.Create(Application);
     BancoDados.Operacao := 'Inserir';
@@ -106,6 +124,7 @@ begin
     CDSConsulta.Open;
     CadastroClienteForm.Free;
     CadastroClienteForm := nil;
+    BarraStatus := True;
   end;
 end;
 
@@ -180,6 +199,7 @@ begin
 
   CBCriterioSelect(Sender);
   BTPesquisarClick(Sender);
+  CarregaHint;
 end;
 
 procedure TConsultaClienteForm.Pesquisar;

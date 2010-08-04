@@ -44,11 +44,12 @@ uses Base;
 procedure TPesquisaEmpresaForm.Pesquisar;
 var
   Criterio, Condicao, Campo, Valor : ShortString;
+  SqlConsulta : String;
 begin
   try
     CDSConsulta.DisableControls;
     Valor := Trim(UpperCase(EditValor.Text));
-    BancoDados.SqlConsulta := 'select p.PESSOA_ID, p.ATIVO, p.DATA_CADASTRO, ' +
+    SqlConsulta := 'select p.PESSOA_ID, p.ATIVO, p.DATA_CADASTRO, ' +
       'p.DATA_ULTIMA_ALTERACAO, p.NOME, p.NOME_APELIDO_FANTASIA, e.EMPRESA_ID, ' +
       'e.CNPJ_CPF, e.TIPO, e.IE_IDENTIDADE, e.IM, e.FILIAL ' +
       'from PESSOA p, EMPRESA e where (e.PESSOA_ID = p.PESSOA_ID)';
@@ -83,19 +84,19 @@ begin
           end;
         end;
 
-        BancoDados.SqlConsulta := BancoDados.SqlConsulta + Condicao;
+        SqlConsulta := SqlConsulta + Condicao;
       end;
 
     if (CBSituacao.ItemIndex in [0,1]) then
       begin
-        if (Pos('where', BancoDados.SqlConsulta) > 0) then
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' and p.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
+        if (Pos('where', SqlConsulta) > 0) then
+          SqlConsulta := SqlConsulta + ' and p.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
         else
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' where p.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
+          SqlConsulta := SqlConsulta + ' where p.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
       end;
 
     CDSConsulta.Close;
-    qryConsulta.SQL.Text := BancoDados.SqlConsulta;
+    qryConsulta.SQL.Text := SqlConsulta;
     CDSConsulta.Open;
 
     CDSConsulta.Last;
@@ -147,10 +148,10 @@ begin
 end;
 
 procedure TPesquisaEmpresaForm.FormCreate(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
-  Padrao.Tabela := 'EMPRESA';
+  Tabela := 'EMPRESA';
+  CampoID := 'empresa_id';
+  CampoNome := 'Nome_Razao';
 end;
 
 end.

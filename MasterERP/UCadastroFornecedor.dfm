@@ -304,6 +304,10 @@ inherited CadastroFornecedorForm: TCadastroFornecedorForm
       object TSEnderecoContato: TTabSheet
         Caption = 'Endere'#231'os/Contatos'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label14: TLabel
           Left = 49
           Top = 205

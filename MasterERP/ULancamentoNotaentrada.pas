@@ -31,13 +31,13 @@ type
     CDSCadastroFINALIZADO: TSmallintField;
     Panel2: TPanel;
     Label4: TLabel;
-    DBText2: TDBText;
+    DBTextDataCadastro: TDBText;
     Label5: TLabel;
-    DBText1: TDBText;
+    DBTextUltimaAlteracao: TDBText;
     DBCCancelado: TDBCheckBox;
     DBCFinalizado: TDBCheckBox;
     Label2: TLabel;
-    JvDBDateEdit1: TJvDBDateEdit;
+    EditaDataEntrada: TJvDBDateEdit;
     DBGrid1: TDBGrid;
     EditProduto: TJvValidateEdit;
     Label6: TLabel;
@@ -59,12 +59,12 @@ type
     EditValorUnitario: TJvValidateEdit;
     Label10: TLabel;
     EditTotal: TJvValidateEdit;
-    DBEdit1: TDBEdit;
+    DBEditFrete: TDBEdit;
     Label11: TLabel;
-    DBText3: TDBText;
+    DBTextValorProduto: TDBText;
     Label12: TLabel;
     Label13: TLabel;
-    DBText4: TDBText;
+    DBTextValorNota: TDBText;
     CBUnidade: TComboBox;
     Label14: TLabel;
     CDSNotaEntradaItemUNIDADE_ID: TIntegerField;
@@ -77,7 +77,7 @@ type
     DBEditCodigo: TDBEdit;
     CDSCadastroNOTA_FISCAL: TIntegerField;
     procedure CDSNotaEntradaItemCalcFields(DataSet: TDataSet);
-    procedure DBEdit1Exit(Sender: TObject);
+    procedure DBEditFreteExit(Sender: TObject);
     procedure EditProdutoExit(Sender: TObject);
     procedure EditProdutoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -106,6 +106,7 @@ type
   private
     { Private declarations }
     procedure LimpaCampos;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -129,6 +130,35 @@ begin
 
   EditProduto.SetFocus;
 end;
+
+procedure TLancamentoNotaEntradaForm.CarregaHint;
+begin
+  EditNotaFiscal.Hint := 'Informe o número da Nota Fiscal, caso exista';
+  EditFornecedor.Hint := 'Informe um Fornecedor';
+  EditTransportadora.Hint := 'Informe uma Transportadora';
+  EditaDataEntrada.Hint := 'Informe a Data de Entrada da Nota';
+  DBCCancelado.Hint := 'Nota Cancelada';
+  DBCFinalizado.Hint := 'Nota Finalizada';
+  EditProduto.Hint := 'Informe um Produto para Inserí-lo';
+  EditDescricao.Hint := 'Descrição do Produto a ser Inserido';
+  CBUnidade.Hint := 'Informe a Unidade do Produto a ser Inserido';
+  EditQuantidade.Hint := 'Informe a Quantidade do Produto a ser Inserido';
+  EditValorUnitario.Hint := 'Informe o Valor Unitário do Produto a ser Inserido';
+  EditTotal.Hint := 'Valor Total do Item a ser Inserido';
+  DBEditFrete.Hint := 'Valor Total do Fret da Nota';
+  DBTextValorProduto.Hint := 'Valor Total dos Produtos';
+  DBTextValorNota.Hint := 'Valor Total da Nota';
+  LBFornecedorNome.Hint := 'Nome do Fornecedor informado';
+  LBTransportadoraNome.Hint := 'Nome da Transportadora informada';
+  DBTextUltimaAlteracao.Hint := 'Data/Hora da Última Alteração';
+  DBTextDataCadastro.Hint := 'Data/Hora em que foi efetuado o Cadastro';
+  BTSalvar.Hint := 'Salvar Registro';
+  BTCancelar.Hint := 'Cancelar Alterações';
+  BTExcluir.Hint := 'Excluir Registro';
+  BTSair.Hint := 'Sair da Tela de Cadastro';
+  DBEditCodigo.Hint := 'Código de identificação da Nota de Entrada';
+end;
+
 procedure TLancamentoNotaEntradaForm.BTExcluirClick(Sender: TObject);
 begin
   inherited; //Herança
@@ -220,7 +250,7 @@ begin
     CDSNotaEntradaItemVALOR_UNITARIO.Value);
 end;
 
-procedure TLancamentoNotaEntradaForm.DBEdit1Exit(Sender: TObject);
+procedure TLancamentoNotaEntradaForm.DBEditFreteExit(Sender: TObject);
 begin
   if not (CDSCadastro.State in [dsEdit, dsInsert]) then
     CDSCadastro.Edit;
@@ -249,6 +279,7 @@ begin
       if not (EditFornecedor.Value > 0) then
         begin
           try
+            BarraStatus := False;
             if not Assigned(PesquisaFornecedorForm) then
               PesquisaFornecedorForm := TPesquisaFornecedorForm.Create(Application);
             if (PesquisaFornecedorForm.ShowModal = mrOk) then
@@ -258,6 +289,7 @@ begin
           finally
             PesquisaFornecedorForm.Free;
             PesquisaFornecedorForm := nil;
+            BarraStatus := True;
           end;
         end
       else
@@ -323,6 +355,7 @@ begin
       if not (EditProduto.Value > 0) then
         begin
           try
+            BarraStatus := False;
             if not Assigned(PesquisaProdutoForm) then
               PesquisaProdutoForm := TPesquisaProdutoForm.Create(Application);
             if (PesquisaProdutoForm.ShowModal = mrOk) then
@@ -332,6 +365,7 @@ begin
           finally
             PesquisaProdutoForm.Free;
             PesquisaProdutoForm := nil;
+            BarraStatus := True;
           end;
         end
       else
@@ -380,6 +414,7 @@ begin
       if not (EditTransportadora.Value > 0) then
         begin
           try
+            BarraStatus := False;
             if not Assigned(PesquisaTransportadoraForm) then
               PesquisaTransportadoraForm := TPesquisaTransportadoraForm.Create(Application);
             if (PesquisaTransportadoraForm.ShowModal = mrOk) then
@@ -389,6 +424,7 @@ begin
           finally
             PesquisaTransportadoraForm.Free;
             PesquisaTransportadoraForm := nil;
+            BarraStatus := True;
           end;
         end
       else

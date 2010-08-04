@@ -11,7 +11,7 @@ uses
 type
   TCadastroSubGrupoProdutoForm = class(TCadastroPadraoForm)
     Label8: TLabel;
-    DBEdit1: TDBEdit;
+    DBEditCodigo: TDBEdit;
     Label3: TLabel;
     DBEditDescricao: TDBEdit;
     CDSCadastroPRODUTO_SUBGRUPO_ID: TIntegerField;
@@ -28,6 +28,7 @@ type
     procedure BTSalvarClick(Sender: TObject);
   private
     { Private declarations }
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -38,6 +39,18 @@ var
 implementation
 uses Base, UFuncoes;
 {$R *.dfm}
+
+procedure TCadastroSubGrupoProdutoForm.CarregaHint;
+begin
+  DBEditCodigo.Hint := 'Código de Identificação do SubGrupo de Produtos';
+  DBEditDescricao.Hint := 'Descrição do SubGrupo de Produtos';
+  DBCAtivo.Hint := 'Informe se o Cadastro está Ativo/Inativo';
+  BTSalvar.Hint := 'Salvar Registro';
+  BTCancelar.Hint := 'Cancelar Alterações';
+  BTExcluir.Hint := 'Excluir Registro';
+  BTSair.Hint := 'Sair da Tela de Cadastro';
+  DBLCGrupo.Hint := 'Grupo de Produtos';
+end;
 
 procedure TCadastroSubGrupoProdutoForm.RemoveAcento(Sender: TObject);
 var

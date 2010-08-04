@@ -44,7 +44,8 @@ uses Base;
 
 procedure TPesquisaFornecedorForm.Pesquisar;
 var
-  Criterio, Condicao, Campo, Valor, SqlConsulta : ShortString;
+  Criterio, Condicao, Campo, Valor : ShortString;
+  SqlConsulta : String;
 begin
   try
     CDSConsulta.DisableControls;
@@ -96,7 +97,7 @@ begin
       end;
 
     CDSConsulta.Close;
-    qryConsulta.SQL.Text := SqlConsulta;
+    qryConsulta.SQL.Text := SqlConsulta;  showmessage(SqlConsulta);
     CDSConsulta.Open;
 
     CDSConsulta.Last;
@@ -158,10 +159,10 @@ begin
 end;
 
 procedure TPesquisaFornecedorForm.FormCreate(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
-  Padrao.Tabela := 'FORNECEDOR';
+  Tabela := 'FORNECEDOR';
+  CampoID := 'fornecedor_id';
+  CampoNome := 'Nome_Razao';
 end;
 
 end.

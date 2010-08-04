@@ -76,6 +76,7 @@ type
     { Private declarations }
     Id : Integer;
     Descricao : ShortString;
+    FBarraStatus : Boolean;
     Form : TForm;
     FormClass: TFormClass;
     procedure CarregaPermissoes;
@@ -83,6 +84,9 @@ type
     procedure CarregaHint;
   public
     { Public declarations }
+  published
+    { Published declarations }
+    property BarraStatus: Boolean read FBarraStatus write FBarraStatus;
   end;
 
 var
@@ -187,14 +191,14 @@ procedure TConsultaPadraoForm.ExibirColunas1Click(Sender: TObject);
 begin
   try
     GeraTrace(BancoDados.Tabela,'Alterando Configurações da Grade');
-    BancoDados.ExibeStatus := False;
+    FBarraStatus := False;
 
     if not Assigned(UsuarioExibirColunaForm) then
       UsuarioExibirColunaForm := TUsuarioExibirColunaForm.Create(Application);
     UsuarioExibirColunaForm.ShowModal;
     UsuarioExibirColunaForm.TabelaFuncao := 0;
   finally
-    BancoDados.ExibeStatus := True;
+    FBarraStatus := True;
     ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 0, BancoDados.Tabela);
 
     UsuarioExibirColunaForm.Free;
@@ -230,7 +234,7 @@ end;
 
 procedure TConsultaPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
-  if (BancoDados.ExibeStatus) then
+  if (FBarraStatus) then
     SBPrincipal.Panels[0].Text := Application.Hint;
 end;
 
@@ -372,7 +376,7 @@ begin
 
   BancoDados.Operacao := '';
 
-  BancoDados.ExibeStatus := True;
+  FBarraStatus := True;
   CarregaPreferencias;
   CarregaHint;
 
