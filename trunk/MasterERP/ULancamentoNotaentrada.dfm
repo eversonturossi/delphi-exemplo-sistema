@@ -117,7 +117,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Alignment = taRightJustify
       Caption = 'Valor do Frete (R$):'
     end
-    object DBText3: TDBText
+    object DBTextValorProduto: TDBText
       Left = 298
       Top = 519
       Width = 118
@@ -147,7 +147,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Alignment = taRightJustify
       Caption = 'Valor da Nota (R$):'
     end
-    object DBText4: TDBText
+    object DBTextValorNota: TDBText
       Left = 577
       Top = 517
       Width = 130
@@ -235,12 +235,12 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
         Font.Style = []
         ParentFont = False
       end
-      object DBText2: TDBText
+      object DBTextDataCadastro: TDBText
         Left = 127
         Top = 37
         Width = 210
         Height = 17
-        Hint = 'Data em que o Registro foi Inserido'
+        Hint = 'Data/Hora em que foi efetuado o Cadastro'
         DataField = 'DATA_CADASTRO'
         DataSource = DSCadastro
         Font.Charset = ANSI_CHARSET
@@ -263,7 +263,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
         Font.Style = []
         ParentFont = False
       end
-      object DBText1: TDBText
+      object DBTextUltimaAlteracao: TDBText
         Left = 127
         Top = 58
         Width = 210
@@ -313,7 +313,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
         ValueChecked = '1'
         ValueUnchecked = '0'
       end
-      object JvDBDateEdit1: TJvDBDateEdit
+      object EditaDataEntrada: TJvDBDateEdit
         Left = 127
         Top = 75
         Width = 121
@@ -423,7 +423,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       ReadOnly = True
       TabOrder = 9
     end
-    object DBEdit1: TDBEdit
+    object DBEditFrete: TDBEdit
       Left = 8
       Top = 517
       Width = 155
@@ -438,7 +438,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Font.Style = []
       ParentFont = False
       TabOrder = 10
-      OnExit = DBEdit1Exit
+      OnExit = DBEditFreteExit
     end
     object CBUnidade: TComboBox
       Left = 376
@@ -469,7 +469,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Height = 21
       TabStop = False
       Color = clScrollBar
-      DataField = 'CLIENTE_ID'
+      DataField = 'NOTA_ENTRADA_ID'
       DataSource = DSCadastro
       Font.Charset = ANSI_CHARSET
       Font.Color = clWhite

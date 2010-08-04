@@ -28,9 +28,11 @@ type
     procedure FormCreate(Sender: TObject);
     procedure CBCriterioSelect(Sender: TObject);
     procedure EditValorChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     procedure Pesquisar;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -43,10 +45,17 @@ uses Base;
 {$R *.dfm}
 
 procedure TPesquisaClienteForm.FormCreate(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
-  Padrao.Tabela := 'CLIENTE';
+  Tabela := 'CLIENTE';
+  CampoID := 'cliente_id';
+  CampoNome := 'Nome_Razao';
+end;
+
+procedure TPesquisaClienteForm.FormShow(Sender: TObject);
+begin
+  inherited; //Herança
+
+  CarregaHint;
 end;
 
 procedure TPesquisaClienteForm.Pesquisar;
@@ -112,6 +121,15 @@ begin
   finally
     CDSConsulta.EnableControls;
   end;
+end;
+
+procedure TPesquisaClienteForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Campo a ser pesquisado';
+  CBCondicao.Hint := 'Condição para pesquisa';
+  EditValor.Hint := 'Valor a ser pesquisado';
+  CBSituacao.Hint := 'Situação do Registro (Ativo/Inativo)';
+  DBGrid1.Hint := 'Registro da Pesquisa';
 end;
 
 procedure TPesquisaClienteForm.CBCriterioSelect(Sender: TObject);

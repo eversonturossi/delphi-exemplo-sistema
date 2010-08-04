@@ -18,7 +18,6 @@ type
     CDSConsultaDESCRICAO_REDUZIDA: TStringField;
     CDSConsultaREFERENCIA: TStringField;
     CDSConsultaUNIDADE_ID: TIntegerField;
-    CDSConsultaPRECO: TFloatField;
     CDSConsultaPRODUTO_GRUPO_ID: TIntegerField;
     CDSConsultaPRODUTO_SUBGRUPO_ID: TIntegerField;
     CDSConsultaESTOQUE_MINIMO: TFloatField;
@@ -36,6 +35,7 @@ type
   private
     { Private declarations }
     procedure Pesquisar;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -46,6 +46,20 @@ var
 implementation
 uses Base, UFuncoes, UCadastroProduto;
 {$R *.dfm}
+
+procedure TConsultaProdutoForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Campo a ser pesquisado';
+  CBCondicao.Hint := 'Condição para pesquisa';
+  EditValor.Hint := 'Valor a ser pesquisado';
+  CBSituacao.Hint := 'Situação do Registro (Ativo/Inativo)';
+  DBGrid1.Hint := 'Registro da Pesquisa';
+  BTPesquisar.Hint := 'Execure a Pesquisa';
+  BTNovo.Hint := 'Insira um novo Produto';
+  BTAlterar.Hint := 'Altere o Produto selecionado';
+  BTExportar.Hint := 'Exporte os Dados do Produto selecionado';
+  BTSair.Hint := 'Sair da Tela de Consulta de Produtos';
+end;
 
 procedure TConsultaProdutoForm.Pesquisar;
 var
@@ -115,6 +129,7 @@ begin
   inherited; //Herança
 
   try
+    BarraStatus := False;
     if not Assigned(CadastroProdutoForm) then
       CadastroProdutoForm := TCadastroProdutoForm.Create(Application);
     BancoDados.Operacao := 'Alterar';
@@ -126,12 +141,14 @@ begin
     CDSConsulta.Open;
     CadastroProdutoForm.Free;
     CadastroProdutoForm := nil;
+    BarraStatus := True;
   end;
 end;
 
 procedure TConsultaProdutoForm.BTNovoClick(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     if not Assigned(CadastroProdutoForm) then
       CadastroProdutoForm := TCadastroProdutoForm.Create(Application);
     BancoDados.Operacao := 'Inserir';
@@ -142,6 +159,7 @@ begin
     CDSConsulta.Open;
     CadastroProdutoForm.Free;
     CadastroProdutoForm := nil;
+    BarraStatus := True;
   end;
 end;
 
@@ -231,6 +249,7 @@ begin
 
   CBCriterioSelect(Sender);
   BTPesquisarClick(Sender);
+  CarregaHint;
 end;
 
 end.

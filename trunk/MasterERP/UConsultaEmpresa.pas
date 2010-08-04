@@ -35,6 +35,7 @@ type
   private
     { Private declarations }
     procedure Pesquisar;
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -111,6 +112,20 @@ begin
   end;
 end;
 
+procedure TConsultaEmpresaForm.CarregaHint;
+begin
+  CBCriterio.Hint := 'Campo a ser pesquisado';
+  CBCondicao.Hint := 'Condição para pesquisa';
+  EditValor.Hint := 'Valor a ser pesquisado';
+  CBSituacao.Hint := 'Situação do Registro (Ativo/Inativo)';
+  DBGrid1.Hint := 'Registro da Pesquisa';
+  BTPesquisar.Hint := 'Execure a Pesquisa';
+  BTNovo.Hint := 'Insira uma nova Empresa';
+  BTAlterar.Hint := 'Altere a Empresa selecionada';
+  BTExportar.Hint := 'Exporte os Dados da Empresa selecionada';
+  BTSair.Hint := 'Sair da Tela de Consulta de Empresas';
+end;
+
 procedure TConsultaEmpresaForm.BTAlterarClick(Sender: TObject);
 begin
   inherited; //Herança
@@ -170,6 +185,7 @@ begin
     end;
 
   try
+    BarraStatus := False;
     if not Assigned(CadastroEmpresaForm) then
       CadastroEmpresaForm := TCadastroEmpresaForm.Create(Application);
     BancoDados.Operacao := 'Inserir';
@@ -180,6 +196,7 @@ begin
     CDSConsulta.Open;
     CadastroEmpresaForm.Free;
     CadastroEmpresaForm := nil;
+    BarraStatus := True;
   end;
 end;
 
@@ -244,6 +261,7 @@ begin
 
   CBCriterioSelect(Sender);
   BTPesquisarClick(Sender);
+  CarregaHint;
 end;
 
 end.

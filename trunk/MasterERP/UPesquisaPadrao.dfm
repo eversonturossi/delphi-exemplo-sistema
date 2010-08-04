@@ -14,6 +14,7 @@ object PesquisaPadraoForm: TPesquisaPadraoForm
   OldCreateOrder = False
   Position = poDesktopCenter
   OnClose = FormClose
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96

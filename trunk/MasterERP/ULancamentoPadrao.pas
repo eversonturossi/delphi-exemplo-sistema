@@ -49,14 +49,18 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     Id : Integer;
     Descricao : ShortString;
-    LiberaSalvar, FUtilizaMaiuscula : Boolean;
+    LiberaSalvar, FBarraStatus : Boolean;
     procedure CarregaBotoes(Salvar, Cancelar, Excluir, Sair : Boolean);
   public
     { Public declarations }
+  published
+    { Published declarations }
+    property BarraStatus: Boolean read FBarraStatus write FBarraStatus;
   end;
 
 var
@@ -68,7 +72,8 @@ uses Base, UFuncoes;
 
 procedure TLancamentoPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
-  SBPrincipal.Panels[0].Text := Application.Hint;
+  if (FBarraStatus) then
+    SBPrincipal.Panels[0].Text := Application.Hint;
 end;
 
 procedure TLancamentoPadraoForm.BTCancelarClick(Sender: TObject);
@@ -215,11 +220,16 @@ procedure TLancamentoPadraoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   BancoDados.Id := 0;
-  BancoDados.ExibeStatus := True;
+  FBarraStatus := True;
 
   if (CDSCadastro.State in [dsInsert, dsEdit]) then
     BTCancelarClick(Sender);
   CDSCadastro.Close;
+end;
+
+procedure TLancamentoPadraoForm.FormCreate(Sender: TObject);
+begin
+  ApplicationEvents.Activate;
 end;
 
 procedure TLancamentoPadraoForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -247,7 +257,7 @@ begin
   BTSalvar.Enabled := LiberaSalvar;
   Caption := 'MasterERP - Ferramenta de Cadastro do Módulo ' + BancoDados.Tabela + '.';
 
-  BancoDados.ExibeStatus := False;
+  FBarraStatus := False;
   Exportar := ((BancoDados.LiberaExportar) and (not (CDSCadastro.State in [dsInsert])));
 
   if (BancoDados.Operacao = 'Inserir') then

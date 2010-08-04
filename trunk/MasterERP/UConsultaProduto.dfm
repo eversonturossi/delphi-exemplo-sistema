@@ -52,14 +52,23 @@ inherited ConsultaProdutoForm: TConsultaProdutoForm
         end
         item
           Expanded = False
-          FieldName = 'l_unidade'
+          FieldName = 'calc_unidade_descricao'
           Title.Caption = 'Unidade'
+          Width = 120
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'PRECO'
-          Title.Caption = 'Pre'#231'o'
+          FieldName = 'calc_grupo_descricao'
+          Title.Caption = 'Grupo de Produtos'
+          Width = 350
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'calc_subgrupo_descricao'
+          Title.Caption = 'SubGrupo de Produtos'
+          Width = 350
           Visible = True
         end
         item
@@ -132,10 +141,6 @@ inherited ConsultaProdutoForm: TConsultaProdutoForm
     end
     object CDSConsultaUNIDADE_ID: TIntegerField
       FieldName = 'UNIDADE_ID'
-    end
-    object CDSConsultaPRECO: TFloatField
-      FieldName = 'PRECO'
-      DisplayFormat = 'R$ ,0.00'
     end
     object CDSConsultaPRODUTO_GRUPO_ID: TIntegerField
       FieldName = 'PRODUTO_GRUPO_ID'

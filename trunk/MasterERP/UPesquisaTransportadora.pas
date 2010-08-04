@@ -44,7 +44,8 @@ uses Base;
 
 procedure TPesquisaTransportadoraForm.Pesquisar;
 var
-  Criterio, Condicao, Campo, Valor, SqlConsulta : ShortString;
+  Criterio, Condicao, Campo, Valor : ShortString;
+  SqlConsulta : String;
 begin
   try
     CDSConsulta.DisableControls;
@@ -158,10 +159,10 @@ begin
 end;
 
 procedure TPesquisaTransportadoraForm.FormCreate(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
-  Padrao.Tabela := 'TRANSPORTADORA';
+  Tabela := 'TRANSPORTADORA';
+  CampoID := 'transportadora_id';
+  CampoNome := 'Nome_Razao';
 end;
 
 end.

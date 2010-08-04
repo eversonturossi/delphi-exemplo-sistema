@@ -54,7 +54,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Top = 84
       Width = 637
       Height = 403
-      ActivePage = TSComplemento
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       object TSCadastro: TTabSheet
@@ -189,7 +189,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           ReadOnly = True
           TabOrder = 0
         end
-        object DBEditNome: TDBEdit
+        object DBEditDescricao: TDBEdit
           Left = 150
           Top = 48
           Width = 409
@@ -205,7 +205,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           TabOrder = 1
           OnExit = RemoveAcento
         end
-        object DBEditLogin: TDBEdit
+        object DBEditDescricaoReduzida: TDBEdit
           Left = 150
           Top = 75
           Width = 193

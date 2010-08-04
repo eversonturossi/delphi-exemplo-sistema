@@ -30,8 +30,8 @@ type
     Label9: TLabel;
     Label10: TLabel;
     DBEdit1: TDBEdit;
-    DBEditNome: TDBEdit;
-    DBEditLogin: TDBEdit;
+    DBEditDescricao: TDBEdit;
+    DBEditDescricaoReduzida: TDBEdit;
     DBEditReferencia: TDBEdit;
     DBLCUnidade: TDBLookupComboBox;
     DBLCGrupoProduto: TDBLookupComboBox;
@@ -106,10 +106,9 @@ begin
 end;
 
 procedure TCadastroProdutoForm.AdicionarCdigodeBarras1Click(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
   try
+    BarraStatus := False;
     BancoDados.CDSProdutoBarra.DisableControls;
     if not Assigned(CadastroProdutoBarrasForm) then
       CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
@@ -130,64 +129,72 @@ begin
     CadastroProdutoBarrasForm.Free;
     CadastroProdutoBarrasForm := nil;
     BancoDados.CDSProdutoBarra.EnableControls;
+    BarraStatus := True;
   end;
 end;
 
 procedure TCadastroProdutoForm.AdicionarEmpresa1Click(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
   try
+    BarraStatus := False;
     BancoDados.CDSProdutoEmpresa.DisableControls;
     if not Assigned(PesquisaEmpresaForm) then
       PesquisaEmpresaForm := TPesquisaEmpresaForm.Create(Application);
     PesquisaFornecedorForm.Tabela := 'EMPRESA';
     if (PesquisaEmpresaForm.ShowModal = mrOk) then
       begin
-        BancoDados.CDSProdutoEmpresa.Append;
-        BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value := Padrao.ID;
-        BancoDados.CDSProdutoEmpresaPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
-        BancoDados.CDSProdutoEmpresa.Post;
-        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_EMPRESA',
-          'Registro Inserido: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
-          ' / Empresa = ' + IntToStr(BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value) + ')');
+        if (PesquisaEmpresaForm.ID > 0) then
+          begin
+            BancoDados.CDSProdutoEmpresa.Append;
+            BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value := PesquisaEmpresaForm.ID;
+            BancoDados.CDSProdutoEmpresaPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+            BancoDados.CDSProdutoEmpresa.Post;
+            Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_EMPRESA',
+              'Registro Inserido: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+              ' / Empresa = ' + IntToStr(BancoDados.CDSProdutoEmpresaEMPRESA_ID.Value) + ')');
+          end;
       end;
   finally
     PesquisaEmpresaForm.Free;
     PesquisaEmpresaForm := nil;
     BancoDados.CDSProdutoEmpresa.EnableControls;
+    BarraStatus := True;
   end;
 end;
 
 procedure TCadastroProdutoForm.AdicionarFornecedor1Click(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
 begin
   try
+    BarraStatus := False;
     BancoDados.CDSProdutoFornecedor.DisableControls;
     if not Assigned(PesquisaFornecedorForm) then
       PesquisaFornecedorForm := TPesquisaFornecedorForm.Create(Application);
     PesquisaFornecedorForm.Tabela := 'FORNECEDOR';
     if (PesquisaFornecedorForm.ShowModal = mrOk) then
       begin
-        BancoDados.CDSProdutoFornecedor.Append;
-        BancoDados.CDSProdutoFornecedorFORNECEDOR_ID.Value := Padrao.ID;
-        BancoDados.CDSProdutoFornecedorPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
-        BancoDados.CDSProdutoFornecedor.Post;
-        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_FORNECEDOR',
-          'Registro Inserido: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
-          ' / Fornecedor = ' + IntToStr(BancoDados.CDSProdutoFornecedorFORNECEDOR_ID.Value) + ')');
+        if (PesquisaFornecedorForm.ID > 0) then
+          begin
+            BancoDados.CDSProdutoFornecedor.Append;
+            BancoDados.CDSProdutoFornecedorFORNECEDOR_ID.Value := PesquisaFornecedorForm.ID;
+            BancoDados.CDSProdutoFornecedorPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+            BancoDados.CDSProdutoFornecedor.Post;
+            Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_FORNECEDOR',
+              'Registro Inserido: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+              ' / Fornecedor = ' + IntToStr(BancoDados.CDSProdutoFornecedorFORNECEDOR_ID.Value) + ')');
+          end;
       end;
   finally
     PesquisaFornecedorForm.Free;
     PesquisaFornecedorForm := nil;
     BancoDados.CDSProdutoFornecedor.EnableControls;
+    BarraStatus := True;
   end;
 end;
 
 procedure TCadastroProdutoForm.AdicionarPreo1Click(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     BancoDados.CDSProdutoPreco.DisableControls;
     if not Assigned(CadastroProdutoPrecoForm) then
       CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
@@ -243,6 +250,7 @@ begin
     CadastroProdutoPrecoForm.Free;
     CadastroProdutoPrecoForm := nil;
     BancoDados.CDSProdutoPreco.EnableControls;
+    BarraStatus := True;
   end;
 end;
 
@@ -254,6 +262,9 @@ begin
 
   BancoDados.CDSProdutoFornecedor.ApplyUpdates(0);
   BancoDados.CDSProdutoBarra.ApplyUpdates(0);
+  BancoDados.CDSProdutoPreco.ApplyUpdates(0);
+  if ((BancoDados.MultiEmpresa) and (BancoDados.Filial > 0)) then
+    BancoDados.CDSProdutoEmpresa.ApplyUpdates(0);
 
   BancoDados.Conexao.Commit(BancoDados.Transacao);
 end;
@@ -282,6 +293,7 @@ end;
 procedure TCadastroProdutoForm.DetalhesdoCdigodeBarras1Click(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     BancoDados.CDSProdutoBarra.DisableControls;
     if not Assigned(CadastroProdutoBarrasForm) then
       CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
@@ -308,12 +320,14 @@ begin
     CadastroProdutoBarrasForm.Free;
     CadastroProdutoBarrasForm := nil;
     BancoDados.CDSProdutoBarra.EnableControls;
+    BarraStatus := True;
   end;
 end;
 
 procedure TCadastroProdutoForm.DetalhesdoPreo1Click(Sender: TObject);
 begin
   try
+    BarraStatus := False;
     BancoDados.CDSProdutoPreco.DisableControls;
     if not Assigned(CadastroProdutoPrecoForm) then
       CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
@@ -367,6 +381,7 @@ begin
     CadastroProdutoPrecoForm.Free;
     CadastroProdutoPrecoForm := nil;
     BancoDados.CDSProdutoPreco.EnableControls;
+    BarraStatus := True;
   end;
 end;
 
@@ -447,21 +462,19 @@ begin
 end;
 
 procedure TCadastroProdutoForm.FormShow(Sender: TObject);
-var
-  Padrao : TCadastroPadraoForm;
 begin
+  if (UtilizaMaiuscula) then
+    begin
+      DBEditDescricao.CharCase := ecUpperCase;
+      DBEditDescricaoReduzida.CharCase := ecUpperCase;
+      DBEditReferencia.CharCase := ecUpperCase;
+    end;
+
   BancoDados.CDSUnidade.Close;
   BancoDados.qryUnidade.SQL.Text := 'select * from unidade where ativo = 1';
   BancoDados.CDSUnidade.Open;
 
   inherited; //Herança
-
-  if (Padrao.UtilizaMaiuscula) then
-    begin
-      DBEditNome.CharCase := ecUpperCase;
-      DBEditLogin.CharCase := ecUpperCase;
-      DBEditReferencia.CharCase := ecUpperCase;
-    end;
 
   BancoDados.CDSGrupoProduto.Close;
   BancoDados.qryGrupoProduto.SQL.Text := 'select * from produto_grupo where ativo = 1';

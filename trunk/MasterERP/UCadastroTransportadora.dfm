@@ -16,7 +16,7 @@ inherited CadastroTransportadoraForm: TCadastroTransportadoraForm
   inherited Panel1: TPanel
     Height = 525
     ExplicitHeight = 525
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 523
       ExplicitHeight = 523
     end
@@ -304,6 +304,10 @@ inherited CadastroTransportadoraForm: TCadastroTransportadoraForm
       object TSEnderecoContato: TTabSheet
         Caption = 'Endere'#231'os/Contatos'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label14: TLabel
           Left = 49
           Top = 205

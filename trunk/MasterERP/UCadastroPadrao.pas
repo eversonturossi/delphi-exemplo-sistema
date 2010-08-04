@@ -61,7 +61,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
-    LiberaSalvar, FUtilizaMaiuscula : Boolean;
+    LiberaSalvar, FUtilizaMaiuscula, FBarraStatus : Boolean;
     Id : Integer;
     Descricao : ShortString;
     procedure CarregaBotoes(Salvar, Cancelar, Excluir, Sair : Boolean);
@@ -70,6 +70,7 @@ type
   published
     { Published declarations }
     property UtilizaMaiuscula: Boolean read FUtilizaMaiuscula write FUtilizaMaiuscula;
+    property BarraStatus: Boolean read FBarraStatus write FBarraStatus;
   end;
 
 var
@@ -89,7 +90,8 @@ end;
 
 procedure TCadastroPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
-  SBPrincipal.Panels[0].Text := Application.Hint;
+  if (FBarraStatus) then
+    SBPrincipal.Panels[0].Text := Application.Hint;
 end;
 
 procedure TCadastroPadraoForm.BTCancelarClick(Sender: TObject);
@@ -229,7 +231,7 @@ procedure TCadastroPadraoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   BancoDados.Id := 0;
-  BancoDados.ExibeStatus := True;
+  FBarraStatus := True;
 
   if (CDSCadastro.State in [dsInsert, dsEdit]) then
     BTCancelarClick(Sender);
@@ -263,7 +265,7 @@ begin
   Caption := 'MasterERP - ' + BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
   GHPPrincipal.LabelCaption := BancoDados.CDSTabelaDESCRICAO_REDUZIDA.Value;
 
-  BancoDados.ExibeStatus := False;
+  FBarraStatus := True;
   Exportar := ((BancoDados.LiberaExportar) and (not (CDSCadastro.State in [dsInsert])));
 
   if (BancoDados.Operacao = 'Inserir') then

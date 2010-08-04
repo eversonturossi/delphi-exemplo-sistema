@@ -1,26 +1,26 @@
 inherited ConsultaSubGrupoProdutoForm: TConsultaSubGrupoProdutoForm
   Caption = 'ConsultaSubGrupoProdutoForm'
-  ClientHeight = 505
+  ClientHeight = 503
   ExplicitWidth = 854
-  ExplicitHeight = 531
+  ExplicitHeight = 529
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Height = 486
-    ExplicitHeight = 488
+    Height = 484
+    ExplicitHeight = 484
     inherited GHPPrincipal: TJvGradientHeaderPanel
-      Height = 484
-      ExplicitHeight = 486
+      Height = 482
+      ExplicitHeight = 482
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
     end
   end
   inherited Panel2: TPanel
-    Height = 486
-    ExplicitHeight = 488
+    Height = 484
+    ExplicitHeight = 484
     inherited DBGrid1: TDBGrid
-      Height = 388
+      Height = 386
       Columns = <
         item
           Expanded = False
@@ -70,8 +70,8 @@ inherited ConsultaSubGrupoProdutoForm: TConsultaSubGrupoProdutoForm
     end
   end
   inherited SBPrincipal: TStatusBar
-    Top = 486
-    ExplicitTop = 488
+    Top = 484
+    ExplicitTop = 484
     ExplicitWidth = 0
   end
   inherited qryConsulta: TSQLQuery

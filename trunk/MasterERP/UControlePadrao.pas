@@ -64,10 +64,14 @@ type
   private
     { Private declarations }
     Id : Integer;
+    FBarraStatus : Boolean;
     Descricao : ShortString;
     procedure CarregaPermissoes;
   public
     { Public declarations }
+  published
+    { Published declarations }
+    property BarraStatus: Boolean read FBarraStatus write FBarraStatus;
   end;
 
 var
@@ -79,7 +83,7 @@ uses Base, UFuncoes, UFuncaoExibirColuna, UsuarioExibirColuna;
 
 procedure TControlePadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
-  if (BancoDados.ExibeStatus) then
+  if (FBarraStatus) then
     SBPrincipal.Panels[0].Text := Application.Hint;
 end;
 
@@ -292,14 +296,14 @@ procedure TControlePadraoForm.ExibirColunas1Click(Sender: TObject);
 begin
   try
     GeraTrace(BancoDados.Tabela,'Alterando Configurações da Grade');
-    BancoDados.ExibeStatus := False;
+    FBarraStatus := False;
 
     if not Assigned(UsuarioExibirColunaForm) then
       UsuarioExibirColunaForm := TUsuarioExibirColunaForm.Create(Application);
     UsuarioExibirColunaForm.ShowModal;
     UsuarioExibirColunaForm.TabelaFuncao := 0;
   finally
-    BancoDados.ExibeStatus := True;
+    FBarraStatus := True;
     ConfiguraGrade(DBGrid1, BancoDados.qryLoginUSUARIO_ID.Value, 0, BancoDados.Tabela);
 
     UsuarioExibirColunaForm.Free;
@@ -341,7 +345,7 @@ begin
 
   BancoDados.Operacao := '';
 
-  BancoDados.ExibeStatus := True;
+  FBarraStatus := True;
 
   BancoDados.CDSTabela.Close;
   BancoDados.qryTabela.SQL.Text := 'select * from tabela where tabela = ' +

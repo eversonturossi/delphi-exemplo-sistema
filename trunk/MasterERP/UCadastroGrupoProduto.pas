@@ -16,7 +16,7 @@ type
     CDSCadastroDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
     CDSCadastroDESCRICAO: TStringField;
     Label8: TLabel;
-    DBEdit1: TDBEdit;
+    DBEditCodigo: TDBEdit;
     Label3: TLabel;
     DBEditDescricao: TDBEdit;
     procedure RemoveAcento(Sender: TObject);
@@ -24,6 +24,7 @@ type
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -34,6 +35,17 @@ var
 implementation
 uses UFuncoes;
 {$R *.dfm}
+
+procedure TCadastroGrupoProdutoForm.CarregaHint;
+begin
+  DBEditCodigo.Hint := 'Código de Identificação do Grupo de Produtos';
+  DBEditDescricao.Hint := 'Descrição do Grupo de Produtos';
+  DBCAtivo.Hint := 'Informe se o Cadastro está Ativo/Inativo';
+  BTSalvar.Hint := 'Salvar Registro';
+  BTCancelar.Hint := 'Cancelar Alterações';
+  BTExcluir.Hint := 'Excluir Registro';
+  BTSair.Hint := 'Sair da Tela de Cadastro';
+end;
 
 procedure TCadastroGrupoProdutoForm.RemoveAcento(Sender: TObject);
 var
@@ -68,6 +80,8 @@ begin
 
   if (Padrao.UtilizaMaiuscula) then
     DBEditDescricao.CharCase := ecUpperCase;
+
+  CarregaHint;
 end;
 
 end.

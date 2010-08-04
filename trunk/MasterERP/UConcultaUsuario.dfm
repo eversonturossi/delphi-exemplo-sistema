@@ -9,12 +9,8 @@ inherited ConcultaUsuarioForm: TConcultaUsuarioForm
   inherited Panel1: TPanel
     Height = 487
     ExplicitHeight = 487
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 485
-      ExplicitHeight = 485
-      inherited BTNovo: TSpeedButton
-        OnClick = BTNovoClick
-      end
     end
   end
   inherited Panel2: TPanel

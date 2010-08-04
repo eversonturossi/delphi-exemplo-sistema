@@ -16,9 +16,8 @@ inherited CadastroGrupoProdutoForm: TCadastroGrupoProdutoForm
   inherited Panel1: TPanel
     Height = 409
     ExplicitHeight = 409
-    inherited JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    inherited GHPPrincipal: TJvGradientHeaderPanel
       Height = 407
-      ExplicitHeight = 407
     end
   end
   inherited PPrincipal: TPanel
@@ -59,7 +58,7 @@ inherited CadastroGrupoProdutoForm: TCadastroGrupoProdutoForm
       TabOrder = 1
       ExplicitWidth = 559
     end
-    object DBEdit1: TDBEdit
+    object DBEditCodigo: TDBEdit
       Left = 128
       Top = 105
       Width = 117

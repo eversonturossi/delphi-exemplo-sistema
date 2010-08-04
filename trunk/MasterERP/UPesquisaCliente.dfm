@@ -1,6 +1,7 @@
 inherited PesquisaClienteForm: TPesquisaClienteForm
   Caption = 'PesquisaClienteForm'
-  OnCreate = FormCreate
+  ExplicitWidth = 843
+  ExplicitHeight = 480
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
