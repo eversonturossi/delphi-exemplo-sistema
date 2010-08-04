@@ -7,7 +7,7 @@ uses
   Dialogs, UControlePadrao, FMTBcd, DB, AppEvnts, DBClient, Provider, Menus,
   SqlExpr, Grids, DBGrids, ComCtrls, Buttons, JvExControls,
   JvGradientHeaderPanel, ExtCtrls, StdCtrls, JvExStdCtrls, JvEdit,
-  JvValidateEdit, Mask, JvExMask, JvToolEdit;
+  JvValidateEdit, Mask, JvExMask, JvToolEdit, ActnList;
 
 type
   TControleNotaEntradaForm = class(TControlePadraoForm)
@@ -43,14 +43,21 @@ type
     BTPesquisar: TSpeedButton;
     Label5: TLabel;
     EditNotaFiscal: TJvValidateEdit;
+    CDSConsultaNOTA_FISCAL: TIntegerField;
+    Label6: TLabel;
+    EditNotaEntrada: TJvValidateEdit;
     procedure CDSConsultaCalcFields(DataSet: TDataSet);
     procedure BTNovoClick(Sender: TObject);
     procedure BTAlterarClick(Sender: TObject);
     procedure BTFornecedorClick(Sender: TObject);
     procedure BTTransportadoraClick(Sender: TObject);
     procedure BTPesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure CHPeriodoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -59,8 +66,14 @@ var
   ControleNotaEntradaForm: TControleNotaEntradaForm;
 
 implementation
-uses Base, ULancamentoNotaentrada, UPesquisaFornecedor, UPesquisaTransportadora;
+uses Base, UFuncoes, ULancamentoNotaentrada, UPesquisaFornecedor,
+  UPesquisaTransportadora;
 {$R *.dfm}
+
+procedure TControleNotaEntradaForm.CarregaHint;
+begin
+  EditNotaFiscal.Hint := 'Informe o Número da Nota';
+end;
 
 procedure TControleNotaEntradaForm.BTAlterarClick(Sender: TObject);
 begin
@@ -116,57 +129,83 @@ begin
 end;
 
 procedure TControleNotaEntradaForm.BTPesquisarClick(Sender: TObject);
+var
+  Consulta : String;
 begin
   try
     CDSConsulta.DisableControls;
-    qryConsulta.SQL.Text := 'select * from nota_entrada';
+    Consulta := 'select * from nota_entrada';
+
+    if (EditNotaEntrada.Value > 0) then
+      Consulta := Consulta + ' where nota_entrada_id = ' + IntToStr(EditNotaEntrada.Value);
 
     if (EditNotaFiscal.Value > 0) then
-      qryConsulta.SQL.Add(' where nota_entrada_id)
+      if (Pos('where', Consulta) > 0)  then
+        Consulta := Consulta + ' and nota_fiscal = ' + IntToStr(EditNotaFiscal.Value)
+      else
+        Consulta := Consulta + ' where nota_fiscal = ' + IntToStr(EditNotaFiscal.Value);
 
-    if (Valor <> '') then
+    if (EditFornecedor.Value > 0) then
+      if (Pos('where', Consulta) > 0)  then
+        Consulta := Consulta + ' and fornecedor_id = ' + IntToStr(EditFornecedor.Value)
+      else
+        Consulta := Consulta + ' where fornecedor_id = ' + IntToStr(EditFornecedor.Value);
+
+    if (EditTransportadora.Value > 0) then
+      if (Pos('where', Consulta) > 0)  then
+        Consulta := Consulta + ' and transportadora_id = ' + IntToStr(EditTransportadora.Value)
+      else
+        Consulta := Consulta + ' where transportadora_id = ' + IntToStr(EditTransportadora.Value);
+
+    if (CHPeriodo.Checked) then
       begin
-        case CBCriterio.ItemIndex of
-          1: Campo := 'c.CLIENTE_ID';
-          2: Campo := 'p.NOME_RAZAO';
-          3: Campo := 'p.NOME_APELIDO_FANTASIA';
-        end;
-
-        case CBCriterio.ItemIndex of
-          1: begin
-            case CBCondicao.ItemIndex of
-              0: Condicao := ' and ' + Campo + ' < '   + Valor;
-              1: Condicao := ' and ' + Campo + ' <= '  + Valor;
-              2: Condicao := ' and ' + Campo + ' >= '  + Valor;
-              3: Condicao := ' and ' + Campo + ' > '   + Valor;
-              4: Condicao := ' and ' + Campo + ' = '   + Valor;
-              5: Condicao := ' and ' + Campo + ' <> '  + Valor;
-            end;
+        if not (EditDe.Date > 0) then
+          begin
+            Mensagem('Informe a Data Inicial!', mtWarning,[mbOk],mrOK,0);
+            EditDe.SetFocus;
+            Abort;
           end;
-          2,3: begin
-            case CBCondicao.ItemIndex of
-              0: Condicao := ' and Upper(' + Campo + ') = '       + QuotedStr(Valor);
-              1: Condicao := ' and Upper(' + Campo + ') <> '      + QuotedStr(Valor);
-              2: Condicao := ' and Upper(' + Campo + ') like '    + QuotedStr(Valor + '%');
-              3: Condicao := ' and Upper(' + Campo + ') like '    + QuotedStr('%' + Valor + '%');
-              4: Condicao := ' and Upper(' + Campo + ') like '    + QuotedStr(Valor + '%');
-            end;
+
+        if not (EditAte.Date > 0) then
+          begin
+            Mensagem('Informe a Data Final!', mtWarning,[mbOk],mrOK,0);
+            EditAte.SetFocus;
+            Abort;
           end;
-        end;
 
-        BancoDados.SqlConsulta := BancoDados.SqlConsulta + Condicao;
-      end;
+        if (EditDe.Date > Date) then
+          begin
+            Mensagem('A Data Inicial não pode ser maior do que a Data de Hoje!', mtWarning,[mbOk],mrOK,0);
+            EditDe.SetFocus;
+            Abort;
+          end;
 
-    if (CBSituacao.ItemIndex in [0,1]) then
-      begin
-        if (Pos('where', BancoDados.SqlConsulta) > 0) then
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' and c.ATIVO = ' + IntToStr(CBSituacao.ItemIndex)
+        if (EditAte.Date > Date) then
+          begin
+            Mensagem('A Data Final não pode ser maior do que a Data de Hoje!', mtWarning,[mbOk],mrOK,0);
+            EditAte.SetFocus;
+            Abort;
+          end;
+
+        if (EditDe.Date > EditAte.Date) then
+          begin
+            Mensagem('A Data Inicial não pode ser maior do que a Data Final!', mtWarning,[mbOk],mrOK,0);
+            Abort;
+          end;
+
+
+        if (Pos('where', Consulta) > 0)  then
+          Consulta := Consulta + ' and data_lancamento between (' +
+            QuotedStr(FormatDateTime('dd.mm.yyyy 00:00:00', EditDe.Date)) + ') and (' +
+            QuotedStr(FormatDateTime('dd.mm.yyyy 23:59:59', EditAte.Date)) + ')'
         else
-          BancoDados.SqlConsulta := BancoDados.SqlConsulta + ' where c.ATIVO = ' + IntToStr(CBSituacao.ItemIndex);
+          Consulta := Consulta + ' where data_lancamento between (' +
+            QuotedStr(FormatDateTime('dd.mm.yyyy 00:00:00', EditDe.Date)) + ') and (' +
+            QuotedStr(FormatDateTime('dd.mm.yyyy 23:59:59', EditAte.Date)) + ')';
       end;
 
     CDSConsulta.Close;
-    qryConsulta.SQL.Text := BancoDados.SqlConsulta;
+    qryConsulta.SQL.Text := Consulta;
     CDSConsulta.Open;
 
     CDSConsulta.Last;
@@ -175,7 +214,6 @@ begin
   finally
     CDSConsulta.EnableControls;
   end;
-end;
 end;
 
 procedure TControleNotaEntradaForm.BTTransportadoraClick(Sender: TObject);
@@ -223,6 +261,29 @@ begin
     CDSConsultacalc_transportadora_nome.Value := BancoDados.qryAuxiliar.Fields[0].Value
   else
     CDSConsultacalc_transportadora_nome.Value := '<Desconhecida>';
+end;
+
+procedure TControleNotaEntradaForm.CHPeriodoClick(Sender: TObject);
+begin
+  EditDe.Enabled := CHPeriodo.Checked;
+  EditAte.Enabled := CHPeriodo.Checked;
+end;
+
+procedure TControleNotaEntradaForm.FormCreate(Sender: TObject);
+begin
+  BancoDados.Tabela := 'NOTA_ENTRADA';
+  BancoDados.SqlConsulta := '';
+
+  inherited; //Herança
+end;
+
+procedure TControleNotaEntradaForm.FormShow(Sender: TObject);
+begin
+  inherited; //Herança
+
+  EditDe.Date := Now;
+  EditAte.Date := Now;
+  CarregaHint;
 end;
 
 end.

@@ -30,9 +30,12 @@ begin
         BancoDados.CDSUsuarioExibirTABELA.Value := Tabela;
         BancoDados.CDSUsuarioExibirFONTE_NOME.Value := Grid.Font.Name;
         BancoDados.CDSUsuarioExibirFONTE_TAMANHO.Value := Grid.Font.Size;
+        BancoDados.CDSUsuarioExibirTABELA_FUNCAO.Value := TabelaFuncao;
 
+        BancoDados.CDSUsuarioExibir.Post;
         BancoDados.CDSUsuarioExibir.ApplyUpdates(0);
         BancoDados.Conexao.Commit(BancoDados.Transacao);
+
         BancoDados.CDSUsuarioExibir.Close;
         BancoDados.CDSUsuarioExibir.Open;
         Result := BancoDados.CDSUsuarioExibirUSUARIO_EXIBIR_ID.Value;

@@ -11,6 +11,7 @@ object ControlePadraoForm: TControlePadraoForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -278,6 +279,32 @@ object ControlePadraoForm: TControlePadraoForm
     object qryControleAcessoTIPO: TStringField
       FieldName = 'TIPO'
       Size = 12
+    end
+  end
+  object ActionList: TActionList
+    Left = 304
+    Top = 303
+    object ANovo: TAction
+      Caption = 'Novo'
+      ShortCut = 16429
+    end
+    object AAlterar: TAction
+      Caption = 'Alterar'
+      ShortCut = 16449
+    end
+    object AExcluir: TAction
+      Caption = 'Excluir'
+      ShortCut = 8238
+    end
+    object AExportar: TAction
+      Caption = 'Exportar'
+      ShortCut = 16472
+      OnExecute = BTExportarClick
+    end
+    object ASair: TAction
+      Caption = 'Sair'
+      ShortCut = 27
+      OnExecute = BTSairClick
     end
   end
 end

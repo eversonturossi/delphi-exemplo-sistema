@@ -1,33 +1,50 @@
 inherited ControleNotaEntradaForm: TControleNotaEntradaForm
   Caption = 'ControleNotaEntradaForm'
+  ClientHeight = 516
   ClientWidth = 934
-  ExplicitLeft = -20
   ExplicitWidth = 950
-  ExplicitHeight = 551
+  ExplicitHeight = 552
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
+    Height = 497
+    ExplicitHeight = 497
     inherited GHPPrincipal: TJvGradientHeaderPanel
+      Height = 495
+      ExplicitHeight = 495
       inherited BTNovo: TSpeedButton
         OnClick = BTNovoClick
       end
     end
   end
   inherited SBPrincipal: TStatusBar
+    Top = 497
     Width = 934
+    ExplicitTop = 497
+    ExplicitWidth = 934
   end
   inherited Panel2: TPanel
     Width = 775
+    Height = 497
+    ExplicitWidth = 775
+    ExplicitHeight = 497
     inherited DBGrid1: TDBGrid
-      Top = 153
+      Top = 190
       Width = 773
-      Height = 342
+      Height = 306
       Columns = <
         item
           Expanded = False
           FieldName = 'NOTA_ENTRADA_ID'
           Title.Caption = 'NotaEntrada I.D'
           Width = 90
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOTA_FISCAL'
+          Title.Caption = 'Nota Fiscal'
+          Width = 100
           Visible = True
         end
         item
@@ -103,20 +120,20 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
     end
     inherited Panel3: TPanel
       Width = 773
-      Height = 152
+      Height = 189
       ExplicitWidth = 773
-      ExplicitHeight = 152
+      ExplicitHeight = 189
       object Label1: TLabel
-        Left = 31
-        Top = 39
+        Left = 55
+        Top = 71
         Width = 59
         Height = 13
         Alignment = taRightJustify
         Caption = 'Fornecedor:'
       end
       object LBFornecedorNome: TLabel
-        Left = 235
-        Top = 39
+        Left = 259
+        Top = 71
         Width = 241
         Height = 13
         AutoSize = False
@@ -129,23 +146,23 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
         ParentFont = False
       end
       object BTFornecedor: TSpeedButton
-        Left = 200
-        Top = 35
+        Left = 224
+        Top = 67
         Width = 23
         Height = 22
         OnClick = BTFornecedorClick
       end
       object Label3: TLabel
-        Left = 11
-        Top = 66
+        Left = 35
+        Top = 98
         Width = 79
         Height = 13
         Alignment = taRightJustify
         Caption = 'Transportadora:'
       end
       object LBTransportadoraNome: TLabel
-        Left = 235
-        Top = 66
+        Left = 259
+        Top = 98
         Width = 241
         Height = 13
         AutoSize = False
@@ -158,15 +175,15 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
         ParentFont = False
       end
       object BTTransportadora: TSpeedButton
-        Left = 200
-        Top = 62
+        Left = 224
+        Top = 94
         Width = 23
         Height = 22
         OnClick = BTTransportadoraClick
       end
       object BTPesquisar: TSpeedButton
-        Left = 504
-        Top = 115
+        Left = 506
+        Top = 147
         Width = 130
         Height = 30
         Hint = 'Pesquisar Registros'
@@ -174,19 +191,27 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
         OnClick = BTPesquisarClick
       end
       object Label5: TLabel
-        Left = 8
-        Top = 11
-        Width = 82
+        Left = 58
+        Top = 43
+        Width = 56
         Height = 13
         Alignment = taRightJustify
-        Caption = 'Nota Fiscal (I.D):'
+        Caption = 'Nota Fiscal:'
+      end
+      object Label6: TLabel
+        Left = 28
+        Top = 16
+        Width = 86
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Nota Entrada I.D:'
       end
       object GroupBox1: TGroupBox
-        Left = 112
-        Top = 93
+        Left = 136
+        Top = 125
         Width = 341
         Height = 52
-        TabOrder = 4
+        TabOrder = 6
         object Label2: TLabel
           Left = 20
           Top = 20
@@ -219,26 +244,28 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
         end
       end
       object EditFornecedor: TJvValidateEdit
-        Left = 112
-        Top = 36
+        Left = 136
+        Top = 68
         Width = 89
         Height = 21
         CriticalPoints.MaxValueIncluded = False
         CriticalPoints.MinValueIncluded = False
-        TabOrder = 0
+        TabOrder = 2
+        ZeroEmpty = True
       end
       object EditTransportadora: TJvValidateEdit
-        Left = 112
-        Top = 63
+        Left = 136
+        Top = 95
         Width = 89
         Height = 21
         CriticalPoints.MaxValueIncluded = False
         CriticalPoints.MinValueIncluded = False
-        TabOrder = 1
+        TabOrder = 3
+        ZeroEmpty = True
       end
       object RGCondicao: TRadioGroup
-        Left = 504
-        Top = 8
+        Left = 506
+        Top = 13
         Width = 185
         Height = 53
         Caption = 'Condi'#231#227'o'
@@ -246,33 +273,69 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
         Items.Strings = (
           'Cancelada'
           'Finalizada')
-        TabOrder = 2
+        TabOrder = 5
       end
       object CHPeriodo: TCheckBox
-        Left = 120
-        Top = 85
+        Left = 144
+        Top = 117
         Width = 57
         Height = 17
         Caption = 'Per'#237'odo'
-        TabOrder = 3
+        TabOrder = 4
+        OnClick = CHPeriodoClick
       end
       object EditNotaFiscal: TJvValidateEdit
-        Left = 112
-        Top = 8
+        Left = 136
+        Top = 40
         Width = 89
         Height = 21
         CriticalPoints.MaxValueIncluded = False
         CriticalPoints.MinValueIncluded = False
-        TabOrder = 5
+        TabOrder = 1
+        ZeroEmpty = True
+      end
+      object EditNotaEntrada: TJvValidateEdit
+        Left = 136
+        Top = 13
+        Width = 89
+        Height = 21
+        CriticalPoints.MaxValueIncluded = False
+        CriticalPoints.MinValueIncluded = False
+        TabOrder = 0
+        ZeroEmpty = True
       end
     end
   end
   inherited qryConsulta: TSQLQuery
     SQL.Strings = (
       'select * from nota_entrada where nota_entrada_id = 0')
+    Left = 256
+    Top = 232
+  end
+  inherited PopupMenu1: TPopupMenu
+    Left = 292
+    Top = 232
+  end
+  inherited qryExportar: TSQLQuery
+    Left = 330
+    Top = 233
+  end
+  inherited DSPConsulta: TDataSetProvider
+    Left = 256
+    Top = 280
+  end
+  inherited qryCsExibirColuna: TSQLQuery
+    Left = 295
+    Top = 280
+  end
+  inherited DSPExportar: TDataSetProvider
+    Left = 330
+    Top = 280
   end
   inherited CDSConsulta: TClientDataSet
     OnCalcFields = CDSConsultaCalcFields
+    Left = 256
+    Top = 327
     object CDSConsultaNOTA_ENTRADA_ID: TIntegerField
       FieldName = 'NOTA_ENTRADA_ID'
       DisplayFormat = '0000000000'
@@ -327,5 +390,29 @@ inherited ControleNotaEntradaForm: TControleNotaEntradaForm
       Size = 60
       Calculated = True
     end
+    object CDSConsultaNOTA_FISCAL: TIntegerField
+      FieldName = 'NOTA_FISCAL'
+      DisplayFormat = '0000000000'
+    end
+  end
+  inherited ApplicationEvents: TApplicationEvents
+    Left = 295
+    Top = 327
+  end
+  inherited CDSExportar: TClientDataSet
+    Left = 331
+    Top = 325
+  end
+  inherited DSConsulta: TDataSource
+    Left = 256
+    Top = 374
+  end
+  inherited qryControleAcesso: TSQLQuery
+    Left = 294
+    Top = 374
+  end
+  inherited ActionList: TActionList
+    Left = 336
+    Top = 374
   end
 end

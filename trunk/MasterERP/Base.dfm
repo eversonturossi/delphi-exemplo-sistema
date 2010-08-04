@@ -11,9 +11,7 @@ object BancoDados: TBancoDados
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
-      
-        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
-        'b\MASTERERP.FDB'
+      'Database=localhost:C:\MasterSoft\MasterERP\db\MASTERERP.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -486,24 +484,6 @@ object BancoDados: TBancoDados
     SQLConnection = Conexao
     Left = 203
     Top = 71
-    object qryUsuarioExibirUSUARIO_EXIBIR_ID: TLargeintField
-      FieldName = 'USUARIO_EXIBIR_ID'
-      DisplayFormat = '0000000000'
-    end
-    object qryUsuarioExibirUSUARIO_ID: TIntegerField
-      FieldName = 'USUARIO_ID'
-    end
-    object qryUsuarioExibirFONTE_NOME: TStringField
-      FieldName = 'FONTE_NOME'
-      Size = 60
-    end
-    object qryUsuarioExibirFONTE_TAMANHO: TSmallintField
-      FieldName = 'FONTE_TAMANHO'
-    end
-    object qryUsuarioExibirTABELA: TStringField
-      FieldName = 'TABELA'
-      Size = 60
-    end
   end
   object DSCDSUsuarioExibirColuna: TDataSource
     DataSet = CDSUsuarioExibirColuna
@@ -514,6 +494,7 @@ object BancoDados: TBancoDados
     Aggregates = <>
     Params = <>
     ProviderName = 'DSPUsuarioExibir'
+    AfterInsert = CDSUsuarioExibirAfterInsert
     Left = 204
     Top = 159
     object CDSUsuarioExibirUSUARIO_EXIBIR_ID: TLargeintField
@@ -533,11 +514,15 @@ object BancoDados: TBancoDados
       FieldName = 'TABELA'
       Size = 60
     end
+    object CDSUsuarioExibirTABELA_FUNCAO: TSmallintField
+      FieldName = 'TABELA_FUNCAO'
+    end
   end
   object CDSUsuarioExibirColuna: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'DSPUsuarioExibirColuna'
+    AfterInsert = CDSUsuarioExibirColunaAfterInsert
     Left = 239
     Top = 159
     object CDSUsuarioExibirColunaUSUARIO_EXIBIR_COLUNA_ID: TLargeintField
@@ -589,34 +574,6 @@ object BancoDados: TBancoDados
     SQLConnection = Conexao
     Left = 238
     Top = 71
-    object qryUsuarioExibirColunaUSUARIO_EXIBIR_COLUNA_ID: TLargeintField
-      FieldName = 'USUARIO_EXIBIR_COLUNA_ID'
-      DisplayFormat = '0000000000'
-    end
-    object qryUsuarioExibirColunaUSUARIO_EXIBIR_ID: TLargeintField
-      FieldName = 'USUARIO_EXIBIR_ID'
-    end
-    object qryUsuarioExibirColunaINDICE: TSmallintField
-      FieldName = 'INDICE'
-    end
-    object qryUsuarioExibirColunaCOLUNA_NOME: TStringField
-      FieldName = 'COLUNA_NOME'
-      Size = 60
-    end
-    object qryUsuarioExibirColunaCOLUNA_LABEL: TStringField
-      FieldName = 'COLUNA_LABEL'
-      Size = 60
-    end
-    object qryUsuarioExibirColunaVISIVEL: TSmallintField
-      FieldName = 'VISIVEL'
-    end
-    object qryUsuarioExibirColunaTAMANHO: TSmallintField
-      FieldName = 'TAMANHO'
-    end
-    object qryUsuarioExibirColunaALINHAMENTO: TStringField
-      FieldName = 'ALINHAMENTO'
-      Size = 15
-    end
   end
   object qryUsuarioPrivilegio: TSQLQuery
     MaxBlobSize = -1
