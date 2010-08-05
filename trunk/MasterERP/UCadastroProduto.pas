@@ -292,97 +292,107 @@ end;
 
 procedure TCadastroProdutoForm.DetalhesdoCdigodeBarras1Click(Sender: TObject);
 begin
-  try
-    BarraStatus := False;
-    BancoDados.CDSProdutoBarra.DisableControls;
-    if not Assigned(CadastroProdutoBarrasForm) then
-      CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
+  if not (BancoDados.CDSProdutoBarra.IsEmpty) then
+    begin
+      try
+        BarraStatus := False;
+        BancoDados.CDSProdutoBarra.DisableControls;
+        if not Assigned(CadastroProdutoBarrasForm) then
+          CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
 
-    CadastroProdutoBarrasForm.EditFornecedor.Value := BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value;
-    CadastroProdutoBarrasForm.LBFornecedorNome.Caption := BancoDados.CDSProdutoBarracalc_fornecedor_nome.Value;
-    CadastroProdutoBarrasForm.CBTipoEAN.Text := BancoDados.CDSProdutoBarraTIPO_EAN.Value;
-    CadastroProdutoBarrasForm.EditCodigoBarras.Value := BancoDados.CDSProdutoBarraEAN.Value;
-    ExibirCodigoBarras(CadastroProdutoBarrasForm.EditCodigoBarras.Value, CadastroProdutoBarrasForm.Imagem);
+        CadastroProdutoBarrasForm.EditFornecedor.Value := BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value;
+        CadastroProdutoBarrasForm.LBFornecedorNome.Caption := BancoDados.CDSProdutoBarracalc_fornecedor_nome.Value;
+        CadastroProdutoBarrasForm.CBTipoEAN.Text := BancoDados.CDSProdutoBarraTIPO_EAN.Value;
+        CadastroProdutoBarrasForm.EditCodigoBarras.Value := BancoDados.CDSProdutoBarraEAN.Value;
 
-    if (CadastroProdutoBarrasForm.ShowModal = mrOk) then
-      begin
-        BancoDados.CDSProdutoBarra.Edit;
-        BancoDados.CDSProdutoBarraPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
-        BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value := CadastroProdutoBarrasForm.EditFornecedor.Value;
-        BancoDados.CDSProdutoBarraTIPO_EAN.Value := CadastroProdutoBarrasForm.CBTipoEAN.Text;
-        BancoDados.CDSProdutoBarraEAN.Value := CadastroProdutoBarrasForm.EditCodigoBarras.Value;
-        BancoDados.CDSProdutoBarra.Post;
-        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_BARRAS',
-          'Registro Alterado: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
-          ' / Barra = ' + IntToStr(BancoDados.CDSProdutoBarraEAN.Value) + ')');
+        if (CadastroProdutoBarrasForm.ShowModal = mrOk) then
+          begin
+            BancoDados.CDSProdutoBarra.Edit;
+            BancoDados.CDSProdutoBarraPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+            BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value := CadastroProdutoBarrasForm.EditFornecedor.Value;
+            BancoDados.CDSProdutoBarraTIPO_EAN.Value := CadastroProdutoBarrasForm.CBTipoEAN.Text;
+            BancoDados.CDSProdutoBarraEAN.Value := CadastroProdutoBarrasForm.EditCodigoBarras.Value;
+            BancoDados.CDSProdutoBarra.Post;
+            Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_BARRAS',
+              'Registro Alterado: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+              ' / Barra = ' + IntToStr(BancoDados.CDSProdutoBarraEAN.Value) + ')');
+          end;
+      finally
+        CadastroProdutoBarrasForm.Free;
+        CadastroProdutoBarrasForm := nil;
+        BancoDados.CDSProdutoBarra.EnableControls;
+        BarraStatus := True;
       end;
-  finally
-    CadastroProdutoBarrasForm.Free;
-    CadastroProdutoBarrasForm := nil;
-    BancoDados.CDSProdutoBarra.EnableControls;
-    BarraStatus := True;
-  end;
+    end
+  else
+    begin
+      Mensagem('Não há nehum Código de Barras cadastrado!', mtWarning,[mbOk],mrOK,0);
+      Abort;
+    end;
 end;
 
 procedure TCadastroProdutoForm.DetalhesdoPreo1Click(Sender: TObject);
 begin
-  try
-    BarraStatus := False;
-    BancoDados.CDSProdutoPreco.DisableControls;
-    if not Assigned(CadastroProdutoPrecoForm) then
-      CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
+  if not (BancoDados.CDSProdutoPreco.IsEmpty) then
+    begin
+      try
+        BarraStatus := False;
+        BancoDados.CDSProdutoPreco.DisableControls;
+        if not Assigned(CadastroProdutoPrecoForm) then
+          CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
 
-    CadastroProdutoPrecoForm.CBAtivo.Checked := (BancoDados.CDSProdutoPrecoATIVO.Value = 1);
-    CadastroProdutoPrecoForm.EditDescricao.Text := BancoDados.CDSProdutoPrecoDESCRICAO.Value;
-    CadastroProdutoPrecoForm.EditPreco.Value := BancoDados.CDSProdutoPrecoPRECO.Value;
-    CadastroProdutoPrecoForm.EditMargemLucro.Value := BancoDados.CDSProdutoPrecoMARGEM_LUCRO.Value;
+        CadastroProdutoPrecoForm.CBAtivo.Checked := (BancoDados.CDSProdutoPrecoATIVO.Value = 1);
+        CadastroProdutoPrecoForm.EditDescricao.Text := BancoDados.CDSProdutoPrecoDESCRICAO.Value;
+        CadastroProdutoPrecoForm.EditPreco.Value := BancoDados.CDSProdutoPrecoPRECO.Value;
+        CadastroProdutoPrecoForm.EditMargemLucro.Value := BancoDados.CDSProdutoPrecoMARGEM_LUCRO.Value;
 
-    BancoDados.CDSUnidade.Close;
-    BancoDados.qryUnidade.SQL.Text := 'select * from unidade where ativo = 1';
-    BancoDados.CDSUnidade.Open;
-    BancoDados.CDSUnidade.First;
+        BancoDados.CDSUnidade.Close;
+        BancoDados.qryUnidade.SQL.Text := 'select * from unidade where ativo = 1';
+        BancoDados.CDSUnidade.Open;
+        BancoDados.CDSUnidade.First;
 
-    CadastroProdutoPrecoForm.CBUnidade.Items.Clear;
-    CadastroProdutoPrecoForm.CBUnidade.Items.Add('<selecione>');
+        CadastroProdutoPrecoForm.CBUnidade.Items.Clear;
+        CadastroProdutoPrecoForm.CBUnidade.Items.Add('<selecione>');
 
-    while not BancoDados.CDSUnidade.Eof do
-      begin
-        CadastroProdutoPrecoForm.CBUnidade.Items.Add(BancoDados.CDSUnidadeDESCRICAO.Value);
-        BancoDados.CDSUnidade.Next;
+        while not BancoDados.CDSUnidade.Eof do
+          begin
+            CadastroProdutoPrecoForm.CBUnidade.Items.Add(BancoDados.CDSUnidadeDESCRICAO.Value);
+            BancoDados.CDSUnidade.Next;
+          end;
+
+        with BancoDados.qryAuxiliar do
+          begin
+            Close;
+            SQL.Text := 'select descricao from unidade where unidade_id = ' +
+              IntToStr(BancoDados.CDSProdutoPrecoUNIDADE_ID.Value);
+            Open;
+          end;
+        if not (BancoDados.qryAuxiliar.IsEmpty) then
+          CadastroProdutoPrecoForm.CBUnidade.Text := BancoDados.qryAuxiliar.Fields[0].Value
+        else
+          CadastroProdutoPrecoForm.CBUnidade.ItemIndex := 0;
+
+        if (CadastroProdutoPrecoForm.ShowModal = mrOk) then
+          begin
+            BancoDados.CDSProdutoBarra.Edit;
+            BancoDados.CDSProdutoBarraPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+            BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value := CadastroProdutoBarrasForm.EditFornecedor.Value;
+            BancoDados.CDSProdutoBarraTIPO_EAN.Value := CadastroProdutoBarrasForm.CBTipoEAN.Text;
+            BancoDados.CDSProdutoBarraEAN.Value := CadastroProdutoBarrasForm.EditCodigoBarras.Value;
+            BancoDados.CDSProdutoBarra.Post;
+
+            Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_PRECO',
+              'Registro Alterado: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
+              ' / Descricao = ' + BancoDados.CDSProdutoPrecoDESCRICAO.Value +
+              ' / Preço (R$) = ' + FormatFloat(',0.00', BancoDados.CDSProdutoPrecoPRECO.Value) + ')');
+          end;
+      finally
+        CadastroProdutoPrecoForm.Free;
+        CadastroProdutoPrecoForm := nil;
+        BancoDados.CDSProdutoPreco.EnableControls;
+        BarraStatus := True;
       end;
-
-    with BancoDados.qryAuxiliar do
-      begin
-        Close;
-        SQL.Text := 'select descricao from unidade where unidade_id = ' +
-          IntToStr(BancoDados.CDSProdutoPrecoUNIDADE_ID.Value);
-        Open;
-      end;
-    if not (BancoDados.qryAuxiliar.IsEmpty) then
-      CadastroProdutoPrecoForm.CBUnidade.Text := BancoDados.qryAuxiliar.Fields[0].Value
-    else
-      CadastroProdutoPrecoForm.CBUnidade.ItemIndex := 0;
-
-    if (CadastroProdutoPrecoForm.ShowModal = mrOk) then
-      begin
-        BancoDados.CDSProdutoBarra.Edit;
-        BancoDados.CDSProdutoBarraPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
-        BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value := CadastroProdutoBarrasForm.EditFornecedor.Value;
-        BancoDados.CDSProdutoBarraTIPO_EAN.Value := CadastroProdutoBarrasForm.CBTipoEAN.Text;
-        BancoDados.CDSProdutoBarraEAN.Value := CadastroProdutoBarrasForm.EditCodigoBarras.Value;
-        BancoDados.CDSProdutoBarra.Post;
-
-        Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_PRECO',
-          'Registro Alterado: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +
-          ' / Descricao = ' + BancoDados.CDSProdutoPrecoDESCRICAO.Value +
-          ' / Preço (R$) = ' + FormatFloat(',0.00', BancoDados.CDSProdutoPrecoPRECO.Value) + ')');
-      end;
-  finally
-    CadastroProdutoPrecoForm.Free;
-    CadastroProdutoPrecoForm := nil;
-    BancoDados.CDSProdutoPreco.EnableControls;
-    BarraStatus := True;
-  end;
+    end;
 end;
 
 procedure TCadastroProdutoForm.ExcluirCdigodeBarras1Click(Sender: TObject);
