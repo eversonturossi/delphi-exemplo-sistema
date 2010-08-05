@@ -374,7 +374,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clDefault
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -412,7 +412,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clDefault
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -456,7 +456,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clDefault
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -469,6 +469,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           TitleFont.Height = -11
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          OnDrawColumnCell = DBGrid3DrawColumnCell
           Columns = <
             item
               Expanded = False
@@ -516,7 +517,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           FixedColor = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clDefault
-          Font.Height = -13
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]

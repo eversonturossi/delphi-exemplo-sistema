@@ -14,6 +14,7 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -33,7 +34,6 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitHeight = 322
     object JvGradientHeaderPanel1: TJvGradientHeaderPanel
       Left = 1
       Top = 1
@@ -51,7 +51,6 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       LabelAlignment = taCenter
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 320
     end
   end
   object SBPrincipal: TStatusBar
@@ -63,8 +62,6 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       item
         Width = 200
       end>
-    ExplicitTop = 322
-    ExplicitWidth = 544
   end
   object Panel2: TPanel
     Left = 163
@@ -73,8 +70,6 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     Height = 303
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 381
-    ExplicitHeight = 322
     object Label1: TLabel
       Left = 28
       Top = 74
@@ -124,8 +119,6 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       Height = 46
       Align = alBottom
       TabOrder = 3
-      ExplicitTop = 275
-      ExplicitWidth = 379
       object BTConfirmar: TSpeedButton
         Left = 160
         Top = 1

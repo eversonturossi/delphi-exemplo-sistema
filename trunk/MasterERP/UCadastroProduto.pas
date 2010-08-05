@@ -78,6 +78,8 @@ type
     procedure ExcluirPreo1Click(Sender: TObject);
     procedure AdicionarEmpresa1Click(Sender: TObject);
     procedure ExcluirEmpresa1Click(Sender: TObject);
+    procedure DBGrid3DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -112,6 +114,10 @@ begin
     BancoDados.CDSProdutoBarra.DisableControls;
     if not Assigned(CadastroProdutoBarrasForm) then
       CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
+
+    CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
+    CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+      ' - ' + CDSCadastroDESCRICAO.Value;
 
     if (CadastroProdutoBarrasForm.ShowModal = mrOk) then
       begin
@@ -199,6 +205,11 @@ begin
     if not Assigned(CadastroProdutoPrecoForm) then
       CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
 
+    CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
+    CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+      ' - ' + CDSCadastroDESCRICAO.Value;
+    CadastroProdutoPrecoForm.CBAtivo.Checked := True;
+
     BancoDados.CDSUnidade.Close;
     BancoDados.qryUnidade.SQL.Text := 'select * from unidade where ativo = 1';
     BancoDados.CDSUnidade.Open;
@@ -278,6 +289,26 @@ begin
   CDSCadastro.FieldByName('DATA_ULTIMA_ALTERACAO').Value := Now;
 end;
 
+procedure TCadastroProdutoForm.DBGrid3DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  Check : Integer;
+  R: TRect;
+begin
+  if (Column.FieldName = 'ATIVO') then
+    begin
+      DBGrid3.Canvas.FillRect(Rect);
+      Check := 0;
+      if (BancoDados.CDSProdutoPreco.FieldByName('ATIVO').Value = 1) then
+        Check := DFCS_CHECKED
+      else
+        Check := 0;
+      R := Rect;
+      InflateRect(R,-3,-3);
+      DrawFrameControl(DBGrid3.Canvas.Handle,R,DFC_BUTTON, DFCS_BUTTONCHECK or Check);
+    end;
+end;
+
 procedure TCadastroProdutoForm.DBLCGrupoProdutoClick(Sender: TObject);
 begin
   if (DBLCGrupoProduto.KeyValue > 0) then
@@ -299,6 +330,10 @@ begin
         BancoDados.CDSProdutoBarra.DisableControls;
         if not Assigned(CadastroProdutoBarrasForm) then
           CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
+
+        CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
+        CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' - ' + CDSCadastroDESCRICAO.Value;
 
         CadastroProdutoBarrasForm.EditFornecedor.Value := BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value;
         CadastroProdutoBarrasForm.LBFornecedorNome.Caption := BancoDados.CDSProdutoBarracalc_fornecedor_nome.Value;
@@ -341,6 +376,10 @@ begin
         if not Assigned(CadastroProdutoPrecoForm) then
           CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
 
+        CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
+        CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+          ' - ' + CDSCadastroDESCRICAO.Value;
+
         CadastroProdutoPrecoForm.CBAtivo.Checked := (BancoDados.CDSProdutoPrecoATIVO.Value = 1);
         CadastroProdutoPrecoForm.EditDescricao.Text := BancoDados.CDSProdutoPrecoDESCRICAO.Value;
         CadastroProdutoPrecoForm.EditPreco.Value := BancoDados.CDSProdutoPrecoPRECO.Value;
@@ -374,12 +413,31 @@ begin
 
         if (CadastroProdutoPrecoForm.ShowModal = mrOk) then
           begin
-            BancoDados.CDSProdutoBarra.Edit;
-            BancoDados.CDSProdutoBarraPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
-            BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value := CadastroProdutoBarrasForm.EditFornecedor.Value;
-            BancoDados.CDSProdutoBarraTIPO_EAN.Value := CadastroProdutoBarrasForm.CBTipoEAN.Text;
-            BancoDados.CDSProdutoBarraEAN.Value := CadastroProdutoBarrasForm.EditCodigoBarras.Value;
-            BancoDados.CDSProdutoBarra.Post;
+            BancoDados.CDSProdutoPreco.Edit;
+            BancoDados.CDSProdutoPrecoPRODUTO_ID.Value := CDSCadastroPRODUTO_ID.Value;
+            BancoDados.CDSProdutoPrecoDESCRICAO.Value := CadastroProdutoPrecoForm.EditDescricao.Text;
+            BancoDados.CDSProdutoPrecoPRECO.Value := CadastroProdutoPrecoForm.EditPreco.Value;
+            BancoDados.CDSProdutoPrecoMARGEM_LUCRO.Value := CadastroProdutoPrecoForm.editMargemLucro.Value;
+
+            if (CadastroProdutoPrecoForm.CBAtivo.Checked) then
+              BancoDados.CDSProdutoPrecoATIVO.Value := 1
+            else
+              BancoDados.CDSProdutoPrecoATIVO.Value := 0;
+
+            if (CadastroProdutoPrecoForm.CBUnidade.ItemIndex > 0) then
+              begin
+                with BancoDados.qryAuxiliar do
+                  begin
+                    Close;
+                    SQL.Text := 'select unidade_id from unidade where ativo = 1 and' +
+                      ' descricao = ' + QuotedStr(CadastroProdutoPrecoForm.CBUnidade.Text);
+                    Open;
+                  end;
+                if not (BancoDados.qryAuxiliar.IsEmpty) then
+                  BancoDados.CDSProdutoPrecoUNIDADE_ID.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+              end;
+
+            BancoDados.CDSProdutoPreco.Post;
 
             Log(BancoDados.qryLog, BancoDados.qryLoginUSUARIO_ID.Value, 'PRODUTO_PRECO',
               'Registro Alterado: (Produto = ' + IntToStr(CDSCadastroPRODUTO_ID.Value) +

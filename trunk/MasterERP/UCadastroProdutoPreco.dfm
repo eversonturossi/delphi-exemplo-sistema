@@ -1,9 +1,10 @@
 object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'CadastroProdutoPrecoForm'
-  ClientHeight = 313
-  ClientWidth = 556
+  ClientHeight = 311
+  ClientWidth = 566
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,14 +13,17 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 163
-    Height = 294
+    Height = 292
     Align = alLeft
     Color = clWhite
     Font.Charset = DEFAULT_CHARSET
@@ -30,12 +34,11 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitHeight = 273
-    object JvGradientHeaderPanel1: TJvGradientHeaderPanel
+    object GHPPrincipal: TJvGradientHeaderPanel
       Left = 1
       Top = 1
       Width = 161
-      Height = 292
+      Height = 290
       GradientStartColor = 6930170
       GradientStyle = grVertical
       LabelTop = 30
@@ -48,30 +51,25 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
       LabelAlignment = taCenter
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 271
     end
   end
   object SBPrincipal: TStatusBar
     Left = 0
-    Top = 294
-    Width = 556
+    Top = 292
+    Width = 566
     Height = 19
     Panels = <
       item
         Width = 200
       end>
-    ExplicitTop = 273
-    ExplicitWidth = 544
   end
   object Panel2: TPanel
     Left = 163
     Top = 0
-    Width = 393
-    Height = 294
+    Width = 403
+    Height = 292
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 381
-    ExplicitHeight = 273
     object Label1: TLabel
       Left = 62
       Top = 122
@@ -102,15 +100,13 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
     end
     object Panel3: TPanel
       Left = 1
-      Top = 247
-      Width = 391
+      Top = 245
+      Width = 401
       Height = 46
       Align = alBottom
       TabOrder = 5
-      ExplicitTop = 275
-      ExplicitWidth = 379
       object BTConfirmar: TSpeedButton
-        Left = 163
+        Left = 172
         Top = 1
         Width = 113
         Height = 44
@@ -118,7 +114,7 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
         OnClick = BTConfirmarClick
       end
       object BTCancelar: TSpeedButton
-        Left = 276
+        Left = 285
         Top = 1
         Width = 113
         Height = 44
@@ -140,7 +136,7 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
       Font.Style = []
       ItemIndex = 0
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
       Text = '<selecione>'
       Items.Strings = (
         '<selecione>'
@@ -162,23 +158,26 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
     end
     object CBAtivo: TCheckBox
       Left = 143
-      Top = 15
+      Top = 37
       Width = 41
       Height = 17
       Hint = 'Marcar/Desmarcar Todos'
+      TabStop = False
       Caption = 'Ativo'
-      TabOrder = 0
+      TabOrder = 4
     end
     object EditDescricao: TEdit
       Left = 143
       Top = 64
       Width = 233
       Height = 21
-      TabOrder = 1
+      CharCase = ecUpperCase
+      TabOrder = 0
+      OnExit = EditDescricaoExit
     end
     object EditMargemLucro: TJvValidateEdit
       Left = 143
@@ -196,7 +195,12 @@ object CadastroProdutoPrecoForm: TCadastroProdutoPrecoForm
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 3
     end
+  end
+  object ApplicationEvents: TApplicationEvents
+    OnHint = ApplicationEventsHint
+    Left = 209
+    Top = 184
   end
 end

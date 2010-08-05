@@ -36,6 +36,7 @@ type
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure ApplicationEventsHint(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     FBarraStatus : Boolean;
@@ -154,6 +155,11 @@ begin
     end;
 end;
 
+procedure TCadastroProdutoBarrasForm.FormCreate(Sender: TObject);
+begin
+  ApplicationEvents.Activate;
+end;
+
 procedure TCadastroProdutoBarrasForm.FormKeyPress(Sender: TObject;
   var Key: Char);
 begin
@@ -172,6 +178,7 @@ end;
 
 procedure TCadastroProdutoBarrasForm.FormShow(Sender: TObject);
 begin
+  BarraStatus := True;
   CarregaHint;
   if (EditCodigoBarras.Value > 0) then
     BTExibirCodigoBarrasClick(Sender);
