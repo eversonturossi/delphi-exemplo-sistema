@@ -54,7 +54,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Top = 84
       Width = 637
       Height = 403
-      ActivePage = TSCadastro
+      ActivePage = TSComplemento
       Align = alClient
       TabOrder = 1
       object TSCadastro: TTabSheet

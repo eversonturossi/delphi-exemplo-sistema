@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Buttons, ComCtrls, JvExControls, JvGradientHeaderPanel, ExtCtrls,
-  StdCtrls, JvExStdCtrls, JvEdit, JvValidateEdit;
+  StdCtrls, JvExStdCtrls, JvEdit, JvValidateEdit, AppEvnts;
 
 type
   TCadastroProdutoBarrasForm = class(TForm)
@@ -26,24 +26,53 @@ type
     Panel4: TPanel;
     Imagem: TImage;
     BTExibirCodigoBarras: TSpeedButton;
+    ApplicationEvents: TApplicationEvents;
     procedure BTConfirmarClick(Sender: TObject);
     procedure BTCancelarClick(Sender: TObject);
     procedure BTExibirCodigoBarrasClick(Sender: TObject);
-    procedure EditFornecedorExit(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure EditCodigoBarrasExit(Sender: TObject);
+    procedure EditFornecedorKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure ApplicationEventsHint(Sender: TObject);
   private
     { Private declarations }
+    FBarraStatus : Boolean;
+    procedure CarregaHint;
   public
     { Public declarations }
+  published
+    { Published declarations }
+    property BarraStatus: Boolean read FBarraStatus write FBarraStatus;
   end;
 
 var
   CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm;
 
 implementation
-uses UFuncoes, UPesquisaFornecedor, UPesquisaPadrao;
+uses Base, UFuncoes, UPesquisaFornecedor, UPesquisaPadrao;
 {$R *.dfm}
+
+procedure TCadastroProdutoBarrasForm.CarregaHint;
+begin
+  EditFornecedor.Hint := 'Informe um Fornecedor';
+  LBFornecedorNome.Hint := 'Nome do Fornecedor informado';
+  CBTipoEAN.Hint := 'Tipo do Código de Barras';
+  EditCodigoBarras.Hint := 'Código de Barras (Deve obedecer ao tipo Informado)';
+  BTExibirCodigoBarras.Hint := 'Exibir o Código de Barras informado';
+  Imagem.Hint := 'Imagem do Código de Barras informado';
+  BTConfirmar.Hint := 'Confirmar alterações no Cadastro de Produtos referente' +
+    ' ao Código de Barras';
+  BTCancelar.Hint := 'Cancelar alterações no Cadastro de Produtos referente' +
+    ' ao Código de Barras';
+end;
+
+procedure TCadastroProdutoBarrasForm.ApplicationEventsHint(Sender: TObject);
+begin
+  if (FBarraStatus) then
+    SBPrincipal.Panels[0].Text := Application.Hint;
+end;
 
 procedure TCadastroProdutoBarrasForm.BTCancelarClick(Sender: TObject);
 begin
@@ -52,6 +81,25 @@ end;
 
 procedure TCadastroProdutoBarrasForm.BTConfirmarClick(Sender: TObject);
 begin
+  if not (EditFornecedor.Value > 0) then
+    begin
+      Mensagem('Informe um Fornecedor!', mtWarning,[mbOk],mrOK,0);
+      EditFornecedor.SetFocus;
+      Abort;
+    end;
+  if (CBTipoEAN.ItemIndex <> -1) then
+    begin
+      Mensagem('Informe um Tipo de Código de Barras!', mtWarning,[mbOk],mrOK,0);
+      CBTipoEAN.SetFocus;
+      Abort;
+    end;
+  if not (EditCodigoBarras.Value > 0) then
+    begin
+      Mensagem('Informe um Código de Barras!', mtWarning,[mbOk],mrOK,0);
+      EditCodigoBarras.SetFocus;
+      Abort;
+    end;
+
   ModalResult := mrOk;
 end;
 
@@ -77,25 +125,32 @@ begin
     end;
 end;
 
-procedure TCadastroProdutoBarrasForm.EditFornecedorExit(Sender: TObject);
-var
-  Padrao : TPesquisaPadraoForm;
+procedure TCadastroProdutoBarrasForm.EditFornecedorKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
 begin
-  if not (EditFornecedor.Value > 0) then
+  if (Key = 13) then
     begin
-      try
-        if not Assigned(PesquisaFornecedorForm) then
-          PesquisaFornecedorForm := TPesquisaFornecedorForm.Create(Application);
-        PesquisaFornecedorForm.Tabela := 'FORNECEDOR';
-        if (PesquisaFornecedorForm.ShowModal = mrOk) then
-          begin
-            EditFornecedor.Value := Padrao.ID;
-            LBFornecedorNome.Caption := Padrao.Descricao;
+      if not (EditFornecedor.Value > 0) then
+        begin
+          try
+            BarraStatus := False;
+            if not Assigned(PesquisaFornecedorForm) then
+              PesquisaFornecedorForm := TPesquisaFornecedorForm.Create(Application);
+            if (PesquisaFornecedorForm.ShowModal = mrOk) then
+              begin
+                EditFornecedor.Value := PesquisaFornecedorForm.ID;
+                LBFornecedorNome.Caption := PesquisaFornecedorForm.Descricao;
+              end;
+            EditFornecedor.SetFocus;
+            Abort;
+          finally
+            PesquisaFornecedorForm.Free;
+            PesquisaFornecedorForm := nil;
+            BarraStatus := True;
           end;
-      finally
-        PesquisaFornecedorForm.Free;
-        PesquisaFornecedorForm := nil;
-      end;
+        end
+      else
+        CBTipoEAN.SetFocus;
     end;
 end;
 
@@ -113,6 +168,13 @@ begin
       key := #0;
       Close;
     end;
+end;
+
+procedure TCadastroProdutoBarrasForm.FormShow(Sender: TObject);
+begin
+  CarregaHint;
+  if (EditCodigoBarras.Value > 0) then
+    BTExibirCodigoBarrasClick(Sender);
 end;
 
 procedure TCadastroProdutoBarrasForm.BTExibirCodigoBarrasClick(Sender: TObject);

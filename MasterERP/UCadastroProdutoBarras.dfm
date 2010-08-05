@@ -1,9 +1,10 @@
 object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'CadastroProdutoBarrasForm'
-  ClientHeight = 341
-  ClientWidth = 544
+  ClientHeight = 322
+  ClientWidth = 553
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,14 +13,16 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 163
-    Height = 322
+    Height = 303
     Align = alLeft
     Color = clWhite
     Font.Charset = DEFAULT_CHARSET
@@ -30,12 +33,12 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitHeight = 273
+    ExplicitHeight = 322
     object JvGradientHeaderPanel1: TJvGradientHeaderPanel
       Left = 1
       Top = 1
       Width = 161
-      Height = 320
+      Height = 301
       GradientStartColor = 6930170
       GradientStyle = grVertical
       LabelTop = 30
@@ -48,28 +51,30 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       LabelAlignment = taCenter
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 271
+      ExplicitHeight = 320
     end
   end
   object SBPrincipal: TStatusBar
     Left = 0
-    Top = 322
-    Width = 544
+    Top = 303
+    Width = 553
     Height = 19
     Panels = <
       item
         Width = 200
       end>
-    ExplicitTop = 273
+    ExplicitTop = 322
+    ExplicitWidth = 544
   end
   object Panel2: TPanel
     Left = 163
     Top = 0
-    Width = 381
-    Height = 322
+    Width = 390
+    Height = 303
     Align = alClient
     TabOrder = 2
-    ExplicitHeight = 273
+    ExplicitWidth = 381
+    ExplicitHeight = 322
     object Label1: TLabel
       Left = 28
       Top = 74
@@ -114,14 +119,15 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
     end
     object Panel3: TPanel
       Left = 1
-      Top = 275
-      Width = 379
+      Top = 256
+      Width = 388
       Height = 46
       Align = alBottom
       TabOrder = 3
-      ExplicitTop = 226
+      ExplicitTop = 275
+      ExplicitWidth = 379
       object BTConfirmar: TSpeedButton
-        Left = 151
+        Left = 160
         Top = 1
         Width = 113
         Height = 44
@@ -129,7 +135,7 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
         OnClick = BTConfirmarClick
       end
       object BTCancelar: TSpeedButton
-        Left = 264
+        Left = 273
         Top = 1
         Width = 113
         Height = 44
@@ -172,7 +178,8 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnExit = EditFornecedorExit
+      ZeroEmpty = True
+      OnKeyDown = EditFornecedorKeyDown
     end
     object EditCodigoBarras: TJvValidateEdit
       Left = 120
@@ -188,6 +195,7 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      ZeroEmpty = True
       OnExit = EditCodigoBarrasExit
     end
     object Panel4: TPanel
@@ -211,5 +219,10 @@ object CadastroProdutoBarrasForm: TCadastroProdutoBarrasForm
         ExplicitHeight = 105
       end
     end
+  end
+  object ApplicationEvents: TApplicationEvents
+    OnHint = ApplicationEventsHint
+    Left = 209
+    Top = 136
   end
 end
