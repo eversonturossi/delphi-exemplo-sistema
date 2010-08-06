@@ -2,6 +2,8 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
   Caption = 'CadastroProdutoForm'
   ClientHeight = 507
   ClientWidth = 796
+  KeyPreview = True
+  OnKeyPress = FormKeyPress
   ExplicitWidth = 802
   ExplicitHeight = 533
   PixelsPerInch = 96
@@ -54,7 +56,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
       Top = 84
       Width = 637
       Height = 403
-      ActivePage = TSComplemento
+      ActivePage = TSCadastro
       Align = alClient
       TabOrder = 1
       object TSCadastro: TTabSheet
@@ -171,7 +173,7 @@ inherited CadastroProdutoForm: TCadastroProdutoForm
           Font.Style = []
           ParentFont = False
         end
-        object DBEdit1: TDBEdit
+        object DBEditCodigo: TDBEdit
           Left = 150
           Top = 21
           Width = 117

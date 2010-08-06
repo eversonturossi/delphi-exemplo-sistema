@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, RibbonLunaStyleActnCtrls, Ribbon, ToolWin, ActnMan, ActnCtrls,
   ActnList, Menus, PlatformDefaultStyleActnCtrls, ImgList, IniFiles, ComCtrls,
-  ScreenTips, ExtCtrls;
+  ScreenTips, ExtCtrls, Buttons, JvExControls, JvGradientHeaderPanel;
 
 type
   TPrincipalForm = class(TForm)
@@ -16,7 +16,6 @@ type
     Arquivo1: TMenuItem;
     rocarUsurio1: TMenuItem;
     Sair1: TMenuItem;
-    PAtalhos: TPanel;
     TimerPrincipal: TTimer;
     ImageListPrincipal: TImageList;
     ActionListPrincipal: TActionList;
@@ -54,6 +53,13 @@ type
     Outros1: TMenuItem;
     iposdeContatos2: TMenuItem;
     Cidades2: TMenuItem;
+    Panel1: TPanel;
+    GHPPrincipal: TJvGradientHeaderPanel;
+    BTCliente: TSpeedButton;
+    BTFornecedor: TSpeedButton;
+    BTTransportadora: TSpeedButton;
+    BTProduto: TSpeedButton;
+    BTNotaEntrada: TSpeedButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -72,6 +78,11 @@ type
     procedure AFornecedorExecute(Sender: TObject);
     procedure ATransportadoraExecute(Sender: TObject);
     procedure ANotaEntradaExecute(Sender: TObject);
+    procedure BTClienteClick(Sender: TObject);
+    procedure BTFornecedorClick(Sender: TObject);
+    procedure BTTransportadoraClick(Sender: TObject);
+    procedure BTProdutoClick(Sender: TObject);
+    procedure BTNotaEntradaClick(Sender: TObject);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -221,6 +232,31 @@ end;
 procedure TPrincipalForm.AUsuarioExecute(Sender: TObject);
 begin
   CriaForm(TConcultaUsuarioForm, ConcultaUsuarioForm);
+end;
+
+procedure TPrincipalForm.BTClienteClick(Sender: TObject);
+begin
+  AClienteExecute(Sender);
+end;
+
+procedure TPrincipalForm.BTFornecedorClick(Sender: TObject);
+begin
+  AFornecedorExecute(Sender);
+end;
+
+procedure TPrincipalForm.BTNotaEntradaClick(Sender: TObject);
+begin
+  ANotaEntradaExecute(Sender);
+end;
+
+procedure TPrincipalForm.BTProdutoClick(Sender: TObject);
+begin
+  AProdutoExecute(Sender);
+end;
+
+procedure TPrincipalForm.BTTransportadoraClick(Sender: TObject);
+begin
+  ATransportadoraExecute(Sender);
 end;
 
 procedure TPrincipalForm.FormClose(Sender: TObject; var Action: TCloseAction);

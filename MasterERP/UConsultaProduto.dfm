@@ -95,7 +95,8 @@ inherited ConsultaProdutoForm: TConsultaProdutoForm
           '<selecione>'
           'Produto I.D'
           'Descri'#231#227'o'
-          'Descri'#231#227'o Reduzida')
+          'Descri'#231#227'o Reduzida'
+          'Refer'#234'ncia')
       end
       inherited EditValor: TEdit
         OnKeyPress = EditValorKeyPress

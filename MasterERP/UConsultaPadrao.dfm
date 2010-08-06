@@ -318,27 +318,10 @@ object ConsultaPadraoForm: TConsultaPadraoForm
   object ActionList: TActionList
     Left = 376
     Top = 240
-    object ANovo: TAction
-      Caption = 'Novo'
-      ShortCut = 16429
-    end
-    object AAlterar: TAction
-      Caption = 'Alterar'
-      ShortCut = 16449
-    end
-    object AExcluir: TAction
-      Caption = 'Excluir'
-      ShortCut = 8238
-    end
-    object AExportar: TAction
-      Caption = 'Exportar'
-      ShortCut = 16472
-      OnExecute = BTExportarClick
-    end
     object ASair: TAction
       Caption = 'Sair'
       ShortCut = 27
-      OnExecute = BTSairClick
+      OnExecute = ASairExecute
     end
   end
   object qryExportar: TSQLQuery

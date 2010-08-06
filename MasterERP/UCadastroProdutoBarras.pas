@@ -10,7 +10,7 @@ uses
 type
   TCadastroProdutoBarrasForm = class(TForm)
     Panel1: TPanel;
-    JvGradientHeaderPanel1: TJvGradientHeaderPanel;
+    GHPPrincipal: TJvGradientHeaderPanel;
     SBPrincipal: TStatusBar;
     Panel2: TPanel;
     Panel3: TPanel;

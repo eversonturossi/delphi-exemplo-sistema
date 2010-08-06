@@ -11,7 +11,9 @@ object BancoDados: TBancoDados
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Firebird'
-      'Database=localhost:C:\MasterSoft\MasterERP\db\MASTERERP.FDB'
+      
+        'Database=localhost:D:\Automa'#231#227'o Comercial\MasterSoft\MasterERP\d' +
+        'b\MASTERERP.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -25,7 +27,6 @@ object BancoDados: TBancoDados
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
     VendorLib = 'fbclient.dll'
-    Connected = True
     Left = 32
     Top = 16
   end

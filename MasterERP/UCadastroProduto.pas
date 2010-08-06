@@ -29,7 +29,7 @@ type
     Label7: TLabel;
     Label9: TLabel;
     Label10: TLabel;
-    DBEdit1: TDBEdit;
+    DBEditCodigo: TDBEdit;
     DBEditDescricao: TDBEdit;
     DBEditDescricaoReduzida: TDBEdit;
     DBEditReferencia: TDBEdit;
@@ -82,6 +82,7 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
+    procedure CarregaHint;
   public
     { Public declarations }
   end;
@@ -93,6 +94,30 @@ implementation
 uses Base, UFuncoes, UPesquisaFornecedor, UPesquisaPadrao,
   UCadastroProdutoBarras, UCadastroProdutoPreco, UPesquisaEmpresa;
 {$R *.dfm}
+
+procedure TCadastroProdutoForm.CarregaHint;
+begin
+  DBEditCodigo.Hint := 'Este é o Código de identificação do Produto.' +
+    ' Ele é gerado automaticamente pelo Sistema';
+  DBEditDescricao.Hint := 'Informe a Descrição do Produto';
+  DBEditDescricaoReduzida.Hint := 'Informe a Descrição Reduzida do Produto';
+  DBEditReferencia.Hint := 'Informe a Referência do Produto';
+  DBLCUnidade.Hint := 'Informe a Unidade do Produto';
+  DBLCGrupoProduto.Hint := 'Informe o Grupo do Produto';
+  DBLCSubGrupoProduto.Hint := 'Informe o SubGrupo do Produto';
+  DBEditEstoqueMinimo.Hint := 'Informe o Estoque Mínimo do Produto';
+  DBGrid1.Hint := 'Informe os Fornecedores para este Produto';
+  DBGrid2.Hint := 'Informe os Códigos de Barras para este Produto';
+  DBGrid3.Hint := 'Informe os Preços para este Produto';
+  DBGrid4.Hint := 'No caso de Multi-Empresa, informe as Empresas nas quais' +
+    ' este Produto estará disponível';
+
+  DBCAtivo.Hint := 'Informe se o Cadastro está Ativo/Inativo';
+  BTSalvar.Hint := 'Salvar Registro';
+  BTCancelar.Hint := 'Cancelar Alterações';
+  BTExcluir.Hint := 'Excluir Registro';
+  BTSair.Hint := 'Sair da Tela de Cadastro';
+end;
 
 procedure TCadastroProdutoForm.RemoveAcento(Sender: TObject);
 var
@@ -115,8 +140,8 @@ begin
     if not Assigned(CadastroProdutoBarrasForm) then
       CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
 
-    CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
-    CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+    CadastroProdutoBarrasForm.GHPPrincipal.LabelCaption := 'Preços';
+    CadastroProdutoBarrasForm.Caption := FormatFloat('0000000000', CDSCadastroPRODUTO_ID.Value) +
       ' - ' + CDSCadastroDESCRICAO.Value;
 
     if (CadastroProdutoBarrasForm.ShowModal = mrOk) then
@@ -206,7 +231,7 @@ begin
       CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
 
     CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
-    CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+    CadastroProdutoPrecoForm.Caption := FormatFloat('0000000000', CDSCadastroPRODUTO_ID.Value) +
       ' - ' + CDSCadastroDESCRICAO.Value;
     CadastroProdutoPrecoForm.CBAtivo.Checked := True;
 
@@ -267,6 +292,19 @@ end;
 
 procedure TCadastroProdutoForm.BTSalvarClick(Sender: TObject);
 begin
+  if not (DBEditDescricao.Text <> '') then
+    begin
+      Mensagem('Informe uma Descrição para este Produto!', mtWarning,[mbOk],mrOK,0);
+      DBEditDescricao.SetFocus;
+      Abort;
+    end;
+  if not (DBLCUnidade.KeyValue > 0) then
+    begin
+      Mensagem('Informe uma Unidade para este Produto!', mtWarning,[mbOk],mrOK,0);
+      DBLCUnidade.SetFocus;
+      Abort;
+    end;
+
   inherited; //Herança
 
   BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
@@ -332,7 +370,7 @@ begin
           CadastroProdutoBarrasForm := TCadastroProdutoBarrasForm.Create(Application);
 
         CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
-        CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+        CadastroProdutoPrecoForm.Caption := FormatFloat('0000000000', CDSCadastroPRODUTO_ID.Value) +
           ' - ' + CDSCadastroDESCRICAO.Value;
 
         CadastroProdutoBarrasForm.EditFornecedor.Value := BancoDados.CDSProdutoBarraFORNECEDOR_ID.Value;
@@ -377,7 +415,7 @@ begin
           CadastroProdutoPrecoForm := TCadastroProdutoPrecoForm.Create(Application);
 
         CadastroProdutoPrecoForm.GHPPrincipal.LabelCaption := 'Preços';
-        CadastroProdutoPrecoForm.Caption := IntToStr(CDSCadastroPRODUTO_ID.Value) +
+        CadastroProdutoPrecoForm.Caption := FormatFloat('0000000000', CDSCadastroPRODUTO_ID.Value) +
           ' - ' + CDSCadastroDESCRICAO.Value;
 
         CadastroProdutoPrecoForm.CBAtivo.Checked := (BancoDados.CDSProdutoPrecoATIVO.Value = 1);
@@ -585,6 +623,11 @@ begin
     end
   else
     DBGrid4.Enabled := False;
+
+  CarregaHint;
+
+  PCPrincipal.ActivePage := TSCadastro;
+  DBEditDescricao.SetFocus;
 end;
 
 end.

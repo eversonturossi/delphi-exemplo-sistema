@@ -15,7 +15,6 @@ object CadastroPadraoForm: TCadastroPadraoForm
   OldCreateOrder = False
   Position = poDesktopCenter
   OnClose = FormClose
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -271,25 +270,10 @@ object CadastroPadraoForm: TCadastroPadraoForm
   end
   object ActionList: TActionList
     Left = 624
-    object ANovo: TAction
-      Caption = 'Novo'
-      ShortCut = 16462
-    end
-    object AAlterar: TAction
-      Caption = 'Alterar'
-      ShortCut = 16449
-    end
-    object AExcluir: TAction
-      Caption = 'Excluir'
-      ShortCut = 16453
-    end
-    object AExportar: TAction
-      Caption = 'Exportar'
-      ShortCut = 16472
-    end
     object ASair: TAction
       Caption = 'Sair'
-      ShortCut = 16457
+      ShortCut = 27
+      OnExecute = ASairExecute
     end
   end
 end
