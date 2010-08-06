@@ -29,10 +29,6 @@ type
     CDSExportar: TClientDataSet;
     ApplicationEvents: TApplicationEvents;
     ActionList: TActionList;
-    ANovo: TAction;
-    AAlterar: TAction;
-    AExcluir: TAction;
-    AExportar: TAction;
     ASair: TAction;
     Label2: TLabel;
     DBText2: TDBText;
@@ -58,7 +54,7 @@ type
     procedure CDSCadastroReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure ASairExecute(Sender: TObject);
   private
     { Private declarations }
     LiberaSalvar, FUtilizaMaiuscula, FBarraStatus : Boolean;
@@ -92,6 +88,11 @@ procedure TCadastroPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
   if (FBarraStatus) then
     SBPrincipal.Panels[0].Text := Application.Hint;
+end;
+
+procedure TCadastroPadraoForm.ASairExecute(Sender: TObject);
+begin
+  BTSairClick(Sender);
 end;
 
 procedure TCadastroPadraoForm.BTCancelarClick(Sender: TObject);
@@ -236,15 +237,6 @@ begin
   if (CDSCadastro.State in [dsInsert, dsEdit]) then
     BTCancelarClick(Sender);
   CDSCadastro.Close;
-end;
-
-procedure TCadastroPadraoForm.FormKeyPress(Sender: TObject; var Key: Char);
-begin
-  if (key = #27) then
-    begin
-      key := #0;
-      Close;
-    end;
 end;
 
 procedure TCadastroPadraoForm.FormShow(Sender: TObject);

@@ -31,10 +31,6 @@ type
     qryControleAcessoVALOR: TSmallintField;
     qryControleAcessoTIPO: TStringField;
     ActionList: TActionList;
-    ANovo: TAction;
-    AAlterar: TAction;
-    AExcluir: TAction;
-    AExportar: TAction;
     ASair: TAction;
     qryExportar: TSQLQuery;
     DSPExportar: TDataSetProvider;
@@ -72,6 +68,7 @@ type
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
     procedure BTAlterarClick(Sender: TObject);
+    procedure ASairExecute(Sender: TObject);
   private
     { Private declarations }
     Id : Integer;
@@ -236,6 +233,11 @@ procedure TConsultaPadraoForm.ApplicationEventsHint(Sender: TObject);
 begin
   if (FBarraStatus) then
     SBPrincipal.Panels[0].Text := Application.Hint;
+end;
+
+procedure TConsultaPadraoForm.ASairExecute(Sender: TObject);
+begin
+  BTSairClick(Sender);
 end;
 
 procedure TConsultaPadraoForm.BTAlterarClick(Sender: TObject);

@@ -38,13 +38,121 @@ object PrincipalForm: TPrincipalForm
         Width = 150
       end>
   end
-  object PAtalhos: TPanel
+  object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 776
-    Height = 57
-    Align = alTop
+    Width = 193
+    Height = 501
+    Align = alLeft
+    Color = clWhite
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
     TabOrder = 1
+    object GHPPrincipal: TJvGradientHeaderPanel
+      Left = 1
+      Top = 1
+      Width = 191
+      Height = 499
+      GradientStartColor = 6930170
+      GradientStyle = grVertical
+      LabelTop = 30
+      LabelCaption = 'Menu Principal'
+      LabelFont.Charset = ANSI_CHARSET
+      LabelFont.Color = clWhite
+      LabelFont.Height = -16
+      LabelFont.Name = 'MS Sans Serif'
+      LabelFont.Style = [fsBold]
+      LabelAlignment = taCenter
+      Align = alClient
+      TabOrder = 0
+      ExplicitWidth = 161
+      ExplicitHeight = 301
+      object BTCliente: TSpeedButton
+        Left = 1
+        Top = 75
+        Width = 189
+        Height = 50
+        Hint = 'Clientes'
+        Caption = 'Clientes'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Layout = blGlyphTop
+        ParentFont = False
+        OnClick = BTClienteClick
+      end
+      object BTFornecedor: TSpeedButton
+        Left = 1
+        Top = 125
+        Width = 189
+        Height = 50
+        Hint = 'Fornecedores'
+        Caption = 'Fornecedores'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Layout = blGlyphTop
+        ParentFont = False
+        OnClick = BTFornecedorClick
+      end
+      object BTTransportadora: TSpeedButton
+        Left = 1
+        Top = 175
+        Width = 189
+        Height = 50
+        Hint = 'Transportadoras'
+        Caption = 'Transportadoras'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Layout = blGlyphTop
+        ParentFont = False
+        OnClick = BTTransportadoraClick
+      end
+      object BTProduto: TSpeedButton
+        Left = 1
+        Top = 225
+        Width = 189
+        Height = 50
+        Hint = 'Produtos'
+        Caption = 'Produtos'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Layout = blGlyphTop
+        ParentFont = False
+        OnClick = BTProdutoClick
+      end
+      object BTNotaEntrada: TSpeedButton
+        Left = 1
+        Top = 275
+        Width = 189
+        Height = 50
+        Hint = 'Nota de Entrada'
+        Caption = 'Nota de Entrada'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Layout = blGlyphTop
+        ParentFont = False
+        OnClick = BTNotaEntradaClick
+      end
+    end
   end
   object MainMenuPrincipal: TMainMenu
     Images = ImageListPrincipal

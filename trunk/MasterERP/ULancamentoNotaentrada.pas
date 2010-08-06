@@ -178,6 +178,8 @@ begin
 end;
 
 procedure TLancamentoNotaEntradaForm.BTSalvarClick(Sender: TObject);
+var
+  Itens : String;
 begin
   if not (CDSCadastroFORNECEDOR_ID.Value > 0) then
     begin
@@ -202,6 +204,59 @@ begin
       end;
 
   inherited; //Herança
+
+  if (CDSCadastroFINALIZADO.Value = 1) then
+    begin
+      Itens := '';
+
+      BancoDados.CDSProdutoFornecedor.Close;
+      BancoDados.qryProdutoFornecedor.SQL.Text := 'select * from produto_fornecedor' +
+            ' where empresa_id = ' + IntToStr(CDSCadastroEMPRESA_ID.Value) +
+            ' and fornecedor_id = ' + IntToStr(CDSCadastroFORNECEDOR_ID.Value);
+      BancoDados.CDSProdutoFornecedor.Open;
+
+      CDSNotaEntradaItem.First;
+      while not CDSNotaEntradaItem.Eof do
+        begin
+          BancoDados.CDSProdutoFornecedor.First;
+          if not (BancoDados.CDSProdutoFornecedor.Locate('produto_id', CDSNotaEntradaItemPRODUTO_ID.Value, []))  then
+            Itens := Itens + IntToStr(BancoDados.CDSProdutoFornecedorPRODUTO_ID.Value) + ',';
+
+          CDSNotaEntradaItem.Next;
+        end;
+
+      Itens := Copy(Itens, 1, Length(Itens) - 1);
+
+      if (Itens <> '') then
+        begin
+          if (Mensagem('Existem um ou mais Produtos não cadastrados para o Fornecedor informado.' + #13 +
+            'Deseja incluir o Fornecedor para todos os Produtos?' ,mtConfirmation,[mbYES,mbNO],mrNO,0) = idYES) then
+            begin
+              BancoDados.CDSProduto.Close;
+              BancoDados.qryProduto.SQL.Text := 'select * from produto where produto_id' +
+                ' exists(' + Itens + ')';
+              BancoDados.CDSProduto.Open;
+              BancoDados.CDSProduto.First;
+              while not BancoDados.CDSProduto.Eof do
+                begin
+                  BancoDados.qryExecute.SQL.Text := 'insert into produto_fornecedor(' +
+                    'produto_id,fornecedor_id,empresa_id)values(' +
+                    IntToStr(BancoDados.CDSProdutoPRODUTO_ID.Value) + ', ' +
+                    IntToStr(CDSCadastroFORNECEDOR_ID.Value) + ', ' +
+                    IntToStr(CDSCadastroEMPRESA_ID.Value) + ');';
+                  BancoDados.qryExecute.ExecSQL(True);
+
+                  BancoDados.CDSProduto.Next;
+                end;
+            end;
+        end;
+    end;
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select ';
+    end;
 
   BancoDados.Conexao.StartTransaction(BancoDados.Transacao);
   CDSNotaEntradaItem.ApplyUpdates(0);

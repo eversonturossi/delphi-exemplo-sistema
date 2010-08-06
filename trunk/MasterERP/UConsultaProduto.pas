@@ -77,6 +77,7 @@ begin
           1: Campo := 'PRODUTO_ID';
           2: Campo := 'DESCRICAO';
           3: Campo := 'DESCRICAO_REDUZIDA';
+          4: Campo := 'REFERENCIA';
         end;
 
         case CBCriterio.ItemIndex of
@@ -90,7 +91,7 @@ begin
               5: Condicao := ' where ' + Campo + ' <> '  + Valor;
             end;
           end;
-          2,3: begin
+          2,3,4: begin
             case CBCondicao.ItemIndex of
               0: Condicao := ' where Upper(' + Campo + ') = '      + QuotedStr(UpperCase(Valor));
               1: Condicao := ' where Upper(' + Campo + ') <> '     + QuotedStr(UpperCase(Valor));
@@ -181,7 +182,7 @@ begin
       CBCondicao.Items.Add('<> (Diferente:)');
       CBCondicao.ItemIndex := 4;
     end;
-    2,3: begin
+    2,3,4: begin
       CBCondicao.Items.Clear;
       CBCondicao.Items.Add('= (Igual:)');
       CBCondicao.Items.Add('<> (Diferente:)');
