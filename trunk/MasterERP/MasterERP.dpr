@@ -49,7 +49,11 @@ uses
   UControleNotaEntrada in 'UControleNotaEntrada.pas' {ControleNotaEntradaForm},
   ULancamentoPadrao in 'ULancamentoPadrao.pas' {LancamentoPadraoForm},
   ULancamentoNotaentrada in 'ULancamentoNotaentrada.pas' {LancamentoNotaEntradaForm},
-  UPesquisaProduto in 'UPesquisaProduto.pas' {PesquisaProdutoForm};
+  UPesquisaProduto in 'UPesquisaProduto.pas' {PesquisaProdutoForm},
+  UControlePedido in 'UControlePedido.pas' {ControlePedidoForm},
+  ULancamentoPedido in 'ULancamentoPedido.pas' {LancamentoPedidoForm},
+  UPesquisaVendedor in 'UPesquisaVendedor.pas' {PesquisaVendedorForm},
+  UConsultaVendedor in 'UConsultaVendedor.pas' {ConsultaVendedorForm};
 
 {$R *.res}
 
@@ -59,5 +63,9 @@ begin
   Application.Title := 'Master ERP';
   Application.CreateForm(TBancoDados, BancoDados);
   Application.CreateForm(TPrincipalForm, PrincipalForm);
+  Application.CreateForm(TControlePedidoForm, ControlePedidoForm);
+  Application.CreateForm(TLancamentoPedidoForm, LancamentoPedidoForm);
+  Application.CreateForm(TPesquisaVendedorForm, PesquisaVendedorForm);
+  Application.CreateForm(TConsultaVendedorForm, ConsultaVendedorForm);
   Application.Run;
 end.

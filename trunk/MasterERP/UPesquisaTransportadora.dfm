@@ -1,10 +1,18 @@
 inherited PesquisaTransportadoraForm: TPesquisaTransportadoraForm
   Caption = 'PesquisaTransportadoraForm'
-  OnCreate = FormCreate
+  ExplicitWidth = 843
+  ExplicitHeight = 480
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     inherited Panel3: TPanel
+      inherited CBCriterio: TComboBox
+        Items.Strings = (
+          '<selecione>'
+          'Transportadora I.D'
+          'Nome / Raz'#227'o Social'
+          'Apelido / Nome Fantasia')
+      end
       inherited EditValor: TEdit
         OnChange = EditValorChange
       end

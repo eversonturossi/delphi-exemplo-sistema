@@ -254,6 +254,7 @@ object ConsultaPadraoForm: TConsultaPadraoForm
         Style = csOwnerDrawFixed
         ItemIndex = 2
         TabOrder = 3
+        TabStop = False
         Text = 'Todos'
         OnSelect = CBCriterioSelect
         Items.Strings = (
