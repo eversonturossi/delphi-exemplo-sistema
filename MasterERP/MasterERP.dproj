@@ -187,6 +187,18 @@
 			<DCCReference Include="UPesquisaProduto.pas">
 				<Form>PesquisaProdutoForm</Form>
 			</DCCReference>
+			<DCCReference Include="UControlePedido.pas">
+				<Form>ControlePedidoForm</Form>
+			</DCCReference>
+			<DCCReference Include="ULancamentoPedido.pas">
+				<Form>LancamentoPedidoForm</Form>
+			</DCCReference>
+			<DCCReference Include="UPesquisaVendedor.pas">
+				<Form>PesquisaVendedorForm</Form>
+			</DCCReference>
+			<DCCReference Include="UConsultaVendedor.pas">
+				<Form>ConsultaVendedorForm</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

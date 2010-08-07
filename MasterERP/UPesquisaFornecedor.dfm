@@ -1,10 +1,16 @@
 inherited PesquisaFornecedorForm: TPesquisaFornecedorForm
   Caption = 'PesquisaFornecedorForm'
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel2: TPanel
     inherited Panel3: TPanel
+      inherited CBCriterio: TComboBox
+        Items.Strings = (
+          '<selecione>'
+          'Fornecedor I.D'
+          'Nome / Raz'#227'o Social'
+          'Apelido / Nome Fantasia')
+      end
       inherited EditValor: TEdit
         OnChange = EditValorChange
       end

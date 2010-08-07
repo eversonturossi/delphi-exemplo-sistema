@@ -16,7 +16,6 @@ object PrincipalForm: TPrincipalForm
   OldCreateOrder = False
   Position = poDesigned
   WindowState = wsMaximized
-  OnClick = AGrupoProdutoExecute
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -70,8 +69,6 @@ object PrincipalForm: TPrincipalForm
       LabelAlignment = taCenter
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 161
-      ExplicitHeight = 301
       object BTCliente: TSpeedButton
         Left = 1
         Top = 75

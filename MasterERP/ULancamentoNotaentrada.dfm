@@ -1,33 +1,35 @@
 inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
   Caption = 'LancamentoNotaentradaForm'
-  ClientHeight = 583
+  ClientHeight = 618
   ClientWidth = 890
+  ExplicitLeft = -94
+  ExplicitTop = -109
   ExplicitWidth = 906
-  ExplicitHeight = 619
+  ExplicitHeight = 654
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
-    Height = 564
+    Height = 599
     ExplicitHeight = 564
     inherited GHPPrincipal: TJvGradientHeaderPanel
-      Height = 562
+      Height = 597
       ExplicitHeight = 562
     end
   end
   inherited SBPrincipal: TStatusBar
-    Top = 564
+    Top = 599
     Width = 890
     ExplicitTop = 564
     ExplicitWidth = 890
   end
   inherited PPrincipal: TPanel
     Width = 733
-    Height = 564
+    Height = 599
     ExplicitWidth = 733
     ExplicitHeight = 564
     object Label1: TLabel
       Left = 52
-      Top = 181
+      Top = 166
       Width = 59
       Height = 13
       Alignment = taRightJustify
@@ -35,7 +37,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object LBFornecedorNome: TLabel
       Left = 227
-      Top = 181
+      Top = 166
       Width = 241
       Height = 13
       AutoSize = False
@@ -49,7 +51,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label3: TLabel
       Left = 32
-      Top = 208
+      Top = 193
       Width = 79
       Height = 13
       Alignment = taRightJustify
@@ -57,7 +59,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object LBTransportadoraNome: TLabel
       Left = 227
-      Top = 208
+      Top = 193
       Width = 241
       Height = 13
       AutoSize = False
@@ -71,7 +73,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label6: TLabel
       Left = 8
-      Top = 240
+      Top = 221
       Width = 56
       Height = 13
       Alignment = taRightJustify
@@ -79,7 +81,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label7: TLabel
       Left = 93
-      Top = 240
+      Top = 221
       Width = 46
       Height = 13
       Alignment = taRightJustify
@@ -87,7 +89,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label8: TLabel
       Left = 472
-      Top = 240
+      Top = 221
       Width = 22
       Height = 13
       Alignment = taRightJustify
@@ -95,7 +97,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label9: TLabel
       Left = 551
-      Top = 240
+      Top = 221
       Width = 68
       Height = 13
       Alignment = taRightJustify
@@ -103,53 +105,23 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label10: TLabel
       Left = 630
-      Top = 240
+      Top = 221
       Width = 28
       Height = 13
       Alignment = taRightJustify
       Caption = 'Total:'
     end
     object Label11: TLabel
-      Left = 8
-      Top = 500
-      Width = 96
+      Left = 6
+      Top = 547
+      Width = 115
       Height = 13
       Alignment = taRightJustify
-      Caption = 'Valor do Frete (R$):'
+      Caption = '(+) Valor do Frete (R$):'
     end
     object DBTextValorProduto: TDBText
-      Left = 298
-      Top = 519
-      Width = 118
-      Height = 25
-      DataField = 'VALOR_NOTA'
-      DataSource = DSCadastro
-      Font.Charset = ANSI_CHARSET
-      Font.Color = 6590965
-      Font.Height = -19
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label12: TLabel
-      Left = 298
-      Top = 500
-      Width = 118
-      Height = 13
-      Alignment = taRightJustify
-      Caption = 'Valor dos Produtos (R$):'
-    end
-    object Label13: TLabel
-      Left = 577
-      Top = 500
-      Width = 93
-      Height = 13
-      Alignment = taRightJustify
-      Caption = 'Valor da Nota (R$):'
-    end
-    object DBTextValorNota: TDBText
-      Left = 577
-      Top = 517
+      Left = 594
+      Top = 511
       Width = 130
       Height = 25
       DataField = 'VALOR_NOTA'
@@ -161,9 +133,39 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object Label12: TLabel
+      Left = 594
+      Top = 498
+      Width = 118
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Valor dos Produtos (R$):'
+    end
+    object Label13: TLabel
+      Left = 594
+      Top = 550
+      Width = 93
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Valor da Nota (R$):'
+    end
+    object DBTextValorNota: TDBText
+      Left = 594
+      Top = 564
+      Width = 130
+      Height = 25
+      DataField = 'VALOR_NOTA'
+      DataSource = DSCadastro
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -19
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object Label14: TLabel
       Left = 376
-      Top = 240
+      Top = 221
       Width = 43
       Height = 13
       Alignment = taRightJustify
@@ -171,7 +173,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label15: TLabel
       Left = 55
-      Top = 154
+      Top = 139
       Width = 56
       Height = 13
       Alignment = taRightJustify
@@ -179,7 +181,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object Label16: TLabel
       Left = 28
-      Top = 129
+      Top = 114
       Width = 83
       Height = 13
       Alignment = taRightJustify
@@ -193,7 +195,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditFornecedor: TJvValidateEdit
       Left = 128
-      Top = 178
+      Top = 163
       Width = 94
       Height = 21
       CriticalPoints.MaxValueIncluded = False
@@ -205,7 +207,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditTransportadora: TJvValidateEdit
       Left = 128
-      Top = 205
+      Top = 190
       Width = 94
       Height = 21
       CriticalPoints.MaxValueIncluded = False
@@ -219,7 +221,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       Left = 1
       Top = 1
       Width = 731
-      Height = 120
+      Height = 103
       Align = alTop
       TabOrder = 4
       object Label4: TLabel
@@ -326,9 +328,9 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object DBGrid1: TDBGrid
       Left = 8
-      Top = 280
+      Top = 264
       Width = 716
-      Height = 211
+      Height = 227
       DataSource = DSNotaEntradaItem
       FixedColor = clWhite
       Font.Charset = ANSI_CHARSET
@@ -364,7 +366,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditProduto: TJvValidateEdit
       Left = 8
-      Top = 256
+      Top = 237
       Width = 81
       Height = 21
       TabStop = False
@@ -376,7 +378,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditDescricao: TEdit
       Left = 93
-      Top = 256
+      Top = 237
       Width = 278
       Height = 21
       TabStop = False
@@ -385,7 +387,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditQuantidade: TJvValidateEdit
       Left = 472
-      Top = 256
+      Top = 237
       Width = 75
       Height = 21
       TabStop = False
@@ -398,7 +400,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditValorUnitario: TJvValidateEdit
       Left = 551
-      Top = 256
+      Top = 237
       Width = 75
       Height = 21
       TabStop = False
@@ -412,7 +414,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditTotal: TJvValidateEdit
       Left = 630
-      Top = 256
+      Top = 237
       Width = 94
       Height = 21
       TabStop = False
@@ -424,8 +426,8 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
       TabOrder = 9
     end
     object DBEditFrete: TDBEdit
-      Left = 8
-      Top = 517
+      Left = 6
+      Top = 564
       Width = 155
       Height = 28
       TabStop = False
@@ -442,7 +444,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object CBUnidade: TComboBox
       Left = 376
-      Top = 256
+      Top = 237
       Width = 91
       Height = 21
       TabOrder = 11
@@ -452,7 +454,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object EditNotaFiscal: TJvValidateEdit
       Left = 128
-      Top = 151
+      Top = 136
       Width = 94
       Height = 21
       CriticalPoints.MaxValueIncluded = False
@@ -464,7 +466,7 @@ inherited LancamentoNotaEntradaForm: TLancamentoNotaEntradaForm
     end
     object DBEditCodigo: TDBEdit
       Left = 128
-      Top = 126
+      Top = 111
       Width = 94
       Height = 21
       TabStop = False

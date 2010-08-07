@@ -27,6 +27,7 @@ object BancoDados: TBancoDados
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
     VendorLib = 'fbclient.dll'
+    Connected = True
     Left = 32
     Top = 16
   end
@@ -1605,6 +1606,334 @@ object BancoDados: TBancoDados
         'A_ID)')
     SQLConnection = Conexao
     Left = 219
+    Top = 247
+  end
+  object qryPedido: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from pedido where pedido_id = 0')
+    SQLConnection = Conexao
+    Left = 252
+    Top = 247
+  end
+  object DSPedido: TDataSource
+    DataSet = CDSPedido
+    Left = 254
+    Top = 379
+  end
+  object CDSPedido: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPPedido'
+    OnCalcFields = CDSPedidoCalcFields
+    Left = 252
+    Top = 334
+    object CDSPedidoPEDIDO_ID: TIntegerField
+      FieldName = 'PEDIDO_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSPedidoDATA_LANCAMENTO: TSQLTimeStampField
+      FieldName = 'DATA_LANCAMENTO'
+    end
+    object CDSPedidoFECHADO: TSmallintField
+      FieldName = 'FECHADO'
+    end
+    object CDSPedidoCANCELADO: TSmallintField
+      FieldName = 'CANCELADO'
+    end
+    object CDSPedidoCLIENTE_ID: TIntegerField
+      FieldName = 'CLIENTE_ID'
+    end
+    object CDSPedidoACRESCIMO: TFloatField
+      FieldName = 'ACRESCIMO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoDESCONTO: TFloatField
+      FieldName = 'DESCONTO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoSUBTOTAL: TFloatField
+      FieldName = 'SUBTOTAL'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidocalc_cliente_nome: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_cliente_nome'
+      Size = 60
+      Calculated = True
+    end
+    object CDSPedidocalc_vendedor_nome: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_vendedor_nome'
+      Size = 60
+      Calculated = True
+    end
+    object CDSPedidoFINALIZADO: TSmallintField
+      FieldName = 'FINALIZADO'
+    end
+    object CDSPedidoVENDEDOR_ID: TIntegerField
+      FieldName = 'VENDEDOR_ID'
+    end
+    object CDSPedidoDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSPedidoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSPedidoEMPRESA_ID: TIntegerField
+      FieldName = 'EMPRESA_ID'
+    end
+  end
+  object DSPPedido: TDataSetProvider
+    DataSet = qryPedido
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 252
+    Top = 289
+  end
+  object DSPedidoItem: TDataSource
+    DataSet = CDSPedidoItem
+    Left = 285
+    Top = 379
+  end
+  object CDSPedidoItem: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPPedidoItem'
+    OnCalcFields = CDSPedidoItemCalcFields
+    Left = 284
+    Top = 334
+    object CDSPedidoItemPEDIDO_ITEM_ID: TIntegerField
+      FieldName = 'PEDIDO_ITEM_ID'
+    end
+    object CDSPedidoItemPEDIDO_ID: TIntegerField
+      FieldName = 'PEDIDO_ID'
+    end
+    object CDSPedidoItemCANCELADO: TSmallintField
+      FieldName = 'CANCELADO'
+    end
+    object CDSPedidoItemPRODUTO_ID: TIntegerField
+      FieldName = 'PRODUTO_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSPedidoItemPRODUTO_PRECO_ID: TIntegerField
+      FieldName = 'PRODUTO_PRECO_ID'
+    end
+    object CDSPedidoItemQUANTIDADE: TFloatField
+      FieldName = 'QUANTIDADE'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoItemACRESCIMO: TFloatField
+      FieldName = 'ACRESCIMO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoItemDESCONTO: TFloatField
+      FieldName = 'DESCONTO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoItemSUBTOTAL: TFloatField
+      FieldName = 'SUBTOTAL'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoItemPRECO: TFloatField
+      FieldName = 'PRECO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSPedidoItemcalc_produto_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_produto_descricao'
+      Size = 60
+      Calculated = True
+    end
+    object CDSPedidoItemUNIDADE_ID: TIntegerField
+      FieldName = 'UNIDADE_ID'
+    end
+    object CDSPedidoItemUND: TStringField
+      FieldName = 'UND'
+      Size = 10
+    end
+  end
+  object DSPPedidoItem: TDataSetProvider
+    DataSet = qryPedidoItem
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 283
+    Top = 289
+  end
+  object DSNegociacaoPedido: TDataSource
+    DataSet = CDSNegociacaoPedido
+    Left = 316
+    Top = 379
+  end
+  object CDSNegociacaoPedido: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPNegociacaoPedido'
+    OnCalcFields = CDSNegociacaoPedidoCalcFields
+    Left = 315
+    Top = 334
+    object CDSNegociacaoPedidoNEGOCIACAO_PEDIDO_ID: TIntegerField
+      FieldName = 'NEGOCIACAO_PEDIDO_ID'
+    end
+    object CDSNegociacaoPedidoPEDIDO_ID: TIntegerField
+      FieldName = 'PEDIDO_ID'
+    end
+    object CDSNegociacaoPedidoFORMA_PAGAMENTO_ID: TIntegerField
+      FieldName = 'FORMA_PAGAMENTO_ID'
+    end
+    object CDSNegociacaoPedidoVALOR: TFloatField
+      FieldName = 'VALOR'
+      DisplayFormat = ',0.00'
+    end
+    object CDSNegociacaoPedidoACRESCIMO: TFloatField
+      FieldName = 'ACRESCIMO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSNegociacaoPedidoDESCONTO: TFloatField
+      FieldName = 'DESCONTO'
+      DisplayFormat = ',0.00'
+    end
+    object CDSNegociacaoPedidocalc_forma_pagamento_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_forma_pagamento_descricao'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPNegociacaoPedido: TDataSetProvider
+    DataSet = qryNegociacaoPedido
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 315
+    Top = 289
+  end
+  object qryPedidoItem: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from pedido_item where pedido_item_id = 0')
+    SQLConnection = Conexao
+    Left = 283
+    Top = 247
+  end
+  object qryNegociacaoPedido: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from negociacao_pedido where negociacao_pedido_id = 0')
+    SQLConnection = Conexao
+    Left = 314
+    Top = 247
+  end
+  object qryVendedor: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from vendedor where vendedor_id = 0')
+    SQLConnection = Conexao
+    Left = 344
+    Top = 247
+  end
+  object DSVendedor: TDataSource
+    DataSet = CDSVendedor
+    Left = 346
+    Top = 380
+  end
+  object CDSVendedor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPVendedor'
+    OnCalcFields = CDSVendedorCalcFields
+    Left = 345
+    Top = 335
+    object CDSVendedorVENDEDOR_ID: TIntegerField
+      FieldName = 'VENDEDOR_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSVendedorATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSVendedorDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSVendedorDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSVendedorNOME: TStringField
+      FieldName = 'NOME'
+      Size = 60
+    end
+    object CDSVendedorVENDEDOR_FUNCAO_ID: TIntegerField
+      FieldName = 'VENDEDOR_FUNCAO_ID'
+    end
+    object CDSVendedorCOMISSAO: TFloatField
+      FieldName = 'COMISSAO'
+    end
+    object CDSVendedorLOGIN: TStringField
+      FieldName = 'LOGIN'
+      Size = 25
+    end
+    object CDSVendedorSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 8
+    end
+    object CDSVendedorcalc_vendedor_funcao_descricao: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'calc_vendedor_funcao_descricao'
+      Size = 60
+      Calculated = True
+    end
+  end
+  object DSPVendedor: TDataSetProvider
+    DataSet = qryVendedor
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 344
+    Top = 289
+  end
+  object DSVendedorFuncao: TDataSource
+    DataSet = CDSVendedorFuncao
+    Left = 378
+    Top = 380
+  end
+  object CDSVendedorFuncao: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSPVendedorFuncao'
+    Left = 376
+    Top = 335
+    object CDSVendedorFuncaoVENDEDOR_FUNCAO_ID: TIntegerField
+      FieldName = 'VENDEDOR_FUNCAO_ID'
+      DisplayFormat = '0000000000'
+    end
+    object CDSVendedorFuncaoATIVO: TSmallintField
+      FieldName = 'ATIVO'
+    end
+    object CDSVendedorFuncaoDATA_CADASTRO: TSQLTimeStampField
+      FieldName = 'DATA_CADASTRO'
+    end
+    object CDSVendedorFuncaoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField
+      FieldName = 'DATA_ULTIMA_ALTERACAO'
+    end
+    object CDSVendedorFuncaoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object CDSVendedorFuncaoABREVIACAO: TStringField
+      FieldName = 'ABREVIACAO'
+      Size = 5
+    end
+  end
+  object DSPVendedorFuncao: TDataSetProvider
+    DataSet = qryVendedorFuncao
+    Options = [poAutoRefresh, poUseQuoteChar]
+    Left = 376
+    Top = 289
+  end
+  object qryVendedorFuncao: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from vendedor_funcao where vendedor_funcao_id = 0')
+    SQLConnection = Conexao
+    Left = 375
     Top = 247
   end
 end

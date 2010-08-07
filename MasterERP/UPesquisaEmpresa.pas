@@ -58,7 +58,7 @@ begin
       begin
         case CBCriterio.ItemIndex of
           1: Campo := 'e.EMPRESA_ID';
-          2: Campo := 'p.NOME';
+          2: Campo := 'p.NOME_RAZAO';
           3: Campo := 'p.NOME_APELIDO_FANTASIA';
         end;
 

@@ -322,6 +322,77 @@ type
     CDSTransportadoracalc_tipo: TStringField;
     CDSTransportadoracalc_filial: TSmallintField;
     CDSUsuarioExibirTABELA_FUNCAO: TSmallintField;
+    qryPedido: TSQLQuery;
+    DSPedido: TDataSource;
+    CDSPedido: TClientDataSet;
+    DSPPedido: TDataSetProvider;
+    DSPedidoItem: TDataSource;
+    CDSPedidoItem: TClientDataSet;
+    DSPPedidoItem: TDataSetProvider;
+    DSNegociacaoPedido: TDataSource;
+    CDSNegociacaoPedido: TClientDataSet;
+    DSPNegociacaoPedido: TDataSetProvider;
+    qryPedidoItem: TSQLQuery;
+    qryNegociacaoPedido: TSQLQuery;
+    CDSPedidoPEDIDO_ID: TIntegerField;
+    CDSPedidoDATA_LANCAMENTO: TSQLTimeStampField;
+    CDSPedidoFECHADO: TSmallintField;
+    CDSPedidoCANCELADO: TSmallintField;
+    CDSPedidoCLIENTE_ID: TIntegerField;
+    CDSPedidoACRESCIMO: TFloatField;
+    CDSPedidoDESCONTO: TFloatField;
+    CDSPedidoSUBTOTAL: TFloatField;
+    CDSPedidocalc_cliente_nome: TStringField;
+    CDSPedidocalc_vendedor_nome: TStringField;
+    CDSPedidoItemPEDIDO_ITEM_ID: TIntegerField;
+    CDSPedidoItemPEDIDO_ID: TIntegerField;
+    CDSPedidoItemCANCELADO: TSmallintField;
+    CDSPedidoItemPRODUTO_ID: TIntegerField;
+    CDSPedidoItemPRODUTO_PRECO_ID: TIntegerField;
+    CDSPedidoItemQUANTIDADE: TFloatField;
+    CDSPedidoItemACRESCIMO: TFloatField;
+    CDSPedidoItemDESCONTO: TFloatField;
+    CDSPedidoItemSUBTOTAL: TFloatField;
+    CDSPedidoItemPRECO: TFloatField;
+    CDSPedidoItemcalc_produto_descricao: TStringField;
+    CDSPedidoItemUNIDADE_ID: TIntegerField;
+    CDSPedidoItemUND: TStringField;
+    CDSNegociacaoPedidoNEGOCIACAO_PEDIDO_ID: TIntegerField;
+    CDSNegociacaoPedidoPEDIDO_ID: TIntegerField;
+    CDSNegociacaoPedidoFORMA_PAGAMENTO_ID: TIntegerField;
+    CDSNegociacaoPedidoVALOR: TFloatField;
+    CDSNegociacaoPedidoACRESCIMO: TFloatField;
+    CDSNegociacaoPedidoDESCONTO: TFloatField;
+    CDSNegociacaoPedidocalc_forma_pagamento_descricao: TStringField;
+    CDSPedidoFINALIZADO: TSmallintField;
+    CDSPedidoVENDEDOR_ID: TIntegerField;
+    CDSPedidoDATA_CADASTRO: TSQLTimeStampField;
+    CDSPedidoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSPedidoEMPRESA_ID: TIntegerField;
+    qryVendedor: TSQLQuery;
+    DSVendedor: TDataSource;
+    CDSVendedor: TClientDataSet;
+    DSPVendedor: TDataSetProvider;
+    CDSVendedorVENDEDOR_ID: TIntegerField;
+    CDSVendedorATIVO: TSmallintField;
+    CDSVendedorDATA_CADASTRO: TSQLTimeStampField;
+    CDSVendedorDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSVendedorNOME: TStringField;
+    CDSVendedorVENDEDOR_FUNCAO_ID: TIntegerField;
+    CDSVendedorCOMISSAO: TFloatField;
+    CDSVendedorLOGIN: TStringField;
+    CDSVendedorSENHA: TStringField;
+    CDSVendedorcalc_vendedor_funcao_descricao: TStringField;
+    DSVendedorFuncao: TDataSource;
+    CDSVendedorFuncao: TClientDataSet;
+    DSPVendedorFuncao: TDataSetProvider;
+    qryVendedorFuncao: TSQLQuery;
+    CDSVendedorFuncaoVENDEDOR_FUNCAO_ID: TIntegerField;
+    CDSVendedorFuncaoATIVO: TSmallintField;
+    CDSVendedorFuncaoDATA_CADASTRO: TSQLTimeStampField;
+    CDSVendedorFuncaoDATA_ULTIMA_ALTERACAO: TSQLTimeStampField;
+    CDSVendedorFuncaoDESCRICAO: TStringField;
+    CDSVendedorFuncaoABREVIACAO: TStringField;
     procedure qryLogAfterOpen(DataSet: TDataSet);
     procedure qryLogAfterClose(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -359,6 +430,10 @@ type
     procedure CDSTransportadoraCalcFields(DataSet: TDataSet);
     procedure CDSUsuarioExibirAfterInsert(DataSet: TDataSet);
     procedure CDSUsuarioExibirColunaAfterInsert(DataSet: TDataSet);
+    procedure CDSPedidoCalcFields(DataSet: TDataSet);
+    procedure CDSPedidoItemCalcFields(DataSet: TDataSet);
+    procedure CDSNegociacaoPedidoCalcFields(DataSet: TDataSet);
+    procedure CDSVendedorCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     ArquivoIni: TIniFile;
@@ -523,6 +598,56 @@ begin
     end;
   if not (BancoDados.qryAuxiliar.IsEmpty) then
     CDSFornecedorcalc_filial.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
+procedure TBancoDados.CDSNegociacaoPedidoCalcFields(DataSet: TDataSet);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from forma_pagamento where forma_pagamento_id = ' +
+        IntToStr(CDSNegociacaoPedidoFORMA_PAGAMENTO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSNegociacaoPedidocalc_forma_pagamento_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
+procedure TBancoDados.CDSPedidoCalcFields(DataSet: TDataSet);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select nome_razao from pessoa where pessoa_id in(' +
+        '(select pessoa_id from cliente where cliente_id = ' +
+        IntToStr(CDSPedidoCLIENTE_ID.Value) + ')';
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSPedidocalc_cliente_nome.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select nome from vendedor where vendedor_id = ' +
+        IntToStr(CDSPedidoVENDEDOR_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSPedidocalc_vendedor_nome.Value := BancoDados.qryAuxiliar.Fields[0].Value;
+end;
+
+procedure TBancoDados.CDSPedidoItemCalcFields(DataSet: TDataSet);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao from produto where produto_id = ' +
+        IntToStr(CDSPedidoItemPRODUTO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSPedidoItemcalc_produto_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
 end;
 
 procedure TBancoDados.CDSPessoaAfterCancel(DataSet: TDataSet);
@@ -797,6 +922,19 @@ begin
       Open;
       CDSUsuarioExibirColunaUSUARIO_EXIBIR_COLUNA_ID.Value := qryGeraID.Fields[0].Value;
     end;
+end;
+
+procedure TBancoDados.CDSVendedorCalcFields(DataSet: TDataSet);
+begin
+  with BancoDados.qryAuxiliar do
+    begin
+      Close;
+      SQL.Text := 'select descricao where vendedor_funcao where vendedor_funcao_id = ' +
+        IntToStr(CDSVendedorVENDEDOR_FUNCAO_ID.Value);
+      Open;
+    end;
+  if not (BancoDados.qryAuxiliar.IsEmpty) then
+    CDSVendedorcalc_vendedor_funcao_descricao.Value := BancoDados.qryAuxiliar.Fields[0].Value;
 end;
 
 procedure TBancoDados.DataModuleCreate(Sender: TObject);
