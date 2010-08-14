@@ -1,0 +1,428 @@
+21/04/2010 13:45:10:Ocorreu o seguinte erro: YOUR USER NAME AND PASSWORD ARE NOT DEFINED. ASK YOUR DATABASE ADMINISTRATOR TO SET UP A FIREBIRD LOGIN.
+
+----------------------------------------------------------------------
+21/04/2010 13:46:20:Ocorreu o seguinte erro: YOUR USER NAME AND PASSWORD ARE NOT DEFINED. ASK YOUR DATABASE ADMINISTRATOR TO SET UP A FIREBIRD LOGIN.
+
+----------------------------------------------------------------------
+21/04/2010 13:46:28:Ocorreu o seguinte erro: YOUR USER NAME AND PASSWORD ARE NOT DEFINED. ASK YOUR DATABASE ADMINISTRATOR TO SET UP A FIREBIRD LOGIN.
+
+----------------------------------------------------------------------
+21/04/2010 14:19:56:Ocorreu o seguinte erro: 'TFMS' IS NOT A VALID INTEGER VALUE
+----------------------------------------------------------------------
+21/04/2010 16:32:12:Ocorreu o seguinte erro: MISSING QUERY, TABLE NAME OR PROCEDURE NAME
+----------------------------------------------------------------------
+21/04/2010 19:15:14:Ocorreu o seguinte erro: TCNIEE: MUST APPLY UPDATES BEFORE REFRESHING DATA
+----------------------------------------------------------------------
+21/04/2010 19:15:44:Ocorreu o seguinte erro: TCNIEE: MUST APPLY UPDATES BEFORE REFRESHING DATA
+----------------------------------------------------------------------
+21/04/2010 19:29:09:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9582 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+21/04/2010 19:30:30:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9582 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+21/04/2010 20:17:42:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9592 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+21/04/2010 20:19:39:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9592 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+21/04/2010 20:27:03:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9592 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+21/04/2010 20:30:08:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9592 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+21/04/2010 22:01:37:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9592 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+22/04/2010 11:26:14:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B9592 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------
+22/04/2010 13:04:37:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 13:07:44:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 13:07:45:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+22/04/2010 13:11:33:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 13:18:30:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 13:24:30:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 13:24:31:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+22/04/2010 13:25:44:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 13:32:48:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 13:35:44:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 13:45:56:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 14:38:05:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 15:08:13:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 15:12:16:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 15:13:31:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 16:14:58:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 16:20:08:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 16:24:13:Ocorreu o seguinte erro: '' IS NOT A VALID INTEGER VALUE
+----------------------------------------------------------------------
+22/04/2010 16:41:52:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 16:42:19:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:19:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 16:42:21:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00404290 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 16:42:21:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 16:42:22:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:22:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:23:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:23:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:23:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:23:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:23:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 16:42:23:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 17:04:00:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 17:21:42:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 17:21:43:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+22/04/2010 22:13:20:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 22:19:52:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 22:20:11:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 22:20:37:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:20:37:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 22:20:38:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:20:39:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:20:40:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:20:51:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:21:53:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00404290 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 22:21:53:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 22:21:54:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 22:28:09:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 22:30:25:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+22/04/2010 22:32:57:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:32:57:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+22/04/2010 22:32:59:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:33:00:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:33:00:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:33:01:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:33:01:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:33:48:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:33:49:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:34:55:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 22:34:56:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+22/04/2010 23:17:05:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 23:43:54:Ocorreu o seguinte erro: ARITHMETIC EXCEPTION, NUMERIC OVERFLOW, OR STRING TRUNCATION
+CANNOT TRANSLITERATE CHARACTER BETWEEN CHARACTER SETS
+----------------------------------------------------------------------
+22/04/2010 23:44:23:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+22/04/2010 23:44:44:Ocorreu o seguinte erro: ARITHMETIC EXCEPTION, NUMERIC OVERFLOW, OR STRING TRUNCATION
+CANNOT TRANSLITERATE CHARACTER BETWEEN CHARACTER SETS
+----------------------------------------------------------------------
+22/04/2010 23:45:57:Ocorreu o seguinte erro: TREDUCOES_LOCAL: FIELD 'POSI_ALIQUOTA011' NOT FOUND
+----------------------------------------------------------------------
+23/04/2010 08:34:12:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 09:36:38:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 09:38:03:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+23/04/2010 09:38:04:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+23/04/2010 09:38:56:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 09:43:01:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 09:48:44:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 10:44:16:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 10:52:25:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+23/04/2010 11:01:33:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 11:02:44:Ocorreu o seguinte erro: CANNOT FOCUS A DISABLED OR INVISIBLE WINDOW
+----------------------------------------------------------------------
+23/04/2010 11:03:09:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+23/04/2010 11:03:10:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+23/04/2010 11:04:13:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 12:03:01:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 14:18:23:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 14:37:22:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 16:52:38:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+23/04/2010 17:15:49:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005AB114 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+23/04/2010 17:16:14:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+23/04/2010 17:16:14:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+23/04/2010 17:17:31:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+23/04/2010 17:17:31:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+23/04/2010 17:17:33:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+23/04/2010 17:17:33:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+23/04/2010 23:16:41:Ocorreu o seguinte erro: YOUR USER NAME AND PASSWORD ARE NOT DEFINED. ASK YOUR DATABASE ADMINISTRATOR TO SET UP A FIREBIRD LOGIN.
+
+----------------------------------------------------------------------
+23/04/2010 23:16:44:Ocorreu o seguinte erro: MISSING QUERY, TABLE NAME OR PROCEDURE NAME
+----------------------------------------------------------------------
+24/04/2010 08:07:57:Ocorreu o seguinte erro: YOUR USER NAME AND PASSWORD ARE NOT DEFINED. ASK YOUR DATABASE ADMINISTRATOR TO SET UP A FIREBIRD LOGIN.
+
+----------------------------------------------------------------------
+24/04/2010 08:08:34:Ocorreu o seguinte erro: YOUR USER NAME AND PASSWORD ARE NOT DEFINED. ASK YOUR DATABASE ADMINISTRATOR TO SET UP A FIREBIRD LOGIN.
+
+----------------------------------------------------------------------
+24/04/2010 11:36:21:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+28/04/2010 09:50:29:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+28/04/2010 10:27:44:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+28/04/2010 10:30:02:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B02 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+28/04/2010 10:30:03:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F80B IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+30/04/2010 09:43:31:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 09:45:17:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B02 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+30/04/2010 09:45:18:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F80B IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+30/04/2010 09:45:52:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 09:48:30:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 10:47:50:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 17:25:18:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 17:26:27:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+30/04/2010 17:26:28:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+30/04/2010 17:27:10:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 17:28:34:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+30/04/2010 17:29:09:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 17:33:38:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 17:37:11:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 17:38:32:Ocorreu o seguinte erro: COULD NOT CONVERT VARIANT OF TYPE (NULL) INTO TYPE (CURRENCY)
+----------------------------------------------------------------------
+30/04/2010 17:38:44:Ocorreu o seguinte erro: COULD NOT CONVERT VARIANT OF TYPE (NULL) INTO TYPE (CURRENCY)
+----------------------------------------------------------------------
+30/04/2010 17:39:52:Ocorreu o seguinte erro: FIELD VALUE REQUIRED.
+----------------------------------------------------------------------
+30/04/2010 17:40:26:Ocorreu o seguinte erro: TPDV: CANNOT PERFORM THIS OPERATION ON A CLOSED DATASET
+----------------------------------------------------------------------
+30/04/2010 17:40:26:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+30/04/2010 17:40:26:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+30/04/2010 17:40:38:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+30/04/2010 17:40:38:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+30/04/2010 17:40:46:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00404290 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+30/04/2010 20:17:04:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 20:19:19:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B9E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+30/04/2010 20:19:20:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F8A7 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+30/04/2010 23:39:57:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+30/04/2010 23:40:53:Ocorreu o seguinte erro: TREDUCOES_LOCAL: FIELD 'POSI_ALIQUOTA011' NOT FOUND
+----------------------------------------------------------------------
+01/05/2010 09:25:53:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+01/05/2010 09:28:59:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+01/05/2010 09:31:00:Ocorreu o seguinte erro: COULD NOT CONVERT VARIANT OF TYPE (NULL) INTO TYPE (CURRENCY)
+----------------------------------------------------------------------
+01/05/2010 09:47:43:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+01/05/2010 09:53:36:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/05/2010 10:34:46:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/05/2010 10:54:21:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/05/2010 10:56:52:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/05/2010 11:01:53:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:49:05:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:49:08:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:49:26:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:49:27:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:50:54:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:51:27:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:51:43:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:52:12:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:54:07:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B1E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+03/06/2010 21:54:08:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F827 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+03/06/2010 21:54:10:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F827 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+03/06/2010 21:58:45:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+03/06/2010 21:58:56:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+03/06/2010 21:58:59:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+03/06/2010 21:59:35:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 21:59:49:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:00:06:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:02:49:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:04:25:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:04:29:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:04:50:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:04:51:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:09:12:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+03/06/2010 22:09:13:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+03/06/2010 22:09:25:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 22:09:27:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 23:06:43:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 23:10:04:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+03/06/2010 23:14:11:Ocorreu o seguinte erro: COLUMN UNKNOWN
+MEIOS_PGTOS.COD_VENDA
+AT LINE 8, COLUMN 42
+----------------------------------------------------------------------
+21/07/2010 08:04:51:Ocorreu o seguinte erro: I/O ERROR FOR FILE "C:\APGEF\BD\FRENTE.FDB"
+ERROR WHILE TRYING TO OPEN FILE
+O SISTEMA N„O PODE ENCONTRAR O CAMINHO ESPECIFICADO.
+
+
+----------------------------------------------------------------------
+21/07/2010 08:04:51:Ocorreu o seguinte erro: I/O ERROR FOR FILE "C:\APGEF\BD\FRENTE.FDB"
+ERROR WHILE TRYING TO OPEN FILE
+O SISTEMA N„O PODE ENCONTRAR O CAMINHO ESPECIFICADO.
+
+
+----------------------------------------------------------------------
+21/07/2010 08:05:08:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+21/07/2010 08:05:09:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+21/07/2010 08:26:47:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+21/07/2010 08:26:59:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+21/07/2010 08:27:06:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+21/07/2010 08:49:59:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 08:50:03:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 08:50:29:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 08:50:30:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 08:53:29:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B1E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+21/07/2010 08:53:30:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F827 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+21/07/2010 08:53:30:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F827 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+21/07/2010 08:58:36:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+21/07/2010 08:58:38:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+21/07/2010 08:58:50:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 08:58:57:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 11:59:57:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 12:02:16:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 12:02:35:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 12:03:09:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+21/07/2010 12:08:28:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C2B1E IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+21/07/2010 12:08:29:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F827 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+21/07/2010 12:08:30:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 0046F827 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------
+13/08/2010 21:50:13:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B64BE IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
+----------------------------------------------------------------------

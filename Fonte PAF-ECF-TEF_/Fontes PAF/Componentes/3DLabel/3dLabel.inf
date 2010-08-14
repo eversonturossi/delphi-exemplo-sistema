@@ -1,0 +1,26 @@
+[DSP upload]
+Filename=
+Replacements=
+Version=1.0
+FileURL=ftp://www.gv.dk/dxh/delphi/3DLabel.zip
+Description=Same as a label component I downloaded from DSP, but with an  "OnMouseOut" Event.
+Delphi 1.0=Y
+Delphi 2.0=Y
+Delphi 3.0=Y
+C++Builder 1.0=N
+File Status=Freeware
+Full Source=Included
+Category=Improved Components
+Note=Use and modify at will, just send me improvements.
+Additional info=
+[DSP Support]
+DSP Support=N
+[Versions available]
+Delphi 1.0=
+Delphi 2.0=
+Delphi 3.0=
+C++Builder 1.0=
+[Uploader]
+Author name=Durrin Hynes-Christensen
+Author E-mail=dxh@gv.dk
+Author URL=http://www.gv.dk/dxh

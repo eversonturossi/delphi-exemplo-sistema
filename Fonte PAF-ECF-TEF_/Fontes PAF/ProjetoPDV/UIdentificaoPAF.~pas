@@ -1,0 +1,160 @@
+unit UIdentificaoPAF;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Mask, StdCtrls, ToolEdit, Buttons, ExtCtrls, ComCtrls;
+
+
+type
+  TFIdentificaoPAF = class(TForm)
+    Panel1: TPanel;
+    Label4: TLabel;
+    Panel4: TPanel;
+    Label1: TLabel;
+    Panel2: TPanel;
+    BtnImprimir: TSpeedButton;
+    BtnCancelar: TSpeedButton;
+    rce: TRichEdit;
+    btnSalvar: TSpeedButton;
+    BtnXML: TSpeedButton;
+    procedure BtnCancelarClick(Sender: TObject);
+    procedure BtnImprimirClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure BtnXMLClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+    procedure ListaIdentificacaoPAF(rce:TRichEdit);
+  public
+    { Public declarations }
+  end;
+
+var
+  FIdentificaoPAF: TFIdentificaoPAF;
+
+implementation
+
+uses dmsyndAC, UAssinaDigital, UBarsa, UMenuFiscal, lite_frmprincipal,
+  UPAF_ECF;
+
+{$R *.dfm}
+
+procedure TFIdentificaoPAF.ListaIdentificacaoPAF(rce:TRichEdit);
+var
+ impcompativel:string;
+begin
+  impcompativel := s_ImpFiscal;
+
+ Try
+  DM.TRegistro.Open;
+  DM.TRegistro.Refresh;
+
+  rce.Lines.Add('       IDENTIFICACAO PAF-ECF');
+  rce.Lines.Add('NU. LAUDO.........: '+DM.TRegistroNUM_LAUDO.AsString);
+  rce.Lines.Add('C.N.P.J. .........: '+DM.TRegistroCNPJ.AsString);
+  rce.Lines.Add('EMPRESA...........: '+DM.TRegistroRAZAO_EMPRESA.AsString);
+  rce.Lines.Add('ENDERECO..........: '+DM.TRegistroENDERECO.AsString);
+  rce.Lines.Add('NUMERO............: '+DM.TRegistroNUMERO.AsString);
+  rce.Lines.Add('COMPLEMENTO.......: '+DM.TRegistroCOMPLEMENTO.AsString);
+  rce.Lines.Add('BAIRRO............: '+DM.TRegistroBAIRRO.AsString);
+  rce.Lines.Add('CIDADE............: '+DM.TRegistroCIDADE.AsString);
+  rce.Lines.Add('CEP...............: '+DM.TRegistroCEP.AsString);
+  rce.Lines.Add('UF................: '+DM.TRegistroUF.AsString);
+  rce.Lines.Add('FONE..............: '+DM.TRegistroFONE.AsString);
+  rce.Lines.Add('RESPONSAVEL.......: '+DM.TRegistroRESPONSAVEL.AsString);
+  rce.Lines.Add('NOME COMERCIAL....: '+DM.TRegistroNOME_COMERCIAL.AsString);
+  rce.Lines.Add('VERSAO............: '+DM.TRegistroVERSAO.AsString);
+  rce.Lines.Add('PRINCIPAL ARQUIVO.: '+DM.TRegistroPRINCIPAL_ARQUIVO_EXE.AsString);
+  rce.Lines.Add('MD5...............: '+DM.TRegistroCOD_AUTENTICACAO.AsString);
+  rce.Lines.Add('IMPRESSORA COMPATIVEL:'+impcompativel);
+
+ finally
+  DM.TRegistro.Close;
+ end;
+end;
+
+procedure TFIdentificaoPAF.BtnCancelarClick(Sender: TObject);
+begin
+ Close;
+end;
+
+procedure TFIdentificaoPAF.BtnImprimirClick(Sender: TObject);
+var
+ i:integer;
+begin
+ AbreRelGerencial;
+ for i := 0 to rce.Lines.Count - 1 do
+  begin
+   ImprimiRelGerencial(rce.Lines.Strings[i]+chr(10)+chr(13));
+  end;
+ FechaRelGerencial;
+end;
+
+procedure TFIdentificaoPAF.btnSalvarClick(Sender: TObject);
+var
+ lsLinhas : TStrings;
+ I        : integer;
+ dtarq    : string;
+ localarq : string;
+begin
+ dtarq    := RetornaDataString(DateToStr(Now));
+ localarq := ('C:\Apgef\PAF\'+'IdentificaoPAFECF'+dtarq+'.txt');
+ try
+  lsLinhas := TStringList.Create;
+  for i := 0 to rce.Lines.Count -1 do lsLinhas.Add(rce.Lines.Strings[i]);
+  lsLinhas.SaveToFile(localarq);
+ finally
+  FreeAndNil(lsLinhas);
+ end;
+ GerarEADArquivo(localarq);
+ Informa('Arquivo Gerado e Salvo em: '+localarq);
+end;
+
+procedure TFIdentificaoPAF.BtnXMLClick(Sender: TObject);
+var
+  ArqXML: TStringList;
+  SD    : TSaveDialog;
+  sPath : string;
+begin
+ sPath := 'c:\';
+  try
+  {Cria um arquivo XML no padrão utilizado pelo validador EECF}
+    ArqXML := TStringList.Create;
+    ArqXML.Add('<?xml version="1.0" ?>');
+    ArqXML.Add('<empresa_desenvolvedora>');
+    ArqXML.Add('<nome>' +SoftHouse+ '</nome>');
+    ArqXML.Add('<chave>');
+    ArqXML.Add('<modulo>'+gChavePublica+'</modulo>');
+    ArqXML.Add('<expoente_publico>03</expoente_publico>');
+    ArqXML.Add('</chave>');
+    ArqXML.Add('</empresa_desenvolvedora>');
+    ArqXML.SaveToFile(sPath+SoftHouse+'.xml');
+  {Cria um arquivo .key com os dados da chave}
+  {este arquivo deve ser guardado em local seguro}
+    ArqXML.Clear;
+    ArqXML.Add('Empresa ='+SoftHouse);
+    ArqXML.Add('');
+    ArqXML.Add('Chave pública ='+gChavePublica);
+    ArqXML.Add('');
+    ArqXML.Add('Chave privada ='+gChavePrivada);
+    ArqXML.Add('');
+    ArqXML.Add('Expoente público=03');
+    ArqXML.Add('');
+    ArqXML.Add('Salvo dia'+FormatDateTime('DD/MM/YYYY hh:mm:ss', now));
+    //ArqXML.SaveToFile(SoftHouse+'.txt');//Salva em um txt no diretório do sistema
+    ArqXML.free;
+    Informa('Salvo com sucesso em '+sPath);
+  except
+    Informa('Ocorreu um erro ao salvar o arquivo.');
+  end;
+end;
+
+
+procedure TFIdentificaoPAF.FormActivate(Sender: TObject);
+begin
+     ListaIdentificacaoPAF(rce);
+end;
+
+end.
