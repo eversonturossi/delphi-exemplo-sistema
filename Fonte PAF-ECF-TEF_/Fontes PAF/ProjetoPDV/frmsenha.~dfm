@@ -1,6 +1,6 @@
 object fsenha: Tfsenha
-  Left = 200
-  Top = 217
+  Left = 572
+  Top = 290
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'ACESSO AO SISTEMA'

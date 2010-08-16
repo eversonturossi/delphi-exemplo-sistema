@@ -426,3 +426,102 @@ O SISTEMA N„O PODE ENCONTRAR O CAMINHO ESPECIFICADO.
 ----------------------------------------------------------------------
 13/08/2010 21:50:13:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 005B64BE IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000928
 ----------------------------------------------------------------------
+14/08/2010 12:30:03:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 12:30:05:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 12:30:15:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+14/08/2010 12:30:16:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+14/08/2010 12:35:38:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------14/08/2010 16:37:56:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:39:01:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:39:24:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:39:25:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:39:35:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:39:37:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:43:02:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:43:07:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:43:55:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:43:57:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:44:08:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:44:09:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:44:43:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:44:44:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:44:55:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:44:58:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:46:36:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:46:38:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:46:49:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:46:50:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:47:24:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:47:36:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+14/08/2010 16:47:37:Ocorreu o seguinte erro: I/O ERROR 32
+----------------------------------------------------------------------
+14/08/2010 16:48:07:Ocorreu o seguinte erro: CANNOT MAKE A VISIBLE WINDOW MODAL
+----------------------------------------------------------------------
+14/08/2010 16:48:09:Ocorreu o seguinte erro: CANNOT MAKE A VISIBLE WINDOW MODAL
+----------------------------------------------------------------------
+14/08/2010 16:48:22:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00000000. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+14/08/2010 16:48:24:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00000000. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+14/08/2010 16:49:17:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:49:19:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:49:29:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:49:30:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:49:41:Ocorreu o seguinte erro: CANNOT MAKE A VISIBLE WINDOW MODAL
+----------------------------------------------------------------------
+14/08/2010 16:49:42:Ocorreu o seguinte erro: CANNOT MAKE A VISIBLE WINDOW MODAL
+----------------------------------------------------------------------
+14/08/2010 16:50:26:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00442C04 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000050
+----------------------------------------------------------------------
+14/08/2010 16:50:27:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00442C04 IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000050
+----------------------------------------------------------------------
+14/08/2010 16:50:28:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00000000. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+14/08/2010 16:50:28:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 00000000. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+14/08/2010 16:56:07:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:56:10:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 16:56:20:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 16:56:25:Ocorreu o seguinte erro: QUSUARIO: CANNOT PERFORM THIS OPERATION ON AN OPEN DATASET
+----------------------------------------------------------------------
+14/08/2010 17:00:43:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+14/08/2010 17:18:54:Ocorreu o seguinte erro: '00/00/00' IS NOT A VALID DATE
+----------------------------------------------------------------------
+15/08/2010 23:21:11:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004C3CDA IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000000
+----------------------------------------------------------------------
+15/08/2010 23:21:12:Ocorreu o seguinte erro: ACCESS VIOLATION AT ADDRESS 004702AB IN MODULE 'PDV.EXE'. READ OF ADDRESS 00000180
+----------------------------------------------------------------------

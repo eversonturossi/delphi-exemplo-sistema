@@ -12,7 +12,9 @@ object DM: TDM
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Interbase'
-      'Database=LocalHost:C:\Apgef\bd\FRENTE.FDB'
+      
+        'Database=LocalHost:D:\Automa'#231#227'o Comercial\MasterSoft\Fonte PAF-E' +
+        'CF-TEF_\Apgef\BD\FRENTE.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'

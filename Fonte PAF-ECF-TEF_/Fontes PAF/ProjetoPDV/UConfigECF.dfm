@@ -1,8 +1,8 @@
 object FConfigECF: TFConfigECF
   Left = 366
   Top = 174
-  Width = 608
-  Height = 409
+  Width = 619
+  Height = 410
   BorderIcons = [biSystemMenu]
   Caption = 'Configura'#231#227'o e Informa'#231#245'es da Impressora Fiscal'
   Color = clInfoBk
@@ -22,8 +22,8 @@ object FConfigECF: TFConfigECF
   object Bevel1: TBevel
     Left = 0
     Top = 0
-    Width = 600
-    Height = 336
+    Width = 603
+    Height = 335
     Align = alClient
     Shape = bsFrame
     Style = bsRaised
@@ -238,8 +238,8 @@ object FConfigECF: TFConfigECF
   end
   object SB: TStatusBar
     Left = 0
-    Top = 336
-    Width = 600
+    Top = 335
+    Width = 603
     Height = 19
     Panels = <
       item
@@ -364,8 +364,8 @@ object FConfigECF: TFConfigECF
   object XPMenu1: TXPMenu
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clMenuText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
     Font.Style = []
     Color = clBtnFace
     IconBackColor = clBtnFace

@@ -85,14 +85,12 @@ begin
   F_inicializacao:=Tf_inicializacao.Create(application);
   F_inicializacao.ShowModal;
   F_inicializacao.Release;
-  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
   Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
   Application.CreateForm(TFCalculadora, FCalculadora);
   Application.CreateForm(TFESTADO, FESTADO);
   Application.CreateForm(Tfsenha, fsenha);
   Application.Title := 'ByTec-PDV - Versão 2010';
-  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
-  Application.CreateForm(Tfsenha, fsenha);
   Application.Run;
   end
   else ShowWindow(Hand,SW_NORMAL);
