@@ -1,6 +1,6 @@
 object FrmPrincipal: TFrmPrincipal
-  Left = 156
-  Top = 113
+  Left = 116
+  Top = 122
   BorderStyle = bsSingle
   Caption = 'Aplicativo Gestor Fiscal - Vers'#227'o 2010'
   ClientHeight = 547

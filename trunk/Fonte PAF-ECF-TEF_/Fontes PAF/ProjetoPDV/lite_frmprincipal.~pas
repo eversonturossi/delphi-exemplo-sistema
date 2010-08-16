@@ -614,9 +614,9 @@ begin
                        Frmcheckout.vAtivaComponente_TEF_Abertura:=True;
                        Frmcheckout.showmodal;
                     Finally
-                       frmcheckout.Release;
-                       frmcheckout:=Nil;
-                       end;
+                      frmcheckout.Release;
+                      frmcheckout:=Nil;
+                      end;
                     end;
                 end;    
            end;
@@ -768,6 +768,7 @@ begin
             if ServidorRemoto='ON'
             then SB.Panels[4].Text:='OnLine'
             else SB.Panels[4].Text:='OffLine';
+
             frmprincipal.Visible:=true;
 
             DM.TRegistro.Open;

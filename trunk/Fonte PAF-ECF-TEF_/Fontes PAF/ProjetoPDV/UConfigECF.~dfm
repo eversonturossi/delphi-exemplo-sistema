@@ -1,6 +1,6 @@
 object FConfigECF: TFConfigECF
-  Left = 104
-  Top = 97
+  Left = 366
+  Top = 174
   Width = 608
   Height = 409
   BorderIcons = [biSystemMenu]

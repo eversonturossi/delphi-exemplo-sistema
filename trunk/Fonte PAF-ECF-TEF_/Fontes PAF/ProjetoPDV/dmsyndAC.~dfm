@@ -2,8 +2,8 @@ object DM: TDM
   OldCreateOrder = False
   Left = 316
   Top = 109
-  Height = 566
-  Width = 800
+  Height = 614
+  Width = 891
   object SQLConnectionLocal: TSQLConnection
     ConnectionName = 'PDV'
     DriverName = 'Interbase'
@@ -12,7 +12,9 @@ object DM: TDM
     LoginPrompt = False
     Params.Strings = (
       'DriverName=Interbase'
-      'Database=LocalHost:C:\Apgef\bd\FRENTE.FDB'
+      
+        'Database=LocalHost:D:\Automa'#231#227'o Comercial\MasterSoft\Fonte PAF-E' +
+        'CF-TEF_\Apgef\BD\FRENTE.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'

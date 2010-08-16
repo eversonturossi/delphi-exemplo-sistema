@@ -1560,7 +1560,8 @@ begin
                           then begin
                                Mostra('Atualizando Totalizadores Parciais. Aguarde!');
                                Repaint;
-                               DM.TTotalizadores_ECF.Destroy;
+                               //DM.TTotalizadores_ECF.Destroy;
+                               DM.TTotalizadores_ECF.Close;
                                if not FileExists('C:\Apgef\Local\TotalizadoresEcf.xml')
                                then begin
                                     DeleteFile('C:\Apgef\Local\TotalizadoresEcf.xml');
@@ -2562,7 +2563,7 @@ end;
 
 procedure Tfrmcheckout.FormDestroy(Sender: TObject);
 begin
-     Libera;
+  Libera;
 end;
 
 procedure Tfrmcheckout.FormActivate(Sender: TObject);
@@ -2574,7 +2575,7 @@ begin
       Informa('Figura não Encontrada!, Será Necessário uma nova Configuração.');
       end;
 
-    AtualizaArquivosLocais; 
+    AtualizaArquivosLocais;
 
     if vAtivaComponente_TEF_Abertura
     then AtivaComponenteTEF_Abertura;
@@ -3023,6 +3024,11 @@ begin
     CloseFile(ArqTXT);
    end;
 
+   if (sDtMovimento <> '00/00/00') then begin
+
+   //Verifica se o Retorno.txt está Zerado
+   //Isso ocorre antes da Abertura do Dia
+
    //Faço a leitura no arquivo criptografado para verificar se as informações
    //da redução Z, se refere ao mesmo ECF liberado pelo sistema.
    LeIniCrypt(SDir_Arq_PAF,'ECF','Numero ECF',sCrypt_NumECF,SNome_Arq_PAF);
@@ -3070,7 +3076,7 @@ begin
              end;
           end;
       end;     
-
+   end;
    if FileExists('C:\Retorno.txt')then
       DeleteFile('C:\Retorno.txt');
   end;
@@ -3481,9 +3487,10 @@ begin
           GeraRelatorioTipo60M_e_60A(0,1,'2');//Gera somente o relatório 60A - Analitico
           end
      else begin
+          if (DM.TTotalizadores_ECF <> nil) then begin
           DM.TTotalizadores_ECF.Open;
           DM.TTotalizadores_ECF.LoadFromFile(DM.TTotalizadores_ECF.FileName);
-          DM.TTotalizadores_ECF.Last;
+          DM.TTotalizadores_ECF.Last; end;
           end;
 end;
 

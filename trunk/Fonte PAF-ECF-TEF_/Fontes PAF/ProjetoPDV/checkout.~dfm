@@ -1,6 +1,6 @@
 object frmcheckout: Tfrmcheckout
-  Left = 349
-  Top = 52
+  Left = 319
+  Top = 94
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Tela de PDV (CheckOut)'

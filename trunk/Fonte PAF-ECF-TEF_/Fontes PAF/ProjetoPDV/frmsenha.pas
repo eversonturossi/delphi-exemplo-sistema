@@ -217,8 +217,8 @@ begin
            frmprincipal.MN_FORMAPGTO.visible:=true
         else frmprincipal.MN_FORMAPGTO.visible:=false;
 
-        FrmPrincipal.MN_CONFIGURACOES.Visible:=False;
-        FrmPrincipal.MN_CADASTRO.Visible:=False;
+        //FrmPrincipal.MN_CONFIGURACOES.Visible:=False;
+        //FrmPrincipal.MN_CADASTRO.Visible:=False;
         end
    else begin
         FrmPrincipal.MN_CONFIGURACOES.Visible:=True;
