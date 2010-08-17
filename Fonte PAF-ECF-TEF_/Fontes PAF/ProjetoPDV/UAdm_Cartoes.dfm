@@ -1,8 +1,8 @@
 object FAdm_Cartoes: TFAdm_Cartoes
   Left = 385
   Top = 179
-  Width = 503
-  Height = 356
+  Width = 512
+  Height = 359
   BorderIcons = [biSystemMenu]
   Caption = 'Administradoras de Cart'#245'es'
   Color = clWhite
@@ -22,8 +22,8 @@ object FAdm_Cartoes: TFAdm_Cartoes
   TextHeight = 13
   object SB: TStatusBar
     Left = 0
-    Top = 303
-    Width = 495
+    Top = 304
+    Width = 496
     Height = 19
     Panels = <
       item
@@ -36,7 +36,7 @@ object FAdm_Cartoes: TFAdm_Cartoes
     Top = 1
     Width = 491
     Height = 269
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     TabOrder = 1
     object TabSheet1: TTabSheet
       Caption = 'Lista'

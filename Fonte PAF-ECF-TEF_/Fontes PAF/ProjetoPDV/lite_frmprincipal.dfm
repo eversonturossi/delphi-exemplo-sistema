@@ -1,10 +1,10 @@
 object FrmPrincipal: TFrmPrincipal
-  Left = 274
-  Top = 122
+  Left = 195
+  Top = 120
   BorderStyle = bsSingle
   Caption = 'Aplicativo Gestor Fiscal - Vers'#227'o 2010'
-  ClientHeight = 547
-  ClientWidth = 1148
+  ClientHeight = 597
+  ClientWidth = 1062
   Color = 12615680
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -27,8 +27,8 @@ object FrmPrincipal: TFrmPrincipal
   object Image: TImage
     Left = 0
     Top = 0
-    Width = 1148
-    Height = 525
+    Width = 1062
+    Height = 575
     Align = alClient
     Stretch = True
   end
@@ -47,8 +47,8 @@ object FrmPrincipal: TFrmPrincipal
   end
   object SB: TStatusBar
     Left = 0
-    Top = 525
-    Width = 1148
+    Top = 575
+    Width = 1062
     Height = 22
     Panels = <
       item

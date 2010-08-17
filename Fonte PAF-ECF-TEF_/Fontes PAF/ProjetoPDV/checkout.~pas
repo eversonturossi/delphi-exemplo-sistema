@@ -1174,16 +1174,19 @@ end;
 
 procedure TfrmCheckOut.SomaItens;
 begin
-     nSubTotal:=0;
-     DM.TPDV.DisableControls;
-     DM.TPDV.First;
-     While not DM.TPDV.Eof
-     do begin
-        if DM.TPDVCANCELADO.AsString<>'S'
-        then nSubTotal:=nSubTotal+DM.TPDVVL_TOTAL.Value;
-        DM.TPDV.Next;
-        end;
-     DM.TPDV.EnableControls;   
+     //if not (DM.TPDV.IsEmpty) then
+      //begin
+        nSubTotal:=0;
+        DM.TPDV.DisableControls;
+        DM.TPDV.First;
+        While not DM.TPDV.Eof
+        do begin
+           if DM.TPDVCANCELADO.AsString<>'S'
+           then nSubTotal:=nSubTotal+DM.TPDVVL_TOTAL.Value;
+           DM.TPDV.Next;
+           end;
+        DM.TPDV.EnableControls;
+      //end;
 end;
 
 Function Tfrmcheckout.Consulta_Grade_Produto(xCodProduto : Integer):Boolean;
