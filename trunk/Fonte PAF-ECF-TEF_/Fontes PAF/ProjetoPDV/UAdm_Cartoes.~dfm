@@ -1,6 +1,6 @@
 object FAdm_Cartoes: TFAdm_Cartoes
-  Left = 317
-  Top = 180
+  Left = 385
+  Top = 179
   Width = 503
   Height = 356
   BorderIcons = [biSystemMenu]

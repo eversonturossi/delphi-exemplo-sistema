@@ -1,5 +1,5 @@
 object ffechamentovenda_tef: Tffechamentovenda_tef
-  Left = 300
+  Left = 295
   Top = 120
   BorderIcons = []
   BorderStyle = bsSingle
@@ -224,7 +224,7 @@ object ffechamentovenda_tef: Tffechamentovenda_tef
     AShadeLTSet = False
   end
   object myLabel3d4: TmyLabel3d
-    Left = 309
+    Left = 237
     Top = 390
     Width = 166
     Height = 32
@@ -242,9 +242,9 @@ object ffechamentovenda_tef: Tffechamentovenda_tef
     AShadeLTSet = False
   end
   object Shape7: TShape
-    Left = 480
+    Left = 424
     Top = 385
-    Width = 305
+    Width = 361
     Height = 138
     Pen.Color = 12615680
     Shape = stRoundRect
@@ -472,9 +472,9 @@ object ffechamentovenda_tef: Tffechamentovenda_tef
     OnKeyUp = ESubTotalKeyUp
   end
   object DBGrid: TDBGrid
-    Left = 486
+    Left = 440
     Top = 392
-    Width = 290
+    Width = 336
     Height = 126
     BorderStyle = bsNone
     Color = clWhite
@@ -501,7 +501,7 @@ object ffechamentovenda_tef: Tffechamentovenda_tef
         Expanded = False
         FieldName = 'TIPO'
         Title.Caption = 'DESCRI'#199#195'O'
-        Width = 125
+        Width = 200
         Visible = True
       end
       item

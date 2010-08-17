@@ -125,7 +125,7 @@ type
     { Public declarations }
     vTipo, vTecla_Crediario : String;
     vFechamento, vCliente, vLancaCaixa, vConcedido_Desconto, vAtivarComponenteTEF_Fechamento : Boolean;
-    vCodCliente, result_compara_valores, vCont, vCodPortador : Integer;
+    vCodCliente, result_compara_valores, vCont, vCodPortador, numCartoes : Integer;
     vDesconto, vPercDesconto, vPercAcrescimo, vAcrescimo, vValorCompara,
     vTotalCusto, vSomaItens, vDescIten, vQtdeAnterior, vForma_Pgto_Lancado : Currency;
 
@@ -281,8 +281,9 @@ var
     pgtComCartao:='N';
     cartaoNumero := 0;
     valorTotalCartao := 0;
-    EasyTEFDiscado.numeroDeCartoes := 1;//Aqui eu faço uma verificação para ver qtos cartões
-    TFormaPgto.First;                   //foi pago
+    //EasyTEFDiscado.numeroDeCartoes := 1;//Desabilitado para multimplos cartões
+    EasyTEFDiscado.numeroDeCartoes := numCartoes; //Aqui eu faço uma verificação para ver qtos cartões foram pago
+    TFormaPgto.First;
     While not TFormaPgto.Eof
     do begin
        if (TFormaPgtoCOD_PGTO.Value=3)and(FrmPrincipal.Tef_Utilizado='Discado')
@@ -328,7 +329,8 @@ var
          end;
   end;//procedure
 begin
-    valorTotal := StrToFloat(EasyTEFDiscado.tratarCupomFiscal(tmeSubTotal, ['']));
+    //valorTotal := StrToFloat(EasyTEFDiscado.tratarCupomFiscal(tmeSubTotal, ['']));
+    valorTotal := StrToFloat(EasyTEFDiscado.tratarCupomFiscal(tmeSubTotal,['']));
     if (valorTotal / 100) = 0 then
       raise Exception.Create('Cupom fiscal sem valor, operação cancelada');
 
@@ -1372,17 +1374,20 @@ begin
                   FAdm_Cartoes:=Nil;
                   end;
 
-               if not TFormaPgto.Locate('TIPO',DM.TForma_PgtoDESCRICAO.Value,[])
+               {if not TFormaPgto.Locate('TIPO',DM.TForma_PgtoDESCRICAO.Value,[])
                then TFormaPgto.Append
-               else TFormaPgto.Edit;
+               else TFormaPgto.Edit;}
+               TFormaPgto.Append;
                TFormaPgtoID.Value:=99;
                TFormaPgtoCod_Pgto.Value:=DM.TForma_PgtoCODIGO.Value;
-               TFormaPgtoTipo.AsString:=DM.TForma_PgtoDESCRICAO.Value;
+               TFormaPgtoTipo.AsString:=DM.TForma_PgtoDESCRICAO.Value + '(' +
+                DM.TCartao_AdmDESCRICAO.AsString + ')';
                if ERecebido.Value=0
                then TFormaPgtoValor.Value:=ETotalLiquido.Value-vForma_Pgto_Lancado
                else TFormaPgtoValor.Value:=ERecebido.Value;
                TFormaPgtoTroco.Value:=ETroco.Value;
                TFormaPgto.Post;
+               inc(numCartoes); //Para multimplos cartões
 
                vRestante:=(ETotalLiquido.Value-TFormaPgto.FieldByName('TOTAL').Value);
                if vRestante > 0
@@ -1678,6 +1683,7 @@ begin
           end;
      PMensagem.Visible:=False;
      ERecebido.SetFocus;
+  numCartoes := 0;
 end;
 
 procedure Tffechamentovenda_tef.FormKeyPress(Sender: TObject;
